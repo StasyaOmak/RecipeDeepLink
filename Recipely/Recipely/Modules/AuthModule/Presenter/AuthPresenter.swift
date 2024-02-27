@@ -2,6 +2,7 @@
 // Copyright © RoadMap. All rights reserved.
 
 import Foundation
+import UIKit
 
 /// Интерфейс иньекции зависимостей в AuthPresenter
 protocol AuthPresenterProtocol: AnyObject {
@@ -11,13 +12,16 @@ protocol AuthPresenterProtocol: AnyObject {
 }
 
 /// Интерфейс общения с AuthPresenter
-protocol AuthPresenterInput: AnyObject {}
+protocol AuthPresenterInput: AnyObject {
+    func buttonTapped()
+}
 
 /// Вью экрана аутентификаци
 final class AuthPresenter {
     // MARK: - Public Properties
 
     weak var view: AuthViewInput?
+    private let validator = Validator()
 
     // MARK: - Private Properties
 
@@ -25,7 +29,11 @@ final class AuthPresenter {
     private var profile = User()
 }
 
-extension AuthPresenter: AuthPresenterInput {}
+extension AuthPresenter: AuthPresenterInput {
+    func buttonTapped() {
+        view?.setButtonImage(.lockIcon)
+    }
+}
 
 extension AuthPresenter: AuthPresenterProtocol {
     func injectCoordinator(_ coordinator: AuthCoordinatorProtocol) {
