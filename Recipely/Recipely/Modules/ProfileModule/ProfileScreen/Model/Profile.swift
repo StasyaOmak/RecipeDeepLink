@@ -13,4 +13,6 @@ struct Profile {
         .init(icon: .documentIcon, name: "Terms & Privacy Policy", type: .termsAndPrivacy),
         .init(icon: .logOutIcon, name: "Log out", type: .logOut)
     ]
+    /// Списов секций в профиле
+    var sections: [ProfileSection] = [.header, .settings]
 }

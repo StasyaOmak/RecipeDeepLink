@@ -63,6 +63,10 @@ final class ProfileCell: UITableViewCell {
         nameLabel.text = user.name
     }
 
+    func updateNameLabel(with name: String?) {
+        nameLabel.text = name
+    }
+
     // MARK: - Private Methods
 
     private func configureUI() {
