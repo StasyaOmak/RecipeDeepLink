@@ -12,9 +12,9 @@ protocol AuthPresenterProtocol: AnyObject {
 
 /// Интерфейс общения с AuthPresenter
 protocol AuthPresenterInput: AnyObject {
-    func buttonTapped()
-    func validateEmail(_ email: String)
-    func validatePassword(_ email: String)
+    func hidePasswordButtonTapped()
+    func emailTextFieldValueChanged(to text: String?)
+    func loginButtonTapped(withPassword password: String?)
 }
 
 /// Вью экрана аутентификаци
@@ -22,39 +22,33 @@ final class AuthPresenter {
     // MARK: - Public Properties
 
     weak var view: AuthViewInput?
-    private var validator = Validator()
 
     // MARK: - Private Properties
 
     private weak var coordinator: AuthCoordinatorProtocol?
-//    private var validator = Validator()
+    private var validator = Validator()
 }
 
 extension AuthPresenter: AuthPresenterInput {
-//    func validatePassword(_ password: String) {
-//        if validator.isValidPassword(password) || password.isEmpty {
-//            view?.setEmailFieldStateToNormal()
-//        } else {
-//            view?.showInputEmail()
-//        }
-//
-//    }
-    
-    func validateEmail(_ email: String) {
-        if validator.isValidEmail(email) || email.isEmpty {
-            view?.setEmailFieldStateTo(.normal)
+    func emailTextFieldValueChanged(to text: String?) {
+        if let text, validator.isEmailValid(text) || text.isEmpty {
+            view?.setEmailFieldStateTo(.plain)
         } else {
-            view?.setEmailFieldStateTo(.incorect)
+            view?.setEmailFieldStateTo(.highlited)
         }
     }
 
-    func buttonTapped() {
-        if validator.isHidden == false {
-            view?.setButtonImage(.lockIcon)
+    func loginButtonTapped(withPassword password: String?) {
+        if let password, validator.isPasswordValid(password) || password.isEmpty {
+            view?.setPasswordFieldStateTo(.plain)
         } else {
-            validator.isHidden = true
-            view?.setButtonImage(.crossedEyeIcon)
+            view?.setPasswordFieldStateTo(.highlited)
         }
+    }
+
+    func hidePasswordButtonTapped() {
+        view?.setButtonImage(validator.isHidden ? .crossedEyeIcon : .eyeIcon)
+        validator.isHidden.toggle()
     }
 }
 
