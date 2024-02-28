@@ -6,11 +6,17 @@ import UIKit
 /// Интерфейс общения с AuthView
 protocol AuthViewInput: AnyObject {
     func setButtonImage(_ image: UIImage)
-    func showInputEmail
+    func setEmailFieldStateTo(_ state: AuthView.UserDataTextFieldState)
 }
 
 /// Вью экрана аутентификаци
 final class AuthView: UIViewController {
+    
+    // MARK: - Types
+    enum UserDataTextFieldState {
+        case normal
+        case incorect
+    }
     // MARK: - Constants
 
     enum Constants {
@@ -74,13 +80,14 @@ final class AuthView: UIViewController {
         return label
     }()
 
-    private let emailTextField = {
+    private lazy var emailTextField = {
         let text = UITextField()
         text.placeholder = Constants.emailPlaceholder
         text.textAlignment = .left
         text.font = UIFont(name: Constants.verdana, size: Constants.sizeValidatorText)
         text.textColor = .black
         text.keyboardType = .default
+        text.addTarget(self, action: #selector(dataEntry(_:)), for: .editingChanged)
         return text
     }()
 
@@ -163,7 +170,7 @@ final class AuthView: UIViewController {
     // MARK: - Private Methods
 
     private func addSubview() {
-//        passwordTextField.delegate = self
+        //        passwordTextField.delegate = self
         emailTextField.delegate = self
         view.addGestureRecognizer(tap)
         view.layer.addSublayer(gradient)
@@ -329,7 +336,6 @@ final class AuthView: UIViewController {
     @objc private func clickLoginButton() {}
 
     @objc private func kbWillShow(_ notification: Notification) {
-        print("kbWillShow")
         if let keyboardSize = (
             notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey]
                 as? NSValue
@@ -339,40 +345,45 @@ final class AuthView: UIViewController {
     }
 
     @objc private func kbWillHide(_ notification: Notification) {
-        print("kbWillHide")
-        if let keyboardSize = (
-            notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey]
-                as? NSValue
-        )?.cgRectValue {
-            loginButton.frame.origin.y = view.bounds.maxY - view.safeAreaInsets.bottom - 60
-        }
+        loginButton.frame.origin.y = view.bounds.maxY - view.safeAreaInsets.bottom - 60
     }
 
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
 
-    // валидация
-    private let minLenght = 6
-    private lazy var regexEmail =
-        "^(?=.*[а-я])(?=.*[А-Я])(?=.*\\d)(?=.*[$@$!%*?&#])[А-Яа-я\\d$@$!%*?&#]{\(minLenght),}$"
-    private let regexPassword = 123
-
-    private func checkValidation(email: String) {
-        guard email.count >= minLenght else {
-            warningsEmailLabel.text = ""
-            return
-        }
-
-        if email.matches(regexEmail) {
-            warningsEmailLabel.isHidden = false
-        } else {
-            warningsEmailLabel.isHidden = true
-        }
+    @objc func dataEntry(_ sender: UITextField) {
+        presenter?.validateEmail(sender.text ?? "")
     }
+
+    //    private func checkValidation(email: String) {
+    //        guard email.count >= minLenght else {
+    //            warningsEmailLabel.text = ""
+    //            return
+    //        }
+    //
+    //        if email.matches(regexEmail) {
+    //            warningsEmailLabel.isHidden = false
+    //        } else {
+    //            warningsEmailLabel.isHidden = true
+    //        }
+    //    }
 }
 
-extension AuthView: AuthViewInput {}
+extension AuthView: AuthViewInput {
+    func setEmailFieldStateTo(_ state: UserDataTextFieldState) {
+        switch state {
+        case .normal:
+            warningsEmailLabel.isHidden = true
+            emailAddressLabel.textColor = .authorizationsText
+        case .incorect:
+            warningsEmailLabel.isHidden = false
+            emailAddressLabel.textColor = .red
+        }
+
+
+    }
+}
 
 extension String {
     func matches(_ regex: String) -> Bool {
