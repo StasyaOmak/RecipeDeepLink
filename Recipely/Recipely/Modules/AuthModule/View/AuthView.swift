@@ -6,30 +6,26 @@ import UIKit
 /// Интерфейс общения с AuthView
 protocol AuthViewInput: AnyObject {
     func setButtonImage(_ image: UIImage)
-    func setEmailFieldStateTo(_ state: AuthView.UserDataTextFieldState)
+    func setEmailFieldStateTo(_ state: AuthView.AuthTextFieldState)
+    func setPasswordFieldStateTo(_ state: AuthView.AuthTextFieldState)
 }
 
 /// Вью экрана аутентификаци
 final class AuthView: UIViewController {
-    
     // MARK: - Types
-    enum UserDataTextFieldState {
-        case normal
-        case incorect
+
+    enum AuthTextFieldState {
+        case plain
+        case highlited
     }
+
     // MARK: - Constants
 
     enum Constants {
         static let gridient = "gridient"
         static let loginText = "Login"
         static let passwordText = "Password"
-        static let verdanaBold = "Verdana-Bold"
-        static let verdana = "Verdana"
         static let emailAddressText = "Email Address"
-        static let sizeLogin = 16.0
-        static let sizeValidatorText = 18.0
-        static let loginTitleSize = 28.0
-        static let sizeWarningText = 12.0
         static let emailPlaceholder = "Enter Email Address"
         static let enterPassword = "Enter Password"
         static let passwordWarningText = "You entered the wrong password"
@@ -41,12 +37,12 @@ final class AuthView: UIViewController {
     private lazy var loginButton = {
         let button = UIButton()
         button.backgroundColor = .black
+        button.layer.cornerRadius = 12
         button.setTitle(Constants.loginText, for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = UIFont(name: Constants.verdanaBold, size: Constants.sizeLogin)
-        button.layer.cornerRadius = 12
+        button.titleLabel?.font = .verdanaBold?.withSize(16)
         button.addTarget(self, action: #selector(
-            clickLoginButton
+            loginButtonTapped
         ), for: .touchUpInside)
         return button
     }()
@@ -54,7 +50,7 @@ final class AuthView: UIViewController {
     private lazy var hideOpenPasswordButton = {
         let button = UIButton()
         button.setImage(.crossedEyeIcon, for: .normal)
-        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(hidePasswordButtonTapped), for: .touchUpInside)
         return button
     }()
 
@@ -67,7 +63,7 @@ final class AuthView: UIViewController {
     private let loginLabel = {
         let label = UILabel()
         label.text = Constants.loginText
-        label.font = UIFont(name: Constants.verdanaBold, size: Constants.loginTitleSize)
+        label.font = .verdanaBold?.withSize(28)
         label.textColor = UIColor.authorizationsText
         return label
     }()
@@ -75,23 +71,28 @@ final class AuthView: UIViewController {
     private let emailAddressLabel = {
         let label = UILabel()
         label.text = Constants.emailAddressText
-        label.font = UIFont(name: Constants.verdanaBold, size: Constants.sizeValidatorText)
+        label.font = .verdanaBold?.withSize(18)
         label.textColor = UIColor.authorizationsText
         return label
     }()
 
     private lazy var emailTextField = {
         let text = UITextField()
-        text.placeholder = Constants.emailPlaceholder
-        text.textAlignment = .left
-        text.font = UIFont(name: Constants.verdana, size: Constants.sizeValidatorText)
         text.textColor = .black
+        text.textAlignment = .left
         text.keyboardType = .default
-        text.addTarget(self, action: #selector(dataEntry(_:)), for: .editingChanged)
+        text.font = .verdana?.withSize(18)
+        text.placeholder = Constants.emailPlaceholder
+        text.addTarget(self, action: #selector(emailChanged(_:)), for: .editingChanged)
         return text
     }()
 
-    private let addressView = UIView()
+    private let addressView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .systemBackground
+        view.layer.cornerRadius = 12
+        return view
+    }()
 
     private let envelopeIconImageView = {
         let image = UIImageView()
@@ -102,7 +103,7 @@ final class AuthView: UIViewController {
     private let passwordLabel = {
         let label = UILabel()
         label.text = Constants.passwordText
-        label.font = UIFont(name: Constants.verdanaBold, size: Constants.sizeValidatorText)
+        label.font = .verdana?.withSize(18)
         label.textColor = UIColor.authorizationsText
         return label
     }()
@@ -111,18 +112,18 @@ final class AuthView: UIViewController {
         let text = UITextField()
         text.placeholder = Constants.enterPassword
         text.textAlignment = .left
-        text.font = UIFont(name: Constants.verdana, size: Constants.sizeValidatorText)
+        text.font = .verdana?.withSize(18)
         text.textColor = .black
         text.keyboardType = .default
         return text
     }()
 
-    private lazy var tap = UITapGestureRecognizer(
-        target: self,
-        action: #selector(UIInputViewController.dismissKeyboard)
-    )
-
-    private let passwordView = UIView()
+    private let passwordView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .systemBackground
+        view.layer.cornerRadius = 12
+        return view
+    }()
 
     private let lockIconImageView = {
         let image = UIImageView()
@@ -133,7 +134,7 @@ final class AuthView: UIViewController {
     private let warningsPasswordLabel = {
         let label = UILabel()
         label.text = Constants.passwordWarningText
-        label.font = UIFont(name: Constants.verdanaBold, size: Constants.sizeWarningText)
+        label.font = .verdanaBold?.withSize(12)
         label.textColor = UIColor.warnings
         label.textAlignment = .left
         label.isHidden = true
@@ -143,20 +144,20 @@ final class AuthView: UIViewController {
     private let warningsEmailLabel = {
         let label = UILabel()
         label.text = Constants.emailWarningText
-        label.font = UIFont(name: Constants.verdanaBold, size: Constants.sizeWarningText)
+        label.font = .verdanaBold?.withSize(12)
         label.textColor = UIColor.warnings
         label.textAlignment = .left
         label.isHidden = true
         return label
     }()
 
+    private let gradient = CAGradientLayer()
+
+    private var loginButtonBottomAnchor: NSLayoutConstraint?
+
     // MARK: - Public Properties
 
     var presenter: AuthPresenterInput?
-
-    // MARK: - Private Properties
-
-    private let gradient = CAGradientLayer()
 
     // MARK: - Life Cycle
 
@@ -170,12 +171,11 @@ final class AuthView: UIViewController {
     // MARK: - Private Methods
 
     private func addSubview() {
-        //        passwordTextField.delegate = self
-        emailTextField.delegate = self
-        view.addGestureRecognizer(tap)
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
+        view.addGestureRecognizer(tapGesture)
         view.layer.addSublayer(gradient)
 
-        for item in [
+        let subviews = [
             addressView,
             passwordView,
             loginButton,
@@ -190,11 +190,9 @@ final class AuthView: UIViewController {
             warningsPasswordLabel,
             warningsEmailLabel,
             deletingTextdButton
-
-        ] {
-            view.addSubview(item)
-            item.translatesAutoresizingMaskIntoConstraints = false
-        }
+        ]
+        view.addSubviews(subviews)
+        UIView.doNotTAMIC(for: subviews)
     }
 
     private func setupUI() {
@@ -210,10 +208,6 @@ final class AuthView: UIViewController {
             name: UIResponder.keyboardWillHideNotification,
             object: nil
         )
-        addressView.backgroundColor = .white
-        addressView.layer.cornerRadius = 12
-        passwordView.backgroundColor = .white
-        passwordView.layer.cornerRadius = 12
         gradient.frame = view.bounds
         gradient.colors = [
             UIColor.gridientWhite.cgColor,
@@ -232,7 +226,6 @@ final class AuthView: UIViewController {
     private func setupButtonConstaints() {
         NSLayoutConstraint.activate([
             loginButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            loginButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -71),
             loginButton.heightAnchor.constraint(equalToConstant: 48),
             loginButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
 
@@ -247,6 +240,11 @@ final class AuthView: UIViewController {
             deletingTextdButton.widthAnchor.constraint(equalToConstant: 20)
 
         ])
+        loginButtonBottomAnchor = loginButton.bottomAnchor.constraint(
+            equalTo: view.safeAreaLayoutGuide.bottomAnchor,
+            constant: -37
+        )
+        loginButtonBottomAnchor?.activate()
     }
 
     private func setupLabelConstaints() {
@@ -275,7 +273,6 @@ final class AuthView: UIViewController {
             warningsEmailLabel.topAnchor.constraint(equalTo: addressView.bottomAnchor),
             warningsEmailLabel.heightAnchor.constraint(equalToConstant: 19),
             warningsEmailLabel.widthAnchor.constraint(equalToConstant: 230)
-
         ])
     }
 
@@ -290,7 +287,6 @@ final class AuthView: UIViewController {
             passwordTextField.topAnchor.constraint(equalTo: passwordView.topAnchor, constant: 14),
             passwordTextField.heightAnchor.constraint(equalToConstant: 24),
             passwordTextField.widthAnchor.constraint(equalToConstant: 255)
-
         ])
     }
 
@@ -305,7 +301,6 @@ final class AuthView: UIViewController {
             lockIconImageView.topAnchor.constraint(equalTo: passwordView.topAnchor, constant: 14),
             lockIconImageView.heightAnchor.constraint(equalToConstant: 21),
             lockIconImageView.widthAnchor.constraint(equalToConstant: 16)
-
         ])
     }
 
@@ -320,98 +315,69 @@ final class AuthView: UIViewController {
             passwordView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             passwordView.topAnchor.constraint(equalTo: passwordLabel.bottomAnchor, constant: 6),
             passwordView.heightAnchor.constraint(equalToConstant: 50)
-
         ])
     }
 
-    func setButtonImage(_ image: UIImage) {
-        hideOpenPasswordButton.setImage(image, for: .normal)
+    @objc private func hidePasswordButtonTapped() {
+        presenter?.hidePasswordButtonTapped()
     }
 
-    @objc private func buttonTapped() {
-        presenter?.buttonTapped()
+    @objc private func loginButtonTapped() {
+        presenter?.loginButtonTapped(withPassword: passwordTextField.text)
     }
-
-    // кнопка где должен быть загружен спинер
-    @objc private func clickLoginButton() {}
 
     @objc private func kbWillShow(_ notification: Notification) {
         if let keyboardSize = (
             notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey]
                 as? NSValue
         )?.cgRectValue {
-            loginButton.frame.origin.y = view.bounds.height - keyboardSize.height - 60
+            UIView.animate(withDuration: 0.5) {
+                self.loginButtonBottomAnchor?.constant = -(keyboardSize.height)
+                self.view.layoutIfNeeded()
+            }
         }
     }
 
     @objc private func kbWillHide(_ notification: Notification) {
-        loginButton.frame.origin.y = view.bounds.maxY - view.safeAreaInsets.bottom - 60
+        UIView.animate(withDuration: 0.5) {
+            self.loginButtonBottomAnchor?.constant = -37
+            self.view.layoutIfNeeded()
+        }
     }
 
-    @objc func dismissKeyboard() {
+    @objc private func dismissKeyboard() {
         view.endEditing(true)
     }
 
-    @objc func dataEntry(_ sender: UITextField) {
-        presenter?.validateEmail(sender.text ?? "")
+    @objc private func emailChanged(_ sender: UITextField) {
+        presenter?.emailTextFieldValueChanged(to: sender.text)
     }
-
-    //    private func checkValidation(email: String) {
-    //        guard email.count >= minLenght else {
-    //            warningsEmailLabel.text = ""
-    //            return
-    //        }
-    //
-    //        if email.matches(regexEmail) {
-    //            warningsEmailLabel.isHidden = false
-    //        } else {
-    //            warningsEmailLabel.isHidden = true
-    //        }
-    //    }
 }
 
 extension AuthView: AuthViewInput {
-    func setEmailFieldStateTo(_ state: UserDataTextFieldState) {
+    func setButtonImage(_ image: UIImage) {
+        hideOpenPasswordButton.setImage(image, for: .normal)
+    }
+
+    func setEmailFieldStateTo(_ state: AuthTextFieldState) {
         switch state {
-        case .normal:
+        case .plain:
             warningsEmailLabel.isHidden = true
             emailAddressLabel.textColor = .authorizationsText
-        case .incorect:
+        case .highlited:
             warningsEmailLabel.isHidden = false
             emailAddressLabel.textColor = .red
         }
-
-
     }
-}
 
-extension String {
-    func matches(_ regex: String) -> Bool {
-        range(of: regex, options: .regularExpression, range: nil, locale: nil) !=
-            nil
-    }
-}
-
-extension AuthView: UITextFieldDelegate {
-    public func textField(
-        _ textField: UITextField,
-        shouldChangeCharactersIn range: NSRange,
-        replacementString string: String
-    ) -> Bool {
-        let password = passwordTextField.text ?? ""
-        let login = emailTextField.text ?? ""
-
-        if password.count > 6, login.count > 6 {
-            warningsEmailLabel.isHidden = false
+    func setPasswordFieldStateTo(_ state: AuthTextFieldState) {
+        switch state {
+        case .plain:
+            warningsPasswordLabel.isHidden = true
+            passwordLabel.textColor = .authorizationsText
+        case .highlited:
             warningsPasswordLabel.isHidden = false
+            passwordLabel.textColor = .red
         }
-
-        return true
-    }
-
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        print("DDD")
     }
 }
-
-// comiteints проверка
