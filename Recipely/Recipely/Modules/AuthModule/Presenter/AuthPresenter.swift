@@ -12,19 +12,22 @@ protocol AuthPresenterProtocol: AnyObject {
 
 /// Интерфейс общения с AuthPresenter
 protocol AuthPresenterInput: AnyObject {
+    // функция для отображения об ошибке если не прошел валидность текст email
     func emailTextFieldValueChanged(to text: String?)
+    // функция для отображения об ошибке если не прошел валидность текст password
     func loginButtonTapped(withPassword password: String?)
+    // функция для отображения предупреждений об ошибке при авторизации
     func showWarning()
 }
 
 /// Вью экрана аутентификаци
 final class AuthPresenter {
     // MARK: - Public Properties
-
+    
     weak var view: AuthViewInput?
-
+    
     // MARK: - Private Properties
-
+    
     private weak var coordinator: AuthCoordinatorProtocol?
     private var validator = Validator()
 }
@@ -33,7 +36,7 @@ extension AuthPresenter: AuthPresenterInput {
     func showWarning() {
         view?.showWarning()
     }
-
+    
     func emailTextFieldValueChanged(to text: String?) {
         if let text, validator.isEmailValid(text) || text.isEmpty {
             view?.setEmailFieldStateTo(.plain)
@@ -41,7 +44,7 @@ extension AuthPresenter: AuthPresenterInput {
             view?.setEmailFieldStateTo(.highlited)
         }
     }
-
+    
     func loginButtonTapped(withPassword password: String?) {
         view?.startIndicator()
         Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { [view] _ in

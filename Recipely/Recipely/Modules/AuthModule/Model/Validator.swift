@@ -12,16 +12,14 @@ struct Validator {
         static let passwordRegEx = ##"[a-zA-Z0-9!"#$%&'()*+,-./:;<=>?@\[\]^_`{|}~]{8,32}"##
     }
 
-    // MARK: - Public Properties
-
-    var isHidden = false
-
     // MARK: - Public Methods
 
+    // Метод для проверки на вилдность логина
     func isEmailValid(_ email: String) -> Bool {
         email.validateUsing(Constants.loginRegEx)
     }
 
+    // Метод для проверки на вилдность пароля
     func isPasswordValid(_ password: String) -> Bool {
         password.validateUsing(Constants.passwordRegEx)
     }
