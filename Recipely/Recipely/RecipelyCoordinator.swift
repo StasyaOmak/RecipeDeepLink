@@ -22,18 +22,17 @@ final class RecipelyCoordinator: BaseCoordinator {
 
     // MARK: - Public Methods
 
-//    override func start() {
-//        let tabBarController = builder.buildRecipelyTabBarController()
-//        let tabBarCoordinator = RecipelyTabBarCoordinator(rootController: tabBarController, builder: builder)
-//        add(coordinator: tabBarCoordinator)
-//        window?.rootViewController = tabBarController
-//        window?.makeKeyAndVisible()
-//        tabBarCoordinator.start()
-//    }
+    //    override func start() {
+    //        let tabBarController = builder.buildRecipelyTabBarController()
+    //        let tabBarCoordinator = RecipelyTabBarCoordinator(rootController: tabBarController, builder: builder)
+    //        add(coordinator: tabBarCoordinator)
+    //        window?.rootViewController = tabBarController
+    //        window?.makeKeyAndVisible()
+    //        tabBarCoordinator.start()
+    //    }
 
-    
     override func start() {
-        let tabBarController = AuthView()
+        let tabBarController = builder.buildAuthScreen()
         window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
     }

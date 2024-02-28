@@ -31,13 +31,16 @@ final class AuthView: UIViewController {
 
     // MARK: - Visual Components
 
-    private let loginButton = {
+    private lazy var loginButton = {
         let button = UIButton()
         button.backgroundColor = .black
         button.setTitle(Constants.loginText, for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = UIFont(name: Constants.verdanaBold, size: Constants.sizeLogin)
         button.layer.cornerRadius = 12
+        button.addTarget(self, action: #selector(
+            clickLoginButton
+        ), for: .touchUpInside)
         return button
     }()
 
@@ -45,6 +48,12 @@ final class AuthView: UIViewController {
         let button = UIButton()
         button.setImage(.crossedEyeIcon, for: .normal)
         button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        return button
+    }()
+
+    private lazy var deletingTextdButton = {
+        let button = UIButton()
+        button.setImage(.crossInCircleIcon, for: .normal)
         return button
     }()
 
@@ -70,6 +79,7 @@ final class AuthView: UIViewController {
         text.textAlignment = .left
         text.font = UIFont(name: Constants.verdana, size: Constants.sizeValidatorText)
         text.textColor = .black
+        text.keyboardType = .default
         return text
     }()
 
@@ -98,6 +108,11 @@ final class AuthView: UIViewController {
         text.keyboardType = .default
         return text
     }()
+
+    private lazy var tap = UITapGestureRecognizer(
+        target: self,
+        action: #selector(UIInputViewController.dismissKeyboard)
+    )
 
     private let passwordView = UIView()
 
@@ -133,8 +148,6 @@ final class AuthView: UIViewController {
 
     // MARK: - Private Properties
 
-    private let minLenght = 6
-    private lazy var regex = "^(?=.*[а-я])(?=.*[А-Я])(?=.*\\d)(?=.*[$@$!%*?&#])[А-Яа-я\\d$@$!%*?&#]{\(minLenght),}$"
     private let gradient = CAGradientLayer()
 
     // MARK: - Life Cycle
@@ -149,6 +162,9 @@ final class AuthView: UIViewController {
     // MARK: - Private Methods
 
     private func addSubview() {
+        passwordTextField.delegate = self
+        emailTextField.delegate = self
+        view.addGestureRecognizer(tap)
         view.layer.addSublayer(gradient)
 
         for item in [
@@ -164,7 +180,8 @@ final class AuthView: UIViewController {
             lockIconImageView,
             hideOpenPasswordButton,
             warningsPasswordLabel,
-            warningsEmailLabel
+            warningsEmailLabel,
+            deletingTextdButton
 
         ] {
             view.addSubview(item)
@@ -175,8 +192,14 @@ final class AuthView: UIViewController {
     private func setupUI() {
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(textFieldTextChange),
-            name: NSNotification.Name.NSUbiquityIdentityDidChange,
+            selector: #selector(kbWillShow),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(kbWillHide),
+            name: UIResponder.keyboardWillHideNotification,
             object: nil
         )
         addressView.backgroundColor = .white
@@ -208,7 +231,12 @@ final class AuthView: UIViewController {
             hideOpenPasswordButton.trailingAnchor.constraint(equalTo: passwordView.trailingAnchor, constant: -14),
             hideOpenPasswordButton.topAnchor.constraint(equalTo: passwordView.topAnchor, constant: 17),
             hideOpenPasswordButton.heightAnchor.constraint(equalToConstant: 19),
-            hideOpenPasswordButton.widthAnchor.constraint(equalToConstant: 22)
+            hideOpenPasswordButton.widthAnchor.constraint(equalToConstant: 22),
+
+            deletingTextdButton.trailingAnchor.constraint(equalTo: addressView.trailingAnchor, constant: -15),
+            deletingTextdButton.topAnchor.constraint(equalTo: addressView.topAnchor, constant: 15),
+            deletingTextdButton.heightAnchor.constraint(equalToConstant: 20),
+            deletingTextdButton.widthAnchor.constraint(equalToConstant: 20)
 
         ])
     }
@@ -288,13 +316,6 @@ final class AuthView: UIViewController {
         ])
     }
 
-    private func checkValidation(password: String) {
-        guard password.count >= minLenght else {
-            warningsPasswordLabel.text = ""
-            return
-        }
-    }
-
     func setButtonImage(_ image: UIImage) {
         hideOpenPasswordButton.setImage(image, for: .normal)
     }
@@ -303,15 +324,78 @@ final class AuthView: UIViewController {
         presenter?.buttonTapped()
     }
 
-    @objc private func textFieldTextChange() {}
+    // кнопка где должен быть загружен спинер
+    @objc private func clickLoginButton() {}
+
+    @objc private func kbWillShow(_ notification: Notification) {
+        print("kbWillShow")
+        if let keyboardSize = (
+            notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey]
+                as? NSValue
+        )?.cgRectValue {
+            loginButton.frame.origin.y = view.bounds.height - keyboardSize.height - 60
+        }
+    }
+
+    @objc private func kbWillHide(_ notification: Notification) {
+        print("kbWillHide")
+        if let keyboardSize = (
+            notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey]
+                as? NSValue
+        )?.cgRectValue {
+            loginButton.frame.origin.y = view.bounds.maxY - view.safeAreaInsets.bottom - 60
+        }
+    }
+
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+
+    // валидация
+    private let minLenght = 6
+    private lazy var regexEmail =
+        "^(?=.*[а-я])(?=.*[А-Я])(?=.*\\d)(?=.*[$@$!%*?&#])[А-Яа-я\\d$@$!%*?&#]{\(minLenght),}$"
+    private let regexPassword = 123
+
+    private func checkValidation(email: String) {
+        guard email.count >= minLenght else {
+            warningsEmailLabel.text = ""
+            return
+        }
+
+        if email.matches(regexEmail) {
+            warningsEmailLabel.isHidden = false
+        } else {
+            warningsEmailLabel.isHidden = true
+        }
+    }
 }
 
 extension AuthView: AuthViewInput {}
 
-//#Preview {
-//    let view = RecipesView()
-//
-//    let presenter = RecipesPresenter()
-//    view.presenter = presenter
-//    return view
-//}
+extension String {
+    func matches(_ regex: String) -> Bool {
+        range(of: regex, options: .regularExpression, range: nil, locale: nil) !=
+            nil
+    }
+}
+
+extension AuthView: UITextFieldDelegate {
+    public func textField(
+        _ textField: UITextField,
+        shouldChangeCharactersIn range: NSRange,
+        replacementString string: String
+    ) -> Bool {
+        let password = passwordTextField.text ?? ""
+        let login = emailTextField.text ?? ""
+
+        if password.count > 6, login.count > 6 {
+            warningsEmailLabel.isHidden = false
+            warningsPasswordLabel.isHidden = false
+        }
+
+        return true
+    }
+}
+
+// comiteints проверка

@@ -2,7 +2,6 @@
 // Copyright © RoadMap. All rights reserved.
 
 import Foundation
-import UIKit
 
 /// Интерфейс иньекции зависимостей в AuthPresenter
 protocol AuthPresenterProtocol: AnyObject {
@@ -21,7 +20,7 @@ final class AuthPresenter {
     // MARK: - Public Properties
 
     weak var view: AuthViewInput?
-    private let validator = Validator()
+    private var validator = Validator()
 
     // MARK: - Private Properties
 
@@ -31,7 +30,12 @@ final class AuthPresenter {
 
 extension AuthPresenter: AuthPresenterInput {
     func buttonTapped() {
-        view?.setButtonImage(.lockIcon)
+        if validator.isHidden == false {
+            view?.setButtonImage(.lockIcon)
+        } else {
+            validator.isHidden = true
+            view?.setButtonImage(.crossedEyeIcon)
+        }
     }
 }
 
