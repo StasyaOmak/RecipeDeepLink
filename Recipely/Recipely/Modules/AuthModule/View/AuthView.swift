@@ -6,6 +6,7 @@ import UIKit
 /// Интерфейс общения с AuthView
 protocol AuthViewInput: AnyObject {
     func setButtonImage(_ image: UIImage)
+    func showInputEmail
 }
 
 /// Вью экрана аутентификаци
@@ -162,7 +163,7 @@ final class AuthView: UIViewController {
     // MARK: - Private Methods
 
     private func addSubview() {
-        passwordTextField.delegate = self
+//        passwordTextField.delegate = self
         emailTextField.delegate = self
         view.addGestureRecognizer(tap)
         view.layer.addSublayer(gradient)
@@ -395,6 +396,10 @@ extension AuthView: UITextFieldDelegate {
         }
 
         return true
+    }
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        print("DDD")
     }
 }
 
