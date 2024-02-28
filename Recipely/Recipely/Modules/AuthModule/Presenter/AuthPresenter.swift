@@ -12,9 +12,9 @@ protocol AuthPresenterProtocol: AnyObject {
 
 /// Интерфейс общения с AuthPresenter
 protocol AuthPresenterInput: AnyObject {
-    func hidePasswordButtonTapped()
     func emailTextFieldValueChanged(to text: String?)
     func loginButtonTapped(withPassword password: String?)
+    func showWarning()
 }
 
 /// Вью экрана аутентификаци
@@ -30,6 +30,10 @@ final class AuthPresenter {
 }
 
 extension AuthPresenter: AuthPresenterInput {
+    func showWarning() {
+        view?.showWarning()
+    }
+
     func emailTextFieldValueChanged(to text: String?) {
         if let text, validator.isEmailValid(text) || text.isEmpty {
             view?.setEmailFieldStateTo(.plain)
@@ -39,16 +43,15 @@ extension AuthPresenter: AuthPresenterInput {
     }
 
     func loginButtonTapped(withPassword password: String?) {
-        if let password, validator.isPasswordValid(password) || password.isEmpty {
-            view?.setPasswordFieldStateTo(.plain)
-        } else {
-            view?.setPasswordFieldStateTo(.highlited)
+        view?.startIndicator()
+        let timet = Timer(timeInterval: 3, repeats: false) { _ in
+            self.view?.stopIndicator()
+            if let password, self.validator.isPasswordValid(password) || password.isEmpty {
+                self.view?.setPasswordFieldStateTo(.plain)
+            } else {
+                self.view?.setPasswordFieldStateTo(.highlited)
+            }
         }
-    }
-
-    func hidePasswordButtonTapped() {
-        view?.setButtonImage(validator.isHidden ? .crossedEyeIcon : .eyeIcon)
-        validator.isHidden.toggle()
     }
 }
 
