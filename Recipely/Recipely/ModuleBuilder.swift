@@ -11,6 +11,8 @@ protocol Builder: AnyObject {
     func buildAuthScreen() -> AuthView
     /// Собирает экран профиля пользователя
     func buildProfileScreen() -> ProfileView
+    /// Собирает экран программы лояльности
+    func buildLoyaltyProgramScreen() -> LoyaltyProgramView
     /// Собирает экран со списком рецептов
     func buildRecipesScreen() -> RecipesView
     /// Собирает экран любимых рецептов
@@ -45,6 +47,18 @@ final class ModuleBuilder: Builder {
         return view
     }
 
+    func buildLoyaltyProgramScreen() -> LoyaltyProgramView {
+        let view = LoyaltyProgramView()
+        let presenter = LoyaltyProgramPresenter()
+        view.presenter = presenter
+        presenter.view = view
+        let sheet = view.sheetPresentationController
+        sheet?.detents = [.custom(resolver: { _ in 320 })]
+        sheet?.prefersGrabberVisible = true
+        sheet?.preferredCornerRadius = 30
+        return view
+    }
+
     func buildFavouritesScreen() -> FavouritesView {
         let view = FavouritesView()
         view.tabBarItem = UITabBarItem(
@@ -60,7 +74,11 @@ final class ModuleBuilder: Builder {
 
     func buildRecipesScreen() -> RecipesView {
         let view = RecipesView()
-        view.tabBarItem = UITabBarItem(title: "Recipes", image: .recipesIcon, selectedImage: .recipesFilledIcon)
+        view.tabBarItem = UITabBarItem(
+            title: "Recipes",
+            image: .recipesIcon,
+            selectedImage: .recipesFilledIcon
+        )
         let presenter = RecipesPresenter()
         view.presenter = presenter
         presenter.view = view
