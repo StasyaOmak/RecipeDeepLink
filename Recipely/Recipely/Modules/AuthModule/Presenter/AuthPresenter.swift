@@ -22,7 +22,7 @@ final class AuthPresenter {
     // MARK: - Private Properties
 
     private weak var coordinator: AuthCoordinatorProtocol?
-    private var profile = User()
+    private var validator = Validator()
 }
 
 extension AuthPresenter: AuthPresenterInput {}

@@ -5,6 +5,7 @@ import UIKit
 
 final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
+    var appCoordinator: RecipelyCoordinator?
 
     func scene(
         _ scene: UIScene,
@@ -17,6 +18,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private func createWindow(with scene: UIScene) {
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
-        RecipelyCoordinator(window: window, builder: ModuleBuilder()).start()
+        appCoordinator = RecipelyCoordinator(window: window, builder: ModuleBuilder())
+        appCoordinator?.start()
     }
 }

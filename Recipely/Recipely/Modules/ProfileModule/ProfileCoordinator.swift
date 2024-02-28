@@ -4,7 +4,9 @@
 import UIKit
 
 /// Интерфейс общения с ProfileCoordinator
-protocol ProfileCoordinatorProtocol: AnyObject {}
+protocol ProfileCoordinatorProtocol: AnyObject {
+    func showLoyaltyProgramScreen()
+}
 
 /// Координатор модуля профиля пользователя
 final class ProfileCoordinator: BaseCoordinator {
@@ -32,4 +34,10 @@ final class ProfileCoordinator: BaseCoordinator {
     }
 }
 
-extension ProfileCoordinator: ProfileCoordinatorProtocol {}
+extension ProfileCoordinator: ProfileCoordinatorProtocol {
+    func showLoyaltyProgramScreen() {
+        let loyaltyProgramController = builder.buildLoyaltyProgramScreen()
+        (loyaltyProgramController.presenter as? LoyaltyProgramPresenter)?.injectCoordinator(self)
+        rootController.present(loyaltyProgramController, animated: true)
+    }
+}

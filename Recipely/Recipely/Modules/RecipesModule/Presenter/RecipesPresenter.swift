@@ -22,7 +22,7 @@ final class RecipesPresenter: NSObject {
     // MARK: - Private Properties
 
     private weak var coordinator: RecipesCoordinatorProtocol?
-    private var user = User()
+    private var recipes = Recipes()
 }
 
 extension RecipesPresenter: RecipesPresenterInput {}
