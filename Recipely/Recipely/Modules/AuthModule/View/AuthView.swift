@@ -9,8 +9,10 @@ protocol AuthViewInput: AnyObject {
     func setEmailFieldStateTo(_ state: AuthView.AuthTextFieldState)
     // функция для проверки на валидность password
     func setPasswordFieldStateTo(_ state: AuthView.AuthTextFieldState)
-    
-    func setWarning()
+
+    func startIndicator()
+    func stopIndicator()
+    func showWarning()
 }
 
 /// Вью экрана аутентификаци
@@ -39,12 +41,8 @@ final class AuthView: UIViewController {
     // MARK: - Visual Components
 
     private lazy var loginButton = {
-        let button = UIButton()
-        button.backgroundColor = .black
-        button.layer.cornerRadius = 12
+        let button = LoginButton()
         button.setTitle(Constants.loginText, for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = .verdanaBold?.withSize(16)
         button.addTarget(self, action: #selector(
             loginButtonTapped
         ), for: .touchUpInside)
@@ -132,6 +130,7 @@ final class AuthView: UIViewController {
         let view = UIView()
         view.backgroundColor = .warnings
         view.layer.cornerRadius = 12
+        view.isHidden = true
         return view
     }()
 
@@ -168,7 +167,7 @@ final class AuthView: UIViewController {
         label.textColor = .white
         label.textAlignment = .left
         label.numberOfLines = 0
-        label.isHidden = false
+        label.isHidden = true
         return label
     }()
 
@@ -353,7 +352,6 @@ final class AuthView: UIViewController {
 
     @objc private func loginButtonTapped() {
         presenter?.loginButtonTapped(withPassword: passwordTextField.text)
-        
     }
 
     @objc private func kbWillShow(_ notification: Notification) {
@@ -385,12 +383,19 @@ final class AuthView: UIViewController {
 }
 
 extension AuthView: AuthViewInput {
-    func setWarning() {
-        loginView.isHidden = false
+    func showWarning() {
         warningsAccuracyLabel.isHidden = false
-        
+        loginView.isHidden = false
     }
-    
+
+    func stopIndicator() {
+        loginButton.stopIndicator()
+    }
+
+    func startIndicator() {
+        loginButton.startIndicator()
+    }
+
     func setEmailFieldStateTo(_ state: AuthTextFieldState) {
         switch state {
         case .plain:
