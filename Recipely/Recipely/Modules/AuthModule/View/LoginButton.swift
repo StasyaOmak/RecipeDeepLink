@@ -1,13 +1,9 @@
-
 // LoginButton.swift
 // Copyright © RoadMap. All rights reserved.
-
-
 
 import UIKit
 
 final class LoginButton: UIButton {
-
     // MARK: - Visual Components
 
     private var activityIndicator: UIActivityIndicatorView = {
@@ -23,7 +19,6 @@ final class LoginButton: UIButton {
 
     // MARK: - Initializers
 
-
     init() {
         super.init(frame: .zero)
         configureUI()
@@ -36,9 +31,8 @@ final class LoginButton: UIButton {
         configureLayout()
     }
 
-    
     // MARK: - Public Methods
-    
+
     func startIndicator() {
         title = titleLabel?.text
         setTitle("", for: .normal)
@@ -49,7 +43,6 @@ final class LoginButton: UIButton {
         setTitle(title, for: .normal)
         activityIndicator.stopAnimating()
     }
-
 
     // MARK: - Private Methods
 
@@ -71,4 +64,3 @@ final class LoginButton: UIButton {
         ].activate()
     }
 }
-

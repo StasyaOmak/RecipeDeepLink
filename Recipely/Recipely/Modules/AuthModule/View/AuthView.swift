@@ -48,8 +48,6 @@ final class AuthView: UIViewController {
         ), for: .touchUpInside)
         return button
     }()
-    
-    
 
     private lazy var hideOpenPasswordButton = {
         let button = UIButton()
@@ -132,7 +130,7 @@ final class AuthView: UIViewController {
         let view = UIView()
         view.backgroundColor = .warnings
         view.layer.cornerRadius = 12
-        view.isHidden = true
+        view.alpha = 0
         return view
     }()
 
@@ -169,7 +167,7 @@ final class AuthView: UIViewController {
         label.textColor = .white
         label.textAlignment = .left
         label.numberOfLines = 0
-        label.isHidden = true
+        label.alpha = 0
         return label
     }()
 
@@ -347,7 +345,7 @@ final class AuthView: UIViewController {
 
             loginView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             loginView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            loginView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -83),
+            loginView.bottomAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: -10),
             loginView.heightAnchor.constraint(equalToConstant: 87),
         ])
     }
@@ -386,8 +384,15 @@ final class AuthView: UIViewController {
 
 extension AuthView: AuthViewInput {
     func showWarning() {
-        warningsAccuracyLabel.isHidden = false
-        loginView.isHidden = false
+        UIView.animate(withDuration: 0.5, delay: 0, options: .curveLinear) {
+            self.warningsAccuracyLabel.alpha = 1
+            self.loginView.alpha = 1
+        } completion: { _ in
+            UIView.animate(withDuration: 0.5, delay: 2, options: .curveLinear) {
+                self.warningsAccuracyLabel.alpha = 0
+                self.loginView.alpha = 0
+            }
+        }
     }
 
     func stopIndicator() {
