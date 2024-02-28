@@ -7,12 +7,11 @@ import Foundation
 protocol AuthPresenterProtocol: AnyObject {
     /// Добавляет координатор экрана аутентификации в качесте зависимости
     /// - Parameter AuthPresenter: Координатор экрана аутентификации
-    func injectCoordinator(_ coordinator: AuthCoordinatorProtocol)
+    func injectCoordinator(_ coordinator: AuthCoordinatorProtocol)    
 }
 
 /// Интерфейс общения с AuthPresenter
 protocol AuthPresenterInput: AnyObject {
-    func hidePasswordButtonTapped()
     func emailTextFieldValueChanged(to text: String?)
     func loginButtonTapped(withPassword password: String?)
 }
@@ -44,11 +43,6 @@ extension AuthPresenter: AuthPresenterInput {
         } else {
             view?.setPasswordFieldStateTo(.highlited)
         }
-    }
-
-    func hidePasswordButtonTapped() {
-        view?.setButtonImage(validator.isHidden ? .crossedEyeIcon : .eyeIcon)
-        validator.isHidden.toggle()
     }
 }
 

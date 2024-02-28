@@ -5,9 +5,12 @@ import UIKit
 
 /// Интерфейс общения с AuthView
 protocol AuthViewInput: AnyObject {
-    func setButtonImage(_ image: UIImage)
+    // функция для проверки на валидность email
     func setEmailFieldStateTo(_ state: AuthView.AuthTextFieldState)
+    // функция для проверки на валидность password
     func setPasswordFieldStateTo(_ state: AuthView.AuthTextFieldState)
+    
+    func setWarning()
 }
 
 /// Вью экрана аутентификаци
@@ -30,6 +33,7 @@ final class AuthView: UIViewController {
         static let enterPassword = "Enter Password"
         static let passwordWarningText = "You entered the wrong password"
         static let emailWarningText = "Incorrect format"
+        static let loginWarningText = "Please check the accuracy of the entered credentials."
     }
 
     // MARK: - Visual Components
@@ -50,7 +54,6 @@ final class AuthView: UIViewController {
     private lazy var hideOpenPasswordButton = {
         let button = UIButton()
         button.setImage(.crossedEyeIcon, for: .normal)
-        button.addTarget(self, action: #selector(hidePasswordButtonTapped), for: .touchUpInside)
         return button
     }()
 
@@ -125,6 +128,13 @@ final class AuthView: UIViewController {
         return view
     }()
 
+    private let loginView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .warnings
+        view.layer.cornerRadius = 12
+        return view
+    }()
+
     private let lockIconImageView = {
         let image = UIImageView()
         image.image = UIImage.lockIcon
@@ -148,6 +158,17 @@ final class AuthView: UIViewController {
         label.textColor = UIColor.warnings
         label.textAlignment = .left
         label.isHidden = true
+        return label
+    }()
+
+    private let warningsAccuracyLabel = {
+        let label = UILabel()
+        label.text = Constants.loginWarningText
+        label.font = .verdana?.withSize(18)
+        label.textColor = .white
+        label.textAlignment = .left
+        label.numberOfLines = 0
+        label.isHidden = false
         return label
     }()
 
@@ -189,7 +210,9 @@ final class AuthView: UIViewController {
             hideOpenPasswordButton,
             warningsPasswordLabel,
             warningsEmailLabel,
-            deletingTextdButton
+            deletingTextdButton,
+            loginView,
+            warningsAccuracyLabel
         ]
         view.addSubviews(subviews)
         UIView.doNotTAMIC(for: subviews)
@@ -272,7 +295,12 @@ final class AuthView: UIViewController {
             warningsEmailLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             warningsEmailLabel.topAnchor.constraint(equalTo: addressView.bottomAnchor),
             warningsEmailLabel.heightAnchor.constraint(equalToConstant: 19),
-            warningsEmailLabel.widthAnchor.constraint(equalToConstant: 230)
+            warningsEmailLabel.widthAnchor.constraint(equalToConstant: 230),
+
+            warningsAccuracyLabel.leadingAnchor.constraint(equalTo: loginView.leadingAnchor, constant: 15),
+            warningsAccuracyLabel.topAnchor.constraint(equalTo: loginView.topAnchor, constant: 16),
+            warningsAccuracyLabel.trailingAnchor.constraint(equalTo: loginView.trailingAnchor, constant: -34),
+            warningsAccuracyLabel.bottomAnchor.constraint(equalTo: loginView.bottomAnchor, constant: -17),
         ])
     }
 
@@ -314,16 +342,18 @@ final class AuthView: UIViewController {
             passwordView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             passwordView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             passwordView.topAnchor.constraint(equalTo: passwordLabel.bottomAnchor, constant: 6),
-            passwordView.heightAnchor.constraint(equalToConstant: 50)
-        ])
-    }
+            passwordView.heightAnchor.constraint(equalToConstant: 50),
 
-    @objc private func hidePasswordButtonTapped() {
-        presenter?.hidePasswordButtonTapped()
+            loginView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            loginView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            loginView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -83),
+            loginView.heightAnchor.constraint(equalToConstant: 87),
+        ])
     }
 
     @objc private func loginButtonTapped() {
         presenter?.loginButtonTapped(withPassword: passwordTextField.text)
+        
     }
 
     @objc private func kbWillShow(_ notification: Notification) {
@@ -355,10 +385,12 @@ final class AuthView: UIViewController {
 }
 
 extension AuthView: AuthViewInput {
-    func setButtonImage(_ image: UIImage) {
-        hideOpenPasswordButton.setImage(image, for: .normal)
+    func setWarning() {
+        loginView.isHidden = false
+        warningsAccuracyLabel.isHidden = false
+        
     }
-
+    
     func setEmailFieldStateTo(_ state: AuthTextFieldState) {
         switch state {
         case .plain:
