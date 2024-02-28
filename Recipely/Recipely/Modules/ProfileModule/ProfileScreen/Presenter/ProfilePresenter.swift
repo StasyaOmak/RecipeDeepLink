@@ -11,6 +11,7 @@ protocol ProfilePresenterProtocol: AnyObject {
 
 /// Интерфейс общения с ProfilePresenter
 protocol ProfilePresenterInput: AnyObject {
+    func getSections() -> [ProfileSection]
     func getUser() -> User
     func getAmountOfSettings() -> Int
     func getSetting(forIndex index: Int) -> Setting
@@ -32,6 +33,10 @@ final class ProfilePresenter {
 }
 
 extension ProfilePresenter: ProfilePresenterInput {
+    func getSections() -> [ProfileSection] {
+        profile.sections
+    }
+
     func getUser() -> User {
         profile.user
     }
@@ -49,19 +54,19 @@ extension ProfilePresenter: ProfilePresenterInput {
         case .bonuses:
             coordinator?.showLoyaltyProgramScreen()
         case .termsAndPrivacy:
-            view?.presentCurrentlyUnderDevelopmentAlert()
+            view?.showUnderDevelopmentMessage()
         case .logOut:
-            view?.presentLogOutAlert()
+            view?.showLogOutMessage()
         }
     }
 
     func profileEditButtonTapped() {
-        view?.presentNameChangeAlert()
+        view?.showUpdateNameForm()
     }
 
     func didSubmitNewName(_ name: String) {
         profile.user.name = name
-        view?.reloadFirstRow()
+        view?.updateUserNameLabel()
     }
 }
 

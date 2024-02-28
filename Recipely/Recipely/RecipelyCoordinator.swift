@@ -30,10 +30,4 @@ final class RecipelyCoordinator: BaseCoordinator {
         window?.makeKeyAndVisible()
         tabBarCoordinator.start()
     }
-
-//    override func start() {
-//        let tabBarController = builder.buildAuthScreen()
-//        window?.rootViewController = tabBarController
-//        window?.makeKeyAndVisible()
-//    }
 }

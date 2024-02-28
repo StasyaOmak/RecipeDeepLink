@@ -17,6 +17,7 @@
 		9D499B2A2B8E9F91007B36D0 /* LoyaltyProgramView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D499B292B8E9F91007B36D0 /* LoyaltyProgramView.swift */; };
 		9D499B2E2B8EA08E007B36D0 /* LoyaltyProgramPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D499B2D2B8EA08E007B36D0 /* LoyaltyProgramPresenter.swift */; };
 		9D499B312B8EA0B5007B36D0 /* LoyaltyProgram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D499B302B8EA0B5007B36D0 /* LoyaltyProgram.swift */; };
+		9D499B342B8F6446007B36D0 /* ProfileSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D499B332B8F6446007B36D0 /* ProfileSection.swift */; };
 		9D6115462B8D312E008EF247 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D61153F2B8D312E008EF247 /* AuthCoordinator.swift */; };
 		9D6115472B8D312E008EF247 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6115452B8D312E008EF247 /* Validator.swift */; };
 		9D6115482B8D312E008EF247 /* AuthPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6115432B8D312E008EF247 /* AuthPresenter.swift */; };
@@ -64,6 +65,7 @@
 		9D499B292B8E9F91007B36D0 /* LoyaltyProgramView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoyaltyProgramView.swift; sourceTree = "<group>"; };
 		9D499B2D2B8EA08E007B36D0 /* LoyaltyProgramPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoyaltyProgramPresenter.swift; sourceTree = "<group>"; };
 		9D499B302B8EA0B5007B36D0 /* LoyaltyProgram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoyaltyProgram.swift; sourceTree = "<group>"; };
+		9D499B332B8F6446007B36D0 /* ProfileSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSection.swift; sourceTree = "<group>"; };
 		9D61153F2B8D312E008EF247 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
 		9D6115412B8D312E008EF247 /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		9D6115432B8D312E008EF247 /* AuthPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPresenter.swift; sourceTree = "<group>"; };
@@ -342,6 +344,7 @@
 				9D952B7B2B8D264B00F6D8CC /* User.swift */,
 				9D499B1F2B8E73AC007B36D0 /* Settings.swift */,
 				9D499B262B8E9795007B36D0 /* SettingType.swift */,
+				9D499B332B8F6446007B36D0 /* ProfileSection.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -500,6 +503,7 @@
 				9D499B182B8E6878007B36D0 /* ProfileCell.swift in Sources */,
 				9D6115492B8D312E008EF247 /* AuthView.swift in Sources */,
 				9D499B312B8EA0B5007B36D0 /* LoyaltyProgram.swift in Sources */,
+				9D499B342B8F6446007B36D0 /* ProfileSection.swift in Sources */,
 				9D499B2A2B8E9F91007B36D0 /* LoyaltyProgramView.swift in Sources */,
 				9D952B7C2B8D264B00F6D8CC /* User.swift in Sources */,
 				9D952B4E2B8D1CBC00F6D8CC /* AppDelegate.swift in Sources */,

@@ -5,29 +5,18 @@ import UIKit
 
 /// Интерфейс общения с ProfileView
 protocol ProfileViewInput: AnyObject {
-    func presentBonucesDetailScreen()
-    func presentCurrentlyUnderDevelopmentAlert()
-    func presentLogOutAlert()
-    func presentNameChangeAlert()
-    func reloadFirstRow()
+    func showUnderDevelopmentMessage()
+    func showLogOutMessage()
+    func showUpdateNameForm()
+    func updateUserNameLabel()
 }
 
 /// Вью экрана профиля пользователя
 final class ProfileView: UIViewController {
-    // MARK: - Types
-
-    /// Секции таблицы экрана профиля
-    private enum ProfileSection {
-        /// Секция с ячейкой профиля пользователя
-        case header
-        /// Секция с доступными настройками
-        case settings
-    }
-
     // MARK: - Constants
 
     private enum Constants {
-        static let titleText = "Profile".attributed().withColor(.label).withFont(.verdanaBold?.withSize(28))
+        static let titleText = "Profile"
         static let logOutAlertTitleText = "Are you sure you want to log out?"
         static let underDevelopmentText = "Функционал в разработке"
         static let changeNameText = "Change your name and surname"
@@ -56,7 +45,7 @@ final class ProfileView: UIViewController {
 
     // MARK: - Private Properties
 
-    private let profileTableSections: [ProfileSection] = [.header, .settings]
+    private var profileTableSections: [ProfileSection] = []
 
     // MARK: - Life Cycle
 
@@ -70,11 +59,9 @@ final class ProfileView: UIViewController {
 
     private func configureUI() {
         view.backgroundColor = .systemBackground
-        let titleLabel = UILabel()
-        titleLabel.attributedText = Constants.titleText
-        titleLabel.textAlignment = .left
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: titleLabel)
         view.addSubview(tableView)
+        configureTitleLabel()
+        profileTableSections = presenter?.getSections() ?? []
     }
 
     private func configureLayout() {
@@ -86,12 +73,18 @@ final class ProfileView: UIViewController {
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ].activate()
     }
+
+    private func configureTitleLabel() {
+        let titleLabel = UILabel()
+        titleLabel.attributedText = Constants.titleText.attributed().withColor(.label)
+            .withFont(.verdanaBold?.withSize(28))
+        titleLabel.textAlignment = .left
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: titleLabel)
+    }
 }
 
 extension ProfileView: ProfileViewInput {
-    func presentBonucesDetailScreen() {}
-
-    func presentCurrentlyUnderDevelopmentAlert() {
+    func showUnderDevelopmentMessage() {
         let alert = UIAlertController(title: Constants.underDevelopmentText)
         let okAction = UIAlertAction(title: Constants.okText)
         alert.addAction(okAction)
@@ -99,7 +92,7 @@ extension ProfileView: ProfileViewInput {
         present(alert, animated: true)
     }
 
-    func presentLogOutAlert() {
+    func showLogOutMessage() {
         let alert = UIAlertController(title: Constants.logOutAlertTitleText)
         let yesAction = UIAlertAction(title: Constants.yesText, style: .destructive)
         let cancelAction = UIAlertAction(title: Constants.cancelText)
@@ -109,7 +102,7 @@ extension ProfileView: ProfileViewInput {
         present(alert, animated: true)
     }
 
-    func presentNameChangeAlert() {
+    func showUpdateNameForm() {
         let alert = UIAlertController(title: Constants.changeNameText)
         let okAction = UIAlertAction(title: Constants.okText) { [weak alert, presenter] _ in
             guard let newName = alert?.textFields?[0].text else { return }
@@ -126,8 +119,10 @@ extension ProfileView: ProfileViewInput {
         present(alert, animated: true)
     }
 
-    func reloadFirstRow() {
-        tableView.reloadRows(at: [.init(row: 0, section: 0)], with: .automatic)
+    func updateUserNameLabel() {
+        guard let cell = tableView.cellForRow(at: .init(row: 0, section: 0)) as? ProfileCell else { return }
+        let user = presenter?.getUser()
+        cell.updateNameLabel(with: user?.name)
     }
 }
 
