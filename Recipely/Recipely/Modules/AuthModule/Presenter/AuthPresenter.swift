@@ -11,13 +11,17 @@ protocol AuthPresenterProtocol: AnyObject {
 }
 
 /// Интерфейс общения с AuthPresenter
-protocol AuthPresenterInput: AnyObject {}
+protocol AuthPresenterInput: AnyObject {
+    func buttonTapped()
+    func checkEmail(param: String)
+}
 
 /// Вью экрана аутентификаци
 final class AuthPresenter {
     // MARK: - Public Properties
 
     weak var view: AuthViewInput?
+    private var validator = Validator()
 
     // MARK: - Private Properties
 
@@ -25,7 +29,21 @@ final class AuthPresenter {
     private var validator = Validator()
 }
 
-extension AuthPresenter: AuthPresenterInput {}
+extension AuthPresenter: AuthPresenterInput {
+    func checkEmail(param: String) {
+   let regexEmail = "^(?=.*[а-я])(?=.*[А-Я])(?=.*\\d)(?=.*[$@$!%*?&#])[А-Яа-я\\d$@$!%*?&#]{6,12}$"
+        let emailTest = NSPredicate(format: "SELF MATCHES %@", regexEmail)
+    }
+    
+    func buttonTapped() {
+        if validator.isHidden == false {
+            view?.setButtonImage(.lockIcon)
+        } else {
+            validator.isHidden = true
+            view?.setButtonImage(.crossedEyeIcon)
+        }
+    }
+}
 
 extension AuthPresenter: AuthPresenterProtocol {
     func injectCoordinator(_ coordinator: AuthCoordinatorProtocol) {

@@ -4,4 +4,6 @@
 import Foundation
 
 /// Валидатор учетных данных пользователя
-struct Validator {}
+struct Validator {
+    var isHidden = false
+}
