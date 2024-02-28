@@ -44,12 +44,13 @@ extension AuthPresenter: AuthPresenterInput {
 
     func loginButtonTapped(withPassword password: String?) {
         view?.startIndicator()
-        let timet = Timer(timeInterval: 3, repeats: false) { _ in
-            self.view?.stopIndicator()
+        Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { [view] _ in
+            view?.stopIndicator()
             if let password, self.validator.isPasswordValid(password) || password.isEmpty {
-                self.view?.setPasswordFieldStateTo(.plain)
+                view?.setPasswordFieldStateTo(.plain)
             } else {
-                self.view?.setPasswordFieldStateTo(.highlited)
+                view?.setPasswordFieldStateTo(.highlited)
+                view?.showWarning()
             }
         }
     }
