@@ -20,14 +20,14 @@ extension UIView {
 
 /// Расширение позволяющее переключать translatesAutoresizingMaskIntoConstraints сразу у нескольких view.
 extension UIView {
-    /// Устанавливает translatesAutoresizingMaskIntoConstraints в false для переданных вью
-    /// - Parameter views: Вью которые для которых надо установить translatesAutoresizingMaskIntoConstraints в false
+    /// Устанавливает translatesAutoresizingMaskIntoConstraints в `false` для переданных вью
+    /// - Parameter views: Вью которые для которых надо установить translatesAutoresizingMaskIntoConstraints в `false`
     static func doNotTAMIC(for views: UIView...) {
         views.forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
     }
 
-    /// Устанавливает translatesAutoresizingMaskIntoConstraints в false для переданных вью
-    /// - Parameter views: Вью которые для которых надо установить translatesAutoresizingMaskIntoConstraints в false
+    /// Устанавливает translatesAutoresizingMaskIntoConstraints в `false` для переданных вью
+    /// - Parameter views: Вью которые для которых надо установить translatesAutoresizingMaskIntoConstraints в `false`
     static func doNotTAMIC(for views: [UIView]) {
         views.forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
     }

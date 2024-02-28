@@ -39,7 +39,7 @@ final class ProfileCell: UITableViewCell {
 
     // MARK: - Public Properties
 
-    var onEditButtonTapped: (() -> ())?
+    var onEditButtonTapped: VoidHandler?
 
     // MARK: - Initializers
 

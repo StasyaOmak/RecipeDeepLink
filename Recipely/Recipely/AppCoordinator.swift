@@ -1,10 +1,10 @@
-// RecipelyCoordinator.swift
+// AppCoordinator.swift
 // Copyright © RoadMap. All rights reserved.
 
 import UIKit
 
-/// Главный координато приложения
-final class RecipelyCoordinator: BaseCoordinator {
+/// Основной координатор приложения
+final class AppCoordinator: BaseCoordinator {
     // MARK: - Private Properties
 
     private var builder: Builder

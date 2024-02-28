@@ -6,7 +6,7 @@ import Foundation
 /// Секции профиля пользователя
 enum ProfileSection {
     /// Секция профиля пользователя
-    case header
-    /// Секция с доступными настройками
-    case settings
+    case userInfo
+    /// Секция с подразделами
+    case subSection
 }

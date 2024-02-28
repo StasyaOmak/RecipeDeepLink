@@ -3,36 +3,41 @@
 
 import UIKit
 
-/// Интерфейс иньекции зависимостей в ProfilePresenter
+/// Интерфейс взаимодействия с ProfilePresenter
 protocol ProfilePresenterProtocol: AnyObject {
-    /// Добавляет координатор пофиля пользователя в качесте зависимости
-    func injectCoordinator(_ coordinator: ProfileCoordinatorProtocol)
-}
-
-/// Интерфейс общения с ProfilePresenter
-protocol ProfilePresenterInput: AnyObject {
+    /// Возвращает массив секций профиля для отображения в пользовательском интерфейсе.
     func getSections() -> [ProfileSection]
+    /// Возвращает объект пользователя, содержащий информацию о текущем пользователе.
     func getUser() -> User
-    func getAmountOfSettings() -> Int
-    func getSetting(forIndex index: Int) -> Setting
-    func selectedSettingCell(atIndex index: Int)
+    /// Возвращает количество подразделов в профиле пользователя.
+    func getAmountOfSubSections() -> Int
+    /// Возвращает конкретную подсекцию для заданного индекса.
+    func getSubSection(forIndex index: Int) -> Setting
+    /// Обрабатывает выбор подсекции пользователем.
+    func selectedSubSection(atIndex index: Int)
+    /// Обрабатывает нажатие кнопки редактирования профиля.
     func profileEditButtonTapped()
+    /// Обрабатывает событие подтверждения изменения имени пользователя.
     func didSubmitNewName(_ name: String)
 }
 
 /// Вью экрана пофиля пользователя
 final class ProfilePresenter {
-    // MARK: - Public Properties
-
-    weak var view: ProfileView?
-
     // MARK: - Private Properties
 
     private weak var coordinator: ProfileCoordinatorProtocol?
+    private weak var view: ProfileViewProtocol?
     private var profile = Profile()
+
+    // MARK: - Initializers
+
+    init(view: ProfileViewProtocol, coordinator: ProfileCoordinatorProtocol) {
+        self.view = view
+        self.coordinator = coordinator
+    }
 }
 
-extension ProfilePresenter: ProfilePresenterInput {
+extension ProfilePresenter: ProfilePresenterProtocol {
     func getSections() -> [ProfileSection] {
         profile.sections
     }
@@ -41,15 +46,15 @@ extension ProfilePresenter: ProfilePresenterInput {
         profile.user
     }
 
-    func getAmountOfSettings() -> Int {
+    func getAmountOfSubSections() -> Int {
         profile.settings.count
     }
 
-    func getSetting(forIndex index: Int) -> Setting {
+    func getSubSection(forIndex index: Int) -> Setting {
         profile.settings[index]
     }
 
-    func selectedSettingCell(atIndex index: Int) {
+    func selectedSubSection(atIndex index: Int) {
         switch profile.settings[index].type {
         case .bonuses:
             coordinator?.showLoyaltyProgramScreen()
@@ -67,11 +72,5 @@ extension ProfilePresenter: ProfilePresenterInput {
     func didSubmitNewName(_ name: String) {
         profile.user.name = name
         view?.updateUserNameLabel()
-    }
-}
-
-extension ProfilePresenter: ProfilePresenterProtocol {
-    func injectCoordinator(_ coordinator: ProfileCoordinatorProtocol) {
-        self.coordinator = coordinator
     }
 }

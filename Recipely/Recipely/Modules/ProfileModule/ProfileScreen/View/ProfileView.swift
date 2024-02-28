@@ -3,11 +3,16 @@
 
 import UIKit
 
-/// Интерфейс общения с ProfileView
-protocol ProfileViewInput: AnyObject {
+/// Интерфейс взаимодействия с ProfileView
+protocol ProfileViewProtocol: AnyObject {
+    /// Показывает алерт, информирующий пользователя о том, что выбранная секция или функциональность находится в стадии
+    /// разработки и пока недоступна.
     func showUnderDevelopmentMessage()
+    /// Показывает алерт, запрашивающий подтверждение пользователя перед выходом из аккаунта.
     func showLogOutMessage()
+    /// Отображает форму для обновления имени пользователя.
     func showUpdateNameForm()
+    /// Обновляет отображаемое имя пользователя в соответствующем элементе пользовательского интерфейса.
     func updateUserNameLabel()
 }
 
@@ -41,7 +46,7 @@ final class ProfileView: UIViewController {
 
     // MARK: - Public Properties
 
-    var presenter: ProfilePresenterInput?
+    var presenter: ProfilePresenterProtocol?
 
     // MARK: - Private Properties
 
@@ -83,7 +88,7 @@ final class ProfileView: UIViewController {
     }
 }
 
-extension ProfileView: ProfileViewInput {
+extension ProfileView: ProfileViewProtocol {
     func showUnderDevelopmentMessage() {
         let alert = UIAlertController(title: Constants.underDevelopmentText)
         let okAction = UIAlertAction(title: Constants.okText)
@@ -133,16 +138,16 @@ extension ProfileView: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch profileTableSections[section] {
-        case .header:
+        case .userInfo:
             1
-        case .settings:
-            presenter?.getAmountOfSettings() ?? 0
+        case .subSection:
+            presenter?.getAmountOfSubSections() ?? 0
         }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch profileTableSections[indexPath.section] {
-        case .header:
+        case .userInfo:
             guard let user = presenter?.getUser(),
                   let cell = tableView.dequeueReusableCell(
                       withIdentifier: ProfileCell.description(),
@@ -155,8 +160,8 @@ extension ProfileView: UITableViewDataSource {
             }
             cell.configure(with: user)
             return cell
-        case .settings:
-            guard let setting = presenter?.getSetting(forIndex: indexPath.row),
+        case .subSection:
+            guard let setting = presenter?.getSubSection(forIndex: indexPath.row),
                   let cell = tableView.dequeueReusableCell(
                       withIdentifier: SettingsFieldCell.description(),
                       for: indexPath
@@ -171,8 +176,8 @@ extension ProfileView: UITableViewDataSource {
 
 extension ProfileView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if case .settings = profileTableSections[indexPath.section] {
-            presenter?.selectedSettingCell(atIndex: indexPath.row)
+        if case .subSection = profileTableSections[indexPath.section] {
+            presenter?.selectedSubSection(atIndex: indexPath.row)
         }
     }
 }
