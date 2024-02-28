@@ -32,7 +32,7 @@ final class SettingsFieldCell: UITableViewCell {
         return view
     }()
 
-    private let bottomSeparator: UIView = {
+    private let bottomSeparatorView: UIView = {
         let view = UIView()
         view.backgroundColor = .opaqueSeparator
         return view
@@ -63,11 +63,11 @@ final class SettingsFieldCell: UITableViewCell {
     // MARK: - Private Methods
 
     private func configureUI() {
-        contentView.addSubviews(iconImageView, captionLabel, accessoryImageView, bottomSeparator)
+        contentView.addSubviews(iconImageView, captionLabel, accessoryImageView, bottomSeparatorView)
     }
 
     private func configureLayout() {
-        UIView.doNotTAMIC(for: iconImageView, captionLabel, accessoryImageView, bottomSeparator)
+        UIView.doNotTAMIC(for: iconImageView, captionLabel, accessoryImageView, bottomSeparatorView)
         configureIconImageViewLayout()
         configureCaptionLabelLayout()
         configureAccessoryImageViewLayout()
@@ -101,11 +101,11 @@ final class SettingsFieldCell: UITableViewCell {
 
     private func configureBottomSeparatorLayout() {
         [
-            bottomSeparator.topAnchor.constraint(equalTo: iconImageView.bottomAnchor, constant: 4),
-            bottomSeparator.leadingAnchor.constraint(equalTo: captionLabel.leadingAnchor),
-            bottomSeparator.trailingAnchor.constraint(equalTo: accessoryImageView.leadingAnchor),
-            bottomSeparator.heightAnchor.constraint(equalToConstant: 1),
-            bottomSeparator.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            bottomSeparatorView.topAnchor.constraint(equalTo: iconImageView.bottomAnchor, constant: 4),
+            bottomSeparatorView.leadingAnchor.constraint(equalTo: captionLabel.leadingAnchor),
+            bottomSeparatorView.trailingAnchor.constraint(equalTo: accessoryImageView.leadingAnchor),
+            bottomSeparatorView.heightAnchor.constraint(equalToConstant: 1),
+            bottomSeparatorView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ].activate()
     }
 }

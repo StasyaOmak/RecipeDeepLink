@@ -3,14 +3,14 @@
 
 import UIKit
 
-/// Интерфейс общения с FavouritesView
-protocol FavouritesViewInput: AnyObject {}
+/// Интерфейс взаимодействия с FavouritesView
+protocol FavouritesViewProtocol: AnyObject {}
 
 /// Вью экрана сохранненных рецептов
 final class FavouritesView: UIViewController {
     // MARK: - Public Properties
 
-    var presenter: FavouritesPresenterInput?
+    var presenter: FavouritesPresenterProtocol?
 
     // MARK: - Life Cycle
 
@@ -20,4 +20,4 @@ final class FavouritesView: UIViewController {
     }
 }
 
-extension FavouritesView: FavouritesViewInput {}
+extension FavouritesView: FavouritesViewProtocol {}

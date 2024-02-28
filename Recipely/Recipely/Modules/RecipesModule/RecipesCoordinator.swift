@@ -3,7 +3,7 @@
 
 import UIKit
 
-/// Интерфейс общения с RecipesCoordinator
+/// Интерфейс взаимодействия с RecipesCoordinator
 protocol RecipesCoordinatorProtocol: AnyObject {}
 
 /// Координатор модуля рецептов
@@ -26,8 +26,7 @@ final class RecipesCoordinator: BaseCoordinator {
     // MARK: - Public Methods
 
     override func start() {
-        let recipesScreen = builder.buildRecipesScreen()
-        (recipesScreen.presenter as? RecipesPresenterProtocol)?.injectCoordinator(self)
+        let recipesScreen = builder.buildRecipesScreen(coordinator: self)
         rootController.setViewControllers([recipesScreen], animated: false)
     }
 }

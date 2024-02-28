@@ -3,7 +3,7 @@
 
 import UIKit
 
-/// Интерфейс общения с AuthCoordinator
+/// Интерфейс взаимодействия с AuthCoordinator
 protocol AuthCoordinatorProtocol: AnyObject {}
 
 /// Координатор экрана аутентификации пользователя
@@ -26,8 +26,7 @@ final class AuthCoordinator: BaseCoordinator {
     // MARK: - Public Methods
 
     override func start() {
-        let authScreen = builder.buildAuthScreen()
-        (authScreen.presenter as? AuthPresenterProtocol)?.injectCoordinator(self)
+        let authScreen = builder.buildAuthScreen(coordinator: self)
         rootController.setViewControllers([authScreen], animated: false)
     }
 }

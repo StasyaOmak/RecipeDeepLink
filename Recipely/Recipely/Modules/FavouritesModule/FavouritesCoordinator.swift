@@ -3,7 +3,7 @@
 
 import UIKit
 
-/// Интерфейс общения с FavouritesCoordinator
+/// Интерфейс взаимодействия с FavouritesCoordinator
 protocol FavouritesCoordinatorProtocol: AnyObject {}
 
 /// Координатор модуля любимых рецептов
@@ -26,8 +26,7 @@ final class FavouritesCoordinator: BaseCoordinator {
     // MARK: - Public Methods
 
     override func start() {
-        let favouritesScreen = builder.buildFavouritesScreen()
-        (favouritesScreen.presenter as? FavouritesPresenterProtocol)?.injectCoordinator(self)
+        let favouritesScreen = builder.buildFavouritesScreen(coordinator: self)
         rootController.setViewControllers([favouritesScreen], animated: false)
     }
 }

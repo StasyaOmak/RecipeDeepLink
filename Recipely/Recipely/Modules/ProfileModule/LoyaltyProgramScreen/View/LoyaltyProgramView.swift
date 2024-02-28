@@ -3,9 +3,11 @@
 
 import UIKit
 
-/// Интерфейс общения с BonucesView
-protocol LoyaltyProgramViewInput: AnyObject {
+/// Интерфейс взаимодействия с BonucesView
+protocol LoyaltyProgramViewProtocol: AnyObject {
+    /// Обновляет лейбл количества бонусных баллов пользователя.
     func updateBonucesAnountLabel(with text: String)
+    /// Закрывает LoyaltyProgramView
     func dismiss()
 }
 
@@ -61,7 +63,7 @@ final class LoyaltyProgramView: UIViewController {
 
     // MARK: - Public Properties
 
-    var presenter: LoyaltyProgramPresenterInput?
+    var presenter: LoyaltyProgramPresenterProtocol?
 
     // MARK: - Life Cycle
 
@@ -134,7 +136,7 @@ final class LoyaltyProgramView: UIViewController {
     }
 }
 
-extension LoyaltyProgramView: LoyaltyProgramViewInput {
+extension LoyaltyProgramView: LoyaltyProgramViewProtocol {
     func updateBonucesAnountLabel(with text: String) {
         bonucesAmountLabel.text = text
     }

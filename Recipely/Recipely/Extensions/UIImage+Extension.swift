@@ -5,8 +5,9 @@ import UIKit
 
 /// Удобная инициализация UIImage без использования строкового литерала
 extension UIImage {
-    /// Создает UIImage из значения в AssetImageName
-    /// - Parameter name: Кейс из  AssetImageName соответствующий нужному изображению
+    /// Создает экземпляр `UIImage` на основе перечисления `AssetImageName`, устраняя необходимость в строковых
+    /// литералах.
+    /// - Parameter name: Кейс из перечисления `AssetImageName`, соответствующий названию нужного изображения.
     convenience init?(_ name: AssetImageName) {
         self.init(named: name.rawValue)
     }

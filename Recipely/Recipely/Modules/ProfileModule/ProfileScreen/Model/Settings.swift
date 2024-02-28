@@ -10,5 +10,5 @@ struct Setting {
     /// Название настройки
     var name: String
     /// Идентификатор насройки
-    var type: SettingType
+    var type: ProfileSubSection
 }

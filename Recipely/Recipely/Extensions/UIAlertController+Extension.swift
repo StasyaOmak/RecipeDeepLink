@@ -4,7 +4,11 @@
 import UIKit
 
 extension UIAlertController {
-    /// Удобный инициализатор в котором можно опускать параметры
+    /// Создает экземпляр `UIAlertController` с возможностью опускания некоторых параметров для упрощения инициализации.
+    /// - Parameters:
+    ///   - title: Заголовок алерта. Опциональный параметр, по умолчанию `nil`.
+    ///   - message: Сообщение алерта. Опциональный параметр, по умолчанию `nil`.
+    ///   - style: Стиль алерта, который может быть `.alert` или `.actionSheet`. По умолчанию `.alert`.
     convenience init(
         title: String? = nil,
         message: String? = nil,
