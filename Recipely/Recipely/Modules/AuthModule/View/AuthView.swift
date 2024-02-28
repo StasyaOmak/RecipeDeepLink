@@ -46,6 +46,8 @@ final class AuthView: UIViewController {
         ), for: .touchUpInside)
         return button
     }()
+    
+    
 
     private lazy var hideOpenPasswordButton = {
         let button = UIButton()
