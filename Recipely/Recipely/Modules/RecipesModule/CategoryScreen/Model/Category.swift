@@ -3,16 +3,68 @@
 
 import Foundation
 
-///  Данные рецепта
-struct Category {
+// Информация о рецепте
+protocol CategoryProtocol {
     /// Название изображение рецепта
-    var nameImage: String
+    var nameImage: String { get set }
     /// Название блюда
-    var nameDish: String
+    var nameDish: String { get set }
     /// Время приготовления
-    var cookingTime: String
+    var cookingTime: Int { get set }
     /// Количество килокалорий
-    var numberCalories: String
-    
-    
+    var numberCalories: Int { get set }
+
+    /// Создает массив рецептов
+    static func makeRecipes() -> [Self]
+}
+
+///  Рефлизация протокола
+struct Category: CategoryProtocol {
+    var nameImage: String
+    var nameDish: String
+//    var cookingTime: String
+    var cookingTime: Int
+//    var numberCalories: String
+    var numberCalories: Int
+//    "Baked Fish with Lemon Herb \nSauce"
+    static func makeRecipes() -> [Category] {
+        [
+            .init(
+                nameImage: "fishWithCorn",
+                nameDish: "Simple Fish And Corn",
+                cookingTime: 60,
+                numberCalories: 274
+            ),
+            .init(
+                nameImage: "bakedFish",
+                nameDish: "baked fish with Lemon Herb Sauce",
+                cookingTime: 90,
+                numberCalories: 616
+            ),
+            .init(
+                nameImage: "fishBurrito",
+                nameDish: "Lemon and Chilli Fish Burrito",
+                cookingTime: 90,
+                numberCalories: 226
+            ),
+            .init(
+                nameImage: "fishWithGreenPeas",
+                nameDish: "Fast Roast Fish & Show Peas Recipes",
+                cookingTime: 80,
+                numberCalories: 94
+            ),
+            .init(
+                nameImage: "salmonWithMelon",
+                nameDish: "Salmon with Cantaloupe and Fried Shallots",
+                cookingTime: 100,
+                numberCalories: 410
+            ),
+            .init(
+                nameImage: "fishWithPepper",
+                nameDish: "Chilli and Tomato Fish",
+                cookingTime: 100,
+                numberCalories: 174
+            ),
+        ]
+    }
 }
