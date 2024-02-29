@@ -3,14 +3,14 @@
 
 import UIKit
 
-/// Интерфейс общения с RecipesView
-protocol RecipesViewInput: AnyObject {}
+/// Интерфейс взаимодействия с RecipesView
+protocol RecipesViewProtocol: AnyObject {}
 
 /// Вью экрана списка рецептов
 final class RecipesView: UIViewController {
     // MARK: - Public Properties
 
-    var presenter: RecipesPresenterInput?
+    var presenter: RecipesPresenterProtocol?
 
     // MARK: - Life Cycle
 
@@ -20,4 +20,4 @@ final class RecipesView: UIViewController {
     }
 }
 
-extension RecipesView: RecipesViewInput {}
+extension RecipesView: RecipesViewProtocol {}

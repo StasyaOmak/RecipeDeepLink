@@ -13,6 +13,8 @@ extension String {
 
 extension String {
     /// Примеяет к строке переданное регулярное выражение
+    /// - Parameter pattern: Шаблон регулярного выражения, к которому будет проверяться строка.
+    /// - Returns: `true`, если строка соответствует регулярному выражению, иначе `false`.
     func validateUsing(_ pattern: String) -> Bool {
         guard let regEx = try? NSRegularExpression(pattern: pattern, options: .caseInsensitive) else {
             print("Can not create regular expression from: \"\(pattern)\"")

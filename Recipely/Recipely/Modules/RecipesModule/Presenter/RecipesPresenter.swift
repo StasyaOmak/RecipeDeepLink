@@ -3,32 +3,23 @@
 
 import Foundation
 
-/// Интерфейс иньекции зависимостей в RecipesPresenter
-protocol RecipesPresenterProtocol: AnyObject {
-    /// Добавляет координатор экрана списка рецептов в качесте зависимости
-    /// - Parameter coordinator: Координатор экрана списка рецептов
-    func injectCoordinator(_ coordinator: RecipesCoordinatorProtocol)
-}
-
-/// Интерфейс общения с RecipesPresenter
-protocol RecipesPresenterInput: AnyObject {}
+/// Интерфейс взаимодействия с RecipesPresenter
+protocol RecipesPresenterProtocol: AnyObject {}
 
 /// Вью экрана списка рецептов
 final class RecipesPresenter: NSObject {
-    // MARK: - Public Properties
-
-    weak var view: RecipesViewInput?
-
     // MARK: - Private Properties
 
     private weak var coordinator: RecipesCoordinatorProtocol?
-    private var user = User()
-}
+    private weak var view: RecipesViewProtocol?
+    private var recipes = Recipes()
 
-extension RecipesPresenter: RecipesPresenterInput {}
+    // MARK: - Initializers
 
-extension RecipesPresenter: RecipesPresenterProtocol {
-    func injectCoordinator(_ coordinator: RecipesCoordinatorProtocol) {
+    init(view: RecipesViewProtocol, coordinator: RecipesCoordinatorProtocol) {
+        self.view = view
         self.coordinator = coordinator
     }
 }
+
+extension RecipesPresenter: RecipesPresenterProtocol {}

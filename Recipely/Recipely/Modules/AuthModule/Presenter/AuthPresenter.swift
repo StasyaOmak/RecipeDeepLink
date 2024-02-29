@@ -3,32 +3,55 @@
 
 import Foundation
 
-/// Интерфейс иньекции зависимостей в AuthPresenter
+/// Интерфейс взаимодействия с AuthPresenter
 protocol AuthPresenterProtocol: AnyObject {
-    /// Добавляет координатор экрана аутентификации в качесте зависимости
-    /// - Parameter AuthPresenter: Координатор экрана аутентификации
-    func injectCoordinator(_ coordinator: AuthCoordinatorProtocol)
+    // функция для отображения об ошибке если не прошел валидность текст email
+    func emailTextFieldValueChanged(to text: String?)
+    // функция для отображения об ошибке если не прошел валидность текст password
+    func loginButtonTapped(withPassword password: String?)
+    // функция для отображения предупреждений об ошибке при авторизации
+    func showWarning()
 }
-
-/// Интерфейс общения с AuthPresenter
-protocol AuthPresenterInput: AnyObject {}
 
 /// Вью экрана аутентификаци
 final class AuthPresenter {
-    // MARK: - Public Properties
-
-    weak var view: AuthViewInput?
-
     // MARK: - Private Properties
 
     private weak var coordinator: AuthCoordinatorProtocol?
-    private var profile = User()
+    private weak var view: AuthViewProtocol?
+    private var validator = Validator()
+
+    // MARK: - Initializers
+
+    init(view: AuthViewProtocol, coordinator: AuthCoordinatorProtocol) {
+        self.view = view
+        self.coordinator = coordinator
+    }
 }
 
-extension AuthPresenter: AuthPresenterInput {}
-
 extension AuthPresenter: AuthPresenterProtocol {
-    func injectCoordinator(_ coordinator: AuthCoordinatorProtocol) {
-        self.coordinator = coordinator
+    func showWarning() {
+        view?.showWarning()
+    }
+
+    func emailTextFieldValueChanged(to text: String?) {
+        if let text, validator.isEmailValid(text) || text.isEmpty {
+            view?.setEmailFieldStateTo(.plain)
+        } else {
+            view?.setEmailFieldStateTo(.highlited)
+        }
+    }
+
+    func loginButtonTapped(withPassword password: String?) {
+        view?.startIndicator()
+        Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { [view] _ in
+            view?.stopIndicator()
+            if let password, self.validator.isPasswordValid(password) || password.isEmpty {
+                view?.setPasswordFieldStateTo(.plain)
+            } else {
+                view?.setPasswordFieldStateTo(.highlited)
+                view?.showWarning()
+            }
+        }
     }
 }

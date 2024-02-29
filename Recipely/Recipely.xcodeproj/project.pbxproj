@@ -7,6 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9D499B182B8E6878007B36D0 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D499B172B8E6878007B36D0 /* ProfileCell.swift */; };
+		9D499B1A2B8E6988007B36D0 /* SettingsFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D499B192B8E6988007B36D0 /* SettingsFieldCell.swift */; };
+		9D499B1C2B8E6B4C007B36D0 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D499B1B2B8E6B4C007B36D0 /* UIImage+Extension.swift */; };
+		9D499B1E2B8E6B60007B36D0 /* AssetImageName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D499B1D2B8E6B60007B36D0 /* AssetImageName.swift */; };
+		9D499B202B8E73AC007B36D0 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D499B1F2B8E73AC007B36D0 /* Settings.swift */; };
+		9D499B222B8E7422007B36D0 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D499B212B8E7422007B36D0 /* Profile.swift */; };
+		9D499B272B8E9795007B36D0 /* ProfileSubSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D499B262B8E9795007B36D0 /* ProfileSubSection.swift */; };
+		9D499B2A2B8E9F91007B36D0 /* LoyaltyProgramView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D499B292B8E9F91007B36D0 /* LoyaltyProgramView.swift */; };
+		9D499B2E2B8EA08E007B36D0 /* LoyaltyProgramPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D499B2D2B8EA08E007B36D0 /* LoyaltyProgramPresenter.swift */; };
+		9D499B312B8EA0B5007B36D0 /* LoyaltyProgram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D499B302B8EA0B5007B36D0 /* LoyaltyProgram.swift */; };
+		9D499B342B8F6446007B36D0 /* ProfileSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D499B332B8F6446007B36D0 /* ProfileSection.swift */; };
+		9D499B362B8F7937007B36D0 /* LoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D499B352B8F7937007B36D0 /* LoginButton.swift */; };
+		9D499B382B8F9D49007B36D0 /* TypeAlieses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D499B372B8F9D49007B36D0 /* TypeAlieses.swift */; };
 		9D6115462B8D312E008EF247 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D61153F2B8D312E008EF247 /* AuthCoordinator.swift */; };
 		9D6115472B8D312E008EF247 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6115452B8D312E008EF247 /* Validator.swift */; };
 		9D6115482B8D312E008EF247 /* AuthPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6115432B8D312E008EF247 /* AuthPresenter.swift */; };
@@ -31,7 +44,7 @@
 		9D952B6A2B8D226E00F6D8CC /* RecipelyTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D952B692B8D226E00F6D8CC /* RecipelyTabBarController.swift */; };
 		9D952B6C2B8D22A100F6D8CC /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D952B6B2B8D22A100F6D8CC /* Coordinator.swift */; };
 		9D952B6E2B8D22DC00F6D8CC /* BaseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D952B6D2B8D22DC00F6D8CC /* BaseCoordinator.swift */; };
-		9D952B712B8D231800F6D8CC /* RecipelyCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D952B702B8D231800F6D8CC /* RecipelyCoordinator.swift */; };
+		9D952B712B8D231800F6D8CC /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D952B702B8D231800F6D8CC /* AppCoordinator.swift */; };
 		9D952B732B8D235D00F6D8CC /* ModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D952B722B8D235D00F6D8CC /* ModuleBuilder.swift */; };
 		9D952B752B8D25E800F6D8CC /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D952B742B8D25E800F6D8CC /* ProfileView.swift */; };
 		9D952B772B8D261900F6D8CC /* ProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D952B762B8D261900F6D8CC /* ProfilePresenter.swift */; };
@@ -44,6 +57,19 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9D499B172B8E6878007B36D0 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
+		9D499B192B8E6988007B36D0 /* SettingsFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFieldCell.swift; sourceTree = "<group>"; };
+		9D499B1B2B8E6B4C007B36D0 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
+		9D499B1D2B8E6B60007B36D0 /* AssetImageName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetImageName.swift; sourceTree = "<group>"; };
+		9D499B1F2B8E73AC007B36D0 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		9D499B212B8E7422007B36D0 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		9D499B262B8E9795007B36D0 /* ProfileSubSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSubSection.swift; sourceTree = "<group>"; };
+		9D499B292B8E9F91007B36D0 /* LoyaltyProgramView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoyaltyProgramView.swift; sourceTree = "<group>"; };
+		9D499B2D2B8EA08E007B36D0 /* LoyaltyProgramPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoyaltyProgramPresenter.swift; sourceTree = "<group>"; };
+		9D499B302B8EA0B5007B36D0 /* LoyaltyProgram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoyaltyProgram.swift; sourceTree = "<group>"; };
+		9D499B332B8F6446007B36D0 /* ProfileSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSection.swift; sourceTree = "<group>"; };
+		9D499B352B8F7937007B36D0 /* LoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginButton.swift; sourceTree = "<group>"; };
+		9D499B372B8F9D49007B36D0 /* TypeAlieses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeAlieses.swift; sourceTree = "<group>"; };
 		9D61153F2B8D312E008EF247 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
 		9D6115412B8D312E008EF247 /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		9D6115432B8D312E008EF247 /* AuthPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPresenter.swift; sourceTree = "<group>"; };
@@ -70,7 +96,7 @@
 		9D952B692B8D226E00F6D8CC /* RecipelyTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipelyTabBarController.swift; sourceTree = "<group>"; };
 		9D952B6B2B8D22A100F6D8CC /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		9D952B6D2B8D22DC00F6D8CC /* BaseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCoordinator.swift; sourceTree = "<group>"; };
-		9D952B702B8D231800F6D8CC /* RecipelyCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipelyCoordinator.swift; sourceTree = "<group>"; };
+		9D952B702B8D231800F6D8CC /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		9D952B722B8D235D00F6D8CC /* ModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleBuilder.swift; sourceTree = "<group>"; };
 		9D952B742B8D25E800F6D8CC /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		9D952B762B8D261900F6D8CC /* ProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePresenter.swift; sourceTree = "<group>"; };
@@ -93,6 +119,59 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9D499B232B8E85EE007B36D0 /* TableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				9D499B172B8E6878007B36D0 /* ProfileCell.swift */,
+				9D499B192B8E6988007B36D0 /* SettingsFieldCell.swift */,
+			);
+			path = TableViewCells;
+			sourceTree = "<group>";
+		};
+		9D499B282B8E9F30007B36D0 /* ProfileScreen */ = {
+			isa = PBXGroup;
+			children = (
+				9D952B7D2B8D264F00F6D8CC /* Model */,
+				9D952B792B8D263500F6D8CC /* View */,
+				9D952B7A2B8D263B00F6D8CC /* Presenter */,
+			);
+			path = ProfileScreen;
+			sourceTree = "<group>";
+		};
+		9D499B2B2B8EA04E007B36D0 /* LoyaltyProgramScreen */ = {
+			isa = PBXGroup;
+			children = (
+				9D499B322B8EA0C5007B36D0 /* Model */,
+				9D499B2C2B8EA05C007B36D0 /* View */,
+				9D499B2F2B8EA092007B36D0 /* Presenter */,
+			);
+			path = LoyaltyProgramScreen;
+			sourceTree = "<group>";
+		};
+		9D499B2C2B8EA05C007B36D0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9D499B292B8E9F91007B36D0 /* LoyaltyProgramView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		9D499B2F2B8EA092007B36D0 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				9D499B2D2B8EA08E007B36D0 /* LoyaltyProgramPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		9D499B322B8EA0C5007B36D0 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9D499B302B8EA0B5007B36D0 /* LoyaltyProgram.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		9D61153E2B8D312E008EF247 /* AuthModule */ = {
 			isa = PBXGroup;
 			children = (
@@ -108,6 +187,7 @@
 			isa = PBXGroup;
 			children = (
 				9D6115412B8D312E008EF247 /* AuthView.swift */,
+				9D499B352B8F7937007B36D0 /* LoginButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -185,6 +265,9 @@
 				9D6115742B8D6877008EF247 /* UIFont+Extension.swift */,
 				9D6115762B8D68F5008EF247 /* UIAlertController+Extension.swift */,
 				9D6115782B8D6917008EF247 /* UIAlertAction+Extension.swift */,
+				9D499B1B2B8E6B4C007B36D0 /* UIImage+Extension.swift */,
+				9D499B1D2B8E6B60007B36D0 /* AssetImageName.swift */,
+				9D499B372B8F9D49007B36D0 /* TypeAlieses.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -210,7 +293,7 @@
 			children = (
 				9D952B4D2B8D1CBC00F6D8CC /* AppDelegate.swift */,
 				9D952B4F2B8D1CBC00F6D8CC /* SceneDelegate.swift */,
-				9D952B702B8D231800F6D8CC /* RecipelyCoordinator.swift */,
+				9D952B702B8D231800F6D8CC /* AppCoordinator.swift */,
 				9D952B672B8D223500F6D8CC /* RecipelyTabBarCoordinator.swift */,
 				9D952B692B8D226E00F6D8CC /* RecipelyTabBarController.swift */,
 				9D952B722B8D235D00F6D8CC /* ModuleBuilder.swift */,
@@ -237,9 +320,8 @@
 			isa = PBXGroup;
 			children = (
 				9D952B7E2B8D283000F6D8CC /* ProfileCoordinator.swift */,
-				9D952B7D2B8D264F00F6D8CC /* Model */,
-				9D952B792B8D263500F6D8CC /* View */,
-				9D952B7A2B8D263B00F6D8CC /* Presenter */,
+				9D499B282B8E9F30007B36D0 /* ProfileScreen */,
+				9D499B2B2B8EA04E007B36D0 /* LoyaltyProgramScreen */,
 			);
 			path = ProfileModule;
 			sourceTree = "<group>";
@@ -248,6 +330,7 @@
 			isa = PBXGroup;
 			children = (
 				9D952B742B8D25E800F6D8CC /* ProfileView.swift */,
+				9D499B232B8E85EE007B36D0 /* TableViewCells */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -263,7 +346,11 @@
 		9D952B7D2B8D264F00F6D8CC /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				9D499B212B8E7422007B36D0 /* Profile.swift */,
 				9D952B7B2B8D264B00F6D8CC /* User.swift */,
+				9D499B1F2B8E73AC007B36D0 /* Settings.swift */,
+				9D499B332B8F6446007B36D0 /* ProfileSection.swift */,
+				9D499B262B8E9795007B36D0 /* ProfileSubSection.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -419,7 +506,11 @@
 				9D952B772B8D261900F6D8CC /* ProfilePresenter.swift in Sources */,
 				9D61156D2B8D67AE008EF247 /* NSLayoutConstraint+Extension.swift in Sources */,
 				9D952B8A2B8D2CE300F6D8CC /* Favourites.swift in Sources */,
+				9D499B182B8E6878007B36D0 /* ProfileCell.swift in Sources */,
 				9D6115492B8D312E008EF247 /* AuthView.swift in Sources */,
+				9D499B312B8EA0B5007B36D0 /* LoyaltyProgram.swift in Sources */,
+				9D499B342B8F6446007B36D0 /* ProfileSection.swift in Sources */,
+				9D499B2A2B8E9F91007B36D0 /* LoyaltyProgramView.swift in Sources */,
 				9D952B7C2B8D264B00F6D8CC /* User.swift in Sources */,
 				9D952B4E2B8D1CBC00F6D8CC /* AppDelegate.swift in Sources */,
 				9D6115672B8D54CC008EF247 /* RecipesPresenter.swift in Sources */,
@@ -428,24 +519,33 @@
 				9D952B752B8D25E800F6D8CC /* ProfileView.swift in Sources */,
 				9D6115712B8D6816008EF247 /* String+Extension.swift in Sources */,
 				9D6115662B8D54CC008EF247 /* RecipesCoordinator.swift in Sources */,
+				9D499B272B8E9795007B36D0 /* ProfileSubSection.swift in Sources */,
 				9D952B7F2B8D283000F6D8CC /* ProfileCoordinator.swift in Sources */,
 				9D952B6C2B8D22A100F6D8CC /* Coordinator.swift in Sources */,
 				9D6115472B8D312E008EF247 /* Validator.swift in Sources */,
 				9D952B682B8D223500F6D8CC /* RecipelyTabBarCoordinator.swift in Sources */,
+				9D499B202B8E73AC007B36D0 /* Settings.swift in Sources */,
 				9D952B8B2B8D2CE300F6D8CC /* FavouritesView.swift in Sources */,
 				9D952B6E2B8D22DC00F6D8CC /* BaseCoordinator.swift in Sources */,
 				9D952B892B8D2CE300F6D8CC /* FavouritesCoordinator.swift in Sources */,
 				9D6115752B8D6877008EF247 /* UIFont+Extension.swift in Sources */,
 				9D6115792B8D6917008EF247 /* UIAlertAction+Extension.swift in Sources */,
+				9D499B1C2B8E6B4C007B36D0 /* UIImage+Extension.swift in Sources */,
 				9D952B732B8D235D00F6D8CC /* ModuleBuilder.swift in Sources */,
 				9D6115652B8D54CC008EF247 /* RecipesView.swift in Sources */,
-				9D952B712B8D231800F6D8CC /* RecipelyCoordinator.swift in Sources */,
+				9D952B712B8D231800F6D8CC /* AppCoordinator.swift in Sources */,
 				9D6115482B8D312E008EF247 /* AuthPresenter.swift in Sources */,
+				9D499B1E2B8E6B60007B36D0 /* AssetImageName.swift in Sources */,
+				9D499B362B8F7937007B36D0 /* LoginButton.swift in Sources */,
+				9D499B382B8F9D49007B36D0 /* TypeAlieses.swift in Sources */,
 				9D6115462B8D312E008EF247 /* AuthCoordinator.swift in Sources */,
+				9D499B1A2B8E6988007B36D0 /* SettingsFieldCell.swift in Sources */,
 				9D61156F2B8D67CD008EF247 /* Array+Extension.swift in Sources */,
 				9D6115682B8D54CC008EF247 /* Recipes.swift in Sources */,
 				9D952B502B8D1CBC00F6D8CC /* SceneDelegate.swift in Sources */,
 				9D952B6A2B8D226E00F6D8CC /* RecipelyTabBarController.swift in Sources */,
+				9D499B2E2B8EA08E007B36D0 /* LoyaltyProgramPresenter.swift in Sources */,
+				9D499B222B8E7422007B36D0 /* Profile.swift in Sources */,
 				9D61156A2B8D6778008EF247 /* UIView+Extension.swift in Sources */,
 				9D952B882B8D2CE300F6D8CC /* FavouritesPresenter.swift in Sources */,
 			);
