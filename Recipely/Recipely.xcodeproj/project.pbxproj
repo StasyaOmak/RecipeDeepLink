@@ -20,6 +20,8 @@
 		9D499B342B8F6446007B36D0 /* ProfileSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D499B332B8F6446007B36D0 /* ProfileSection.swift */; };
 		9D499B362B8F7937007B36D0 /* LoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D499B352B8F7937007B36D0 /* LoginButton.swift */; };
 		9D499B382B8F9D49007B36D0 /* TypeAlieses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D499B372B8F9D49007B36D0 /* TypeAlieses.swift */; };
+		9D499B3A2B9085EE007B36D0 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D499B392B9085EE007B36D0 /* Category.swift */; };
+		9D499B3C2B908BFB007B36D0 /* RacepyCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D499B3B2B908BFB007B36D0 /* RacepyCategoryCell.swift */; };
 		9D6115462B8D312E008EF247 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D61153F2B8D312E008EF247 /* AuthCoordinator.swift */; };
 		9D6115472B8D312E008EF247 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6115452B8D312E008EF247 /* Validator.swift */; };
 		9D6115482B8D312E008EF247 /* AuthPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6115432B8D312E008EF247 /* AuthPresenter.swift */; };
@@ -70,6 +72,8 @@
 		9D499B332B8F6446007B36D0 /* ProfileSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSection.swift; sourceTree = "<group>"; };
 		9D499B352B8F7937007B36D0 /* LoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginButton.swift; sourceTree = "<group>"; };
 		9D499B372B8F9D49007B36D0 /* TypeAlieses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeAlieses.swift; sourceTree = "<group>"; };
+		9D499B392B9085EE007B36D0 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		9D499B3B2B908BFB007B36D0 /* RacepyCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RacepyCategoryCell.swift; sourceTree = "<group>"; };
 		9D61153F2B8D312E008EF247 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
 		9D6115412B8D312E008EF247 /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		9D6115432B8D312E008EF247 /* AuthPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPresenter.swift; sourceTree = "<group>"; };
@@ -234,6 +238,7 @@
 			isa = PBXGroup;
 			children = (
 				9D6115602B8D54CC008EF247 /* Recipes.swift */,
+				9D499B392B9085EE007B36D0 /* Category.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -250,6 +255,7 @@
 			isa = PBXGroup;
 			children = (
 				9D6115642B8D54CC008EF247 /* RecipesView.swift */,
+				9D499B3B2B908BFB007B36D0 /* RacepyCategoryCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -511,6 +517,7 @@
 				9D499B312B8EA0B5007B36D0 /* LoyaltyProgram.swift in Sources */,
 				9D499B342B8F6446007B36D0 /* ProfileSection.swift in Sources */,
 				9D499B2A2B8E9F91007B36D0 /* LoyaltyProgramView.swift in Sources */,
+				9D499B3C2B908BFB007B36D0 /* RacepyCategoryCell.swift in Sources */,
 				9D952B7C2B8D264B00F6D8CC /* User.swift in Sources */,
 				9D952B4E2B8D1CBC00F6D8CC /* AppDelegate.swift in Sources */,
 				9D6115672B8D54CC008EF247 /* RecipesPresenter.swift in Sources */,
@@ -540,6 +547,7 @@
 				9D499B382B8F9D49007B36D0 /* TypeAlieses.swift in Sources */,
 				9D6115462B8D312E008EF247 /* AuthCoordinator.swift in Sources */,
 				9D499B1A2B8E6988007B36D0 /* SettingsFieldCell.swift in Sources */,
+				9D499B3A2B9085EE007B36D0 /* Category.swift in Sources */,
 				9D61156F2B8D67CD008EF247 /* Array+Extension.swift in Sources */,
 				9D6115682B8D54CC008EF247 /* Recipes.swift in Sources */,
 				9D952B502B8D1CBC00F6D8CC /* SceneDelegate.swift in Sources */,
@@ -691,6 +699,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KV44Y72Q9R;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Recipely/Info.plist;
@@ -718,6 +727,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KV44Y72Q9R;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Recipely/Info.plist;

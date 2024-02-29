@@ -9,4 +9,14 @@ enum AssetImageName: String {
     case logOutIcon
     case starIcon
     case documentIcon
+
+    case chicken
+    case desserts
+    case drinks
+    case fish
+    case meat
+    case pancakes
+    case salad
+    case sideDish
+    case soup
 }
