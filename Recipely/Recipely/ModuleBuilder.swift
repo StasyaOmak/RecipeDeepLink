@@ -17,6 +17,8 @@ protocol Builder: AnyObject {
     func buildProfileScreen(coordinator: ProfileCoordinatorProtocol) -> ProfileView
     /// Собирает экран программы лояльности
     func buildLoyaltyProgramScreen(coordinator: ProfileCoordinatorProtocol) -> LoyaltyProgramView
+    /// Собирает экран со списком категорий рецептов
+    func categoryScreen(coordinator: CategoryCoordinatorProtocol) -> CategoryView
 }
 
 final class ModuleBuilder: Builder {
@@ -29,6 +31,13 @@ final class ModuleBuilder: Builder {
     }
 
     // MARK: - Public Methods
+
+    func categoryScreen(coordinator: CategoryCoordinatorProtocol) -> CategoryView {
+        let view = CategoryView()
+        let present = CategoryPresenter(view: view, coordinator: coordinator)
+        view.presenter = present
+        return view
+    }
 
     func buildRecipelyTabBarController() -> RecipelyTabBarController {
         RecipelyTabBarController()
