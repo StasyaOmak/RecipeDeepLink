@@ -29,7 +29,7 @@ final class RecipesCoordinator: BaseCoordinator {
     // MARK: - Public Methods
 
     override func start() {
-        let recipesScreen = builder.buildRecipesScreen(coordinator: self)
+        let recipesScreen = builder.categoryScreen()
         rootController.setViewControllers([recipesScreen], animated: false)
     }
 }

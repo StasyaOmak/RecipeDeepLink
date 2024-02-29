@@ -30,4 +30,10 @@ final class AppCoordinator: BaseCoordinator {
         window?.makeKeyAndVisible()
         tabBarCoordinator.start()
     }
+
+//    override func start() {
+//        let tabBarController = CategoryView()
+//        window?.rootViewController = tabBarController
+//        window?.makeKeyAndVisible()
+//    }
 }

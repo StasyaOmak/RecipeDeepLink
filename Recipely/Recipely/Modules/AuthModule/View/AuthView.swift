@@ -80,7 +80,7 @@ final class AuthView: UIViewController {
         let label = UILabel()
         label.text = Constants.loginText
         label.font = .verdanaBold?.withSize(28)
-        label.textColor = UIColor.authorizationsText
+        label.textColor = .textAccent
         return label
     }()
 
@@ -88,7 +88,7 @@ final class AuthView: UIViewController {
         let label = UILabel()
         label.text = Constants.emailAddressText
         label.font = .verdanaBold?.withSize(18)
-        label.textColor = UIColor.authorizationsText
+        label.textColor = .textAccent
         return label
     }()
 
@@ -101,7 +101,7 @@ final class AuthView: UIViewController {
 
     private let envelopeIconImageView = {
         let image = UIImageView()
-        image.image = UIImage.envelopeIcon
+        image.image = .envelopeIcon
         return image
     }()
 
@@ -109,7 +109,7 @@ final class AuthView: UIViewController {
         let label = UILabel()
         label.text = Constants.passwordText
         label.font = .verdana?.withSize(18)
-        label.textColor = UIColor.authorizationsText
+        label.textColor = .textAccent
         return label
     }()
 
@@ -412,7 +412,7 @@ extension AuthView: AuthViewProtocol {
         switch state {
         case .plain:
             warningsEmailLabel.isHidden = true
-            emailAddressLabel.textColor = .authorizationsText
+            emailAddressLabel.textColor = .textAccent
         case .highlited:
             warningsEmailLabel.isHidden = false
             emailAddressLabel.textColor = .red
@@ -423,7 +423,7 @@ extension AuthView: AuthViewProtocol {
         switch state {
         case .plain:
             warningsPasswordLabel.isHidden = true
-            passwordLabel.textColor = .authorizationsText
+            passwordLabel.textColor = .textAccent
         case .highlited:
             warningsPasswordLabel.isHidden = false
             passwordLabel.textColor = .red
