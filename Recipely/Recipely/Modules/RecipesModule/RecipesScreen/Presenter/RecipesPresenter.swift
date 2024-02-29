@@ -4,10 +4,17 @@
 import Foundation
 
 /// Интерфейс взаимодействия с RecipesPresenter
-protocol RecipesPresenterProtocol: AnyObject {}
+protocol RecipesPresenterProtocol: AnyObject {
+    /// Получить количество категорий рецептов.
+    func getNumberOfCategories() -> Int
+    /// Получить категорию по указанному индексу
+    func getCategory(forIndex index: Int) -> Category
+    /// Обработатка выбора категории рецептов.
+    func didSelectCategory(atIndex index: Int)
+}
 
-/// Презентер экрана списка рецептов
-final class RecipesPresenter: NSObject {
+/// Вью экрана списка рецептов
+final class RecipesPresenter {
     // MARK: - Private Properties
 
     private weak var coordinator: RecipesCoordinatorProtocol?
@@ -22,4 +29,16 @@ final class RecipesPresenter: NSObject {
     }
 }
 
-extension RecipesPresenter: RecipesPresenterProtocol {}
+extension RecipesPresenter: RecipesPresenterProtocol {
+    func getNumberOfCategories() -> Int {
+        recipes.categories.count
+    }
+
+    func getCategory(forIndex index: Int) -> Category {
+        recipes.categories[index]
+    }
+
+    func didSelectCategory(atIndex index: Int) {
+        coordinator?.showCategoryScreen()
+    }
+}

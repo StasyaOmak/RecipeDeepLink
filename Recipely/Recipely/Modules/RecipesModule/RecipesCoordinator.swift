@@ -4,7 +4,10 @@
 import UIKit
 
 /// Интерфейс взаимодействия с RecipesCoordinator
-protocol RecipesCoordinatorProtocol: AnyObject {}
+protocol RecipesCoordinatorProtocol: AnyObject {
+    /// Презентует экран с блюдами из выбранной категории
+    func showCategoryScreen()
+}
 
 /// Координатор модуля рецептов
 final class RecipesCoordinator: BaseCoordinator {
@@ -31,4 +34,6 @@ final class RecipesCoordinator: BaseCoordinator {
     }
 }
 
-extension RecipesCoordinator: RecipesCoordinatorProtocol {}
+extension RecipesCoordinator: RecipesCoordinatorProtocol {
+    func showCategoryScreen() {}
+}
