@@ -5,7 +5,7 @@ import Foundation
 
 /// Интерфейс взаимодействия с CategoryPresenter
 protocol CategoryPresenterProtocol {
-    var category: [CategoryProtocol] { get }
+    var recipes: [CategoryRecipesProtocol] { get }
     func changesCaloriesSortingStatus()
     func changesTimeSortingStatus()
 }
@@ -14,12 +14,11 @@ protocol CategoryPresenterProtocol {
 final class CategoryPresenter {
     // MARK: - Private Properties
 
-    private(set) var category: [CategoryProtocol] = Category.makeRecipes()
+    private(set) var recipes: [CategoryRecipesProtocol] = CategoryRecipes.makeRecipes()
     private weak var view: CategoryViewProtocol?
     private var conditionCalories = Condition.notPressed
     private var conditionTime = Condition.notPressed
     private weak var coordinator: RecipesCoordinator?
-    
 
     // MARK: - Initializers
 

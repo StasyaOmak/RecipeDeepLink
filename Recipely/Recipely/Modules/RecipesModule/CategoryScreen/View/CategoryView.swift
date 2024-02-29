@@ -206,14 +206,14 @@ extension CategoryView: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        presenter?.category.count ?? 0
+        presenter?.recipes.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let items = content[indexPath.section]
         switch items {
         case .recipes:
-            guard let category = presenter?.category,
+            guard let category = presenter?.recipes,
                   let cell = tableView.dequeueReusableCell(
                       withIdentifier: RecipeCell.description(),
                       for: indexPath

@@ -71,7 +71,7 @@ class RecipeCell: UITableViewCell {
 
     // MARK: - Public Methods
 
-    func configureCell(category: CategoryProtocol) {
+    func configureCell(category: CategoryRecipesProtocol) {
         dishImageView.image = UIImage(named: category.nameImage)
         namedishLabel.text = category.nameDish
         timetLabel.text = "\(category.cookingTime) \(Constants.minutes)"

@@ -1,10 +1,10 @@
-// Category.swift
+// Recipe.swift
 // Copyright © RoadMap. All rights reserved.
 
 import Foundation
 
 // Информация о рецепте
-protocol CategoryProtocol {
+protocol CategoryRecipesProtocol {
     /// Название изображение рецепта
     var nameImage: String { get set }
     /// Название блюда
@@ -19,13 +19,13 @@ protocol CategoryProtocol {
 }
 
 ///  Рефлизация протокола
-struct Category: CategoryProtocol {
+struct CategoryRecipes: CategoryRecipesProtocol {
     var nameImage: String
     var nameDish: String
     var cookingTime: Int
     var numberCalories: Int
 
-    static func makeRecipes() -> [Category] {
+    static func makeRecipes() -> [CategoryRecipes] {
         [
             .init(
                 nameImage: "fishWithCorn",
