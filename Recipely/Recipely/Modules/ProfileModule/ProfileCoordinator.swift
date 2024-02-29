@@ -5,6 +5,7 @@ import UIKit
 
 /// Интерфейс взаимодействия с ProfileCoordinator
 protocol ProfileCoordinatorProtocol: AnyObject {
+    /// Презентует экран программы лояльности
     func showLoyaltyProgramScreen()
 }
 

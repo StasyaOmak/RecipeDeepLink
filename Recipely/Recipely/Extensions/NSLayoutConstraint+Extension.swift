@@ -10,6 +10,11 @@ extension NSLayoutConstraint {
         isActive = true
     }
 
+    /// Деактивирует текущую констрейнту
+    func deactivate() {
+        isActive = false
+    }
+
     /// Модифицирует текущую констрейнту указанным приоритетом
     /// - Parameter priority: Приоритет который нужно применить к констрейнте
     /// - Returns: Текущая констрейнта с новым приоритетом
