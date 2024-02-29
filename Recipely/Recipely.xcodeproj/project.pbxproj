@@ -176,6 +176,16 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		9D499B712B912010007B36D0 /* RecipesScreen */ = {
+			isa = PBXGroup;
+			children = (
+				9D61155F2B8D54CC008EF247 /* Model */,
+				9D6115632B8D54CC008EF247 /* View */,
+				9D6115612B8D54CC008EF247 /* Presenter */,
+			);
+			path = RecipesScreen;
+			sourceTree = "<group>";
+		};
 		9D61153E2B8D312E008EF247 /* AuthModule */ = {
 			isa = PBXGroup;
 			children = (
@@ -227,9 +237,7 @@
 			isa = PBXGroup;
 			children = (
 				9D61155E2B8D54CC008EF247 /* RecipesCoordinator.swift */,
-				9D61155F2B8D54CC008EF247 /* Model */,
-				9D6115632B8D54CC008EF247 /* View */,
-				9D6115612B8D54CC008EF247 /* Presenter */,
+				9D499B712B912010007B36D0 /* RecipesScreen */,
 			);
 			path = RecipesModule;
 			sourceTree = "<group>";
