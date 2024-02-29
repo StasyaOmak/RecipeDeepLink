@@ -23,9 +23,10 @@ class CategoryView: UIViewController {
     // MARK: - Constants
 
     private enum Constants {
-        static let calories = "Calories"
-        static let time = "Time"
-        static let fish = "Fish"
+        static let caloriesText = "Calories"
+        static let timeText = "Time"
+        static let fishText = "Fish"
+        static let placeholderText = "Search recipes"
     }
 
     // MARK: - Visual Components
@@ -36,7 +37,7 @@ class CategoryView: UIViewController {
         searhBar.searchBarStyle = .minimal
         searhBar.searchTextField.backgroundColor = UIColor.searhBar
         searhBar.searchTextField.layer.cornerRadius = 12
-        searhBar.placeholder = "Search recipes"
+        searhBar.placeholder = Constants.placeholderText
         searhBar.translatesAutoresizingMaskIntoConstraints = false
         return searhBar
     }()
@@ -59,7 +60,7 @@ class CategoryView: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        addSubview()
+        addSubviews()
         configureTable()
         configureConstraints()
         configureUI()
@@ -74,8 +75,8 @@ class CategoryView: UIViewController {
         tapGestureCalories.addTarget(self, action: #selector(tagCalories))
         caloriesView.addGestureRecognizer(tapGestureCalories)
         timeView.addGestureRecognizer(tapGestureTime)
-        caloriesView.changeParameters(title: Constants.calories, image: .stackBlack)
-        timeView.changeParameters(title: Constants.time, image: .stackBlack)
+        caloriesView.changeParameters(title: Constants.caloriesText, image: .stackBlack)
+        timeView.changeParameters(title: Constants.timeText, image: .stackBlack)
     }
 
     private func setNavigationItem() {
@@ -89,7 +90,7 @@ class CategoryView: UIViewController {
         navigationItem.leftBarButtonItem?.tintColor = .black
     }
 
-    private func addSubview() {
+    private func addSubviews() {
         let subviews = [
             tableView,
             searhBar,
@@ -105,7 +106,7 @@ class CategoryView: UIViewController {
         tableView.dataSource = self
         tableView.separatorStyle = .none
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.register(TableViewCell.self, forCellReuseIdentifier: TableViewCell.description())
+        tableView.register(RecipeCell.self, forCellReuseIdentifier: RecipeCell.description())
         tableView.translatesAutoresizingMaskIntoConstraints = false
         configureTableViewConstraits()
     }
@@ -120,11 +121,11 @@ class CategoryView: UIViewController {
     }
 
     private func configureConstraints() {
-        setupSearhBarConstraints()
-        setupViewConstraints()
+        configureSearhBarConstraints()
+        configureViewConstraints()
     }
 
-    private func setupSearhBarConstraints() {
+    private func configureSearhBarConstraints() {
         [
             searhBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             searhBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
@@ -133,7 +134,7 @@ class CategoryView: UIViewController {
         ].activate()
     }
 
-    private func setupViewConstraints() {
+    private func configureViewConstraints() {
         [
             caloriesView.topAnchor.constraint(equalTo: searhBar.bottomAnchor, constant: 20),
             caloriesView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
@@ -161,17 +162,17 @@ extension CategoryView: CategoryViewProtocol {
         switch condition {
         case .notPressed:
             timeView.backgroundColor = .recipeView
-            timeView.changeParameters(title: Constants.time, image: .stackBlack)
+            timeView.changeParameters(title: Constants.timeText, image: .stackBlack)
         case .sortingMore:
             timeView.backgroundColor = .accent
-            timeView.changeParameters(title: Constants.time, image: .stackWhite)
+            timeView.changeParameters(title: Constants.timeText, image: .stackWhite)
         case .sortingSmaller:
 
             if let image: CGImage = UIImage.stackWhite.cgImage {
                 let newImage = UIImage(cgImage: image, scale: 1, orientation: .downMirrored)
                 timeView.backgroundColor = .accent
                 timeView.changeParameters(
-                    title: Constants.time,
+                    title: Constants.timeText,
                     image: newImage
                 )
             }
@@ -182,17 +183,16 @@ extension CategoryView: CategoryViewProtocol {
         switch condition {
         case .notPressed:
             caloriesView.backgroundColor = .recipeView
-            caloriesView.changeParameters(title: Constants.calories, image: .stackBlack)
+            caloriesView.changeParameters(title: Constants.caloriesText, image: .stackBlack)
         case .sortingMore:
             caloriesView.backgroundColor = .accent
-            caloriesView.changeParameters(title: Constants.calories, image: .stackWhite)
+            caloriesView.changeParameters(title: Constants.caloriesText, image: .stackWhite)
         case .sortingSmaller:
-
             if let image: CGImage = UIImage.stackWhite.cgImage {
                 let newImage = UIImage(cgImage: image, scale: 1, orientation: .downMirrored)
                 caloriesView.backgroundColor = .accent
                 caloriesView.changeParameters(
-                    title: Constants.calories,
+                    title: Constants.caloriesText,
                     image: newImage
                 )
             }
@@ -215,11 +215,11 @@ extension CategoryView: UITableViewDataSource {
         case .recipes:
             guard let category = presenter?.category,
                   let cell = tableView.dequeueReusableCell(
-                      withIdentifier: TableViewCell.description(),
+                      withIdentifier: RecipeCell.description(),
                       for: indexPath
-                  ) as? TableViewCell
+                  ) as? RecipeCell
             else { return UITableViewCell() }
-            cell.setupCell(category: category[indexPath.row])
+            cell.configureCell(category: category[indexPath.row])
             return cell
         }
     }

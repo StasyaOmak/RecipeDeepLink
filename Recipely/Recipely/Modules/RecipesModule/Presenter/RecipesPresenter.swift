@@ -6,7 +6,7 @@ import Foundation
 /// Интерфейс взаимодействия с RecipesPresenter
 protocol RecipesPresenterProtocol: AnyObject {}
 
-/// Вью экрана списка рецептов
+/// Презентер экрана списка рецептов
 final class RecipesPresenter: NSObject {
     // MARK: - Private Properties
 

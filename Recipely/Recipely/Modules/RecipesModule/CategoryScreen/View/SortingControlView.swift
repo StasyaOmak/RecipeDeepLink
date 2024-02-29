@@ -7,7 +7,7 @@ import UIKit
 class SortingControlView: UIView {
     // MARK: - Visual Components
 
-    let controlImageView = {
+    private let controlImageView = {
         let image = UIImageView()
         image.image = .stackBlack
         image.contentMode = .scaleAspectFit
@@ -25,27 +25,26 @@ class SortingControlView: UIView {
 
     // MARK: - Initializers
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupView()
+    init() {
+        super.init(frame: .zero)
+        configureView()
         configureLayout()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        configureView()
+        configureLayout()
     }
 
     // MARK: - Private Methods
 
-    private func setupView() {
+    private func configureView() {
         backgroundColor = .recipeView
         layer.cornerRadius = 20
         addSubviews(controlImageView, nameControlLabel)
 
-        UIView.doNotTAMIC(
-            for: controlImageView,
-            nameControlLabel
-        )
+        UIView.doNotTAMIC(for: controlImageView, nameControlLabel)
     }
 
     func changeParameters(title: String, image: UIImage) {

@@ -21,7 +21,7 @@ protocol ProfilePresenterProtocol: AnyObject {
     func didSubmitNewName(_ name: String)
 }
 
-/// Вью экрана пофиля пользователя
+/// Презентер экрана пофиля пользователя
 final class ProfilePresenter {
     // MARK: - Private Properties
 

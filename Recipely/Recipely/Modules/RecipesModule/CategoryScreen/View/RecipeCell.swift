@@ -1,10 +1,10 @@
-// TableViewCell.swift
+// RecipeCell.swift
 // Copyright © RoadMap. All rights reserved.
 
 import UIKit
 
-/// Ячейка с рецептами
-class TableViewCell: UITableViewCell {
+/// Ячейка рецепта
+class RecipeCell: UITableViewCell {
     // MARK: - Constants
 
     enum Constants {
@@ -14,9 +14,9 @@ class TableViewCell: UITableViewCell {
 
     // MARK: - Visual Components
 
-    private var dishImageView = UIImageView()
-    private var timerImageView = UIImageView(image: .timer)
-    private var pizzaImageView = UIImageView(image: .pizza)
+    private let dishImageView = UIImageView()
+    private let timerImageView = UIImageView(image: .timer)
+    private let pizzaImageView = UIImageView(image: .pizza)
 
     private let namedishLabel = {
         let label = UILabel()
@@ -61,7 +61,7 @@ class TableViewCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setupUI()
+        configureUI()
         configureLayout()
     }
 
@@ -71,7 +71,7 @@ class TableViewCell: UITableViewCell {
 
     // MARK: - Public Methods
 
-    func setupCell(category: CategoryProtocol) {
+    func configureCell(category: CategoryProtocol) {
         dishImageView.image = UIImage(named: category.nameImage)
         namedishLabel.text = category.nameDish
         timetLabel.text = "\(category.cookingTime) \(Constants.minutes)"
@@ -80,7 +80,7 @@ class TableViewCell: UITableViewCell {
 
     // MARK: - Private Methods
 
-    private func setupUI() {
+    private func configureUI() {
         let subviews = [
             recipeView,
             namedishLabel,

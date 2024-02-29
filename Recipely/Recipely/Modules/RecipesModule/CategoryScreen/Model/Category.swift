@@ -22,11 +22,9 @@ protocol CategoryProtocol {
 struct Category: CategoryProtocol {
     var nameImage: String
     var nameDish: String
-//    var cookingTime: String
     var cookingTime: Int
-//    var numberCalories: String
     var numberCalories: Int
-//    "Baked Fish with Lemon Herb \nSauce"
+
     static func makeRecipes() -> [Category] {
         [
             .init(
@@ -37,7 +35,7 @@ struct Category: CategoryProtocol {
             ),
             .init(
                 nameImage: "bakedFish",
-                nameDish: "baked fish with Lemon Herb Sauce",
+                nameDish: "Baked Fish with Lemon Herb Sauce",
                 cookingTime: 90,
                 numberCalories: 616
             ),
