@@ -10,7 +10,7 @@ protocol Builder: AnyObject {
     /// Собирает экран авторизации пользователя
     func buildAuthScreen(coordinator: AuthCoordinatorProtocol) -> AuthView
     /// Собирает экран со списком рецептов
-    func buildRecipesScreen(coordinator: RecipesCoordinatorProtocol) -> RecipesView
+    func buildRecipesCategoriesScreen(coordinator: RecipesCoordinatorProtocol) -> RecipesCategoriesView
     /// Собирает экран любимых рецептов
     func buildFavouritesScreen(coordinator: FavouritesCoordinatorProtocol) -> FavouritesView
     /// Собирает экран профиля пользователя
@@ -18,7 +18,7 @@ protocol Builder: AnyObject {
     /// Собирает экран программы лояльности
     func buildLoyaltyProgramScreen(coordinator: ProfileCoordinatorProtocol) -> LoyaltyProgramView
     /// Собирает экран со списком категорий рецептов
-    func categoryScreen() -> CategoryView
+    func buildCategoryScreen(coordinator: RecipesCoordinatorProtocol, title: String) -> CategoryView
 }
 
 final class ModuleBuilder: Builder {
@@ -32,13 +32,6 @@ final class ModuleBuilder: Builder {
 
     // MARK: - Public Methods
 
-    func categoryScreen() -> CategoryView {
-        let view = CategoryView()
-        let present = CategoryPresenter(view: view)
-        view.presenter = present
-        return view
-    }
-
     func buildRecipelyTabBarController() -> RecipelyTabBarController {
         RecipelyTabBarController()
     }
@@ -50,14 +43,21 @@ final class ModuleBuilder: Builder {
         return view
     }
 
-    func buildRecipesScreen(coordinator: RecipesCoordinatorProtocol) -> RecipesView {
-        let view = RecipesView()
+    func buildRecipesCategoriesScreen(coordinator: RecipesCoordinatorProtocol) -> RecipesCategoriesView {
+        let view = RecipesCategoriesView()
         view.tabBarItem = UITabBarItem(
             title: Constants.recipesText,
             image: .recipesIcon,
             selectedImage: .recipesFilledIcon
         )
-        let presenter = RecipesPresenter(view: view, coordinator: coordinator)
+        let presenter = RecipesCategoriesPresenter(view: view, coordinator: coordinator)
+        view.presenter = presenter
+        return view
+    }
+
+    func buildCategoryScreen(coordinator: RecipesCoordinatorProtocol, title: String) -> CategoryView {
+        let view = CategoryView()
+        let presenter = CategoryPresenter(view: view, coordinator: coordinator, viewTitle: title)
         view.presenter = presenter
         return view
     }

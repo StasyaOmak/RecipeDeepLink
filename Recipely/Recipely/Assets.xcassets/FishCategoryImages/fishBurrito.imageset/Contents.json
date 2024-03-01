@@ -1,12 +1,15 @@
 {
   "images" : [
     {
-      "filename" : "FishWithPepper.pdf",
+      "filename" : "fishBurrito.pdf",
       "idiom" : "universal"
     }
   ],
   "info" : {
     "author" : "xcode",
     "version" : 1
+  },
+  "properties" : {
+    "preserves-vector-representation" : true
   }
 }

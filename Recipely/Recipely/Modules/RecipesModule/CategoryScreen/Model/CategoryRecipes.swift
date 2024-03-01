@@ -1,4 +1,4 @@
-// Recipe.swift
+// CategoryRecipes.swift
 // Copyright © RoadMap. All rights reserved.
 
 import Foundation
@@ -6,7 +6,7 @@ import Foundation
 // Информация о рецепте
 protocol CategoryRecipesProtocol {
     /// Название изображение рецепта
-    var nameImage: String { get set }
+    var nameImage: AssetImageName { get set }
     /// Название блюда
     var nameDish: String { get set }
     /// Время приготовления
@@ -20,7 +20,7 @@ protocol CategoryRecipesProtocol {
 
 ///  Рефлизация протокола
 struct CategoryRecipes: CategoryRecipesProtocol {
-    var nameImage: String
+    var nameImage: AssetImageName
     var nameDish: String
     var cookingTime: Int
     var numberCalories: Int
@@ -28,37 +28,37 @@ struct CategoryRecipes: CategoryRecipesProtocol {
     static func makeRecipes() -> [CategoryRecipes] {
         [
             .init(
-                nameImage: "fishWithCorn",
+                nameImage: .fishWithCorn,
                 nameDish: "Simple Fish And Corn",
                 cookingTime: 60,
                 numberCalories: 274
             ),
             .init(
-                nameImage: "bakedFish",
+                nameImage: .bakedFish,
                 nameDish: "Baked Fish with Lemon Herb Sauce",
                 cookingTime: 90,
                 numberCalories: 616
             ),
             .init(
-                nameImage: "fishBurrito",
+                nameImage: .fishBurrito,
                 nameDish: "Lemon and Chilli Fish Burrito",
                 cookingTime: 90,
                 numberCalories: 226
             ),
             .init(
-                nameImage: "fishWithGreenPeas",
+                nameImage: .fishWithGreenPeas,
                 nameDish: "Fast Roast Fish & Show Peas Recipes",
                 cookingTime: 80,
                 numberCalories: 94
             ),
             .init(
-                nameImage: "salmonWithMelon",
+                nameImage: .salmonWithMelon,
                 nameDish: "Salmon with Cantaloupe and Fried Shallots",
                 cookingTime: 100,
                 numberCalories: 410
             ),
             .init(
-                nameImage: "fishWithPepper",
+                nameImage: .fishWithPepper,
                 nameDish: "Chilli and Tomato Fish",
                 cookingTime: 100,
                 numberCalories: 174

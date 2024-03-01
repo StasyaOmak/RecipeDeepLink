@@ -1,10 +1,10 @@
-// RecipesPresenter.swift
+// RecipesCategoriesPresenter.swift
 // Copyright © RoadMap. All rights reserved.
 
 import Foundation
 
 /// Интерфейс взаимодействия с RecipesPresenter
-protocol RecipesPresenterProtocol: AnyObject {
+protocol RecipesCategoriesPresenterProtocol: AnyObject {
     /// Получить количество категорий рецептов.
     func getNumberOfCategories() -> Int
     /// Получить категорию по указанному индексу
@@ -14,22 +14,22 @@ protocol RecipesPresenterProtocol: AnyObject {
 }
 
 /// Вью экрана списка рецептов
-final class RecipesPresenter {
+final class RecipesCategoriesPresenter {
     // MARK: - Private Properties
 
     private weak var coordinator: RecipesCoordinatorProtocol?
-    private weak var view: RecipesViewProtocol?
-    private var recipes = Recipes()
+    private weak var view: RecipesCategoriesViewProtocol?
+    private var recipes = RecipesCategories()
 
     // MARK: - Initializers
 
-    init(view: RecipesViewProtocol, coordinator: RecipesCoordinatorProtocol) {
+    init(view: RecipesCategoriesViewProtocol, coordinator: RecipesCoordinatorProtocol) {
         self.view = view
         self.coordinator = coordinator
     }
 }
 
-extension RecipesPresenter: RecipesPresenterProtocol {
+extension RecipesCategoriesPresenter: RecipesCategoriesPresenterProtocol {
     func getNumberOfCategories() -> Int {
         recipes.categories.count
     }
@@ -39,6 +39,6 @@ extension RecipesPresenter: RecipesPresenterProtocol {
     }
 
     func didSelectCategory(atIndex index: Int) {
-        coordinator?.showCategoryScreen()
+        coordinator?.showCategoryScreen(withTitle: recipes.categories[index].name)
     }
 }

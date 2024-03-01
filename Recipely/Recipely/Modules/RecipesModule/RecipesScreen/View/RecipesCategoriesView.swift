@@ -1,13 +1,13 @@
-// RecipesView.swift
+// RecipesCategoriesView.swift
 // Copyright © RoadMap. All rights reserved.
 
 import UIKit
 
 /// Интерфейс взаимодействия с RecipesView
-protocol RecipesViewProtocol: AnyObject {}
+protocol RecipesCategoriesViewProtocol: AnyObject {}
 
 /// Вью экрана списка рецептов
-final class RecipesView: UIViewController {
+final class RecipesCategoriesView: UIViewController {
     // MARK: - Constants
 
     private enum Constants {
@@ -37,7 +37,7 @@ final class RecipesView: UIViewController {
 
     // MARK: - Public Properties
 
-    var presenter: RecipesPresenterProtocol?
+    var presenter: RecipesCategoriesPresenterProtocol?
 
     // MARK: - Life Cycle
 
@@ -96,9 +96,9 @@ final class RecipesView: UIViewController {
     }
 }
 
-extension RecipesView: RecipesViewProtocol {}
+extension RecipesCategoriesView: RecipesCategoriesViewProtocol {}
 
-extension RecipesView: UICollectionViewDataSource {
+extension RecipesCategoriesView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         presenter?.getNumberOfCategories() ?? 0
     }
@@ -120,7 +120,7 @@ extension RecipesView: UICollectionViewDataSource {
     }
 }
 
-extension RecipesView: UICollectionViewDelegateFlowLayout {
+extension RecipesCategoriesView: UICollectionViewDelegateFlowLayout {
     func collectionView(
         _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,

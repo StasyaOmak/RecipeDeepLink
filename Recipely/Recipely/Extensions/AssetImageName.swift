@@ -19,4 +19,11 @@ enum AssetImageName: String {
     case salad
     case sideDish
     case soup
+
+    case fishWithCorn
+    case bakedFish
+    case fishBurrito
+    case fishWithGreenPeas
+    case salmonWithMelon
+    case fishWithPepper
 }

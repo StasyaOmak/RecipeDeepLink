@@ -14,11 +14,18 @@ class RecipeCell: UITableViewCell {
 
     // MARK: - Visual Components
 
-    private let dishImageView = UIImageView()
+    private let dishImageView = {
+        let view = UIImageView()
+        view.contentMode = .scaleAspectFill
+        view.layer.cornerRadius = 12
+        view.clipsToBounds = true
+        return view
+    }()
+
     private let timerImageView = UIImageView(image: .timer)
     private let pizzaImageView = UIImageView(image: .pizza)
 
-    private let namedishLabel = {
+    private let dishNameLabel = {
         let label = UILabel()
         label.font = .verdana?.withSize(14)
         label.textAlignment = .left
@@ -27,7 +34,7 @@ class RecipeCell: UITableViewCell {
         return label
     }()
 
-    private let timetLabel = {
+    private let timerLabel = {
         let label = UILabel()
         label.font = .verdana?.withSize(12)
         label.textAlignment = .left
@@ -40,7 +47,6 @@ class RecipeCell: UITableViewCell {
         label.font = .verdana?.withSize(12)
         label.textAlignment = .left
         label.textColor = .black
-        label.numberOfLines = 0
         return label
     }()
 
@@ -54,8 +60,20 @@ class RecipeCell: UITableViewCell {
         let view = UIView()
         view.backgroundColor = UIColor.recipeView
         view.layer.cornerRadius = 12
+        view.layer.masksToBounds = true
+        view.layer.borderColor = UIColor.accent.cgColor
+        view.layer.frame = view.layer.frame.insetBy(dx: 1, dy: 1)
+        view.layer.cornerCurve = .continuous
         return view
     }()
+
+    // MARK: - Public Properties
+
+    override var isSelected: Bool {
+        didSet {
+            recipeView.layer.borderWidth = isSelected ? 2 : 0
+        }
+    }
 
     // MARK: - Initializers
 
@@ -67,97 +85,118 @@ class RecipeCell: UITableViewCell {
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        configureUI()
+        configureLayout()
     }
 
     // MARK: - Public Methods
 
     func configureCell(category: CategoryRecipesProtocol) {
-        dishImageView.image = UIImage(named: category.nameImage)
-        namedishLabel.text = category.nameDish
-        timetLabel.text = "\(category.cookingTime) \(Constants.minutes)"
+        dishImageView.image = UIImage(category.nameImage)
+        dishNameLabel.text = category.nameDish
+        timerLabel.text = "\(category.cookingTime) \(Constants.minutes)"
         caloriesLabel.text = "\(category.numberCalories) \(Constants.calories)"
     }
 
     // MARK: - Private Methods
 
     private func configureUI() {
+        selectionStyle = .none
         let subviews = [
             recipeView,
-            namedishLabel,
-            timetLabel,
-            caloriesLabel,
-            arrowButton,
             dishImageView,
+            dishNameLabel,
             timerImageView,
-            pizzaImageView
+            timerLabel,
+            pizzaImageView,
+            caloriesLabel,
+            arrowButton
         ]
-
         contentView.addSubviews(subviews)
-        UIView.doNotTAMIC(for: subviews)
     }
 
     private func configureLayout() {
-        configureImageViewLayout()
-        configureButtonLayout()
-        configureLabelLayout()
-        configureViewLayout()
+        UIView.doNotTAMIC(for: contentView.subviews)
+        configureRecipeViewLayout()
+        configureDishImageViewLayout()
+        configureNameDishLabelLayout()
+        configureTimeImageViewLayout()
+        configureTimeLabelLayout()
+        configurePizzaImageViewLayout()
+        configureCaloriesLabelLayout()
+        configureArrowButtonLayout()
     }
 
-    private func configureViewLayout() {
+    private func configureRecipeViewLayout() {
         [
-            recipeView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            recipeView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 6),
             recipeView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             recipeView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             recipeView.heightAnchor.constraint(equalToConstant: 100),
-            recipeView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
+            recipeView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -6)
         ].activate()
     }
 
-    private func configureLabelLayout() {
+    private func configureDishImageViewLayout() {
         [
-            namedishLabel.leadingAnchor.constraint(equalTo: dishImageView.trailingAnchor, constant: 20),
-            namedishLabel.topAnchor.constraint(equalTo: dishImageView.topAnchor, constant: 12),
-            namedishLabel.widthAnchor.constraint(equalToConstant: 197),
+            dishImageView.topAnchor.constraint(equalTo: recipeView.topAnchor, constant: 10),
+            dishImageView.heightAnchor.constraint(equalToConstant: 80),
+            dishImageView.widthAnchor.constraint(equalTo: dishImageView.heightAnchor),
+            dishImageView.leadingAnchor.constraint(equalTo: recipeView.leadingAnchor, constant: 10),
+            dishImageView.bottomAnchor.constraint(equalTo: recipeView.bottomAnchor, constant: -10)
+        ].activate()
+    }
 
-            timetLabel.leadingAnchor.constraint(equalTo: timerImageView.trailingAnchor, constant: 5.88),
-            timetLabel.topAnchor.constraint(equalTo: namedishLabel.bottomAnchor, constant: 8),
-            timetLabel.widthAnchor.constraint(equalToConstant: 55),
-            timetLabel.heightAnchor.constraint(equalToConstant: 15),
+    private func configureNameDishLabelLayout() {
+        [
+            dishNameLabel.leadingAnchor.constraint(equalTo: dishImageView.trailingAnchor, constant: 20),
+            dishNameLabel.topAnchor.constraint(equalTo: dishImageView.topAnchor, constant: 12),
+            dishNameLabel.widthAnchor.constraint(equalToConstant: 197)
+        ].activate()
+    }
 
+    private func configureTimeImageViewLayout() {
+        [
+            timerImageView.topAnchor.constraint(equalTo: dishNameLabel.bottomAnchor, constant: 9.88),
+            timerImageView.heightAnchor.constraint(equalToConstant: 11.25),
+            timerImageView.widthAnchor.constraint(equalToConstant: 11.25),
+            timerImageView.leadingAnchor.constraint(equalTo: dishImageView.trailingAnchor, constant: 21.88)
+        ].activate()
+    }
+
+    private func configureTimeLabelLayout() {
+        [
+            timerLabel.leadingAnchor.constraint(equalTo: timerImageView.trailingAnchor, constant: 5.88),
+            timerLabel.topAnchor.constraint(equalTo: dishNameLabel.bottomAnchor, constant: 8),
+            timerLabel.widthAnchor.constraint(equalToConstant: 55),
+            timerLabel.heightAnchor.constraint(equalToConstant: 15)
+        ].activate()
+    }
+
+    private func configurePizzaImageViewLayout() {
+        [
+            pizzaImageView.topAnchor.constraint(equalTo: dishNameLabel.bottomAnchor, constant: 9.88),
+            pizzaImageView.heightAnchor.constraint(equalToConstant: 11.25),
+            pizzaImageView.widthAnchor.constraint(equalToConstant: 11.25),
+            pizzaImageView.leadingAnchor.constraint(equalTo: timerLabel.trailingAnchor, constant: 10),
+        ].activate()
+    }
+
+    private func configureCaloriesLabelLayout() {
+        [
             caloriesLabel.leadingAnchor.constraint(equalTo: pizzaImageView.trailingAnchor, constant: 5.88),
-            caloriesLabel.topAnchor.constraint(equalTo: namedishLabel.bottomAnchor, constant: 8),
+            caloriesLabel.topAnchor.constraint(equalTo: dishNameLabel.bottomAnchor, constant: 8),
             caloriesLabel.widthAnchor.constraint(equalToConstant: 72),
             caloriesLabel.heightAnchor.constraint(equalToConstant: 15)
         ].activate()
     }
 
-    private func configureImageViewLayout() {
-        [
-            dishImageView.topAnchor.constraint(equalTo: recipeView.topAnchor, constant: 10),
-            dishImageView.heightAnchor.constraint(equalToConstant: 80),
-            dishImageView.widthAnchor.constraint(equalToConstant: 80),
-            dishImageView.leadingAnchor.constraint(equalTo: recipeView.leadingAnchor, constant: 10),
-
-            timerImageView.topAnchor.constraint(equalTo: namedishLabel.bottomAnchor, constant: 9.88),
-            timerImageView.heightAnchor.constraint(equalToConstant: 11.25),
-            timerImageView.widthAnchor.constraint(equalToConstant: 11.25),
-            timerImageView.leadingAnchor.constraint(equalTo: dishImageView.trailingAnchor, constant: 21.88),
-
-            pizzaImageView.topAnchor.constraint(equalTo: namedishLabel.bottomAnchor, constant: 9.88),
-            pizzaImageView.heightAnchor.constraint(equalToConstant: 11.25),
-            pizzaImageView.widthAnchor.constraint(equalToConstant: 11.25),
-            pizzaImageView.leadingAnchor.constraint(equalTo: timetLabel.trailingAnchor, constant: 10),
-
-        ].activate()
-    }
-
-    private func configureButtonLayout() {
+    private func configureArrowButtonLayout() {
         [
             arrowButton.topAnchor.constraint(equalTo: recipeView.topAnchor, constant: 39.58),
             arrowButton.heightAnchor.constraint(equalToConstant: 20),
             arrowButton.widthAnchor.constraint(equalToConstant: 12.35),
             arrowButton.trailingAnchor.constraint(equalTo: recipeView.trailingAnchor, constant: -15.42)
-
         ].activate()
     }
 }

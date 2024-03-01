@@ -1,11 +1,11 @@
-// Recipes.swift
+// RecipesCategories.swift
 // Copyright © RoadMap. All rights reserved.
 
 import Foundation
 
-/// Структура, представляющая коллекцию рецептов,
-struct Recipes {
-    /// Категории рецептов.
+/// Структура, представляющая коллекцию категорий рецептов.
+struct RecipesCategories {
+    /// Массив категорий рецептов.
     let categories: [Category] = [
         .init(name: "Salad", imageName: .salad),
         .init(name: "Soup", imageName: .soup),

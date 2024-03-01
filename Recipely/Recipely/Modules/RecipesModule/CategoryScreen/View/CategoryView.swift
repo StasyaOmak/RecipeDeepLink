@@ -12,7 +12,7 @@ protocol CategoryViewProtocol: AnyObject {
 }
 
 /// Вью экрана категория рецептов
-class CategoryView: UIViewController {
+class CategoryView: UIViewController, UIGestureRecognizerDelegate {
     // MARK: - Types
 
     private enum CellTypes {
@@ -42,11 +42,34 @@ class CategoryView: UIViewController {
         return searhBar
     }()
 
-    private let tableView = UITableView()
-    private let tapGestureCalories = UITapGestureRecognizer()
-    private let tapGestureTime = UITapGestureRecognizer()
-    private let caloriesView = SortingControlView()
-    private let timeView = SortingControlView()
+    private lazy var caloriesView = {
+        let view = SortingControlView()
+        view.tag = 0
+        view.changeParameters(title: Constants.caloriesText, image: .stackBlack)
+        let tapGestureCalories = UITapGestureRecognizer(target: self, action: #selector(sortControllTapped(_:)))
+        view.addGestureRecognizer(tapGestureCalories)
+        return view
+    }()
+
+    private lazy var timeView = {
+        let view = SortingControlView()
+        view.tag = 1
+        view.changeParameters(title: Constants.timeText, image: .stackBlack)
+        let tapGestureCalories = UITapGestureRecognizer(target: self, action: #selector(sortControllTapped(_:)))
+        view.addGestureRecognizer(tapGestureCalories)
+        return view
+    }()
+
+    private lazy var tableView = {
+        let table = UITableView()
+        table.dataSource = self
+        table.delegate = self
+        table.separatorStyle = .none
+        table.showsVerticalScrollIndicator = false
+        table.rowHeight = UITableView.automaticDimension
+        table.register(RecipeCell.self, forCellReuseIdentifier: RecipeCell.description())
+        return table
+    }()
 
     // MARK: - Public Properties
 
@@ -60,100 +83,85 @@ class CategoryView: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        addSubviews()
-        configureTable()
-        configureConstraints()
         configureUI()
-        setNavigationItem()
+        configureLayout()
     }
 
     // MARK: - Private Methods
 
     private func configureUI() {
-        view.backgroundColor = .white
-        tapGestureTime.addTarget(self, action: #selector(tagTime))
-        tapGestureCalories.addTarget(self, action: #selector(tagCalories))
-        caloriesView.addGestureRecognizer(tapGestureCalories)
-        timeView.addGestureRecognizer(tapGestureTime)
-        caloriesView.changeParameters(title: Constants.caloriesText, image: .stackBlack)
-        timeView.changeParameters(title: Constants.timeText, image: .stackBlack)
+        view.backgroundColor = .systemBackground
+        view.addSubviews(tableView, searhBar, caloriesView, timeView)
+        configureNavigationItem()
     }
 
-    private func setNavigationItem() {
-        let arrow = UIBarButtonItem(
-            image: .arrow.withRenderingMode(.alwaysOriginal),
-            style: .done,
-            target: nil,
-            action: nil
-        )
-        navigationItem.leftBarButtonItem = arrow
-        navigationItem.leftBarButtonItem?.tintColor = .black
-    }
-
-    private func addSubviews() {
-        let subviews = [
-            tableView,
-            searhBar,
-            caloriesView,
-            timeView
-        ]
-
-        view.addSubviews(subviews)
-        UIView.doNotTAMIC(for: subviews)
-    }
-
-    private func configureTable() {
-        tableView.dataSource = self
-        tableView.separatorStyle = .none
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.register(RecipeCell.self, forCellReuseIdentifier: RecipeCell.description())
-        tableView.translatesAutoresizingMaskIntoConstraints = false
+    private func configureLayout() {
+        UIView.doNotTAMIC(for: tableView, searhBar, caloriesView, timeView)
+        configureSearhBarConstraints()
+        configureCaloriesViewConstraints()
+        configureTimeViewConstraints()
         configureTableViewConstraits()
+    }
+
+    private func configureSearhBarConstraints() {
+        [
+            searhBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
+            searhBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
+            searhBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
+            searhBar.heightAnchor.constraint(equalToConstant: 36)
+        ].activate()
+    }
+
+    private func configureCaloriesViewConstraints() {
+        [
+            caloriesView.topAnchor.constraint(equalTo: searhBar.bottomAnchor, constant: 20),
+            caloriesView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+        ].activate()
+    }
+
+    private func configureTimeViewConstraints() {
+        [
+            timeView.topAnchor.constraint(equalTo: searhBar.bottomAnchor, constant: 20),
+            timeView.leadingAnchor.constraint(equalTo: caloriesView.trailingAnchor, constant: 11),
+        ].activate()
     }
 
     private func configureTableViewConstraits() {
         [
-            tableView.topAnchor.constraint(equalTo: caloriesView.bottomAnchor, constant: 20),
+            tableView.topAnchor.constraint(equalTo: caloriesView.bottomAnchor, constant: 10),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ].activate()
     }
 
-    private func configureConstraints() {
-        configureSearhBarConstraints()
-        configureViewConstraints()
+    private func configureNavigationItem() {
+        let backButtonItem = UIBarButtonItem(
+            image: .arrow.withRenderingMode(.alwaysOriginal),
+            style: .done,
+            target: nil,
+            action: #selector(UINavigationController.popViewController(animated:))
+        )
+        navigationItem.leftBarButtonItem = backButtonItem
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
+
+        let titleLabel = UILabel()
+        let title = presenter?.getTitle() ?? ""
+        titleLabel.attributedText = title.attributed().withColor(.label)
+            .withFont(.verdanaBold?.withSize(28))
+        titleLabel.textAlignment = .left
+        navigationItem.leftBarButtonItems?.append(UIBarButtonItem(customView: titleLabel))
     }
 
-    private func configureSearhBarConstraints() {
-        [
-            searhBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            searhBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            searhBar.widthAnchor.constraint(equalToConstant: 348),
-            searhBar.heightAnchor.constraint(equalToConstant: 36)
-        ].activate()
-    }
-
-    private func configureViewConstraints() {
-        [
-            caloriesView.topAnchor.constraint(equalTo: searhBar.bottomAnchor, constant: 20),
-            caloriesView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            caloriesView.widthAnchor.constraint(equalToConstant: 112),
-            caloriesView.heightAnchor.constraint(equalToConstant: 36),
-
-            timeView.topAnchor.constraint(equalTo: searhBar.bottomAnchor, constant: 20),
-            timeView.leadingAnchor.constraint(equalTo: caloriesView.trailingAnchor, constant: 11),
-            timeView.widthAnchor.constraint(equalToConstant: 90),
-            timeView.heightAnchor.constraint(equalToConstant: 36)
-        ].activate()
-    }
-
-    @objc private func tagCalories() {
-        presenter?.changesCaloriesSortingStatus()
-    }
-
-    @objc private func tagTime() {
-        presenter?.changesTimeSortingStatus()
+    @objc private func sortControllTapped(_ sender: UITapGestureRecognizer) {
+        switch sender.view?.tag {
+        case 0:
+            presenter?.changesCaloriesSortingStatus()
+        case 1:
+            presenter?.changesTimeSortingStatus()
+        default:
+            break
+        }
     }
 }
 
@@ -167,7 +175,6 @@ extension CategoryView: CategoryViewProtocol {
             timeView.backgroundColor = .accent
             timeView.changeParameters(title: Constants.timeText, image: .stackWhite)
         case .sortingSmaller:
-
             if let image: CGImage = UIImage.stackWhite.cgImage {
                 let newImage = UIImage(cgImage: image, scale: 1, orientation: .downMirrored)
                 timeView.backgroundColor = .accent
@@ -222,5 +229,16 @@ extension CategoryView: UITableViewDataSource {
             cell.configureCell(category: category[indexPath.row])
             return cell
         }
+    }
+}
+
+extension CategoryView: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.cellForRow(at: indexPath)?.isSelected = true
+    }
+
+    func tableView(_ tableView: UITableView, willDeselectRowAt indexPath: IndexPath) -> IndexPath? {
+        tableView.cellForRow(at: indexPath)?.isSelected = false
+        return indexPath
     }
 }

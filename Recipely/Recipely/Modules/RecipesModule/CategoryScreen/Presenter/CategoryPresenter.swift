@@ -1,12 +1,17 @@
-// CategoryPresent.swift
+// CategoryPresenter.swift
 // Copyright © RoadMap. All rights reserved.
 
 import Foundation
 
 /// Интерфейс взаимодействия с CategoryPresenter
 protocol CategoryPresenterProtocol {
+    /// Список рецептов в категории.
     var recipes: [CategoryRecipesProtocol] { get }
+    /// Получить заголовок категории.
+    func getTitle() -> String
+    /// Изменить статус сортировки по калориям.
     func changesCaloriesSortingStatus()
+    /// Изменить статус сортировки по времени приготовления.
     func changesTimeSortingStatus()
 }
 
@@ -14,20 +19,28 @@ protocol CategoryPresenterProtocol {
 final class CategoryPresenter {
     // MARK: - Private Properties
 
-    private(set) var recipes: [CategoryRecipesProtocol] = CategoryRecipes.makeRecipes()
     private weak var view: CategoryViewProtocol?
+    private weak var coordinator: RecipesCoordinatorProtocol?
+
+    private(set) var recipes: [CategoryRecipesProtocol] = CategoryRecipes.makeRecipes()
     private var conditionCalories = Condition.notPressed
     private var conditionTime = Condition.notPressed
-    private weak var coordinator: RecipesCoordinator?
+    private var viewTitle: String
 
     // MARK: - Initializers
 
-    init(view: CategoryViewProtocol) {
+    init(view: CategoryViewProtocol, coordinator: RecipesCoordinatorProtocol, viewTitle: String) {
         self.view = view
+        self.coordinator = coordinator
+        self.viewTitle = viewTitle
     }
 }
 
 extension CategoryPresenter: CategoryPresenterProtocol {
+    func getTitle() -> String {
+        viewTitle
+    }
+
     func changesTimeSortingStatus() {
         var number = conditionTime.rawValue
         number += 1

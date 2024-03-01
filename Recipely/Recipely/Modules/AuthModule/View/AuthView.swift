@@ -95,6 +95,7 @@ final class AuthView: UIViewController {
     private let addressView: UIView = {
         let view = UIView()
         view.backgroundColor = .systemBackground
+        view.layer.borderWidth = 1
         view.layer.cornerRadius = 12
         return view
     }()
@@ -126,6 +127,7 @@ final class AuthView: UIViewController {
     private let passwordView: UIView = {
         let view = UIView()
         view.backgroundColor = .systemBackground
+        view.layer.borderWidth = 1
         view.layer.cornerRadius = 12
         return view
     }()
@@ -216,9 +218,9 @@ final class AuthView: UIViewController {
             loginView,
             warningsAccuracyLabel
         ]
+        view.layer.addSublayer(gradient)
         view.addSubviews(subviews)
         view.addGestureRecognizer(tapGesture)
-        view.layer.addSublayer(gradient)
         UIView.doNotTAMIC(for: subviews)
     }
 
@@ -237,7 +239,7 @@ final class AuthView: UIViewController {
         )
         gradient.frame = view.bounds
         gradient.colors = [
-            UIColor.gridientWhite.cgColor,
+            UIColor.white.cgColor,
             UIColor.gridient.cgColor
         ]
     }
@@ -413,9 +415,12 @@ extension AuthView: AuthViewProtocol {
         case .plain:
             warningsEmailLabel.isHidden = true
             emailAddressLabel.textColor = .textAccent
+            addressView.layer.borderColor = UIColor.opaqueSeparator.cgColor
+
         case .highlited:
             warningsEmailLabel.isHidden = false
             emailAddressLabel.textColor = .red
+            addressView.layer.borderColor = UIColor.warnings.cgColor
         }
     }
 
@@ -424,9 +429,11 @@ extension AuthView: AuthViewProtocol {
         case .plain:
             warningsPasswordLabel.isHidden = true
             passwordLabel.textColor = .textAccent
+            passwordView.layer.borderColor = UIColor.opaqueSeparator.cgColor
         case .highlited:
             warningsPasswordLabel.isHidden = false
             passwordLabel.textColor = .red
+            passwordView.layer.borderColor = UIColor.warnings.cgColor
         }
     }
 }
