@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		21153D312B91ECFF0085ED80 /* FavouritesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21153D302B91ECFF0085ED80 /* FavouritesCell.swift */; };
+		21153D332B91F8ED0085ED80 /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21153D322B91F8ED0085ED80 /* CustomView.swift */; };
 		21B91CDA2B90BEB10041D5E9 /* SortingControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B91CD92B90BEB10041D5E9 /* SortingControlView.swift */; };
 		21B91CDC2B90D0370041D5E9 /* Condition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B91CDB2B90D0370041D5E9 /* Condition.swift */; };
 		21FE4D932B8FE9B500FA377F /* CategoryRecipes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FE4D922B8FE9B500FA377F /* CategoryRecipes.swift */; };
@@ -65,6 +67,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		21153D302B91ECFF0085ED80 /* FavouritesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesCell.swift; sourceTree = "<group>"; };
+		21153D322B91F8ED0085ED80 /* CustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
 		21B91CD92B90BEB10041D5E9 /* SortingControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingControlView.swift; sourceTree = "<group>"; };
 		21B91CDB2B90D0370041D5E9 /* Condition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Condition.swift; sourceTree = "<group>"; };
 		21FE4D922B8FE9B500FA377F /* CategoryRecipes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRecipes.swift; sourceTree = "<group>"; };
@@ -442,6 +446,8 @@
 			isa = PBXGroup;
 			children = (
 				9D952B852B8D2CE300F6D8CC /* FavouritesView.swift */,
+				21153D322B91F8ED0085ED80 /* CustomView.swift */,
+				21153D302B91ECFF0085ED80 /* FavouritesCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -570,6 +576,7 @@
 				9D952B772B8D261900F6D8CC /* ProfilePresenter.swift in Sources */,
 				9D61156D2B8D67AE008EF247 /* NSLayoutConstraint+Extension.swift in Sources */,
 				9D952B8A2B8D2CE300F6D8CC /* Favourites.swift in Sources */,
+				21153D312B91ECFF0085ED80 /* FavouritesCell.swift in Sources */,
 				9D499B182B8E6878007B36D0 /* ProfileCell.swift in Sources */,
 				9D6115492B8D312E008EF247 /* AuthView.swift in Sources */,
 				9D499B312B8EA0B5007B36D0 /* LoyaltyProgram.swift in Sources */,
@@ -616,6 +623,7 @@
 				9D952B6A2B8D226E00F6D8CC /* RecipelyTabBarController.swift in Sources */,
 				21FE4D9B2B8FFD8A00FA377F /* RecipeCell.swift in Sources */,
 				9D499B2E2B8EA08E007B36D0 /* LoyaltyProgramPresenter.swift in Sources */,
+				21153D332B91F8ED0085ED80 /* CustomView.swift in Sources */,
 				9D499B222B8E7422007B36D0 /* Profile.swift in Sources */,
 				9D61156A2B8D6778008EF247 /* UIView+Extension.swift in Sources */,
 				9D952B882B8D2CE300F6D8CC /* FavouritesPresenter.swift in Sources */,

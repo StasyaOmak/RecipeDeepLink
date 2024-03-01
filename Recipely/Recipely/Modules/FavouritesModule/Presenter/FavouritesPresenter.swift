@@ -4,7 +4,12 @@
 import UIKit
 
 /// Интерфейс взаимодействия с FavouritesPresenter
-protocol FavouritesPresenterProtocol: AnyObject {}
+protocol FavouritesPresenterProtocol: AnyObject {
+    /// Возвращает массив секций рецептов для отображения в пользовательском интерфейсе.
+    func getSections(forIndex index: Int) -> CategoryRecipes
+    /// Возвращает количество подразделов в профиле пользователя.
+    func getAmountOfSubSections() -> Int
+}
 
 /// Вью экрана списка сохраненных рецептов
 final class FavouritesPresenter {
@@ -12,7 +17,8 @@ final class FavouritesPresenter {
 
     private weak var coordinator: FavouritesCoordinatorProtocol?
     private weak var view: FavouritesView?
-    private var favourites = Favourites()
+//    private var favourites = CategoryRecipes.makeRecipes()
+    private var favourites = Favourites.category
 
     // MARK: - Initializers
 
@@ -22,4 +28,12 @@ final class FavouritesPresenter {
     }
 }
 
-extension FavouritesPresenter: FavouritesPresenterProtocol {}
+extension FavouritesPresenter: FavouritesPresenterProtocol {
+    func getAmountOfSubSections() -> Int {
+        favourites.count
+    }
+
+    func getSections(forIndex index: Int) -> CategoryRecipes {
+        favourites[index]
+    }
+}
