@@ -80,7 +80,7 @@ final class AuthView: UIViewController {
         let label = UILabel()
         label.text = Constants.loginText
         label.font = .verdanaBold?.withSize(28)
-        label.textColor = UIColor.authorizationsText
+        label.textColor = .textAccent
         return label
     }()
 
@@ -88,20 +88,21 @@ final class AuthView: UIViewController {
         let label = UILabel()
         label.text = Constants.emailAddressText
         label.font = .verdanaBold?.withSize(18)
-        label.textColor = UIColor.authorizationsText
+        label.textColor = .textAccent
         return label
     }()
 
     private let addressView: UIView = {
         let view = UIView()
         view.backgroundColor = .systemBackground
+        view.layer.borderWidth = 1
         view.layer.cornerRadius = 12
         return view
     }()
 
     private let envelopeIconImageView = {
         let image = UIImageView()
-        image.image = UIImage.envelopeIcon
+        image.image = .envelopeIcon
         return image
     }()
 
@@ -109,7 +110,7 @@ final class AuthView: UIViewController {
         let label = UILabel()
         label.text = Constants.passwordText
         label.font = .verdana?.withSize(18)
-        label.textColor = UIColor.authorizationsText
+        label.textColor = .textAccent
         return label
     }()
 
@@ -126,6 +127,7 @@ final class AuthView: UIViewController {
     private let passwordView: UIView = {
         let view = UIView()
         view.backgroundColor = .systemBackground
+        view.layer.borderWidth = 1
         view.layer.cornerRadius = 12
         return view
     }()
@@ -216,9 +218,9 @@ final class AuthView: UIViewController {
             loginView,
             warningsAccuracyLabel
         ]
+        view.layer.addSublayer(gradient)
         view.addSubviews(subviews)
         view.addGestureRecognizer(tapGesture)
-        view.layer.addSublayer(gradient)
         UIView.doNotTAMIC(for: subviews)
     }
 
@@ -237,7 +239,7 @@ final class AuthView: UIViewController {
         )
         gradient.frame = view.bounds
         gradient.colors = [
-            UIColor.gridientWhite.cgColor,
+            UIColor.white.cgColor,
             UIColor.gridient.cgColor
         ]
     }
@@ -412,10 +414,13 @@ extension AuthView: AuthViewProtocol {
         switch state {
         case .plain:
             warningsEmailLabel.isHidden = true
-            emailAddressLabel.textColor = .authorizationsText
+            emailAddressLabel.textColor = .textAccent
+            addressView.layer.borderColor = UIColor.opaqueSeparator.cgColor
+
         case .highlited:
             warningsEmailLabel.isHidden = false
             emailAddressLabel.textColor = .red
+            addressView.layer.borderColor = UIColor.warnings.cgColor
         }
     }
 
@@ -423,10 +428,12 @@ extension AuthView: AuthViewProtocol {
         switch state {
         case .plain:
             warningsPasswordLabel.isHidden = true
-            passwordLabel.textColor = .authorizationsText
+            passwordLabel.textColor = .textAccent
+            passwordView.layer.borderColor = UIColor.opaqueSeparator.cgColor
         case .highlited:
             warningsPasswordLabel.isHidden = false
             passwordLabel.textColor = .red
+            passwordView.layer.borderColor = UIColor.warnings.cgColor
         }
     }
 }
