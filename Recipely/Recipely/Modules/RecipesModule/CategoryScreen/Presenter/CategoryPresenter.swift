@@ -13,6 +13,8 @@ protocol CategoryPresenterProtocol {
     func changesCaloriesSortingStatus()
     /// Изменить статус сортировки по времени приготовления.
     func changesTimeSortingStatus()
+    /// Соощает о тапе на какую либо ячейку
+    func didTapCell(atIndex index: Int)
 }
 
 /// Презентер экрана категории рецептов
@@ -55,5 +57,11 @@ extension CategoryPresenter: CategoryPresenterProtocol {
         let newCondition = Condition(rawValue: number % (Condition.allCases.count))
         conditionCalories = newCondition ?? .notPressed
         view?.changesCaloriesSortingStatus(condition: conditionCalories)
+    }
+
+    func didTapCell(atIndex index: Int) {
+        if index == 0 {
+            coordinator?.showRecipeDetailScreen(forRecipe: "cdddd")
+        }
     }
 }

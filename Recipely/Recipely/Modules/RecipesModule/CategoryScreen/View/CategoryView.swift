@@ -67,7 +67,7 @@ class CategoryView: UIViewController, UIGestureRecognizerDelegate {
         table.separatorStyle = .none
         table.showsVerticalScrollIndicator = false
         table.rowHeight = UITableView.automaticDimension
-        table.register(RecipeCell.self, forCellReuseIdentifier: RecipeCell.description())
+        table.register(DishCell.self, forCellReuseIdentifier: DishCell.description())
         return table
     }()
 
@@ -85,6 +85,11 @@ class CategoryView: UIViewController, UIGestureRecognizerDelegate {
         super.viewDidLoad()
         configureUI()
         configureLayout()
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        deselectSelectedRow()
     }
 
     // MARK: - Private Methods
@@ -137,7 +142,7 @@ class CategoryView: UIViewController, UIGestureRecognizerDelegate {
 
     private func configureNavigationItem() {
         let backButtonItem = UIBarButtonItem(
-            image: .arrow.withRenderingMode(.alwaysOriginal),
+            image: .backArrow.withRenderingMode(.alwaysOriginal),
             style: .done,
             target: nil,
             action: #selector(UINavigationController.popViewController(animated:))
@@ -151,6 +156,12 @@ class CategoryView: UIViewController, UIGestureRecognizerDelegate {
             .withFont(.verdanaBold?.withSize(28))
         titleLabel.textAlignment = .left
         navigationItem.leftBarButtonItems?.append(UIBarButtonItem(customView: titleLabel))
+    }
+
+    private func deselectSelectedRow() {
+        if let selectedIndex = tableView.indexPathForSelectedRow {
+            tableView.cellForRow(at: selectedIndex)?.isSelected = false
+        }
     }
 
     @objc private func sortControllTapped(_ sender: UITapGestureRecognizer) {
@@ -222,9 +233,9 @@ extension CategoryView: UITableViewDataSource {
         case .recipes:
             guard let category = presenter?.recipes,
                   let cell = tableView.dequeueReusableCell(
-                      withIdentifier: RecipeCell.description(),
+                      withIdentifier: DishCell.description(),
                       for: indexPath
-                  ) as? RecipeCell
+                  ) as? DishCell
             else { return UITableViewCell() }
             cell.configureCell(category: category[indexPath.row])
             return cell
@@ -234,11 +245,11 @@ extension CategoryView: UITableViewDataSource {
 
 extension CategoryView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        presenter?.didTapCell(atIndex: indexPath.row)
         tableView.cellForRow(at: indexPath)?.isSelected = true
     }
 
-    func tableView(_ tableView: UITableView, willDeselectRowAt indexPath: IndexPath) -> IndexPath? {
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         tableView.cellForRow(at: indexPath)?.isSelected = false
-        return indexPath
     }
 }

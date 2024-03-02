@@ -1,10 +1,10 @@
-// RecipeCell.swift
+// DishCell.swift
 // Copyright © RoadMap. All rights reserved.
 
 import UIKit
 
-/// Ячейка рецепта
-class RecipeCell: UITableViewCell {
+/// Ячейка блюда
+class DishCell: UITableViewCell {
     // MARK: - Constants
 
     enum Constants {

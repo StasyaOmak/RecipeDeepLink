@@ -13,6 +13,8 @@ protocol Builder: AnyObject {
     func buildRecipesCategoriesScreen(coordinator: RecipesCoordinatorProtocol) -> RecipesCategoriesView
     /// Собирает экран любимых рецептов
     func buildFavouritesScreen(coordinator: FavouritesCoordinatorProtocol) -> FavouritesView
+    /// Собирает экран рецепта
+    func buildRecipeDetailScreen(coordinator: RecipesCoordinatorProtocol) -> RecipeDetailView
     /// Собирает экран профиля пользователя
     func buildProfileScreen(coordinator: ProfileCoordinatorProtocol) -> ProfileView
     /// Собирает экран программы лояльности
@@ -58,6 +60,13 @@ final class ModuleBuilder: Builder {
     func buildCategoryScreen(coordinator: RecipesCoordinatorProtocol, title: String) -> CategoryView {
         let view = CategoryView()
         let presenter = CategoryPresenter(view: view, coordinator: coordinator, viewTitle: title)
+        view.presenter = presenter
+        return view
+    }
+
+    func buildRecipeDetailScreen(coordinator: RecipesCoordinatorProtocol) -> RecipeDetailView {
+        let view = RecipeDetailView()
+        let presenter = RecipeDetailPresenter(view: view, coordinator: coordinator)
         view.presenter = presenter
         return view
     }

@@ -3,7 +3,7 @@
 
 import UIKit
 
-/// Интерфейс взаимодействия с RecipesView
+/// Интерфейс взаимодействия с RecipesCategoriesView
 protocol RecipesCategoriesViewProtocol: AnyObject {}
 
 /// Вью экрана списка рецептов
@@ -47,8 +47,8 @@ final class RecipesCategoriesView: UIViewController {
         configureLayout()
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         deselectSelectedItem()
     }
 

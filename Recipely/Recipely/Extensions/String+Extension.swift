@@ -3,16 +3,17 @@
 
 import Foundation
 
-/// Расширение для удобного создания NSMutableAttributedString из String
+/// Расширение для удобного создания `NSMutableAttributedString` из `String`.
 extension String {
-    /// Создает NSMutableAttributedString из текущей строки
+    /// Создает `NSMutableAttributedString` из текущей строки.
     func attributed() -> NSMutableAttributedString {
         NSMutableAttributedString(string: self)
     }
 }
 
+/// Расширение для удобной проверки строки на соответствие регулярному выражению.
 extension String {
-    /// Примеяет к строке переданное регулярное выражение
+    /// Применяет к строке переданное регулярное выражение.
     /// - Parameter pattern: Шаблон регулярного выражения, к которому будет проверяться строка.
     /// - Returns: `true`, если строка соответствует регулярному выражению, иначе `false`.
     func validateUsing(_ pattern: String) -> Bool {
