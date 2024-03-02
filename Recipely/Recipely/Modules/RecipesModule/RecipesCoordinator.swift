@@ -5,10 +5,10 @@ import UIKit
 
 /// Интерфейс взаимодействия с RecipesCoordinator
 protocol RecipesCoordinatorProtocol: AnyObject {
-    /// Презентует экран с блюдами из выбранной категории
-    func showCategoryScreen(withTitle title: String)
-    /// Презентует экран с детальным писанием рецепта
-    func showRecipeDetailScreen(forRecipe: String)
+    /// Презентует экран со списком блюд выбранной категории
+    func showCategoryDishesScreen(withTitle title: String)
+    /// Презентует экран с детальным писанием блюда
+    func showDishDetailsScreen()
 }
 
 /// Координатор модуля рецептов
@@ -31,19 +31,19 @@ final class RecipesCoordinator: BaseCoordinator {
     // MARK: - Public Methods
 
     override func start() {
-        let recipesScreen = builder.buildRecipeDetailScreen(coordinator: self)
-        rootController.setViewControllers([recipesScreen], animated: false)
+        let view = builder.buildCategoriesScreen(coordinator: self)
+        rootController.setViewControllers([view], animated: false)
     }
 }
 
 extension RecipesCoordinator: RecipesCoordinatorProtocol {
-    func showCategoryScreen(withTitle title: String) {
-        let categoryScreen = builder.buildCategoryScreen(coordinator: self, title: title)
-        rootController.pushViewController(categoryScreen, animated: true)
+    func showCategoryDishesScreen(withTitle title: String) {
+        let view = builder.buildCategoryDishesScreen(coordinator: self, title: title)
+        rootController.pushViewController(view, animated: true)
     }
 
-    func showRecipeDetailScreen(forRecipe: String) {
-        let recipeDetailScreen = builder.buildRecipeDetailScreen(coordinator: self)
-        rootController.pushViewController(recipeDetailScreen, animated: true)
+    func showDishDetailsScreen() {
+        let view = builder.buildDishDetailsScreen(coordinator: self)
+        rootController.pushViewController(view, animated: true)
     }
 }
