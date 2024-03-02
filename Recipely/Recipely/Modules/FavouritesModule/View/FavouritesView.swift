@@ -4,7 +4,10 @@
 import UIKit
 
 /// Интерфейс взаимодействия с FavouritesView
-protocol FavouritesViewProtocol: AnyObject {}
+protocol FavouritesViewProtocol: AnyObject {
+    /// проверяет массив на пустоту
+    func checkEmptiness(state: Bool)
+}
 
 /// Вью экрана сохранненных рецептов
 final class FavouritesView: UIViewController {
@@ -26,20 +29,17 @@ final class FavouritesView: UIViewController {
     private lazy var tableView = {
         let table = UITableView()
         table.dataSource = self
-        table.delegate = self
         table.separatorStyle = .none
         table.showsVerticalScrollIndicator = false
-        table.reloadData()
         table.rowHeight = UITableView.automaticDimension
-        table.register(RecipeCell.self, forCellReuseIdentifier: RecipeCell.description())
+        table.register(FavouritesCell.self, forCellReuseIdentifier: FavouritesCell.description())
         return table
     }()
-
-    private let messageEmptyFavoriteView = CustomView()
 
     // MARK: - Private Properties
 
     private let content: [CellTypes] = [.favorites]
+    private let messageEmptyFavoriteView = EmptyFavoritesView()
 
     // MARK: - Public Properties
 
@@ -96,7 +96,16 @@ final class FavouritesView: UIViewController {
     }
 }
 
-extension FavouritesView: FavouritesViewProtocol {}
+extension FavouritesView: FavouritesViewProtocol {
+    func checkEmptiness(state: Bool) {
+        switch state {
+        case true:
+            messageEmptyFavoriteView.isHidden = false
+        case false:
+            messageEmptyFavoriteView.isHidden = true
+        }
+    }
+}
 
 extension FavouritesView: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -113,43 +122,21 @@ extension FavouritesView: UITableViewDataSource {
         case .favorites:
             guard let recipes = presenter?.getSections(forIndex: indexPath.row),
                   let cell = tableView.dequeueReusableCell(
-                      withIdentifier: RecipeCell.description(),
+                      withIdentifier: FavouritesCell.description(),
                       for: indexPath
-                  ) as? RecipeCell else { return UITableViewCell() }
+                  ) as? FavouritesCell else { return UITableViewCell() }
             cell.configureCell(category: recipes)
-
-//            let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeGesture(_:)))
-//            swipeGesture.direction = .left
-//            cell.addGestureRecognizer(swipeGesture)
             return cell
         }
     }
 
-//    @objc func handleSwipeGesture(_ gesture: UISwipeGestureRecognizer) {
-    ////        if let indexPath = tableView.indexPathForItem(at: gesture.location(in: collectionView)) {
-    ////            if gesture.state == .ended {
-    ////                episodeCharacter.remove(at: indexPath.item)
-    ////                collectionView.deleteItems(at: [indexPath])
-    ////            }
-    ////        }
-//    }
-}
-
-extension FavouritesView: UITableViewDelegate {
     func tableView(
         _ tableView: UITableView,
-        leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath
-    ) -> UISwipeActionsConfiguration? {
-        if let recipes = presenter?.getSections(forIndex: <#Int#>) {
-            let deleteButton = UIContextualAction(style: .destructive, title: "Delete") { _, _, complitionHand in
-                        recipes.remove(at: indexPath.row)
-        ////                tableView.delete(at: [indexPath], with: .fade)
-//            }
-
-//            deleteButton.backgroundColor = .red
-
-        UISwipeActionsConfiguration()
-        }
-//        return nil
+        commit editingStyle: UITableViewCell.EditingStyle,
+        forRowAt indexPath: IndexPath
+    ) {
+        presenter?.removeItem(forIndex: indexPath.section)
+        tableView.deleteRows(at: [indexPath], with: .fade)
+        presenter?.checkEmptiness()
     }
 }

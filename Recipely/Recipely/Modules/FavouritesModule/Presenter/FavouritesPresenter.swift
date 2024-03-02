@@ -7,8 +7,12 @@ import UIKit
 protocol FavouritesPresenterProtocol: AnyObject {
     /// Возвращает массив секций рецептов для отображения в пользовательском интерфейсе.
     func getSections(forIndex index: Int) -> CategoryRecipes
-    /// Возвращает количество подразделов в профиле пользователя.
+    /// Возвращает количество подразделов рецептов
     func getAmountOfSubSections() -> Int
+    /// удаляет рецепт из избранного.
+    func removeItem(forIndex index: Int)
+    /// проверяет пустой ли массив
+    func checkEmptiness()
 }
 
 /// Вью экрана списка сохраненных рецептов
@@ -17,8 +21,8 @@ final class FavouritesPresenter {
 
     private weak var coordinator: FavouritesCoordinatorProtocol?
     private weak var view: FavouritesView?
-//    private var favourites = CategoryRecipes.makeRecipes()
-    private var favourites = Favourites.category
+//    private var favourites = Favourites.category
+    private var favourites = CategoryRecipes.makeRecipes()
 
     // MARK: - Initializers
 
@@ -29,6 +33,18 @@ final class FavouritesPresenter {
 }
 
 extension FavouritesPresenter: FavouritesPresenterProtocol {
+    func checkEmptiness() {
+        if favourites.isEmpty {
+            view?.checkEmptiness(state: true)
+        } else {
+            view?.checkEmptiness(state: false)
+        }
+    }
+
+    func removeItem(forIndex index: Int) {
+        favourites.remove(at: index)
+    }
+
     func getAmountOfSubSections() -> Int {
         favourites.count
     }

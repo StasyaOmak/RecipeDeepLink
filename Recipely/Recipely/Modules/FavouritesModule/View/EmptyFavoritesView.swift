@@ -1,10 +1,10 @@
-// CustomView.swift
+// EmptyFavoritesView.swift
 // Copyright © RoadMap. All rights reserved.
 
 import UIKit
 
 /// Вью для отображения информации что в избранное ничего не добавили
-class CustomView: UIView {
+final class EmptyFavoritesView: UIView {
     // MARK: - Constants
 
     private enum Constants {
@@ -91,7 +91,6 @@ class CustomView: UIView {
         [
             savedView.heightAnchor.constraint(equalToConstant: 50),
             savedView.widthAnchor.constraint(equalTo: savedView.heightAnchor),
-//            savedView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 146),
             savedView.topAnchor.constraint(equalTo: topAnchor),
             savedView.centerXAnchor.constraint(equalTo: centerXAnchor)
         ].activate()
@@ -99,7 +98,6 @@ class CustomView: UIView {
 
     private func configureMainMessageLabelLayout() {
         [
-            mainMessageLabel.heightAnchor.constraint(equalToConstant: 16),
             mainMessageLabel.topAnchor.constraint(equalTo: savedView.bottomAnchor, constant: 17),
             mainMessageLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
             mainMessageLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
