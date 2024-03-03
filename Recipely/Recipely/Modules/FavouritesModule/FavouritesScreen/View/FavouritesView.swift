@@ -50,7 +50,6 @@ final class FavouritesView: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         configureUI()
         configureLayout()
     }
@@ -76,7 +75,7 @@ final class FavouritesView: UIViewController {
 
     private func configureLayout() {
         configureTableViewLayout()
-        configureMessageEmptyFavoriteViewLayout()
+        configurePlaceholderViewLayout()
     }
 
     private func configureTableViewLayout() {
@@ -88,7 +87,7 @@ final class FavouritesView: UIViewController {
         ].activate()
     }
 
-    private func configureMessageEmptyFavoriteViewLayout() {
+    private func configurePlaceholderViewLayout() {
         [
             placeholderView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             placeholderView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
@@ -106,10 +105,6 @@ extension FavouritesView: FavouritesViewProtocol {
 }
 
 extension FavouritesView: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        content.count
-    }
-
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         presenter?.getNumberOfDishes() ?? 0
     }

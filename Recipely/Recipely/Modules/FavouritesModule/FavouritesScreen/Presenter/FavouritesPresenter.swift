@@ -33,9 +33,6 @@ final class FavouritesPresenter {
 
 extension FavouritesPresenter: FavouritesPresenterProtocol {
     func checkEmptiness() {
-//        if favouriteDishes.isEmpty {
-//            view?.setPlaceholderViewIsHidden(to: favo)
-//        }
         view?.setPlaceholderViewIsHidden(to: !favouriteDishes.isEmpty)
     }
 
