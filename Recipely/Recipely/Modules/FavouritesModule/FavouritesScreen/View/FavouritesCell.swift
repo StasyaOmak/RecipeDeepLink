@@ -3,7 +3,7 @@
 
 import UIKit
 
-/// Ячейка рецепта которая добавлена в избранное
+/// Ячейка блюда которая добавлена в избранное
 final class FavouritesCell: RecipeCell {
     // MARK: - Initializers
 

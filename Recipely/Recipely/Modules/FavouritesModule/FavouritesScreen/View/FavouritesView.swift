@@ -6,16 +6,17 @@ import UIKit
 /// Интерфейс взаимодействия с FavouritesView
 protocol FavouritesViewProtocol: AnyObject {
     /// проверяет массив на пустоту
-    func checkEmptiness(state: Bool)
+    func setPlaceholderViewIsHidden(to isHidden: Bool)
 }
 
-/// Вью экрана сохранненных рецептов
+/// Вью экрана сохранненных блюд
 final class FavouritesView: UIViewController {
     // MARK: - Types
 
+    /// Тип ячейки блюда
     private enum CellTypes {
-        /// Тип ячейки рецепта
-        case favorites
+        /// Стандартная ячейка
+        case basicDishCell
     }
 
     // MARK: - Constants
@@ -36,19 +37,20 @@ final class FavouritesView: UIViewController {
         return table
     }()
 
-    // MARK: - Private Properties
-
-    private let content: [CellTypes] = [.favorites]
-    private let messageEmptyFavoriteView = EmptyFavoritesView()
-
     // MARK: - Public Properties
 
     var presenter: FavouritesPresenterProtocol?
+
+    // MARK: - Private Properties
+
+    private let content: [CellTypes] = [.basicDishCell]
+    private let placeholderView = FavoritesPlaceholderView()
 
     // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         configureUI()
         configureLayout()
     }
@@ -57,23 +59,24 @@ final class FavouritesView: UIViewController {
 
     private func configureUI() {
         view.backgroundColor = .systemBackground
-        view.addSubviews(tableView, messageEmptyFavoriteView)
+        view.addSubviews(tableView, placeholderView)
+        placeholderView.isHidden = true
         configureTitleLabel()
+        UIView.doNotTAMIC(for: tableView, placeholderView)
     }
 
     private func configureTitleLabel() {
         let titleLabel = UILabel()
-        titleLabel.attributedText = Constants.titleText.attributed().withColor(.label)
+        titleLabel.attributedText = Constants.titleText.attributed()
+            .withColor(.label)
             .withFont(.verdanaBold?.withSize(28))
         titleLabel.textAlignment = .left
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: titleLabel)
     }
 
     private func configureLayout() {
-        UIView.doNotTAMIC(for: tableView, messageEmptyFavoriteView)
         configureTableViewLayout()
         configureMessageEmptyFavoriteViewLayout()
-        messageEmptyFavoriteView.isHidden = true
     }
 
     private func configureTableViewLayout() {
@@ -87,23 +90,18 @@ final class FavouritesView: UIViewController {
 
     private func configureMessageEmptyFavoriteViewLayout() {
         [
-            messageEmptyFavoriteView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            messageEmptyFavoriteView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            messageEmptyFavoriteView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            messageEmptyFavoriteView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            messageEmptyFavoriteView.heightAnchor.constraint(equalToConstant: 132)
+            placeholderView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            placeholderView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            placeholderView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            placeholderView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            placeholderView.heightAnchor.constraint(equalToConstant: 132)
         ].activate()
     }
 }
 
 extension FavouritesView: FavouritesViewProtocol {
-    func checkEmptiness(state: Bool) {
-        switch state {
-        case true:
-            messageEmptyFavoriteView.isHidden = false
-        case false:
-            messageEmptyFavoriteView.isHidden = true
-        }
+    func setPlaceholderViewIsHidden(to isHidden: Bool) {
+        placeholderView.isHidden = isHidden
     }
 }
 
@@ -113,14 +111,14 @@ extension FavouritesView: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        presenter?.getAmountOfSubSections() ?? 0
+        presenter?.getNumberOfDishes() ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let items = content[indexPath.section]
         switch items {
-        case .favorites:
-            guard let recipes = presenter?.getSections(forIndex: indexPath.row),
+        case .basicDishCell:
+            guard let recipes = presenter?.getDish(forIndex: indexPath.row),
                   let cell = tableView.dequeueReusableCell(
                       withIdentifier: FavouritesCell.description(),
                       for: indexPath

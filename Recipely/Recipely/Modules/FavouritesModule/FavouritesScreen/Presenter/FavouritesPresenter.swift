@@ -6,23 +6,22 @@ import UIKit
 /// Интерфейс взаимодействия с FavouritesPresenter
 protocol FavouritesPresenterProtocol: AnyObject {
     /// Возвращает массив секций рецептов для отображения в пользовательском интерфейсе.
-    func getSections(forIndex index: Int) -> CategoryRecipes
+    func getDish(forIndex index: Int) -> CategoryRecipes
     /// Возвращает количество подразделов рецептов
-    func getAmountOfSubSections() -> Int
+    func getNumberOfDishes() -> Int
     /// удаляет рецепт из избранного.
     func removeItem(forIndex index: Int)
     /// проверяет пустой ли массив
     func checkEmptiness()
 }
 
-/// Вью экрана списка сохраненных рецептов
+/// Презентер экрана списка сохраненных рецептов
 final class FavouritesPresenter {
     // MARK: - Private Properties
 
     private weak var coordinator: FavouritesCoordinatorProtocol?
-    private weak var view: FavouritesView?
-//    private var favourites = Favourites.category
-    private var favourites = CategoryRecipes.makeRecipes()
+    private weak var view: FavouritesViewProtocol?
+    private var favouriteDishes = CategoryRecipes.makeRecipes()
 
     // MARK: - Initializers
 
@@ -34,22 +33,21 @@ final class FavouritesPresenter {
 
 extension FavouritesPresenter: FavouritesPresenterProtocol {
     func checkEmptiness() {
-        if favourites.isEmpty {
-            view?.checkEmptiness(state: true)
-        } else {
-            view?.checkEmptiness(state: false)
-        }
+//        if favouriteDishes.isEmpty {
+//            view?.setPlaceholderViewIsHidden(to: favo)
+//        }
+        view?.setPlaceholderViewIsHidden(to: !favouriteDishes.isEmpty)
     }
 
     func removeItem(forIndex index: Int) {
-        favourites.remove(at: index)
+        favouriteDishes.remove(at: index)
     }
 
-    func getAmountOfSubSections() -> Int {
-        favourites.count
+    func getNumberOfDishes() -> Int {
+        favouriteDishes.count
     }
 
-    func getSections(forIndex index: Int) -> CategoryRecipes {
-        favourites[index]
+    func getDish(forIndex index: Int) -> CategoryRecipes {
+        favouriteDishes[index]
     }
 }
