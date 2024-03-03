@@ -4,7 +4,7 @@
 import UIKit
 
 /// Ячейка блюда которая добавлена в избранное
-final class FavouritesCell: RecipeCell {
+final class FavouritesCell: BasicDishCell {
     // MARK: - Initializers
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
