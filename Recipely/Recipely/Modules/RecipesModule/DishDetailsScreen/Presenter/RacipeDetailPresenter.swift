@@ -5,7 +5,7 @@ import Foundation
 
 /// Интерфейс взаимодействия с DishDetailsPresenter
 protocol DishDetailsPresenterProtocol {
-    /// Сообщает о том, что вью начала ской жизненный цикл
+    /// Сообщает о том, что вью начала свой жизненный цикл
     func viewBeganLoading()
 }
 

@@ -9,7 +9,7 @@ protocol DishDetailsViewProtocol: AnyObject {
     func configure(with dish: Dish)
 }
 
-/// Экран делальной информации о блюде
+/// Экран детальной информации о блюде
 final class DishDetailsView: UIViewController, UIGestureRecognizerDelegate {
     // MARK: - Types
 
@@ -34,7 +34,6 @@ final class DishDetailsView: UIViewController, UIGestureRecognizerDelegate {
 
     private lazy var dishInfoTableView = {
         let table = UITableView()
-        table.delegate = self
         table.dataSource = self
         table.rowHeight = UITableView.automaticDimension
         table.separatorStyle = .none
@@ -115,7 +114,11 @@ final class DishDetailsView: UIViewController, UIGestureRecognizerDelegate {
     }
 }
 
-extension DishDetailsView: DishDetailsViewProtocol {}
+extension DishDetailsView: DishDetailsViewProtocol {
+    func configure(with dish: Dish) {
+        self.dish = dish
+    }
+}
 
 extension DishDetailsView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -155,11 +158,5 @@ extension DishDetailsView: UITableViewDataSource {
             cell.configure(with: dish)
             return cell
         }
-    }
-}
-
-extension DishDetailsView: UITableViewDelegate {
-    func configure(with dish: Dish) {
-        self.dish = dish
     }
 }
