@@ -139,6 +139,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		21EF33E52B93F4E000C2CDB0 /* FavouritesScreen */ = {
+			isa = PBXGroup;
+			children = (
+				9D952B862B8D2CE300F6D8CC /* Model */,
+				9D952B842B8D2CE300F6D8CC /* View */,
+				9D952B822B8D2CE300F6D8CC /* Presenter */,
+			);
+			path = FavouritesScreen;
+			sourceTree = "<group>";
+		};
 		21FE4D8E2B8FE8E800FA377F /* CategoryScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -427,9 +437,7 @@
 			isa = PBXGroup;
 			children = (
 				9D952B812B8D2CE300F6D8CC /* FavouritesCoordinator.swift */,
-				9D952B862B8D2CE300F6D8CC /* Model */,
-				9D952B842B8D2CE300F6D8CC /* View */,
-				9D952B822B8D2CE300F6D8CC /* Presenter */,
+				21EF33E52B93F4E000C2CDB0 /* FavouritesScreen */,
 			);
 			path = FavouritesModule;
 			sourceTree = "<group>";
