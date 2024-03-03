@@ -25,15 +25,14 @@ final class NutrientView: UIView {
         return label
     }()
 
-
     // MARK: - Public Properties
 
     override var intrinsicContentSize: CGSize {
         CGSize(width: 74, height: 53)
     }
-    
+
     // MARK: - Private Properties
-    
+
     private var metrics: Metrics
 
     // MARK: - Initializers

@@ -5,13 +5,12 @@ import UIKit
 
 /// Ячейка с общей информацией о блюде
 final class DishInfoCell: UITableViewCell {
-    
     // MARK: - Constants
-    
+
     private enum Constants {
         static let dishImageViewCornerRadiusToHeightRatio = 0.08
     }
-    
+
     // MARK: - Visual Components
 
     private let dishNameLabel = {
@@ -51,7 +50,8 @@ final class DishInfoCell: UITableViewCell {
 
     override func draw(_ rect: CGRect) {
         super.draw(rect)
-        dishImageView.layer.cornerRadius = dishImageView.bounds.height * Constants.dishImageViewCornerRadiusToHeightRatio
+        dishImageView.layer.cornerRadius = dishImageView.bounds.height * Constants
+            .dishImageViewCornerRadiusToHeightRatio
     }
 
     // MARK: - Public Methods

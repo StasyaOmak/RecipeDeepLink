@@ -1,4 +1,4 @@
-// CategoryRecipes.swift
+// CategoryDish.swift
 // Copyright © RoadMap. All rights reserved.
 
 import Foundation
