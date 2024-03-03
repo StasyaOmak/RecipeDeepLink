@@ -43,12 +43,6 @@ class BasicDishCell: UITableViewCell {
         return label
     }()
 
-    private let arrowButton = {
-        let button = UIButton()
-        button.setImage(.vector, for: .normal)
-        return button
-    }()
-
     private let recipeView = {
         let view = UIView()
         view.backgroundColor = UIColor.recipeView
@@ -60,11 +54,17 @@ class BasicDishCell: UITableViewCell {
         return view
     }()
 
+    private(set) var arrowButton = {
+        let button = UIButton()
+        button.setImage(.vector, for: .normal)
+        return button
+    }()
+
     // MARK: - Public Properties
 
     override var isSelected: Bool {
-        didSet {
-            recipeView.layer.borderWidth = isSelected ? 2 : 0
+        willSet {
+            recipeView.layer.borderWidth = newValue ? 2 : 0
         }
     }
 
