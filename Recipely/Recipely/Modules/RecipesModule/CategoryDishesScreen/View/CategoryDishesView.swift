@@ -9,6 +9,8 @@ protocol CategoryDishesViewProtocol: AnyObject {
     func changesCaloriesSortingStatus(condition: Condition)
     // функция для изменения состояния контрола сортировки по времени
     func changesTimeSortingStatus(condition: Condition)
+    // функция которая обновляет таблицу
+    func updateTable()
 }
 
 /// Вью экрана списка блюд категории
@@ -32,7 +34,7 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
 
     // MARK: - Visual Components
 
-    private let searhBar = {
+    private lazy var searhBar = {
         let searhBar = UISearchBar()
         searhBar.searchTextField.borderStyle = .none
         searhBar.searchBarStyle = .minimal
@@ -40,6 +42,7 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
         searhBar.searchTextField.layer.cornerRadius = 12
         searhBar.placeholder = Constants.placeholderText
         searhBar.translatesAutoresizingMaskIntoConstraints = false
+        searhBar.delegate = self
         return searhBar
     }()
 
@@ -179,6 +182,10 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
 }
 
 extension CategoryDishesView: CategoryDishesViewProtocol {
+    func updateTable() {
+        tableView.reloadData()
+    }
+
     func changesTimeSortingStatus(condition: Condition) {
         switch condition {
         case .notPressed:
@@ -187,11 +194,13 @@ extension CategoryDishesView: CategoryDishesViewProtocol {
         case .sortingMore:
             timeView.backgroundColor = .accent
             timeView.changeParameters(title: Constants.timeText, image: .stackIcon.withTintColor(.white))
+            presenter?.sotredTableViewTime(condition: .sortingMore)
         case .sortingSmaller:
             guard let image = UIImage.stackIcon.cgImage else { return }
             let newImage = UIImage(cgImage: image, scale: 1, orientation: .downMirrored).withTintColor(.white)
             timeView.backgroundColor = .accent
             timeView.changeParameters(title: Constants.timeText, image: newImage)
+            presenter?.sotredTableViewTime(condition: .sortingSmaller)
         }
     }
 
@@ -203,11 +212,13 @@ extension CategoryDishesView: CategoryDishesViewProtocol {
         case .sortingMore:
             caloriesView.backgroundColor = .accent
             caloriesView.changeParameters(title: Constants.caloriesText, image: .stackIcon.withTintColor(.white))
+            presenter?.sotredTableViewCalories(condition: .sortingMore)
         case .sortingSmaller:
             guard let image = UIImage.stackIcon.cgImage else { return }
             let newImage = UIImage(cgImage: image, scale: 1, orientation: .downMirrored).withTintColor(.white)
             caloriesView.backgroundColor = .accent
             caloriesView.changeParameters(title: Constants.caloriesText, image: newImage)
+            presenter?.sotredTableViewCalories(condition: .sortingSmaller)
         }
     }
 }
@@ -245,5 +256,11 @@ extension CategoryDishesView: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         tableView.cellForRow(at: indexPath)?.isSelected = false
+    }
+}
+
+extension CategoryDishesView: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        presenter?.filterTableView(text: searchText)
     }
 }
