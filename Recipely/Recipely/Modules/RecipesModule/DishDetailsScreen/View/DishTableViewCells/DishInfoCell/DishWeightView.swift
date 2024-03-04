@@ -16,7 +16,7 @@ final class DishWeightView: UIView {
 
     private let weightLabel = {
         let label = UILabel()
-        label.font = .verdana?.withSize(10)
+        label.font = .verdana(size: 10)
         label.textColor = .systemBackground
         label.textAlignment = .center
         return label

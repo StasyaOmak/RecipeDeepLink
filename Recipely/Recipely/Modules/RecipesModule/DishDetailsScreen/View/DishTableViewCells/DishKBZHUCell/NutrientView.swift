@@ -9,7 +9,7 @@ final class NutrientView: UIView {
 
     private let captionLabel = {
         let label = UILabel()
-        label.font = .verdana?.withSize(10)
+        label.font = .verdana(size: 10)
         label.textColor = .systemBackground
         label.textAlignment = .center
         label.backgroundColor = .accent
@@ -18,7 +18,7 @@ final class NutrientView: UIView {
 
     private let valueLabel = {
         let label = UILabel()
-        label.font = .verdana?.withSize(10)
+        label.font = .verdana(size: 10)
         label.textColor = .accent
         label.backgroundColor = .systemBackground
         label.textAlignment = .center

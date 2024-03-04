@@ -41,6 +41,7 @@
 		9D499B8A2B937BB9007B36D0 /* NutrientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D499B892B937BB9007B36D0 /* NutrientView.swift */; };
 		9D499B8F2B93A464007B36D0 /* Float+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D499B8E2B93A464007B36D0 /* Float+Extension.swift */; };
 		9D499B932B93E228007B36D0 /* Mertics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D499B922B93E228007B36D0 /* Mertics.swift */; };
+		9D499B962B96247C007B36D0 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D499B952B96247C007B36D0 /* UIColor+Extension.swift */; };
 		9D6115462B8D312E008EF247 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D61153F2B8D312E008EF247 /* AuthCoordinator.swift */; };
 		9D6115472B8D312E008EF247 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6115452B8D312E008EF247 /* Validator.swift */; };
 		9D6115482B8D312E008EF247 /* AuthPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6115432B8D312E008EF247 /* AuthPresenter.swift */; };
@@ -111,6 +112,7 @@
 		9D499B892B937BB9007B36D0 /* NutrientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutrientView.swift; sourceTree = "<group>"; };
 		9D499B8E2B93A464007B36D0 /* Float+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Float+Extension.swift"; sourceTree = "<group>"; };
 		9D499B922B93E228007B36D0 /* Mertics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mertics.swift; sourceTree = "<group>"; };
+		9D499B952B96247C007B36D0 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = SOURCE_ROOT; };
 		9D61153F2B8D312E008EF247 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
 		9D6115412B8D312E008EF247 /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		9D6115432B8D312E008EF247 /* AuthPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPresenter.swift; sourceTree = "<group>"; };
@@ -169,7 +171,7 @@
 			path = FavouritesScreen;
 			sourceTree = "<group>";
 		};
-		21FE4D8E2B8FE8E800FA377F /* CategoryScreen */ = {
+		21FE4D8E2B8FE8E800FA377F /* CategoryDishesScreen */ = {
 			isa = PBXGroup;
 			children = (
 				21FE4D8F2B8FE97100FA377F /* Model */,
@@ -425,6 +427,7 @@
 				9D6115762B8D68F5008EF247 /* UIAlertController+Extension.swift */,
 				9D6115782B8D6917008EF247 /* UIAlertAction+Extension.swift */,
 				9D6115742B8D6877008EF247 /* UIFont+Extension.swift */,
+				9D499B952B96247C007B36D0 /* UIColor+Extension.swift */,
 				9D499B1B2B8E6B4C007B36D0 /* UIImage+Extension.swift */,
 				9D499B8E2B93A464007B36D0 /* Float+Extension.swift */,
 				9D61156E2B8D67CD008EF247 /* Array+Extension.swift */,
@@ -721,6 +724,7 @@
 				9D61156F2B8D67CD008EF247 /* Array+Extension.swift in Sources */,
 				9D952B502B8D1CBC00F6D8CC /* SceneDelegate.swift in Sources */,
 				9D952B6A2B8D226E00F6D8CC /* RecipelyTabBarController.swift in Sources */,
+				9D499B962B96247C007B36D0 /* UIColor+Extension.swift in Sources */,
 				9D499B8A2B937BB9007B36D0 /* NutrientView.swift in Sources */,
 				21FE4D9B2B8FFD8A00FA377F /* BasicDishCell.swift in Sources */,
 				9D499B2E2B8EA08E007B36D0 /* LoyaltyProgramPresenter.swift in Sources */,
@@ -872,6 +876,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_ASSET_SYMBOLS = YES;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -900,6 +906,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_ASSET_SYMBOLS = YES;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;

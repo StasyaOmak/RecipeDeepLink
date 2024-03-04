@@ -20,7 +20,7 @@ class BasicDishCell: UITableViewCell {
 
     private let dishNameLabel = {
         let label = UILabel()
-        label.font = .verdana?.withSize(14)
+        label.font = .verdana(size: 14)
         label.textAlignment = .left
         label.textColor = .black
         label.numberOfLines = 0
@@ -29,7 +29,7 @@ class BasicDishCell: UITableViewCell {
 
     private let timerLabel = {
         let label = UILabel()
-        label.font = .verdana?.withSize(12)
+        label.font = .verdana(size: 12)
         label.textAlignment = .left
         label.textColor = .black
         return label
@@ -37,7 +37,7 @@ class BasicDishCell: UITableViewCell {
 
     private let caloriesLabel = {
         let label = UILabel()
-        label.font = .verdana?.withSize(12)
+        label.font = .verdana(size: 12)
         label.textAlignment = .left
         label.textColor = .black
         return label

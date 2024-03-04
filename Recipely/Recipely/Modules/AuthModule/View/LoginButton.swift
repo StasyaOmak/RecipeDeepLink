@@ -52,7 +52,7 @@ final class LoginButton: UIButton {
         backgroundColor = .black
         layer.cornerRadius = 12
         setTitleColor(.white, for: .normal)
-        titleLabel?.font = .verdanaBold?.withSize(16)
+        titleLabel?.font = .verdanaBold(size: 16)
     }
 
     private func configureLayout() {

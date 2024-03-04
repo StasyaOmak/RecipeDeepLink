@@ -155,7 +155,7 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
         let title = presenter?.getTitle() ?? ""
         titleLabel.attributedText = title.attributed()
             .withColor(.label)
-            .withFont(.verdanaBold?.withSize(28))
+            .withFont(.verdanaBold(size: 28))
         titleLabel.textAlignment = .left
         navigationItem.leftBarButtonItems?.append(UIBarButtonItem(customView: titleLabel))
     }

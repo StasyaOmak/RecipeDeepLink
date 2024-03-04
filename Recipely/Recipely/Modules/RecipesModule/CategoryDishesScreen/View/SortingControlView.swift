@@ -16,7 +16,7 @@ class SortingControlView: UIView {
 
     private let nameControlLabel = {
         let label = UILabel()
-        label.font = .verdana?.withSize(16)
+        label.font = .verdana(size: 16)
         label.textAlignment = .right
         label.textColor = .black
         return label
