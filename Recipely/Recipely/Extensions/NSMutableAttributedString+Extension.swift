@@ -21,4 +21,12 @@ extension NSMutableAttributedString {
         addAttributes([.foregroundColor: color], range: NSRange(0 ..< string.count))
         return self
     }
+
+    /// Применяет указанный стиль абзаца ко всей строке.
+    /// - Parameter style: Стиль абзаца, который будет применен ко всей строке.
+    /// - Returns: Текущий экземпляр, модифицированный указанным стилем абзаца.
+    func withParagraphStyle(_ style: NSMutableParagraphStyle) -> NSMutableAttributedString {
+        addAttributes([.paragraphStyle: style], range: NSRange(0 ..< string.count))
+        return self
+    }
 }

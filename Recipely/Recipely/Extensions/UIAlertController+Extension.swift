@@ -3,6 +3,7 @@
 
 import UIKit
 
+/// Расширение для создания экземпляра `UIAlertController` с возможностью упрощения инициализации.
 extension UIAlertController {
     /// Создает экземпляр `UIAlertController` с возможностью опускания некоторых параметров для упрощения инициализации.
     /// - Parameters:
