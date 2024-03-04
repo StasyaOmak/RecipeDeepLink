@@ -404,6 +404,7 @@ extension AuthView: AuthViewProtocol {
 
     func stopIndicator() {
         loginButton.stopIndicator()
+        presenter?.didEndSpinningSpinner()
     }
 
     func startIndicator() {

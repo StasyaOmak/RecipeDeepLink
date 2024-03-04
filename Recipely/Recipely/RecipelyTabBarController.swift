@@ -21,5 +21,7 @@ final class RecipelyTabBarController: UITabBarController {
         tabBar.layer.shadowOpacity = 0.2
         tabBar.layer.shadowColor = UIColor.opaqueSeparator.cgColor
         tabBar.tintColor = .accent
+
+        presentingViewController
     }
 }

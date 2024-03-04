@@ -11,8 +11,11 @@ extension UIColor {
     static let textAccent = UIColor.userColor(hex: 0x475C66)
     static let warnings = UIColor.userColor(hex: 0xEF6054)
 
+    /// Словарь уже инициализированных цветов
     private static var flyColorsMap: [Int: UIColor] = [:]
 
+    /// Создает цвет из шестнадцатеричного представления.
+    /// - Parameter hex: Шестнадцатеричное представление цвета.
     convenience init(_ hex: Int) {
         guard hex <= 0xFFFFFF else {
             self.init(white: 1, alpha: 1)
@@ -20,10 +23,13 @@ extension UIColor {
         }
         let redComponent = CGFloat((hex & 0xFF0000) >> 16) / 255
         let greenComponent = CGFloat((hex & 0x00FF00) >> 8) / 255
-        let blueComponenet = CGFloat(hex & 0x0000FF) / 255
-        self.init(red: redComponent, green: greenComponent, blue: blueComponenet, alpha: 1)
+        let blueComponent = CGFloat(hex & 0x0000FF) / 255
+        self.init(red: redComponent, green: greenComponent, blue: blueComponent, alpha: 1)
     }
 
+    /// Возвращает цвет из шестнадцатеричного представления.
+    /// - Parameter hex: Шестнадцатеричное представление цвета.
+    /// - Returns: Экземпляр цвета.
     static func userColor(hex: Int) -> UIColor {
         if let color = UIColor.flyColorsMap[hex] {
             return color
