@@ -45,6 +45,8 @@ extension AuthPresenter: AuthPresenterProtocol {
     }
 
     func loginButtonTapped(withPassword password: String?) {
+        coordinator?.endModule()
+
         view?.startIndicator()
         Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { [view] _ in
             view?.stopIndicator()

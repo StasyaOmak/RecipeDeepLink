@@ -6,7 +6,7 @@ import Foundation
 /// Интерфейс взаимодействия с CategoryDishesPresenter
 protocol CategoryDishesPresenterProtocol {
     /// Список  блюд в категории.
-    var dishes: [CategoryDishProtocol] { get }
+    var dishes: [CategoryDish] { get }
     /// Получить название категории.
     func getTitle() -> String
     /// Изменить статус сортировки по калориям.
@@ -24,9 +24,22 @@ final class CategoryDishesPresenter {
     private weak var view: CategoryDishesViewProtocol?
     private weak var coordinator: RecipesCoordinatorProtocol?
 
-    private(set) var dishes: [CategoryDishProtocol] = CategoryDish.getDishes()
-    private var conditionCalories = Condition.notPressed
-    private var conditionTime = Condition.notPressed
+    private(set) var dishes: [CategoryDish] = []
+    private var initialDishes = CategoryDish.getDishes()
+    private var conditionCalories = Condition.notPressed {
+        willSet {
+            updateDishesArray()
+            view?.updateTable()
+        }
+    }
+
+    private var conditionTime = Condition.notPressed {
+        didSet {
+            updateDishesArray()
+            view?.updateTable()
+        }
+    }
+
     private var viewTitle: String
 
     // MARK: - Initializers
@@ -35,6 +48,47 @@ final class CategoryDishesPresenter {
         self.view = view
         self.coordinator = coordinator
         self.viewTitle = viewTitle
+        dishes = initialDishes
+    }
+
+    typealias AreInIncreasingOrder = (CategoryDish, CategoryDish) -> Bool
+    private func createPredicatesAccordingToCurrentSelectedConditions() -> [AreInIncreasingOrder] {
+        var predicatesArray: [AreInIncreasingOrder] = []
+        switch conditionTime {
+        case .sortingMore:
+            predicatesArray.append { $0.cookingTime < $1.cookingTime }
+        case .sortingSmaller:
+            predicatesArray.append { $0.cookingTime > $1.cookingTime }
+        default:
+            break
+        }
+
+        switch conditionCalories {
+        case .sortingMore:
+            predicatesArray.append { $0.numberCalories < $1.numberCalories }
+        case .sortingSmaller:
+            predicatesArray.append { $0.numberCalories > $1.numberCalories }
+        default:
+            break
+        }
+        return predicatesArray
+    }
+
+    private func getSortedCategoryDishes(using predicates: [AreInIncreasingOrder]) -> [CategoryDish] {
+        initialDishes.sorted { lhsDish, rhsDish in
+            for predicate in predicates {
+                if !predicate(lhsDish, rhsDish), !predicate(rhsDish, lhsDish) {
+                    continue
+                }
+                return predicate(lhsDish, rhsDish)
+            }
+            return false
+        }
+    }
+
+    private func updateDishesArray() {
+        let predicates = createPredicatesAccordingToCurrentSelectedConditions()
+        dishes = getSortedCategoryDishes(using: predicates)
     }
 }
 

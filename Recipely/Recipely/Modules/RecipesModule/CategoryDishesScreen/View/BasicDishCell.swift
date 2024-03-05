@@ -84,7 +84,7 @@ class BasicDishCell: UITableViewCell {
 
     // MARK: - Public Methods
 
-    func configureCell(category: CategoryDishProtocol) {
+    func configureCell(category: CategoryDish) {
         dishImageView.image = UIImage(category.nameImage)
         dishNameLabel.text = category.nameDish
         timerLabel.text = "\(category.cookingTime) \(Metrics.minutes.rawValue)"

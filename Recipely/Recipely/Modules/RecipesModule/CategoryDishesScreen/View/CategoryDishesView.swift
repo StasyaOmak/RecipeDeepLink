@@ -9,6 +9,8 @@ protocol CategoryDishesViewProtocol: AnyObject {
     func changesCaloriesSortingStatus(condition: Condition)
     // функция для изменения состояния контрола сортировки по времени
     func changesTimeSortingStatus(condition: Condition)
+    /// Просит перезагрузить таблицу
+    func updateTable()
 }
 
 /// Вью экрана списка блюд категории
@@ -209,6 +211,10 @@ extension CategoryDishesView: CategoryDishesViewProtocol {
             caloriesView.backgroundColor = .accent
             caloriesView.changeParameters(title: Constants.caloriesText, image: newImage)
         }
+    }
+
+    func updateTable() {
+        tableView.reloadData()
     }
 }
 
