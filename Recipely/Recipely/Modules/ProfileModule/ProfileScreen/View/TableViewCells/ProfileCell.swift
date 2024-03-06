@@ -16,7 +16,7 @@ final class ProfileCell: UITableViewCell {
 
     private let nameLabel: UILabel = {
         let label = UILabel()
-        label.font = .verdanaBold?.withSize(25)
+        label.font = .verdanaBold(size: 25)
         label.textColor = .textAccent
         label.textAlignment = .center
         return label

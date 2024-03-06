@@ -5,12 +5,14 @@ import Foundation
 
 /// Интерфейс взаимодействия с AuthPresenter
 protocol AuthPresenterProtocol: AnyObject {
-    // функция для отображения об ошибке если не прошел валидность текст email
+    /// функция для отображения об ошибке если не прошел валидность текст email
     func emailTextFieldValueChanged(to text: String?)
-    // функция для отображения об ошибке если не прошел валидность текст password
+    /// функция для отображения об ошибке если не прошел валидность текст password
     func loginButtonTapped(withPassword password: String?)
-    // функция для отображения предупреждений об ошибке при авторизации
+    /// функция для отображения предупреждений об ошибке при авторизации
     func showWarning()
+    /// Сообщает о конце анимации спиннера
+    func didEndSpinningSpinner()
 }
 
 /// Вью экрана аутентификаци
@@ -43,6 +45,8 @@ extension AuthPresenter: AuthPresenterProtocol {
     }
 
     func loginButtonTapped(withPassword password: String?) {
+        coordinator?.endModule()
+
         view?.startIndicator()
         Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { [view] _ in
             view?.stopIndicator()
@@ -53,5 +57,9 @@ extension AuthPresenter: AuthPresenterProtocol {
                 view?.showWarning()
             }
         }
+    }
+
+    func didEndSpinningSpinner() {
+        coordinator?.endModule()
     }
 }

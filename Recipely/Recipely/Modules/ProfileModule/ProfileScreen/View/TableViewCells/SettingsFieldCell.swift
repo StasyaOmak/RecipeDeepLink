@@ -18,7 +18,7 @@ final class SettingsFieldCell: UITableViewCell {
 
     private let captionLabel: UILabel = {
         let label = UILabel()
-        label.font = .verdana?.withSize(18)
+        label.font = .verdana(size: 18)
         label.textColor = .textAccent
         label.textAlignment = .left
         return label

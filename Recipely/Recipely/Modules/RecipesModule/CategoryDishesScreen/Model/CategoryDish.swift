@@ -3,26 +3,15 @@
 
 import Foundation
 
-// Информация о рецепте
-protocol CategoryDishProtocol {
+/// Информация о рецепте
+struct CategoryDish {
     /// Название изображения блюда
-    var nameImage: AssetImageName { get set }
-    /// Название блюда
-    var nameDish: String { get set }
-    /// Время приготовления
-    var cookingTime: Int { get set }
-    /// Количество килокалорий
-    var numberCalories: Int { get set }
-
-    /// Создает массив рецептов
-    static func getDishes() -> [Self]
-}
-
-///  Рефлизация протокола
-struct CategoryDish: CategoryDishProtocol {
     var nameImage: AssetImageName
+    /// Название блюда
     var nameDish: String
+    /// Время приготовления
     var cookingTime: Int
+    /// Количество килокалорий
     var numberCalories: Int
 
     static func getDishes() -> [CategoryDish] {

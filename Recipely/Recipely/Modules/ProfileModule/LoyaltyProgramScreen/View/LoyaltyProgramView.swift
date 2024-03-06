@@ -23,7 +23,7 @@ final class LoyaltyProgramView: UIViewController {
 
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = .verdanaBold?.withSize(20)
+        label.font = .verdanaBold(size: 20)
         label.textColor = .textAccent
         label.text = Constants.titleText
         label.textAlignment = .center
@@ -47,7 +47,7 @@ final class LoyaltyProgramView: UIViewController {
 
     private let bonucesAmountLabel: UILabel = {
         let label = UILabel()
-        label.font = .verdanaBold?.withSize(30)
+        label.font = .verdanaBold(size: 30)
         label.textColor = .textAccent
         label.textAlignment = .left
         return label

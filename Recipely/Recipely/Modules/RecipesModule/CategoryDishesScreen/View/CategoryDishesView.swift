@@ -5,22 +5,16 @@ import UIKit
 
 /// Интерфейс взаимодействия с CategoryDishesView
 protocol CategoryDishesViewProtocol: AnyObject {
-    // функция для изменения состояния контрола сортировки калорий
+    /// Функция для изменения состояния контрола сортировки калорий
     func changesCaloriesSortingStatus(condition: Condition)
-    // функция для изменения состояния контрола сортировки по времени
+    /// Функция для изменения состояния контрола сортировки по времени
     func changesTimeSortingStatus(condition: Condition)
+    /// Функция для обновления данных в таблице
+    func reloadDishes()
 }
 
 /// Вью экрана списка блюд категории
 class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
-    // MARK: - Types
-
-    /// Тип ячейки блюда
-    private enum DishCellTypes {
-        /// Стандартная ячейка
-        case basicDishCell
-    }
-
     // MARK: - Constants
 
     private enum Constants {
@@ -32,7 +26,7 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
 
     // MARK: - Visual Components
 
-    private let searhBar = {
+    private lazy var searhBar = {
         let searhBar = UISearchBar()
         searhBar.searchTextField.borderStyle = .none
         searhBar.searchBarStyle = .minimal
@@ -40,6 +34,7 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
         searhBar.searchTextField.layer.cornerRadius = 12
         searhBar.placeholder = Constants.placeholderText
         searhBar.translatesAutoresizingMaskIntoConstraints = false
+        searhBar.delegate = self
         return searhBar
     }()
 
@@ -68,7 +63,8 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
         table.separatorStyle = .none
         table.showsVerticalScrollIndicator = false
         table.rowHeight = UITableView.automaticDimension
-        table.register(BasicDishCell.self, forCellReuseIdentifier: BasicDishCell.description())
+        table.register(DishCell.self, forCellReuseIdentifier: DishCell.description())
+        table.register(DishShimmerCell.self, forCellReuseIdentifier: DishShimmerCell.description())
         return table
     }()
 
@@ -76,16 +72,16 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
 
     var presenter: CategoryDishesPresenterProtocol?
 
-    // MARK: - Private Properties
-
-    private let content: [DishCellTypes] = [.basicDishCell]
-
     // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
         configureLayout()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        presenter?.viewDidAppear()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -155,7 +151,7 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
         let title = presenter?.getTitle() ?? ""
         titleLabel.attributedText = title.attributed()
             .withColor(.label)
-            .withFont(.verdanaBold?.withSize(28))
+            .withFont(.verdanaBold(size: 28))
         titleLabel.textAlignment = .left
         navigationItem.leftBarButtonItems?.append(UIBarButtonItem(customView: titleLabel))
     }
@@ -179,6 +175,10 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
 }
 
 extension CategoryDishesView: CategoryDishesViewProtocol {
+    func reloadDishes() {
+        tableView.reloadData()
+    }
+
     func changesTimeSortingStatus(condition: Condition) {
         switch condition {
         case .notPressed:
@@ -213,25 +213,25 @@ extension CategoryDishesView: CategoryDishesViewProtocol {
 }
 
 extension CategoryDishesView: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        content.count
-    }
-
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        presenter?.dishes.count ?? 0
+        presenter?.getNumberDishes() ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let items = content[indexPath.section]
-        switch items {
-        case .basicDishCell:
-            guard let category = presenter?.dishes,
-                  let cell = tableView.dequeueReusableCell(
-                      withIdentifier: BasicDishCell.description(),
-                      for: indexPath
-                  ) as? BasicDishCell
-            else { return UITableViewCell() }
-            cell.configureCell(category: category[indexPath.row])
+        guard let dish = presenter?.getDish(forIndex: indexPath.row) else { return UITableViewCell() }
+        switch dish {
+        case let .data(dish):
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: DishCell.description(),
+                for: indexPath
+            ) as? DishCell else { return UITableViewCell() }
+            cell.configure(with: dish)
+            return cell
+        case .noData:
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: DishShimmerCell.description(),
+                for: indexPath
+            ) as? DishShimmerCell else { return UITableViewCell() }
             return cell
         }
     }
@@ -245,5 +245,11 @@ extension CategoryDishesView: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         tableView.cellForRow(at: indexPath)?.isSelected = false
+    }
+}
+
+extension CategoryDishesView: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        presenter?.searchBarTextChanged(to: searchText)
     }
 }

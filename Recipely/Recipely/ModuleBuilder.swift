@@ -27,6 +27,8 @@ protocol Builder: AnyObject {
     func buildProfileScreen(coordinator: ProfileCoordinatorProtocol) -> ProfileView
     /// Собирает экран программы лояльности
     func buildLoyaltyProgramScreen(coordinator: ProfileCoordinatorProtocol) -> LoyaltyProgramView
+    /// Собирает экран правил использования
+    func buildTermsOfUseScreen(coordinator: ProfileCoordinatorProtocol) -> TermsOfUseView
 }
 
 final class ModuleBuilder: Builder {
@@ -115,6 +117,13 @@ final class ModuleBuilder: Builder {
         sheet?.detents = [.custom(resolver: { _ in 320 })]
         sheet?.prefersGrabberVisible = true
         sheet?.preferredCornerRadius = 30
+        return view
+    }
+
+    func buildTermsOfUseScreen(coordinator: ProfileCoordinatorProtocol) -> TermsOfUseView {
+        let view = TermsOfUseView()
+        let presenter = TermsOfUsePresenter(view: view, coordinator: coordinator)
+        view.presenter = presenter
         return view
     }
 }

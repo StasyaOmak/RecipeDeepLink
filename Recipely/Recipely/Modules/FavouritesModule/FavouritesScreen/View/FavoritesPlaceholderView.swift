@@ -33,7 +33,7 @@ final class FavoritesPlaceholderView: UIView {
 
     private let titleLabel = {
         let label = UILabel()
-        label.font = .verdanaBold?.withSize(18)
+        label.font = .verdanaBold(size: 18)
         label.textAlignment = .center
         label.textColor = .black
         label.text = Constants.mainMessageText
@@ -42,7 +42,7 @@ final class FavoritesPlaceholderView: UIView {
 
     private let messageLabel = {
         let label = UILabel()
-        label.font = .verdana?.withSize(12.5)
+        label.font = .verdana(size: 12.5)
         label.textAlignment = .center
         label.textColor = .systemGray2
         label.text = Constants.supportiveMessageText

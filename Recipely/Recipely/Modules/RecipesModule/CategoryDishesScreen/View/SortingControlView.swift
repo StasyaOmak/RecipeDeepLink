@@ -3,20 +3,19 @@
 
 import UIKit
 
-/// Вью для отображения контроля сортировок
+/// Вью для отображения контрола сортировок
 class SortingControlView: UIView {
     // MARK: - Visual Components
 
     private let controlImageView = {
         let image = UIImageView()
         image.contentMode = .scaleAspectFit
-        image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
 
     private let nameControlLabel = {
         let label = UILabel()
-        label.font = .verdana?.withSize(16)
+        label.font = .verdana(size: 16)
         label.textAlignment = .right
         label.textColor = .black
         return label

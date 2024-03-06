@@ -68,7 +68,7 @@ final class DishCookingTimeView: UIView {
         timerLabel.attributedText = text.attributed()
             .withParagraphStyle(timerLabelStyle)
             .withColor(.systemBackground)
-            .withFont(.verdana?.withSize(10))
+            .withFont(.verdana(size: 10))
     }
 
     // MARK: - Private Methods
