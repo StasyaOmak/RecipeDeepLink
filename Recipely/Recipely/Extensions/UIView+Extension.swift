@@ -37,15 +37,12 @@ extension UIView {
 }
 
 extension UIView {
-    func startShimmerAnimation(speed: Double) {
+    func startShimmerAnimation(speed: Double) -> CAGradientLayer {
         let gradient = CAGradientLayer()
         gradient.colors = [#colorLiteral(red: 0.813813347, green: 0.8384743575, blue: 0.8384743575, alpha: 1).cgColor, #colorLiteral(red: 0.9450980392, green: 0.9607843137, blue: 0.9607843137, alpha: 1).cgColor, #colorLiteral(red: 0.8156862745, green: 0.8392156863, blue: 0.8392156863, alpha: 1).cgColor, #colorLiteral(red: 0.9450980392, green: 0.9607843137, blue: 0.9607843137, alpha: 1).cgColor]
         gradient.frame = bounds.insetBy(dx: -(bounds.width), dy: 0)
         gradient.startPoint = CGPoint(x: 0, y: 0)
         gradient.endPoint = CGPoint(x: 1, y: 0)
-        layer.mask = gradient
-//        layer.addSublayer(gradient)
-        layer.masksToBounds = true
 
         let animation = CABasicAnimation(keyPath: "transform.translation.x")
         animation.duration = speed
@@ -53,24 +50,29 @@ extension UIView {
         animation.fromValue = -frame.width
         animation.toValue = frame.width
         animation.isRemovedOnCompletion = false
+
+        layer.masksToBounds = true
+        layer.addSublayer(gradient)
         gradient.add(animation, forKey: "shimmerKey")
+        return gradient
     }
 
-    func stopShimmerAnimation() {
-        layer.mask = nil
+    func stopShimmerAnimation(layer: CAGradientLayer) {
+        layer.removeFromSuperlayer()
     }
 }
 
 // #Preview {
 //    let controller = UIViewController()
-//    let view = UIView()
+//    let view = ShimmeringView()
 //    view.frame = .init(origin: .zero, size: CGSize(width: 300, height: 300)).offsetBy(dx: 100, dy: 300)
 //    view.backgroundColor = .blue
-////    view.clipsToBounds = true
+//    view.clipsToBounds = true
 //    view.layer.cornerRadius = 30
 //
 //    controller.view.addSubview(view)
 //
-//    view.startShimmerAnimation(speed: 4)
+////    view.startShimmerAnimation(speed: 4)
+////    view.stopShimmerAnimation()
 //    return controller
 // }
