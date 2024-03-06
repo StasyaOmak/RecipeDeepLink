@@ -16,6 +16,20 @@ final class TermsOfUseView: UIViewController {
         case expanded
         /// Вью свернуто
         case collapsed
+        /// Вью показано на половину
+        case halfExpanded
+
+        /// Следующее состояние
+        var next: CardState {
+            switch self {
+            case .expanded:
+                .collapsed
+            case .collapsed:
+                .halfExpanded
+            case .halfExpanded:
+                .expanded
+            }
+        }
     }
 
     // MARK: - Visual Components
@@ -38,8 +52,10 @@ final class TermsOfUseView: UIViewController {
     // MARK: - Private Properties
 
     private var cardIsVisible = false
+    private var currentState = CardState.halfExpanded
     private var nextState: CardState {
-        cardIsVisible ? .collapsed : .expanded
+        currentState = currentState.next
+        return currentState
     }
 
     private var runningAnimations: [UIViewPropertyAnimator] = []
@@ -55,7 +71,7 @@ final class TermsOfUseView: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        animateTransitionIfNeeded(state: nextState, duration: 0.9)
+        animateTransitionIfNeeded(state: .halfExpanded, duration: 0.9)
     }
 
     // MARK: - Private Methods
@@ -95,6 +111,8 @@ final class TermsOfUseView: UIViewController {
                     self.termsView.frame.origin.y = self.view.frame.height - self.termsView.frame.height
                 case .collapsed:
                     self.termsView.frame.origin.y = self.view.frame.height
+                case .halfExpanded:
+                    self.termsView.frame.origin.y = self.view.frame.height - 300
                 }
             }
             frameAnimator.addCompletion { _ in
@@ -156,7 +174,13 @@ final class TermsOfUseView: UIViewController {
         case .changed:
             let translation = recognizer.translation(in: handleAreaView)
             var fractionComplete = translation.y / termsView.frame.height
-            fractionComplete = cardIsVisible ? fractionComplete : -fractionComplete
+
+            switch currentState {
+            case .collapsed:
+                break
+            case .halfExpanded, .expanded:
+                fractionComplete = -fractionComplete
+            }
             updateInteractiveTransition(fractionCompleted: fractionComplete)
         case .ended:
             continueInteractiveTransition()

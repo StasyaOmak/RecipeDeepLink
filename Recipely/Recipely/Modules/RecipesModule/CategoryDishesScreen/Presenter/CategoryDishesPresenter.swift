@@ -39,6 +39,7 @@ final class CategoryDishesPresenter {
     private var isDataAvalible = false
     private var dishes: [CategoryDish] = []
     private var initialDishes = CategoryDish.getDishes()
+    private var timer: Timer?
     private var caloriesSortState = SortState.none {
         didSet {
             updateDishesArray()
@@ -135,13 +136,20 @@ extension CategoryDishesPresenter: CategoryDishesPresenterProtocol {
     }
 
     func searchBarTextChanged(to text: String) {
-        if text.count < 3 {
-            dishes = initialDishes
-        } else {
-            dishes = dishes.filter { $0.nameDish.lowercased().contains(text.lowercased()) }
-        }
-        updateDishesArray()
+        timer?.invalidate()
+        isDataAvalible = (text.count < 3) ? true : false
         view?.reloadDishes()
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { _ in
+            if text.count < 3 {
+                self.dishes = self.initialDishes
+            } else {
+                self.dishes = self.initialDishes
+                    .filter { $0.nameDish.range(of: text, options: .caseInsensitive) != nil }
+            }
+            self.updateDishesArray()
+            self.isDataAvalible = true
+            self.view?.reloadDishes()
+        }
     }
 
     func caloriesSortControlChanged(toState state: SortState) {
