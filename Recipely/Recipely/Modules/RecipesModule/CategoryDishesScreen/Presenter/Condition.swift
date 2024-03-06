@@ -12,7 +12,7 @@ enum Condition: Int, CaseIterable {
     /// нажат сортировка от большего к меньшему
     case sortingSmaller
 
-    /// Возвращает следующее состояние в кольце 
+    /// Возвращает следующее состояние в кольце
     var next: Condition {
         Condition(rawValue: (rawValue + 1) % (Condition.allCases.count)) ?? .notPressed
     }
