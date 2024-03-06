@@ -194,13 +194,11 @@ extension CategoryDishesView: CategoryDishesViewProtocol {
         case .sortingMore:
             timeView.backgroundColor = .accent
             timeView.changeParameters(title: Constants.timeText, image: .stackIcon.withTintColor(.white))
-            presenter?.sotredTableViewTime(condition: .sortingMore)
         case .sortingSmaller:
             guard let image = UIImage.stackIcon.cgImage else { return }
             let newImage = UIImage(cgImage: image, scale: 1, orientation: .downMirrored).withTintColor(.white)
             timeView.backgroundColor = .accent
             timeView.changeParameters(title: Constants.timeText, image: newImage)
-            presenter?.sotredTableViewTime(condition: .sortingSmaller)
         }
     }
 
@@ -212,13 +210,11 @@ extension CategoryDishesView: CategoryDishesViewProtocol {
         case .sortingMore:
             caloriesView.backgroundColor = .accent
             caloriesView.changeParameters(title: Constants.caloriesText, image: .stackIcon.withTintColor(.white))
-            presenter?.sotredTableViewCalories(condition: .sortingMore)
         case .sortingSmaller:
             guard let image = UIImage.stackIcon.cgImage else { return }
             let newImage = UIImage(cgImage: image, scale: 1, orientation: .downMirrored).withTintColor(.white)
             caloriesView.backgroundColor = .accent
             caloriesView.changeParameters(title: Constants.caloriesText, image: newImage)
-            presenter?.sotredTableViewCalories(condition: .sortingSmaller)
         }
     }
 }

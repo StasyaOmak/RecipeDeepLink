@@ -19,10 +19,6 @@ protocol CategoryDishesPresenterProtocol {
     func returnFilledArray()
     /// отфильтровывает таблицу
     func filterTableView(text: String)
-    /// сортирует  таблицу по времени приготовление
-    func sotredTableViewTime(condition: Condition)
-    /// сортирует  таблицу по калориям
-    func sotredTableViewCalories(condition: Condition)
 }
 
 /// Презентер экрана категории рецептов
@@ -33,6 +29,7 @@ final class CategoryDishesPresenter {
     private weak var coordinator: RecipesCoordinatorProtocol?
 
     private(set) var dishes: [CategoryDishProtocol] = CategoryDish.getDishes()
+
     private var conditionCalories = Condition.notPressed
     private var conditionTime = Condition.notPressed
     private var viewTitle: String
@@ -47,32 +44,6 @@ final class CategoryDishesPresenter {
 }
 
 extension CategoryDishesPresenter: CategoryDishesPresenterProtocol {
-    func sotredTableViewCalories(condition: Condition) {
-        switch condition {
-        case .notPressed:
-            break
-        case .sortingMore:
-            dishes.sort { $0.numberCalories < $1.numberCalories }
-            view?.updateTable()
-        case .sortingSmaller:
-            dishes.sort { $0.numberCalories > $1.numberCalories }
-            view?.updateTable()
-        }
-    }
-
-    func sotredTableViewTime(condition: Condition) {
-        switch condition {
-        case .notPressed:
-            break
-        case .sortingMore:
-            dishes.sort { $0.cookingTime < $1.cookingTime }
-            view?.updateTable()
-        case .sortingSmaller:
-            dishes.sort { $0.cookingTime > $1.cookingTime }
-            view?.updateTable()
-        }
-    }
-
     func filterTableView(text: String) {
         if text.count < 3 {
             dishes = CategoryDish.getDishes()
