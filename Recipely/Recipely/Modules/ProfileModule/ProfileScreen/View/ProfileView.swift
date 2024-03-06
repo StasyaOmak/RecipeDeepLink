@@ -82,7 +82,7 @@ final class ProfileView: UIViewController {
     private func configureTitleLabel() {
         let titleLabel = UILabel()
         titleLabel.attributedText = Constants.titleText.attributed().withColor(.label)
-            .withFont(.verdanaBold?.withSize(28))
+            .withFont(.verdanaBold(size: 28))
         titleLabel.textAlignment = .left
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: titleLabel)
     }
@@ -116,7 +116,7 @@ extension ProfileView: ProfileViewProtocol {
         let cancelAction = UIAlertAction(title: Constants.cancelText)
         alert.addTextField { textfield in
             textfield.placeholder = Constants.changeNamePlaceholder
-            textfield.font = .verdana?.withSize(16)
+            textfield.font = .verdana(size: 16)
         }
         alert.addAction(okAction)
         alert.addAction(cancelAction)

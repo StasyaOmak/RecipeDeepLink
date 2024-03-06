@@ -9,7 +9,7 @@ protocol CategoryDishesViewProtocol: AnyObject {
     func changesCaloriesSortingStatus(condition: Condition)
     // функция для изменения состояния контрола сортировки по времени
     func changesTimeSortingStatus(condition: Condition)
-    // функция которая обновляет таблицу
+    /// Просит перезагрузить таблицу
     func updateTable()
 }
 
@@ -91,6 +91,10 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
         configureLayout()
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        presenter?.viewDidAppear()
+    }
+
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         deselectSelectedRow()
@@ -158,7 +162,7 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
         let title = presenter?.getTitle() ?? ""
         titleLabel.attributedText = title.attributed()
             .withColor(.label)
-            .withFont(.verdanaBold?.withSize(28))
+            .withFont(.verdanaBold(size: 28))
         titleLabel.textAlignment = .left
         navigationItem.leftBarButtonItems?.append(UIBarButtonItem(customView: titleLabel))
     }
@@ -217,6 +221,10 @@ extension CategoryDishesView: CategoryDishesViewProtocol {
             caloriesView.changeParameters(title: Constants.caloriesText, image: newImage)
         }
     }
+
+    func updateTable() {
+        tableView.reloadData()
+    }
 }
 
 extension CategoryDishesView: UITableViewDataSource {
@@ -232,13 +240,13 @@ extension CategoryDishesView: UITableViewDataSource {
         let items = content[indexPath.section]
         switch items {
         case .basicDishCell:
-            guard let category = presenter?.dishes,
+            guard let dish = presenter?.getDish(atIndex: indexPath.row),
                   let cell = tableView.dequeueReusableCell(
                       withIdentifier: BasicDishCell.description(),
                       for: indexPath
                   ) as? BasicDishCell
             else { return UITableViewCell() }
-            cell.configureCell(category: category[indexPath.row])
+            cell.configure(with: dish)
             return cell
         }
     }

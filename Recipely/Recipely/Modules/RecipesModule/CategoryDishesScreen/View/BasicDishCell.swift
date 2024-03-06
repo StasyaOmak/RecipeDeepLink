@@ -20,7 +20,7 @@ class BasicDishCell: UITableViewCell {
 
     private let dishNameLabel = {
         let label = UILabel()
-        label.font = .verdana?.withSize(14)
+        label.font = .verdana(size: 14)
         label.textAlignment = .left
         label.textColor = .black
         label.numberOfLines = 0
@@ -29,7 +29,7 @@ class BasicDishCell: UITableViewCell {
 
     private let timerLabel = {
         let label = UILabel()
-        label.font = .verdana?.withSize(12)
+        label.font = .verdana(size: 12)
         label.textAlignment = .left
         label.textColor = .black
         return label
@@ -37,7 +37,7 @@ class BasicDishCell: UITableViewCell {
 
     private let caloriesLabel = {
         let label = UILabel()
-        label.font = .verdana?.withSize(12)
+        label.font = .verdana(size: 12)
         label.textAlignment = .left
         label.textColor = .black
         return label
@@ -59,6 +59,8 @@ class BasicDishCell: UITableViewCell {
         button.setImage(.vector, for: .normal)
         return button
     }()
+
+    private var state = DataStatus.noData
 
     // MARK: - Public Properties
 
@@ -82,9 +84,39 @@ class BasicDishCell: UITableViewCell {
         configureLayout()
     }
 
+    // MARK: - Life Cycle
+
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+        switch state {
+        case let .dataLoaded(categoryDish):
+            configureCell(category: categoryDish)
+        case .noData:
+            for item in [dishImageView, dishNameLabel, timerLabel, caloriesLabel] {
+                item.startShimmerAnimation(speed: 3)
+            }
+        }
+    }
+
+//    override func layoutSubviews() {
+//        super.layoutSubviews()
+//        switch state {
+//        case let .dataLoaded(categoryDish):
+//            break
+//        case .noData:
+//            for item in [dishImageView, dishNameLabel, timerLabel, caloriesLabel] {
+//                item.startShimmerAnimation(speed: 3)
+//            }
+//        }
+//    }
+
     // MARK: - Public Methods
 
-    func configureCell(category: CategoryDishProtocol) {
+    func configure(with state: DataStatus) {
+        self.state = state
+    }
+
+    func configureCell(category: CategoryDish) {
         dishImageView.image = UIImage(category.nameImage)
         dishNameLabel.text = category.nameDish
         timerLabel.text = "\(category.cookingTime) \(Metrics.minutes.rawValue)"
@@ -144,7 +176,8 @@ class BasicDishCell: UITableViewCell {
         [
             dishNameLabel.leadingAnchor.constraint(equalTo: dishImageView.trailingAnchor, constant: 20),
             dishNameLabel.topAnchor.constraint(equalTo: dishImageView.topAnchor, constant: 12),
-            dishNameLabel.widthAnchor.constraint(equalToConstant: 197)
+            dishNameLabel.trailingAnchor.constraint(equalTo: arrowButton.leadingAnchor),
+            dishNameLabel.heightAnchor.constraint(equalToConstant: 32)
         ].activate()
     }
 

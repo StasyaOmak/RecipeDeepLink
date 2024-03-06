@@ -59,7 +59,8 @@ extension ProfilePresenter: ProfilePresenterProtocol {
         case .bonuses:
             coordinator?.showLoyaltyProgramScreen()
         case .termsAndPrivacy:
-            view?.showUnderDevelopmentMessage()
+//            view?.showUnderDevelopmentMessage()
+            coordinator?.showTermsOfUseScreen()
         case .logOut:
             view?.showLogOutMessage()
         }

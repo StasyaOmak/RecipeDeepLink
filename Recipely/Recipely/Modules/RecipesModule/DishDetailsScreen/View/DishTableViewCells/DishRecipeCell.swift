@@ -10,14 +10,14 @@ final class DishRecipeCell: UITableViewCell {
     private let recipeLabel = {
         let label = UILabel()
         label.textColor = .label
-        label.font = .verdana?.withSize(14)
+        label.font = .verdana(size: 14)
         label.numberOfLines = 0
         return label
     }()
 
     private let gradientLayer = {
         let layer = CAGradientLayer()
-        layer.colors = [UIColor.gridient.cgColor, UIColor.white.cgColor]
+        layer.colors = [UIColor.gradient.cgColor, UIColor.white.cgColor]
         layer.cornerRadius = 24
         layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         return layer
