@@ -34,7 +34,7 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
 
     // MARK: - Visual Components
 
-    private let searhBar = {
+    private lazy var searhBar = {
         let searhBar = UISearchBar()
         searhBar.searchTextField.borderStyle = .none
         searhBar.searchBarStyle = .minimal
@@ -42,6 +42,7 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
         searhBar.searchTextField.layer.cornerRadius = 12
         searhBar.placeholder = Constants.placeholderText
         searhBar.translatesAutoresizingMaskIntoConstraints = false
+        searhBar.delegate = self
         return searhBar
     }()
 
@@ -185,6 +186,10 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
 }
 
 extension CategoryDishesView: CategoryDishesViewProtocol {
+    func updateTable() {
+        tableView.reloadData()
+    }
+
     func changesTimeSortingStatus(condition: Condition) {
         switch condition {
         case .notPressed:
@@ -255,5 +260,11 @@ extension CategoryDishesView: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         tableView.cellForRow(at: indexPath)?.isSelected = false
+    }
+}
+
+extension CategoryDishesView: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        presenter?.filterTableView(text: searchText)
     }
 }
