@@ -5,7 +5,7 @@ import Foundation
 
 /// Состояния контрола
 enum SortState: Int, CaseIterable, Comparable {
-    /// Не сортируется
+    /// Сортировки нет
     case none
     /// Сортировка от меньшего к большему
     case accending

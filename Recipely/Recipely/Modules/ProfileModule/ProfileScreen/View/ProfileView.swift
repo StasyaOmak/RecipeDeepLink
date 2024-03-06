@@ -5,9 +5,6 @@ import UIKit
 
 /// Интерфейс взаимодействия с ProfileView
 protocol ProfileViewProtocol: AnyObject {
-    /// Показывает алерт, информирующий пользователя о том, что выбранная секция или функциональность находится в стадии
-    /// разработки и пока недоступна.
-    func showUnderDevelopmentMessage()
     /// Показывает алерт, запрашивающий подтверждение пользователя перед выходом из аккаунта.
     func showLogOutMessage()
     /// Отображает форму для обновления имени пользователя.
@@ -89,14 +86,6 @@ final class ProfileView: UIViewController {
 }
 
 extension ProfileView: ProfileViewProtocol {
-    func showUnderDevelopmentMessage() {
-        let alert = UIAlertController(title: Constants.underDevelopmentText)
-        let okAction = UIAlertAction(title: Constants.okText)
-        alert.addAction(okAction)
-        alert.preferredAction = okAction
-        present(alert, animated: true)
-    }
-
     func showLogOutMessage() {
         let alert = UIAlertController(title: Constants.logOutAlertTitleText)
         let yesAction = UIAlertAction(title: Constants.yesText, style: .destructive) { [weak self] _ in

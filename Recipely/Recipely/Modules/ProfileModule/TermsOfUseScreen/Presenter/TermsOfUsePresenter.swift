@@ -15,7 +15,6 @@ final class TermsOfUsePresenter {
 
     private weak var coordinator: ProfileCoordinatorProtocol?
     private weak var view: TermsOfUseViewProtocol?
-    private var profile = Profile()
 
     // MARK: - Initializers
 
