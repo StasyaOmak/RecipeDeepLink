@@ -19,6 +19,8 @@ protocol ProfilePresenterProtocol: AnyObject {
     func profileEditButtonTapped()
     /// Обрабатывает событие подтверждения изменения имени пользователя.
     func didSubmitNewName(_ name: String)
+    /// Вызывается при подтверждении выхода из профиля пользователя
+    func logOutActionTapped()
 }
 
 /// Презентер экрана пофиля пользователя
@@ -59,7 +61,6 @@ extension ProfilePresenter: ProfilePresenterProtocol {
         case .bonuses:
             coordinator?.showLoyaltyProgramScreen()
         case .termsAndPrivacy:
-//            view?.showUnderDevelopmentMessage()
             coordinator?.showTermsOfUseScreen()
         case .logOut:
             view?.showLogOutMessage()
@@ -73,5 +74,9 @@ extension ProfilePresenter: ProfilePresenterProtocol {
     func didSubmitNewName(_ name: String) {
         profile.user.name = name
         view?.updateUserNameLabel()
+    }
+
+    func logOutActionTapped() {
+        coordinator?.endProfileModule()
     }
 }

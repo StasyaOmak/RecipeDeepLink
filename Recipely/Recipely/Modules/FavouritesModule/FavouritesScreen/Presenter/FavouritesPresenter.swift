@@ -1,7 +1,7 @@
 // FavouritesPresenter.swift
 // Copyright © RoadMap. All rights reserved.
 
-import UIKit
+import Foundation
 
 /// Интерфейс взаимодействия с FavouritesPresenter
 protocol FavouritesPresenterProtocol: AnyObject {

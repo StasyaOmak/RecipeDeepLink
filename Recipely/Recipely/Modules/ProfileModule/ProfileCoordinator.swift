@@ -11,6 +11,8 @@ protocol ProfileCoordinatorProtocol: AnyObject {
     func showTermsOfUseScreen()
     /// Сообщает о том, что надо закрыть экран правил использования
     func didEndTermsOfUseScreen()
+    /// Сообщает о необходимости завершить текущий модуль
+    func endProfileModule()
 }
 
 /// Координатор модуля профиля пользователя
@@ -52,5 +54,9 @@ extension ProfileCoordinator: ProfileCoordinatorProtocol {
 
     func didEndTermsOfUseScreen() {
         rootController.presentedViewController?.dismiss(animated: false)
+    }
+
+    func endProfileModule() {
+        parentCoordinator?.childDidFinish(self)
     }
 }

@@ -14,6 +14,7 @@ struct CategoryDish {
     /// Количество килокалорий
     var numberCalories: Int
 
+    /// Возращает массив с моковыми данными по блюдам
     static func getDishes() -> [CategoryDish] {
         [
             .init(

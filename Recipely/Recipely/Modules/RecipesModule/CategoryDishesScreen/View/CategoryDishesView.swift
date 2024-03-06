@@ -5,10 +5,6 @@ import UIKit
 
 /// Интерфейс взаимодействия с CategoryDishesView
 protocol CategoryDishesViewProtocol: AnyObject {
-    /// Функция для изменения состояния контрола сортировки калорий
-    func changesCaloriesSortingStatus(condition: Condition)
-    /// Функция для изменения состояния контрола сортировки по времени
-    func changesTimeSortingStatus(condition: Condition)
     /// Функция для обновления данных в таблице
     func reloadDishes()
 }
@@ -38,21 +34,15 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
         return searhBar
     }()
 
-    private lazy var caloriesView = {
-        let view = SortingControlView()
-        view.tag = 0
-        view.changeParameters(title: Constants.caloriesText, image: .stackIcon)
-        let tapGestureCalories = UITapGestureRecognizer(target: self, action: #selector(sortControllTapped(_:)))
-        view.addGestureRecognizer(tapGestureCalories)
+    private lazy var caloriesSortControl = {
+        let view = SortControl(title: Constants.caloriesText, state: .none)
+        view.delegate = self
         return view
     }()
 
-    private lazy var timeView = {
-        let view = SortingControlView()
-        view.tag = 1
-        view.changeParameters(title: Constants.timeText, image: .stackIcon)
-        let tapGestureCalories = UITapGestureRecognizer(target: self, action: #selector(sortControllTapped(_:)))
-        view.addGestureRecognizer(tapGestureCalories)
+    private lazy var timeSortControl = {
+        let view = SortControl(title: Constants.timeText, state: .none)
+        view.delegate = self
         return view
     }()
 
@@ -93,12 +83,12 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
 
     private func configureUI() {
         view.backgroundColor = .systemBackground
-        view.addSubviews(tableView, searhBar, caloriesView, timeView)
+        view.addSubviews(tableView, searhBar, caloriesSortControl, timeSortControl)
         configureNavigationItem()
     }
 
     private func configureLayout() {
-        UIView.doNotTAMIC(for: tableView, searhBar, caloriesView, timeView)
+        UIView.doNotTAMIC(for: tableView, searhBar, caloriesSortControl, timeSortControl)
         configureSearhBarConstraints()
         configureCaloriesViewConstraints()
         configureTimeViewConstraints()
@@ -116,21 +106,21 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
 
     private func configureCaloriesViewConstraints() {
         [
-            caloriesView.topAnchor.constraint(equalTo: searhBar.bottomAnchor, constant: 20),
-            caloriesView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            caloriesSortControl.topAnchor.constraint(equalTo: searhBar.bottomAnchor, constant: 20),
+            caloriesSortControl.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
         ].activate()
     }
 
     private func configureTimeViewConstraints() {
         [
-            timeView.topAnchor.constraint(equalTo: searhBar.bottomAnchor, constant: 20),
-            timeView.leadingAnchor.constraint(equalTo: caloriesView.trailingAnchor, constant: 11),
+            timeSortControl.topAnchor.constraint(equalTo: searhBar.bottomAnchor, constant: 20),
+            timeSortControl.leadingAnchor.constraint(equalTo: caloriesSortControl.trailingAnchor, constant: 11),
         ].activate()
     }
 
     private func configureTableViewConstraits() {
         [
-            tableView.topAnchor.constraint(equalTo: caloriesView.bottomAnchor, constant: 10),
+            tableView.topAnchor.constraint(equalTo: caloriesSortControl.bottomAnchor, constant: 10),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
@@ -161,54 +151,11 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
             tableView.cellForRow(at: selectedIndex)?.isSelected = false
         }
     }
-
-    @objc private func sortControllTapped(_ sender: UITapGestureRecognizer) {
-        switch sender.view?.tag {
-        case 0:
-            presenter?.changesCaloriesSortingStatus()
-        case 1:
-            presenter?.changesTimeSortingStatus()
-        default:
-            break
-        }
-    }
 }
 
 extension CategoryDishesView: CategoryDishesViewProtocol {
     func reloadDishes() {
         tableView.reloadData()
-    }
-
-    func changesTimeSortingStatus(condition: Condition) {
-        switch condition {
-        case .notPressed:
-            timeView.backgroundColor = .recipeView
-            timeView.changeParameters(title: Constants.timeText, image: .stackIcon)
-        case .sortingMore:
-            timeView.backgroundColor = .accent
-            timeView.changeParameters(title: Constants.timeText, image: .stackIcon.withTintColor(.white))
-        case .sortingSmaller:
-            guard let image = UIImage.stackIcon.cgImage else { return }
-            let newImage = UIImage(cgImage: image, scale: 1, orientation: .downMirrored).withTintColor(.white)
-            timeView.backgroundColor = .accent
-            timeView.changeParameters(title: Constants.timeText, image: newImage)
-        }
-    }
-
-    func changesCaloriesSortingStatus(condition: Condition) {
-        switch condition {
-        case .notPressed:
-            caloriesView.backgroundColor = .recipeView
-            caloriesView.changeParameters(title: Constants.caloriesText, image: .stackIcon)
-        case .sortingMore:
-            caloriesView.backgroundColor = .accent
-            caloriesView.changeParameters(title: Constants.caloriesText, image: .stackIcon.withTintColor(.white))
-        case .sortingSmaller:
-            guard let image = UIImage.stackIcon.cgImage else { return }
-            let newImage = UIImage(cgImage: image, scale: 1, orientation: .downMirrored).withTintColor(.white)
-            caloriesView.backgroundColor = .accent
-            caloriesView.changeParameters(title: Constants.caloriesText, image: newImage)
-        }
     }
 }
 
@@ -251,5 +198,18 @@ extension CategoryDishesView: UITableViewDelegate {
 extension CategoryDishesView: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         presenter?.searchBarTextChanged(to: searchText)
+    }
+}
+
+extension CategoryDishesView: SortControlDelegate {
+    func sotingControl(_ control: SortControl, changedStateTo state: SortState) {
+        switch control {
+        case timeSortControl:
+            presenter?.timeSortControlChanged(toState: state)
+        case caloriesSortControl:
+            presenter?.caloriesSortControlChanged(toState: state)
+        default:
+            break
+        }
     }
 }

@@ -99,7 +99,9 @@ extension ProfileView: ProfileViewProtocol {
 
     func showLogOutMessage() {
         let alert = UIAlertController(title: Constants.logOutAlertTitleText)
-        let yesAction = UIAlertAction(title: Constants.yesText, style: .destructive)
+        let yesAction = UIAlertAction(title: Constants.yesText, style: .destructive) { [weak self] _ in
+            self?.presenter?.logOutActionTapped()
+        }
         let cancelAction = UIAlertAction(title: Constants.cancelText)
         alert.addAction(yesAction)
         alert.addAction(cancelAction)
