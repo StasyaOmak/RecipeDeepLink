@@ -10,7 +10,6 @@ final class TermsView: UIView {
     private enum Constants {
         static let titleText = "Terms of Use"
         static let termsText = """
-
         Welcome to our recipe app! We're thrilled to have you on board.
         To ensure a delightful experience for everyone, please take a moment to familiarize yourself with our rules:
         User Accounts:
@@ -68,14 +67,13 @@ final class TermsView: UIView {
         return view
     }()
 
-    private lazy var closeButton = {
+    private let closeButton = {
         let button = UIButton()
         button.setImage(.closeIcon.withTintColor(.label), for: .normal)
-        button.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
         return button
     }()
 
-    // MARK: - Life Cycle
+    // MARK: - Initializers
 
     init() {
         super.init(frame: .zero)
@@ -140,6 +138,4 @@ final class TermsView: UIView {
             termsTextView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -50)
         ].activate()
     }
-
-    @objc private func closeButtonTapped() {}
 }

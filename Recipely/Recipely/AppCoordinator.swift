@@ -47,6 +47,20 @@ final class AppCoordinator: BaseCoordinator {
         )
     }
 
+    override func childDidFinish(_ child: Coordinator) {
+        super.childDidFinish(child)
+        switch child {
+        case is AuthCoordinator:
+            showTabBarModule()
+        case is RecipelyTabBarCoordinator:
+            showAuthModule()
+        default:
+            break
+        }
+    }
+
+    // MARK: - Private Methods
+
     private func showTabBarModule() {
         let tabBarController = builder.buildRecipelyTabBarController()
         let tabBarCoordinator = RecipelyTabBarCoordinator(rootController: tabBarController, builder: builder)
@@ -61,17 +75,5 @@ final class AppCoordinator: BaseCoordinator {
         add(coordinator: authCoordinator)
         setAsRoot(navigationController)
         authCoordinator.start()
-    }
-
-    override func childDidFinish(_ child: Coordinator) {
-        super.childDidFinish(child)
-        switch child {
-        case is AuthCoordinator:
-            showTabBarModule()
-        case is RecipelyTabBarCoordinator:
-            showAuthModule()
-        default:
-            break
-        }
     }
 }

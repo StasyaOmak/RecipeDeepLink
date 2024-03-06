@@ -87,27 +87,7 @@ final class TermsOfUseView: UIViewController {
         ].activate()
     }
 
-    @objc func handleCardTap(_ recogrizer: UITapGestureRecognizer) {
-        animateTransitionIfNeeded(state: .collapsed, duration: 0.4)
-    }
-
-    @objc func handleCardPan(_ recognizer: UIPanGestureRecognizer) {
-        switch recognizer.state {
-        case .began:
-            startInteractiveTransition(state: nextState, duration: 0.9)
-        case .changed:
-            let translation = recognizer.translation(in: handleAreaView)
-            var fractionComplete = translation.y / termsView.frame.height
-            fractionComplete = cardIsVisible ? fractionComplete : -fractionComplete
-            updateInteractiveTransition(fractionCompleted: fractionComplete)
-        case .ended:
-            continueInteractiveTransition()
-        default:
-            break
-        }
-    }
-
-    func animateTransitionIfNeeded(state: CardState, duration: TimeInterval) {
+    private func animateTransitionIfNeeded(state: CardState, duration: TimeInterval) {
         if runningAnimations.isEmpty {
             let frameAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
                 switch state {
@@ -128,30 +108,22 @@ final class TermsOfUseView: UIViewController {
             runningAnimations.append(frameAnimator)
 
             let cornerRadiusAnimator = UIViewPropertyAnimator(duration: duration, curve: .linear) {
-                switch state {
-                case .expanded:
-                    self.termsView.layer.cornerRadius = 30
-                case .collapsed:
-                    self.termsView.layer.cornerRadius = 0
-                }
+                let cornerRadius = state == .expanded ? 30.0 : 0.0
+                self.termsView.layer.cornerRadius = cornerRadius
             }
             cornerRadiusAnimator.startAnimation()
             runningAnimations.append(cornerRadiusAnimator)
 
             let blurAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
-                switch state {
-                case .expanded:
-                    self.visualBackgroundView.effect = UIBlurEffect(style: .dark)
-                case .collapsed:
-                    self.visualBackgroundView.effect = nil
-                }
+                let effect = state == .expanded ? UIBlurEffect(style: .dark) : nil
+                self.visualBackgroundView.effect = effect
             }
             blurAnimator.startAnimation()
             runningAnimations.append(blurAnimator)
         }
     }
 
-    func startInteractiveTransition(state: CardState, duration: TimeInterval) {
+    private func startInteractiveTransition(state: CardState, duration: TimeInterval) {
         if runningAnimations.isEmpty {
             animateTransitionIfNeeded(state: state, duration: duration)
         }
@@ -161,15 +133,35 @@ final class TermsOfUseView: UIViewController {
         }
     }
 
-    func updateInteractiveTransition(fractionCompleted: CGFloat) {
+    private func updateInteractiveTransition(fractionCompleted: CGFloat) {
         for animator in runningAnimations {
             animator.fractionComplete = fractionCompleted + animationProgressWhenInterrupted
         }
     }
 
-    func continueInteractiveTransition() {
+    private func continueInteractiveTransition() {
         for animator in runningAnimations {
             animator.continueAnimation(withTimingParameters: nil, durationFactor: 0)
+        }
+    }
+
+    @objc private func handleCardTap(_ recogrizer: UITapGestureRecognizer) {
+        animateTransitionIfNeeded(state: .collapsed, duration: 0.4)
+    }
+
+    @objc private func handleCardPan(_ recognizer: UIPanGestureRecognizer) {
+        switch recognizer.state {
+        case .began:
+            startInteractiveTransition(state: nextState, duration: 0.9)
+        case .changed:
+            let translation = recognizer.translation(in: handleAreaView)
+            var fractionComplete = translation.y / termsView.frame.height
+            fractionComplete = cardIsVisible ? fractionComplete : -fractionComplete
+            updateInteractiveTransition(fractionCompleted: fractionComplete)
+        case .ended:
+            continueInteractiveTransition()
+        default:
+            break
         }
     }
 }

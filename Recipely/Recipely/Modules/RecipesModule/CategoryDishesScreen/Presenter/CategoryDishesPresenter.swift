@@ -26,9 +26,9 @@ protocol CategoryDishesPresenterProtocol {
 
 /// Презентер экрана категории рецептов
 final class CategoryDishesPresenter {
-    // MARK: - Type
+    // MARK: - Types
 
-    typealias AreInIncreasingOrder = (CategoryDish, CategoryDish) -> Bool
+    typealias AreDishesInIncreasingOrder = (CategoryDish, CategoryDish) -> Bool
 
     // MARK: - Private Properties
 
@@ -37,7 +37,7 @@ final class CategoryDishesPresenter {
 
     private var viewTitle: String
     private var isDataAvalible = false
-    private(set) var dishes: [CategoryDish] = []
+    private var dishes: [CategoryDish] = []
     private var initialDishes = CategoryDish.getDishes()
     private var caloriesSortState = SortState.none {
         didSet {
@@ -64,8 +64,8 @@ final class CategoryDishesPresenter {
 
     // MARK: - Private Methods
 
-    private func createPredicatesAccordingToCurrentSelectedConditions() -> [AreInIncreasingOrder] {
-        var predicatesArray: [AreInIncreasingOrder] = []
+    private func createPredicatesAccordingToCurrentSelectedConditions() -> [AreDishesInIncreasingOrder] {
+        var predicatesArray: [AreDishesInIncreasingOrder] = []
         switch timeSortState {
         case .accending:
             predicatesArray.append { $0.cookingTime < $1.cookingTime }
@@ -86,7 +86,7 @@ final class CategoryDishesPresenter {
         return predicatesArray
     }
 
-    private func getSortedCategoryDishes(using predicates: [AreInIncreasingOrder]) -> [CategoryDish] {
+    private func getSortedCategoryDishes(using predicates: [AreDishesInIncreasingOrder]) -> [CategoryDish] {
         dishes.sorted { lhsDish, rhsDish in
             for predicate in predicates {
                 if !predicate(lhsDish, rhsDish), !predicate(rhsDish, lhsDish) {
