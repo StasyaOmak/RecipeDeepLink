@@ -60,6 +60,8 @@ class BasicDishCell: UITableViewCell {
         return button
     }()
 
+    private var state = DataStatus.noData
+
     // MARK: - Public Properties
 
     override var isSelected: Bool {
@@ -82,7 +84,37 @@ class BasicDishCell: UITableViewCell {
         configureLayout()
     }
 
+    // MARK: - Life Cycle
+
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+        switch state {
+        case let .dataLoaded(categoryDish):
+            configureCell(category: categoryDish)
+        case .noData:
+            for item in [dishImageView, dishNameLabel, timerLabel, caloriesLabel] {
+                item.startShimmerAnimation(speed: 3)
+            }
+        }
+    }
+
+//    override func layoutSubviews() {
+//        super.layoutSubviews()
+//        switch state {
+//        case let .dataLoaded(categoryDish):
+//            break
+//        case .noData:
+//            for item in [dishImageView, dishNameLabel, timerLabel, caloriesLabel] {
+//                item.startShimmerAnimation(speed: 3)
+//            }
+//        }
+//    }
+
     // MARK: - Public Methods
+
+    func configure(with state: DataStatus) {
+        self.state = state
+    }
 
     func configureCell(category: CategoryDish) {
         dishImageView.image = UIImage(category.nameImage)
@@ -144,7 +176,8 @@ class BasicDishCell: UITableViewCell {
         [
             dishNameLabel.leadingAnchor.constraint(equalTo: dishImageView.trailingAnchor, constant: 20),
             dishNameLabel.topAnchor.constraint(equalTo: dishImageView.topAnchor, constant: 12),
-            dishNameLabel.widthAnchor.constraint(equalToConstant: 197)
+            dishNameLabel.trailingAnchor.constraint(equalTo: arrowButton.leadingAnchor),
+            dishNameLabel.heightAnchor.constraint(equalToConstant: 32)
         ].activate()
     }
 

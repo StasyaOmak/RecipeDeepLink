@@ -90,6 +90,10 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
         configureLayout()
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        presenter?.viewDidAppear()
+    }
+
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         deselectSelectedRow()
@@ -231,13 +235,13 @@ extension CategoryDishesView: UITableViewDataSource {
         let items = content[indexPath.section]
         switch items {
         case .basicDishCell:
-            guard let category = presenter?.dishes,
+            guard let dish = presenter?.getDish(atIndex: indexPath.row),
                   let cell = tableView.dequeueReusableCell(
                       withIdentifier: BasicDishCell.description(),
                       for: indexPath
                   ) as? BasicDishCell
             else { return UITableViewCell() }
-            cell.configureCell(category: category[indexPath.row])
+            cell.configure(with: dish)
             return cell
         }
     }

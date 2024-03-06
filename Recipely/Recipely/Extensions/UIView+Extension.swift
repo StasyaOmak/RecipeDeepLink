@@ -43,9 +43,10 @@ extension UIView {
         gradient.frame = bounds.insetBy(dx: -(bounds.width), dy: 0)
         gradient.startPoint = CGPoint(x: 0, y: 0)
         gradient.endPoint = CGPoint(x: 1, y: 0)
-        layer.addSublayer(gradient)
+        layer.mask = gradient
+//        layer.addSublayer(gradient)
         layer.masksToBounds = true
-        
+
         let animation = CABasicAnimation(keyPath: "transform.translation.x")
         animation.duration = speed
         animation.repeatCount = Float.infinity
@@ -54,9 +55,13 @@ extension UIView {
         animation.isRemovedOnCompletion = false
         gradient.add(animation, forKey: "shimmerKey")
     }
+
+    func stopShimmerAnimation() {
+        layer.mask = nil
+    }
 }
 
-//#Preview {
+// #Preview {
 //    let controller = UIViewController()
 //    let view = UIView()
 //    view.frame = .init(origin: .zero, size: CGSize(width: 300, height: 300)).offsetBy(dx: 100, dy: 300)
@@ -68,4 +73,4 @@ extension UIView {
 //
 //    view.startShimmerAnimation(speed: 4)
 //    return controller
-//}
+// }

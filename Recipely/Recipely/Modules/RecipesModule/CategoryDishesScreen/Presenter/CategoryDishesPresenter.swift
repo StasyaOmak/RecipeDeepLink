@@ -15,6 +15,10 @@ protocol CategoryDishesPresenterProtocol {
     func changesTimeSortingStatus()
     /// Соощает о нажатии на ячейку какого либо блюда
     func didTapCell(atIndex index: Int)
+    /// Сообщает по индексу информацию
+    func getDish(atIndex index: Int) -> DataStatus
+    /// Сообщает о вью на экране
+    func viewDidAppear()
 }
 
 /// Презентер экрана категории рецептов
@@ -41,6 +45,7 @@ final class CategoryDishesPresenter {
     }
 
     private var viewTitle: String
+    private var hevData = false
 
     // MARK: - Initializers
 
@@ -90,9 +95,29 @@ final class CategoryDishesPresenter {
         let predicates = createPredicatesAccordingToCurrentSelectedConditions()
         dishes = getSortedCategoryDishes(using: predicates)
     }
+
+    private func receivedData() {
+        hevData = true
+        view?.updateTable()
+    }
 }
 
 extension CategoryDishesPresenter: CategoryDishesPresenterProtocol {
+    func viewDidAppear() {
+        Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { _ in
+            self.receivedData()
+        }
+    }
+
+    func getDish(atIndex index: Int) -> DataStatus {
+        switch hevData {
+        case false:
+            .noData
+        case true:
+            .dataLoaded(dishes[index])
+        }
+    }
+
     func getTitle() -> String {
         viewTitle
     }
