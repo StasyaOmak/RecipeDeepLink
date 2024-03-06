@@ -1,10 +1,10 @@
-// BasicDishCell.swift
+// DishCell.swift
 // Copyright © RoadMap. All rights reserved.
 
 import UIKit
 
-/// Ячейка блюда
-class BasicDishCell: UITableViewCell {
+/// Ячейка отображающая инфоромацию о блюде
+class DishCell: UITableViewCell {
     // MARK: - Visual Components
 
     private let dishImageView = {
@@ -60,31 +60,6 @@ class BasicDishCell: UITableViewCell {
         return button
     }()
 
-    private var state = DataStatus.noData {
-        willSet {
-            switch newValue {
-            case let .dataLoaded(dish):
-                isShimmerAnimationRunning = false
-                configureCell(category: dish)
-            case .noData:
-                isShimmerAnimationRunning = true
-            }
-        }
-    }
-
-    private var isShimmerAnimationRunning = false {
-        willSet {
-            switch newValue {
-            case false:
-                shimmerLayers.forEach { $0.removeFromSuperlayer() }
-            case true:
-                for item in [dishImageView, dishNameLabel, timerLabel, caloriesLabel] {
-                    shimmerLayers.append(item.startShimmerAnimation(speed: 3))
-                }
-            }
-        }
-    }
-
     // MARK: - Public Properties
 
     override var isSelected: Bool {
@@ -92,10 +67,6 @@ class BasicDishCell: UITableViewCell {
             recipeView.layer.borderWidth = newValue ? 2 : 0
         }
     }
-
-    // MARK: - Private Properties
-
-    private var shimmerLayers: [CAGradientLayer] = []
 
     // MARK: - Initializers
 
@@ -111,31 +82,13 @@ class BasicDishCell: UITableViewCell {
         configureLayout()
     }
 
-    // MARK: - Life Cycle
-
-    override func draw(_ rect: CGRect) {
-        super.draw(rect)
-        switch state {
-        case .dataLoaded:
-            isShimmerAnimationRunning = false
-        case .noData:
-            isShimmerAnimationRunning = true
-        }
-    }
-    
-    
-
     // MARK: - Public Methods
 
-    func configure(with state: DataStatus) {
-        self.state = state
-    }
-
-    func configureCell(category: CategoryDish) {
-        dishImageView.image = UIImage(category.nameImage)
-        dishNameLabel.text = category.nameDish
-        timerLabel.text = "\(category.cookingTime) \(Metrics.minutes.rawValue)"
-        caloriesLabel.text = "\(category.numberCalories) \(Metrics.kcal.rawValue)"
+    func configure(with categoryDish: CategoryDish) {
+        dishImageView.image = UIImage(categoryDish.nameImage)
+        dishNameLabel.text = categoryDish.nameDish
+        timerLabel.text = "\(categoryDish.cookingTime) \(Metrics.minutes.rawValue)"
+        caloriesLabel.text = "\(categoryDish.numberCalories) \(Metrics.kcal.rawValue)"
     }
 
     // MARK: - Private Methods

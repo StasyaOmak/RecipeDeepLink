@@ -5,24 +5,16 @@ import UIKit
 
 /// Интерфейс взаимодействия с CategoryDishesView
 protocol CategoryDishesViewProtocol: AnyObject {
-    // функция для изменения состояния контрола сортировки калорий
+    /// Функция для изменения состояния контрола сортировки калорий
     func changesCaloriesSortingStatus(condition: Condition)
-    // функция для изменения состояния контрола сортировки по времени
+    /// Функция для изменения состояния контрола сортировки по времени
     func changesTimeSortingStatus(condition: Condition)
-    /// Просит перезагрузить таблицу
-    func updateTable()
+    /// Функция для обновления данных в таблице
+    func reloadDishes()
 }
 
 /// Вью экрана списка блюд категории
 class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
-    // MARK: - Types
-
-    /// Тип ячейки блюда
-    private enum DishCellTypes {
-        /// Стандартная ячейка
-        case basicDishCell
-    }
-
     // MARK: - Constants
 
     private enum Constants {
@@ -71,17 +63,14 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
         table.separatorStyle = .none
         table.showsVerticalScrollIndicator = false
         table.rowHeight = UITableView.automaticDimension
-        table.register(BasicDishCell.self, forCellReuseIdentifier: BasicDishCell.description())
+        table.register(DishCell.self, forCellReuseIdentifier: DishCell.description())
+        table.register(DishShimmerCell.self, forCellReuseIdentifier: DishShimmerCell.description())
         return table
     }()
 
     // MARK: - Public Properties
 
     var presenter: CategoryDishesPresenterProtocol?
-
-    // MARK: - Private Properties
-
-    private let content: [DishCellTypes] = [.basicDishCell]
 
     // MARK: - Life Cycle
 
@@ -186,7 +175,7 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
 }
 
 extension CategoryDishesView: CategoryDishesViewProtocol {
-    func updateTable() {
+    func reloadDishes() {
         tableView.reloadData()
     }
 
@@ -221,32 +210,28 @@ extension CategoryDishesView: CategoryDishesViewProtocol {
             caloriesView.changeParameters(title: Constants.caloriesText, image: newImage)
         }
     }
-
-    func updateTable() {
-        tableView.reloadData()
-    }
 }
 
 extension CategoryDishesView: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        content.count
-    }
-
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        presenter?.dishes.count ?? 0
+        presenter?.getNumberDishes() ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let items = content[indexPath.section]
-        switch items {
-        case .basicDishCell:
-            guard let dish = presenter?.getDish(atIndex: indexPath.row),
-                  let cell = tableView.dequeueReusableCell(
-                      withIdentifier: BasicDishCell.description(),
-                      for: indexPath
-                  ) as? BasicDishCell
-            else { return UITableViewCell() }
+        guard let dish = presenter?.getDish(forIndex: indexPath.row) else { return UITableViewCell() }
+        switch dish {
+        case let .data(dish):
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: DishCell.description(),
+                for: indexPath
+            ) as? DishCell else { return UITableViewCell() }
             cell.configure(with: dish)
+            return cell
+        case .noData:
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: DishShimmerCell.description(),
+                for: indexPath
+            ) as? DishShimmerCell else { return UITableViewCell() }
             return cell
         }
     }
@@ -265,6 +250,6 @@ extension CategoryDishesView: UITableViewDelegate {
 
 extension CategoryDishesView: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        presenter?.filterTableView(text: searchText)
+        presenter?.searchBarTextChanged(to: searchText)
     }
 }

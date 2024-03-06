@@ -23,13 +23,12 @@ final class AppCoordinator: BaseCoordinator {
     // MARK: - Public Methods
 
     override func start() {
-//        let navigationController = UINavigationController()
-//        let authCoordinator = AuthCoordinator(rootController: navigationController, builder: builder)
-//        add(coordinator: authCoordinator)
-//        window?.rootViewController = navigationController
-//        window?.makeKeyAndVisible()
-//        authCoordinator.start()
-        showTabBarModule()
+        let navigationController = UINavigationController()
+        let authCoordinator = AuthCoordinator(rootController: navigationController, builder: builder)
+        add(coordinator: authCoordinator)
+        window?.rootViewController = navigationController
+        window?.makeKeyAndVisible()
+        authCoordinator.start()
     }
 
     override func setAsRoot(_ viewController: UIViewController) {

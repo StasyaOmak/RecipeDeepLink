@@ -3,14 +3,13 @@
 
 import UIKit
 
-/// Вью для отображения контроля сортировок
+/// Вью для отображения контрола сортировок
 class SortingControlView: UIView {
     // MARK: - Visual Components
 
     private let controlImageView = {
         let image = UIImageView()
         image.contentMode = .scaleAspectFit
-        image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
 

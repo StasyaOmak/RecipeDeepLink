@@ -5,8 +5,10 @@ import Foundation
 
 /// Интерфейс взаимодействия с CategoryDishesPresenter
 protocol CategoryDishesPresenterProtocol {
-    /// Список  блюд в категории.
-    var dishes: [CategoryDish] { get }
+    /// Запрос количества блюд
+    func getNumberDishes() -> Int
+    /// Сообщает по индексу информацию
+    func getDish(forIndex index: Int) -> DataState
     /// Получить название категории.
     func getTitle() -> String
     /// Изменить статус сортировки по калориям.
@@ -15,18 +17,20 @@ protocol CategoryDishesPresenterProtocol {
     func changesTimeSortingStatus()
     /// Соощает о нажатии на ячейку какого либо блюда
     func didTapCell(atIndex index: Int)
-    /// Сообщает по индексу информацию
-    func getDish(atIndex index: Int) -> DataStatus
     /// Сообщает о вью на экране
     func viewDidAppear()
     /// Возвращает массив с информацией
     func returnFilledArray()
     /// отфильтровывает таблицу
-    func filterTableView(text: String)
+    func searchBarTextChanged(to text: String)
 }
 
 /// Презентер экрана категории рецептов
 final class CategoryDishesPresenter {
+    // MARK: - Type
+
+    typealias AreInIncreasingOrder = (CategoryDish, CategoryDish) -> Bool
+
     // MARK: - Private Properties
 
     private weak var view: CategoryDishesViewProtocol?
@@ -35,18 +39,19 @@ final class CategoryDishesPresenter {
     private(set) var dishes: [CategoryDish] = []
     private var initialDishes = CategoryDish.getDishes()
     private var conditionCalories = Condition.notPressed {
-        willSet {
+        didSet {
             updateDishesArray()
-            view?.updateTable()
+            view?.reloadDishes()
         }
     }
 
     private var conditionTime = Condition.notPressed {
         didSet {
             updateDishesArray()
-            view?.updateTable()
+            view?.reloadDishes()
         }
     }
+
     private var viewTitle: String
     private var hevData = false
 
@@ -59,7 +64,8 @@ final class CategoryDishesPresenter {
         dishes = initialDishes
     }
 
-    typealias AreInIncreasingOrder = (CategoryDish, CategoryDish) -> Bool
+    // MARK: - Private Methods
+
     private func createPredicatesAccordingToCurrentSelectedConditions() -> [AreInIncreasingOrder] {
         var predicatesArray: [AreInIncreasingOrder] = []
         switch conditionTime {
@@ -101,32 +107,37 @@ final class CategoryDishesPresenter {
 
     private func receivedData() {
         hevData = true
-        view?.updateTable()
+        view?.reloadDishes()
     }
 }
 
 extension CategoryDishesPresenter: CategoryDishesPresenterProtocol {
+    func getNumberDishes() -> Int {
+        dishes.count
+    }
+
     func viewDidAppear() {
         Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { _ in
             self.receivedData()
         }
     }
 
-    func getDish(atIndex index: Int) -> DataStatus {
+    func getDish(forIndex index: Int) -> DataState {
         switch hevData {
         case false:
             .noData
         case true:
-            .dataLoaded(dishes[index])
+            .data(dishes[index])
         }
-      
-    func filterTableView(text: String) {
+    }
+
+    func searchBarTextChanged(to text: String) {
         if text.count < 3 {
             dishes = CategoryDish.getDishes()
-            view?.updateTable()
+            view?.reloadDishes()
         } else {
             dishes = dishes.filter { $0.nameDish.lowercased().contains(text.lowercased()) }
-            view?.updateTable()
+            view?.reloadDishes()
         }
     }
 

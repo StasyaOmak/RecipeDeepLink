@@ -11,14 +11,6 @@ protocol FavouritesViewProtocol: AnyObject {
 
 /// Вью экрана сохранненных блюд
 final class FavouritesView: UIViewController {
-    // MARK: - Types
-
-    /// Тип ячейки блюда
-    private enum CellTypes {
-        /// Стандартная ячейка
-        case basicDishCell
-    }
-
     // MARK: - Constants
 
     private enum Constants {
@@ -43,7 +35,6 @@ final class FavouritesView: UIViewController {
 
     // MARK: - Private Properties
 
-    private let content: [CellTypes] = [.basicDishCell]
     private let placeholderView = FavoritesPlaceholderView()
 
     // MARK: - Life Cycle
@@ -110,17 +101,13 @@ extension FavouritesView: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let items = content[indexPath.section]
-        switch items {
-        case .basicDishCell:
-            guard let recipes = presenter?.getDish(forIndex: indexPath.row),
-                  let cell = tableView.dequeueReusableCell(
-                      withIdentifier: FavouritesCell.description(),
-                      for: indexPath
-                  ) as? FavouritesCell else { return UITableViewCell() }
-            cell.configureCell(category: recipes)
-            return cell
-        }
+        guard let dish = presenter?.getDish(forIndex: indexPath.row),
+              let cell = tableView.dequeueReusableCell(
+                  withIdentifier: FavouritesCell.description(),
+                  for: indexPath
+              ) as? FavouritesCell else { return UITableViewCell() }
+        cell.configure(with: dish)
+        return cell
     }
 
     func tableView(
