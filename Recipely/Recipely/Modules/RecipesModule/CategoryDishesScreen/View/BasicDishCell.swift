@@ -60,7 +60,30 @@ class BasicDishCell: UITableViewCell {
         return button
     }()
 
-    private var state = DataStatus.noData
+    private var state = DataStatus.noData {
+        willSet {
+            switch newValue {
+            case let .dataLoaded(dish):
+                isShimmerAnimationRunning = false
+                configureCell(category: dish)
+            case .noData:
+                isShimmerAnimationRunning = true
+            }
+        }
+    }
+
+    private var isShimmerAnimationRunning = false {
+        willSet {
+            switch newValue {
+            case false:
+                shimmerLayers.forEach { $0.removeFromSuperlayer() }
+            case true:
+                for item in [dishImageView, dishNameLabel, timerLabel, caloriesLabel] {
+                    shimmerLayers.append(item.startShimmerAnimation(speed: 3))
+                }
+            }
+        }
+    }
 
     // MARK: - Public Properties
 
@@ -69,6 +92,10 @@ class BasicDishCell: UITableViewCell {
             recipeView.layer.borderWidth = newValue ? 2 : 0
         }
     }
+
+    // MARK: - Private Properties
+
+    private var shimmerLayers: [CAGradientLayer] = []
 
     // MARK: - Initializers
 
@@ -89,26 +116,14 @@ class BasicDishCell: UITableViewCell {
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         switch state {
-        case let .dataLoaded(categoryDish):
-            configureCell(category: categoryDish)
+        case .dataLoaded:
+            isShimmerAnimationRunning = false
         case .noData:
-            for item in [dishImageView, dishNameLabel, timerLabel, caloriesLabel] {
-                item.startShimmerAnimation(speed: 3)
-            }
+            isShimmerAnimationRunning = true
         }
     }
-
-//    override func layoutSubviews() {
-//        super.layoutSubviews()
-//        switch state {
-//        case let .dataLoaded(categoryDish):
-//            break
-//        case .noData:
-//            for item in [dishImageView, dishNameLabel, timerLabel, caloriesLabel] {
-//                item.startShimmerAnimation(speed: 3)
-//            }
-//        }
-//    }
+    
+    
 
     // MARK: - Public Methods
 
@@ -177,7 +192,7 @@ class BasicDishCell: UITableViewCell {
             dishNameLabel.leadingAnchor.constraint(equalTo: dishImageView.trailingAnchor, constant: 20),
             dishNameLabel.topAnchor.constraint(equalTo: dishImageView.topAnchor, constant: 12),
             dishNameLabel.trailingAnchor.constraint(equalTo: arrowButton.leadingAnchor),
-            dishNameLabel.heightAnchor.constraint(equalToConstant: 32)
+            dishNameLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 32)
         ].activate()
     }
 
