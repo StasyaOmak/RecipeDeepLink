@@ -65,7 +65,7 @@ extension UIView {
 
     /// Останавливает анимацию мерцания для указанного слоя.
     /// - Parameter layer: Слой, на котором проигрывается анимация мерцания.
-    func stopShimmerAnimation(layer: CAGradientLayer) {
-        layer.removeFromSuperlayer()
+    func stopShimmerAnimation() {
+        layer.sublayers?.first?.removeFromSuperlayer()
     }
 }

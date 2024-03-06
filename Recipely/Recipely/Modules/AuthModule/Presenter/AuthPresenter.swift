@@ -11,8 +11,8 @@ protocol AuthPresenterProtocol: AnyObject {
     func loginButtonTapped(withPassword password: String?)
     /// функция для отображения предупреждений об ошибке при авторизации
     func showWarning()
-    /// Сообщает о конце анимации спиннера
-    func didEndSpinningSpinner()
+//    /// Сообщает о конце анимации спиннера
+//    func didEndSpinningSpinner()
 }
 
 /// Вью экрана аутентификаци
@@ -46,20 +46,15 @@ extension AuthPresenter: AuthPresenterProtocol {
 
     func loginButtonTapped(withPassword password: String?) {
         coordinator?.endModule()
-
         view?.startIndicator()
         Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { [view] _ in
             view?.stopIndicator()
-            if let password, self.validator.isPasswordValid(password) || password.isEmpty {
+            if let password, self.validator.isPasswordValid(password) {
                 view?.setPasswordFieldStateTo(.plain)
             } else {
                 view?.setPasswordFieldStateTo(.highlited)
                 view?.showWarning()
             }
         }
-    }
-
-    func didEndSpinningSpinner() {
-        coordinator?.endModule()
     }
 }

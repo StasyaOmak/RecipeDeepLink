@@ -11,8 +11,8 @@
 		21153D312B91ECFF0085ED80 /* FavouritesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21153D302B91ECFF0085ED80 /* FavouritesCell.swift */; };
 		21153D332B91F8ED0085ED80 /* FavoritesPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21153D322B91F8ED0085ED80 /* FavoritesPlaceholderView.swift */; };
 		218656F92B98708200540121 /* BasicDishShimmerCell .swift in Sources */ = {isa = PBXBuildFile; fileRef = 218656F82B98708200540121 /* BasicDishShimmerCell .swift */; };
-		21B91CDA2B90BEB10041D5E9 /* SortingControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B91CD92B90BEB10041D5E9 /* SortingControlView.swift */; };
-		21B91CDC2B90D0370041D5E9 /* Condition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B91CDB2B90D0370041D5E9 /* Condition.swift */; };
+		21B91CDA2B90BEB10041D5E9 /* SortControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B91CD92B90BEB10041D5E9 /* SortControl.swift */; };
+		21B91CDC2B90D0370041D5E9 /* SortState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B91CDB2B90D0370041D5E9 /* SortState.swift */; };
 		21FE4D932B8FE9B500FA377F /* CategoryDish.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FE4D922B8FE9B500FA377F /* CategoryDish.swift */; };
 		21FE4D952B8FE9F000FA377F /* CategoryDishesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FE4D942B8FE9F000FA377F /* CategoryDishesView.swift */; };
 		21FE4D972B8FEBEA00FA377F /* CategoryDishesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FE4D962B8FEBEA00FA377F /* CategoryDishesPresenter.swift */; };
@@ -80,6 +80,7 @@
 		9D952B892B8D2CE300F6D8CC /* FavouritesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D952B812B8D2CE300F6D8CC /* FavouritesCoordinator.swift */; };
 		9D952B8A2B8D2CE300F6D8CC /* Favourites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D952B872B8D2CE300F6D8CC /* Favourites.swift */; };
 		9D952B8B2B8D2CE300F6D8CC /* FavouritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D952B852B8D2CE300F6D8CC /* FavouritesView.swift */; };
+		9DC68F7B2B988E93000261C5 /* CaseIterable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC68F7A2B988E93000261C5 /* CaseIterable+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -87,8 +88,8 @@
 		21153D302B91ECFF0085ED80 /* FavouritesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesCell.swift; sourceTree = "<group>"; };
 		21153D322B91F8ED0085ED80 /* FavoritesPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesPlaceholderView.swift; sourceTree = "<group>"; };
 		218656F82B98708200540121 /* BasicDishShimmerCell .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BasicDishShimmerCell .swift"; sourceTree = "<group>"; };
-		21B91CD92B90BEB10041D5E9 /* SortingControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingControlView.swift; sourceTree = "<group>"; };
-		21B91CDB2B90D0370041D5E9 /* Condition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Condition.swift; sourceTree = "<group>"; };
+		21B91CD92B90BEB10041D5E9 /* SortControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortControl.swift; sourceTree = "<group>"; };
+		21B91CDB2B90D0370041D5E9 /* SortState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortState.swift; sourceTree = "<group>"; };
 		21FE4D922B8FE9B500FA377F /* CategoryDish.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDish.swift; sourceTree = "<group>"; };
 		21FE4D942B8FE9F000FA377F /* CategoryDishesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDishesView.swift; sourceTree = "<group>"; };
 		21FE4D962B8FEBEA00FA377F /* CategoryDishesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDishesPresenter.swift; sourceTree = "<group>"; };
@@ -158,6 +159,7 @@
 		9D952B832B8D2CE300F6D8CC /* FavouritesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesPresenter.swift; sourceTree = "<group>"; };
 		9D952B852B8D2CE300F6D8CC /* FavouritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesView.swift; sourceTree = "<group>"; };
 		9D952B872B8D2CE300F6D8CC /* Favourites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favourites.swift; sourceTree = "<group>"; };
+		9DC68F7A2B988E93000261C5 /* CaseIterable+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CaseIterable+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -204,7 +206,7 @@
 			isa = PBXGroup;
 			children = (
 				21FE4D942B8FE9F000FA377F /* CategoryDishesView.swift */,
-				21B91CD92B90BEB10041D5E9 /* SortingControlView.swift */,
+				21B91CD92B90BEB10041D5E9 /* SortControl.swift */,
 				21FE4D9A2B8FFD8A00FA377F /* DishCell.swift */,
 				218656F82B98708200540121 /* BasicDishShimmerCell .swift */,
 			);
@@ -215,7 +217,7 @@
 			isa = PBXGroup;
 			children = (
 				21FE4D962B8FEBEA00FA377F /* CategoryDishesPresenter.swift */,
-				21B91CDB2B90D0370041D5E9 /* Condition.swift */,
+				21B91CDB2B90D0370041D5E9 /* SortState.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -475,6 +477,7 @@
 				9D6115742B8D6877008EF247 /* UIFont+Extension.swift */,
 				9D499B952B96247C007B36D0 /* UIColor+Extension.swift */,
 				9D499B1B2B8E6B4C007B36D0 /* UIImage+Extension.swift */,
+				9DC68F7A2B988E93000261C5 /* CaseIterable+Extension.swift */,
 				9D499B8E2B93A464007B36D0 /* Float+Extension.swift */,
 				9D61156E2B8D67CD008EF247 /* Array+Extension.swift */,
 				9D6115702B8D6816008EF247 /* String+Extension.swift */,
@@ -720,6 +723,7 @@
 				9D952B772B8D261900F6D8CC /* ProfilePresenter.swift in Sources */,
 				9D499B732B927B89007B36D0 /* DishDetailsView.swift in Sources */,
 				218656F92B98708200540121 /* BasicDishShimmerCell .swift in Sources */,
+				9DC68F7B2B988E93000261C5 /* CaseIterable+Extension.swift in Sources */,
 				9D499B932B93E228007B36D0 /* Mertics.swift in Sources */,
 				9D61156D2B8D67AE008EF247 /* NSLayoutConstraint+Extension.swift in Sources */,
 				9D952B8A2B8D2CE300F6D8CC /* Favourites.swift in Sources */,
@@ -745,7 +749,7 @@
 				9D499B7E2B927ECE007B36D0 /* DishInfoCell.swift in Sources */,
 				9D952B7F2B8D283000F6D8CC /* ProfileCoordinator.swift in Sources */,
 				9D2BC74F2B96728800BBAA58 /* TermsOfUsePresenter.swift in Sources */,
-				21B91CDC2B90D0370041D5E9 /* Condition.swift in Sources */,
+				21B91CDC2B90D0370041D5E9 /* SortState.swift in Sources */,
 				9D952B6C2B8D22A100F6D8CC /* Coordinator.swift in Sources */,
 				9D6115472B8D312E008EF247 /* Validator.swift in Sources */,
 				9D952B682B8D223500F6D8CC /* RecipelyTabBarCoordinator.swift in Sources */,
@@ -785,7 +789,7 @@
 				9D61156A2B8D6778008EF247 /* UIView+Extension.swift in Sources */,
 				9D499B802B927EF5007B36D0 /* DishKBZHUCell.swift in Sources */,
 				9D952B882B8D2CE300F6D8CC /* FavouritesPresenter.swift in Sources */,
-				21B91CDA2B90BEB10041D5E9 /* SortingControlView.swift in Sources */,
+				21B91CDA2B90BEB10041D5E9 /* SortControl.swift in Sources */,
 				9D499B8F2B93A464007B36D0 /* Float+Extension.swift in Sources */,
 				9D499B772B927C7A007B36D0 /* Dish.swift in Sources */,
 			);

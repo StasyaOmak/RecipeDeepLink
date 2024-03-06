@@ -44,4 +44,10 @@ final class RecipelyTabBarCoordinator: BaseCoordinator {
         recipesCoordinator.start()
         favouritesCoordinator.start()
     }
+
+    override func childDidFinish(_ child: Coordinator) {
+        if child is ProfileCoordinator {
+            parentCoordinator?.childDidFinish(self)
+        }
+    }
 }

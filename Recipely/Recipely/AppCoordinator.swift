@@ -23,12 +23,7 @@ final class AppCoordinator: BaseCoordinator {
     // MARK: - Public Methods
 
     override func start() {
-        let navigationController = UINavigationController()
-        let authCoordinator = AuthCoordinator(rootController: navigationController, builder: builder)
-        add(coordinator: authCoordinator)
-        window?.rootViewController = navigationController
-        window?.makeKeyAndVisible()
-        authCoordinator.start()
+        showAuthModule()
     }
 
     override func setAsRoot(_ viewController: UIViewController) {
@@ -52,7 +47,7 @@ final class AppCoordinator: BaseCoordinator {
         )
     }
 
-    func showTabBarModule() {
+    private func showTabBarModule() {
         let tabBarController = builder.buildRecipelyTabBarController()
         let tabBarCoordinator = RecipelyTabBarCoordinator(rootController: tabBarController, builder: builder)
         add(coordinator: tabBarCoordinator)
@@ -60,9 +55,23 @@ final class AppCoordinator: BaseCoordinator {
         tabBarCoordinator.start()
     }
 
+    private func showAuthModule() {
+        let navigationController = UINavigationController()
+        let authCoordinator = AuthCoordinator(rootController: navigationController, builder: builder)
+        add(coordinator: authCoordinator)
+        setAsRoot(navigationController)
+        authCoordinator.start()
+    }
+
     override func childDidFinish(_ child: Coordinator) {
         super.childDidFinish(child)
-        guard child is AuthCoordinator else { return }
-        showTabBarModule()
+        switch child {
+        case is AuthCoordinator:
+            showTabBarModule()
+        case is RecipelyTabBarCoordinator:
+            showAuthModule()
+        default:
+            break
+        }
     }
 }
