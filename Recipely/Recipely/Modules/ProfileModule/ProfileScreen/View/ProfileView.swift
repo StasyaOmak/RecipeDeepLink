@@ -155,6 +155,7 @@ extension ProfileView: UITableViewDelegate {
 }
 
 // MARK: - AlertControllers extension
+
 extension ProfileView {
     private func createLogOutMessageAlert() -> UIAlertController {
         let alert = UIAlertController(title: Constants.logOutAlertTitleText)
