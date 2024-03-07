@@ -174,7 +174,7 @@ extension CategoryDishesView: UITableViewDataSource {
             ) as? DishCell else { return UITableViewCell() }
             cell.configure(with: dish)
             return cell
-        case .noData:
+        case .loading:
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: DishShimmerCell.description(),
                 for: indexPath

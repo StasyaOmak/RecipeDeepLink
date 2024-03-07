@@ -10,7 +10,7 @@ protocol CategoryDishesPresenterProtocol {
     /// Запрос количества блюд
     func getNumberDishes() -> Int
     /// Сообщает по индексу информацию
-    func getDish(forIndex index: Int) -> DataState
+    func getDish(forIndex index: Int) -> ViewState
     /// Соощает о нажатии на ячейку какого либо блюда
     func didTapCell(atIndex index: Int)
     /// Сообщает о том: что вью появилас на экране
@@ -42,14 +42,14 @@ final class CategoryDishesPresenter {
     private var timer: Timer?
     private var caloriesSortState = SortState.none {
         didSet {
-            updateDishesArray()
+            updateDishes()
             view?.reloadDishes()
         }
     }
 
     private var timeSortState = SortState.none {
         didSet {
-            updateDishesArray()
+            updateDishes()
             view?.reloadDishes()
         }
     }
@@ -99,7 +99,7 @@ final class CategoryDishesPresenter {
         }
     }
 
-    private func updateDishesArray() {
+    private func updateDishes() {
         let predicates = createPredicatesAccordingToCurrentSelectedConditions()
         dishes = getSortedCategoryDishes(using: predicates)
     }
@@ -119,8 +119,8 @@ extension CategoryDishesPresenter: CategoryDishesPresenterProtocol {
         dishes.count
     }
 
-    func getDish(forIndex index: Int) -> DataState {
-        isDataAvalible ? .data(dishes[index]) : .noData
+    func getDish(forIndex index: Int) -> ViewState {
+        isDataAvalible ? .data(dishes[index]) : .loading
     }
 
     func didTapCell(atIndex index: Int) {
@@ -144,9 +144,9 @@ extension CategoryDishesPresenter: CategoryDishesPresenterProtocol {
                 self.dishes = self.initialDishes
             } else {
                 self.dishes = self.initialDishes
-                    .filter { $0.nameDish.range(of: text, options: .caseInsensitive) != nil }
+                    .filter { $0.dishName.range(of: text, options: .caseInsensitive) != nil }
             }
-            self.updateDishesArray()
+            self.updateDishes()
             self.isDataAvalible = true
             self.view?.reloadDishes()
         }
