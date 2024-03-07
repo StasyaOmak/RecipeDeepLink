@@ -5,9 +5,6 @@ import UIKit
 
 /// Интерфейс взаимодействия с ProfileView
 protocol ProfileViewProtocol: AnyObject {
-    /// Показывает алерт, информирующий пользователя о том, что выбранная секция или функциональность находится в стадии
-    /// разработки и пока недоступна.
-    func showUnderDevelopmentMessage()
     /// Показывает алерт, запрашивающий подтверждение пользователя перед выходом из аккаунта.
     func showLogOutMessage()
     /// Отображает форму для обновления имени пользователя.
@@ -82,45 +79,20 @@ final class ProfileView: UIViewController {
     private func configureTitleLabel() {
         let titleLabel = UILabel()
         titleLabel.attributedText = Constants.titleText.attributed().withColor(.label)
-            .withFont(.verdanaBold?.withSize(28))
+            .withFont(.verdanaBold(size: 28))
         titleLabel.textAlignment = .left
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: titleLabel)
     }
 }
 
 extension ProfileView: ProfileViewProtocol {
-    func showUnderDevelopmentMessage() {
-        let alert = UIAlertController(title: Constants.underDevelopmentText)
-        let okAction = UIAlertAction(title: Constants.okText)
-        alert.addAction(okAction)
-        alert.preferredAction = okAction
-        present(alert, animated: true)
-    }
-
     func showLogOutMessage() {
-        let alert = UIAlertController(title: Constants.logOutAlertTitleText)
-        let yesAction = UIAlertAction(title: Constants.yesText, style: .destructive)
-        let cancelAction = UIAlertAction(title: Constants.cancelText)
-        alert.addAction(yesAction)
-        alert.addAction(cancelAction)
-        alert.preferredAction = cancelAction
+        let alert = createLogOutMessageAlert()
         present(alert, animated: true)
     }
 
     func showUpdateNameForm() {
-        let alert = UIAlertController(title: Constants.changeNameText)
-        let okAction = UIAlertAction(title: Constants.okText) { [weak alert, presenter] _ in
-            guard let newName = alert?.textFields?[0].text else { return }
-            presenter?.didSubmitNewName(newName)
-        }
-        let cancelAction = UIAlertAction(title: Constants.cancelText)
-        alert.addTextField { textfield in
-            textfield.placeholder = Constants.changeNamePlaceholder
-            textfield.font = .verdana?.withSize(16)
-        }
-        alert.addAction(okAction)
-        alert.addAction(cancelAction)
-        alert.preferredAction = okAction
+        let alert = createUpdateNameAlert()
         present(alert, animated: true)
     }
 
@@ -179,5 +151,38 @@ extension ProfileView: UITableViewDelegate {
         if case .subSection = profileTableSections[indexPath.section] {
             presenter?.selectedSubSection(atIndex: indexPath.row)
         }
+    }
+}
+
+// MARK: - AlertControllers extension
+
+extension ProfileView {
+    private func createLogOutMessageAlert() -> UIAlertController {
+        let alert = UIAlertController(title: Constants.logOutAlertTitleText)
+        let yesAction = UIAlertAction(title: Constants.yesText, style: .destructive) { [weak self] _ in
+            self?.presenter?.logOutActionTapped()
+        }
+        let cancelAction = UIAlertAction(title: Constants.cancelText)
+        alert.addAction(yesAction)
+        alert.addAction(cancelAction)
+        alert.preferredAction = cancelAction
+        return alert
+    }
+    
+    private func createUpdateNameAlert() -> UIAlertController {
+        let alert = UIAlertController(title: Constants.changeNameText)
+        let okAction = UIAlertAction(title: Constants.okText) { [weak alert, presenter] _ in
+            guard let newName = alert?.textFields?[0].text else { return }
+            presenter?.didSubmitNewName(newName)
+        }
+        let cancelAction = UIAlertAction(title: Constants.cancelText)
+        alert.addTextField { textfield in
+            textfield.placeholder = Constants.changeNamePlaceholder
+            textfield.font = .verdana(size: 16)
+        }
+        alert.addAction(okAction)
+        alert.addAction(cancelAction)
+        alert.preferredAction = okAction
+        return alert
     }
 }

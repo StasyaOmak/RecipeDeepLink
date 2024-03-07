@@ -73,7 +73,7 @@ final class CategoriesView: UIViewController {
     private func configureTitleLabel() {
         let titleLabel = UILabel()
         titleLabel.attributedText = Constants.titleText.attributed().withColor(.label)
-            .withFont(.verdanaBold?.withSize(28))
+            .withFont(.verdanaBold(size: 28))
         titleLabel.textAlignment = .left
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: titleLabel)
     }

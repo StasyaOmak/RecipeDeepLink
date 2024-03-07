@@ -1,10 +1,10 @@
-// BasicDishCell.swift
+// DishCell.swift
 // Copyright © RoadMap. All rights reserved.
 
 import UIKit
 
-/// Ячейка блюда
-class BasicDishCell: UITableViewCell {
+/// Ячейка отображающая инфоромацию о блюде
+class DishCell: UITableViewCell {
     // MARK: - Visual Components
 
     private let dishImageView = {
@@ -20,7 +20,7 @@ class BasicDishCell: UITableViewCell {
 
     private let dishNameLabel = {
         let label = UILabel()
-        label.font = .verdana?.withSize(14)
+        label.font = .verdana(size: 14)
         label.textAlignment = .left
         label.textColor = .black
         label.numberOfLines = 0
@@ -29,7 +29,7 @@ class BasicDishCell: UITableViewCell {
 
     private let timerLabel = {
         let label = UILabel()
-        label.font = .verdana?.withSize(12)
+        label.font = .verdana(size: 12)
         label.textAlignment = .left
         label.textColor = .black
         return label
@@ -37,7 +37,7 @@ class BasicDishCell: UITableViewCell {
 
     private let caloriesLabel = {
         let label = UILabel()
-        label.font = .verdana?.withSize(12)
+        label.font = .verdana(size: 12)
         label.textAlignment = .left
         label.textColor = .black
         return label
@@ -84,11 +84,11 @@ class BasicDishCell: UITableViewCell {
 
     // MARK: - Public Methods
 
-    func configureCell(category: CategoryDishProtocol) {
-        dishImageView.image = UIImage(category.nameImage)
-        dishNameLabel.text = category.nameDish
-        timerLabel.text = "\(category.cookingTime) \(Metrics.minutes.rawValue)"
-        caloriesLabel.text = "\(category.numberCalories) \(Metrics.kcal.rawValue)"
+    func configure(with categoryDish: CategoryDish) {
+        dishImageView.image = UIImage(categoryDish.nameImageName)
+        dishNameLabel.text = categoryDish.dishName
+        timerLabel.text = "\(categoryDish.cookingTime) \(Metrics.minutes.rawValue)"
+        caloriesLabel.text = "\(categoryDish.numberCalories) \(Metrics.kcal.rawValue)"
     }
 
     // MARK: - Private Methods
@@ -144,7 +144,8 @@ class BasicDishCell: UITableViewCell {
         [
             dishNameLabel.leadingAnchor.constraint(equalTo: dishImageView.trailingAnchor, constant: 20),
             dishNameLabel.topAnchor.constraint(equalTo: dishImageView.topAnchor, constant: 12),
-            dishNameLabel.widthAnchor.constraint(equalToConstant: 197)
+            dishNameLabel.trailingAnchor.constraint(equalTo: arrowButton.leadingAnchor),
+            dishNameLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 32)
         ].activate()
     }
 

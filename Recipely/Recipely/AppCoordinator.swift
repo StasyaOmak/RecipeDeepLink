@@ -23,11 +23,57 @@ final class AppCoordinator: BaseCoordinator {
     // MARK: - Public Methods
 
     override func start() {
+        showAuthModule()
+    }
+
+    override func setAsRoot(_ viewController: UIViewController) {
+        guard let window,
+              let snapshot = window.snapshotView(afterScreenUpdates: true)
+        else { return }
+
+        viewController.view.addSubview(snapshot)
+        window.rootViewController = viewController
+        window.makeKeyAndVisible()
+        UIView.transition(
+            with: window,
+            duration: 0.4,
+            options: [.curveEaseInOut],
+            animations: {
+                snapshot.transform = CGAffineTransform(translationX: 0, y: snapshot.frame.height)
+            },
+            completion: { _ in
+                snapshot.removeFromSuperview()
+            }
+        )
+    }
+
+    override func childDidFinish(_ child: Coordinator) {
+        super.childDidFinish(child)
+        switch child {
+        case is AuthCoordinator:
+            showTabBarModule()
+        case is RecipelyTabBarCoordinator:
+            showAuthModule()
+        default:
+            break
+        }
+    }
+
+    // MARK: - Private Methods
+
+    private func showTabBarModule() {
         let tabBarController = builder.buildRecipelyTabBarController()
         let tabBarCoordinator = RecipelyTabBarCoordinator(rootController: tabBarController, builder: builder)
         add(coordinator: tabBarCoordinator)
-        window?.rootViewController = tabBarController
-        window?.makeKeyAndVisible()
+        setAsRoot(tabBarController)
         tabBarCoordinator.start()
+    }
+
+    private func showAuthModule() {
+        let navigationController = UINavigationController()
+        let authCoordinator = AuthCoordinator(rootController: navigationController, builder: builder)
+        add(coordinator: authCoordinator)
+        setAsRoot(navigationController)
+        authCoordinator.start()
     }
 }

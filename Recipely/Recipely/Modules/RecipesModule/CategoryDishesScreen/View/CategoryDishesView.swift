@@ -5,22 +5,12 @@ import UIKit
 
 /// Интерфейс взаимодействия с CategoryDishesView
 protocol CategoryDishesViewProtocol: AnyObject {
-    // функция для изменения состояния контрола сортировки калорий
-    func changesCaloriesSortingStatus(condition: Condition)
-    // функция для изменения состояния контрола сортировки по времени
-    func changesTimeSortingStatus(condition: Condition)
+    /// Функция для обновления данных в таблице
+    func reloadDishes()
 }
 
 /// Вью экрана списка блюд категории
 class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
-    // MARK: - Types
-
-    /// Тип ячейки блюда
-    private enum DishCellTypes {
-        /// Стандартная ячейка
-        case basicDishCell
-    }
-
     // MARK: - Constants
 
     private enum Constants {
@@ -32,7 +22,7 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
 
     // MARK: - Visual Components
 
-    private let searhBar = {
+    private lazy var searhBar = {
         let searhBar = UISearchBar()
         searhBar.searchTextField.borderStyle = .none
         searhBar.searchBarStyle = .minimal
@@ -40,24 +30,19 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
         searhBar.searchTextField.layer.cornerRadius = 12
         searhBar.placeholder = Constants.placeholderText
         searhBar.translatesAutoresizingMaskIntoConstraints = false
+        searhBar.delegate = self
         return searhBar
     }()
 
-    private lazy var caloriesView = {
-        let view = SortingControlView()
-        view.tag = 0
-        view.changeParameters(title: Constants.caloriesText, image: .stackIcon)
-        let tapGestureCalories = UITapGestureRecognizer(target: self, action: #selector(sortControllTapped(_:)))
-        view.addGestureRecognizer(tapGestureCalories)
+    private lazy var caloriesSortControl = {
+        let view = SortControl(title: Constants.caloriesText, state: .none)
+        view.delegate = self
         return view
     }()
 
-    private lazy var timeView = {
-        let view = SortingControlView()
-        view.tag = 1
-        view.changeParameters(title: Constants.timeText, image: .stackIcon)
-        let tapGestureCalories = UITapGestureRecognizer(target: self, action: #selector(sortControllTapped(_:)))
-        view.addGestureRecognizer(tapGestureCalories)
+    private lazy var timeSortControl = {
+        let view = SortControl(title: Constants.timeText, state: .none)
+        view.delegate = self
         return view
     }()
 
@@ -68,7 +53,8 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
         table.separatorStyle = .none
         table.showsVerticalScrollIndicator = false
         table.rowHeight = UITableView.automaticDimension
-        table.register(BasicDishCell.self, forCellReuseIdentifier: BasicDishCell.description())
+        table.register(DishCell.self, forCellReuseIdentifier: DishCell.description())
+        table.register(DishShimmerCell.self, forCellReuseIdentifier: DishShimmerCell.description())
         return table
     }()
 
@@ -76,16 +62,16 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
 
     var presenter: CategoryDishesPresenterProtocol?
 
-    // MARK: - Private Properties
-
-    private let content: [DishCellTypes] = [.basicDishCell]
-
     // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
         configureLayout()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        presenter?.viewDidAppear()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -97,12 +83,12 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
 
     private func configureUI() {
         view.backgroundColor = .systemBackground
-        view.addSubviews(tableView, searhBar, caloriesView, timeView)
+        view.addSubviews(tableView, searhBar, caloriesSortControl, timeSortControl)
         configureNavigationItem()
     }
 
     private func configureLayout() {
-        UIView.doNotTAMIC(for: tableView, searhBar, caloriesView, timeView)
+        UIView.doNotTAMIC(for: tableView, searhBar, caloriesSortControl, timeSortControl)
         configureSearhBarConstraints()
         configureCaloriesViewConstraints()
         configureTimeViewConstraints()
@@ -120,21 +106,21 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
 
     private func configureCaloriesViewConstraints() {
         [
-            caloriesView.topAnchor.constraint(equalTo: searhBar.bottomAnchor, constant: 20),
-            caloriesView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            caloriesSortControl.topAnchor.constraint(equalTo: searhBar.bottomAnchor, constant: 20),
+            caloriesSortControl.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
         ].activate()
     }
 
     private func configureTimeViewConstraints() {
         [
-            timeView.topAnchor.constraint(equalTo: searhBar.bottomAnchor, constant: 20),
-            timeView.leadingAnchor.constraint(equalTo: caloriesView.trailingAnchor, constant: 11),
+            timeSortControl.topAnchor.constraint(equalTo: searhBar.bottomAnchor, constant: 20),
+            timeSortControl.leadingAnchor.constraint(equalTo: caloriesSortControl.trailingAnchor, constant: 11),
         ].activate()
     }
 
     private func configureTableViewConstraits() {
         [
-            tableView.topAnchor.constraint(equalTo: caloriesView.bottomAnchor, constant: 10),
+            tableView.topAnchor.constraint(equalTo: caloriesSortControl.bottomAnchor, constant: 10),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
@@ -155,7 +141,7 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
         let title = presenter?.getTitle() ?? ""
         titleLabel.attributedText = title.attributed()
             .withColor(.label)
-            .withFont(.verdanaBold?.withSize(28))
+            .withFont(.verdanaBold(size: 28))
         titleLabel.textAlignment = .left
         navigationItem.leftBarButtonItems?.append(UIBarButtonItem(customView: titleLabel))
     }
@@ -165,73 +151,34 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
             tableView.cellForRow(at: selectedIndex)?.isSelected = false
         }
     }
-
-    @objc private func sortControllTapped(_ sender: UITapGestureRecognizer) {
-        switch sender.view?.tag {
-        case 0:
-            presenter?.changesCaloriesSortingStatus()
-        case 1:
-            presenter?.changesTimeSortingStatus()
-        default:
-            break
-        }
-    }
 }
 
 extension CategoryDishesView: CategoryDishesViewProtocol {
-    func changesTimeSortingStatus(condition: Condition) {
-        switch condition {
-        case .notPressed:
-            timeView.backgroundColor = .recipeView
-            timeView.changeParameters(title: Constants.timeText, image: .stackIcon)
-        case .sortingMore:
-            timeView.backgroundColor = .accent
-            timeView.changeParameters(title: Constants.timeText, image: .stackIcon.withTintColor(.white))
-        case .sortingSmaller:
-            guard let image = UIImage.stackIcon.cgImage else { return }
-            let newImage = UIImage(cgImage: image, scale: 1, orientation: .downMirrored).withTintColor(.white)
-            timeView.backgroundColor = .accent
-            timeView.changeParameters(title: Constants.timeText, image: newImage)
-        }
-    }
-
-    func changesCaloriesSortingStatus(condition: Condition) {
-        switch condition {
-        case .notPressed:
-            caloriesView.backgroundColor = .recipeView
-            caloriesView.changeParameters(title: Constants.caloriesText, image: .stackIcon)
-        case .sortingMore:
-            caloriesView.backgroundColor = .accent
-            caloriesView.changeParameters(title: Constants.caloriesText, image: .stackIcon.withTintColor(.white))
-        case .sortingSmaller:
-            guard let image = UIImage.stackIcon.cgImage else { return }
-            let newImage = UIImage(cgImage: image, scale: 1, orientation: .downMirrored).withTintColor(.white)
-            caloriesView.backgroundColor = .accent
-            caloriesView.changeParameters(title: Constants.caloriesText, image: newImage)
-        }
+    func reloadDishes() {
+        tableView.reloadData()
     }
 }
 
 extension CategoryDishesView: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        content.count
-    }
-
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        presenter?.dishes.count ?? 0
+        presenter?.getNumberDishes() ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let items = content[indexPath.section]
-        switch items {
-        case .basicDishCell:
-            guard let category = presenter?.dishes,
-                  let cell = tableView.dequeueReusableCell(
-                      withIdentifier: BasicDishCell.description(),
-                      for: indexPath
-                  ) as? BasicDishCell
-            else { return UITableViewCell() }
-            cell.configureCell(category: category[indexPath.row])
+        guard let dish = presenter?.getDish(forIndex: indexPath.row) else { return UITableViewCell() }
+        switch dish {
+        case let .data(dish):
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: DishCell.description(),
+                for: indexPath
+            ) as? DishCell else { return UITableViewCell() }
+            cell.configure(with: dish)
+            return cell
+        case .loading:
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: DishShimmerCell.description(),
+                for: indexPath
+            ) as? DishShimmerCell else { return UITableViewCell() }
             return cell
         }
     }
@@ -245,5 +192,24 @@ extension CategoryDishesView: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         tableView.cellForRow(at: indexPath)?.isSelected = false
+    }
+}
+
+extension CategoryDishesView: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        presenter?.searchBarTextChanged(to: searchText)
+    }
+}
+
+extension CategoryDishesView: SortControlDelegate {
+    func sotingControl(_ control: SortControl, changedStateTo state: SortState) {
+        switch control {
+        case timeSortControl:
+            presenter?.timeSortControlChanged(toState: state)
+        case caloriesSortControl:
+            presenter?.caloriesSortControlChanged(toState: state)
+        default:
+            break
+        }
     }
 }

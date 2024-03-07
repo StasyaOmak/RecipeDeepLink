@@ -4,7 +4,10 @@
 import UIKit
 
 /// Интерфейс взаимодействия с AuthCoordinator
-protocol AuthCoordinatorProtocol: AnyObject {}
+protocol AuthCoordinatorProtocol: AnyObject {
+    /// Сообщает координатору о том, что нужно завершиться
+    func endModule()
+}
 
 /// Координатор экрана аутентификации пользователя
 final class AuthCoordinator: BaseCoordinator {
@@ -31,4 +34,8 @@ final class AuthCoordinator: BaseCoordinator {
     }
 }
 
-extension AuthCoordinator: AuthCoordinatorProtocol {}
+extension AuthCoordinator: AuthCoordinatorProtocol {
+    func endModule() {
+        parentCoordinator?.childDidFinish(self)
+    }
+}

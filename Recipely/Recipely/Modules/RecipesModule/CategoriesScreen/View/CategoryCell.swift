@@ -101,7 +101,7 @@ final class CategoryCell: UICollectionViewCell {
         self.sizeClass = sizeClass
         mainImageView.image = UIImage(category.imageName)
         captionLabel.text = category.name
-        captionLabel.font = .verdana?.withSize(sizeClass.parameters.fontSize)
+        captionLabel.font = .verdana(size: sizeClass.parameters.fontSize)
     }
 
     // MARK: - Private Methods

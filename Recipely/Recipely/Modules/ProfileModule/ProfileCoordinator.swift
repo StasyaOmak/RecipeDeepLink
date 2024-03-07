@@ -7,6 +7,12 @@ import UIKit
 protocol ProfileCoordinatorProtocol: AnyObject {
     /// Презентует экран программы лояльности
     func showLoyaltyProgramScreen()
+    /// Презентует экран правил использования
+    func showTermsOfUseScreen()
+    /// Сообщает о том, что надо закрыть экран правил использования
+    func didEndTermsOfUseScreen()
+    /// Сообщает о необходимости завершить текущий модуль
+    func endProfileModule()
 }
 
 /// Координатор модуля профиля пользователя
@@ -38,5 +44,19 @@ extension ProfileCoordinator: ProfileCoordinatorProtocol {
     func showLoyaltyProgramScreen() {
         let loyaltyProgramController = builder.buildLoyaltyProgramScreen(coordinator: self)
         rootController.present(loyaltyProgramController, animated: true)
+    }
+
+    func showTermsOfUseScreen() {
+        let view = builder.buildTermsOfUseScreen(coordinator: self)
+        view.modalPresentationStyle = .overFullScreen
+        rootController.present(view, animated: true)
+    }
+
+    func didEndTermsOfUseScreen() {
+        rootController.presentedViewController?.dismiss(animated: false)
+    }
+
+    func endProfileModule() {
+        parentCoordinator?.childDidFinish(self)
     }
 }

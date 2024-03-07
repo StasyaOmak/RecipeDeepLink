@@ -70,7 +70,7 @@ final class AuthView: UIViewController {
         text.textColor = .black
         text.textAlignment = .left
         text.keyboardType = .default
-        text.font = .verdana?.withSize(18)
+        text.font = .verdana(size: 18)
         text.placeholder = Constants.emailPlaceholder
         text.addTarget(self, action: #selector(emailChanged(_:)), for: .editingChanged)
         return text
@@ -79,7 +79,7 @@ final class AuthView: UIViewController {
     private let loginLabel = {
         let label = UILabel()
         label.text = Constants.loginText
-        label.font = .verdanaBold?.withSize(28)
+        label.font = .verdanaBold(size: 28)
         label.textColor = .textAccent
         return label
     }()
@@ -87,7 +87,7 @@ final class AuthView: UIViewController {
     private let emailAddressLabel = {
         let label = UILabel()
         label.text = Constants.emailAddressText
-        label.font = .verdanaBold?.withSize(18)
+        label.font = .verdanaBold(size: 18)
         label.textColor = .textAccent
         return label
     }()
@@ -109,7 +109,7 @@ final class AuthView: UIViewController {
     private let passwordLabel = {
         let label = UILabel()
         label.text = Constants.passwordText
-        label.font = .verdana?.withSize(18)
+        label.font = .verdana(size: 18)
         label.textColor = .textAccent
         return label
     }()
@@ -118,7 +118,7 @@ final class AuthView: UIViewController {
         let text = UITextField()
         text.placeholder = Constants.enterPassword
         text.textAlignment = .left
-        text.font = .verdana?.withSize(18)
+        text.font = .verdana(size: 18)
         text.textColor = .black
         text.keyboardType = .default
         return text
@@ -149,7 +149,7 @@ final class AuthView: UIViewController {
     private let warningsPasswordLabel = {
         let label = UILabel()
         label.text = Constants.passwordWarningText
-        label.font = .verdanaBold?.withSize(12)
+        label.font = .verdanaBold(size: 12)
         label.textColor = UIColor.warnings
         label.textAlignment = .left
         label.isHidden = true
@@ -159,7 +159,7 @@ final class AuthView: UIViewController {
     private let warningsEmailLabel = {
         let label = UILabel()
         label.text = Constants.emailWarningText
-        label.font = .verdanaBold?.withSize(12)
+        label.font = .verdanaBold(size: 12)
         label.textColor = UIColor.warnings
         label.textAlignment = .left
         label.isHidden = true
@@ -169,7 +169,7 @@ final class AuthView: UIViewController {
     private let warningsAccuracyLabel = {
         let label = UILabel()
         label.text = Constants.loginWarningText
-        label.font = .verdana?.withSize(18)
+        label.font = .verdana(size: 18)
         label.textColor = .white
         label.textAlignment = .left
         label.numberOfLines = 0
@@ -240,7 +240,7 @@ final class AuthView: UIViewController {
         gradient.frame = view.bounds
         gradient.colors = [
             UIColor.white.cgColor,
-            UIColor.gridient.cgColor
+            UIColor.gradient.cgColor
         ]
     }
 
