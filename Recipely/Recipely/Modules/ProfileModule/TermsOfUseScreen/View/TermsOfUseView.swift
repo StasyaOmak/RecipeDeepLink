@@ -112,7 +112,7 @@ final class TermsOfUseView: UIViewController {
                 case .collapsed:
                     self.termsView.frame.origin.y = self.view.frame.height
                 case .halfExpanded:
-                    self.termsView.frame.origin.y = self.view.frame.height - 300
+                    self.termsView.frame.origin.y = self.view.frame.height / 2
                 }
             }
             frameAnimator.addCompletion { _ in

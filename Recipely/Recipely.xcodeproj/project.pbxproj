@@ -225,7 +225,6 @@
 		9D2BC74C2B96725400BBAA58 /* TermsOfUseScreen */ = {
 			isa = PBXGroup;
 			children = (
-				9D2BC7532B96870D00BBAA58 /* Model */,
 				9D2BC74D2B96726D00BBAA58 /* View */,
 				9D2BC7502B96728C00BBAA58 /* Presenter */,
 			);
@@ -247,13 +246,6 @@
 				9D2BC74E2B96728800BBAA58 /* TermsOfUsePresenter.swift */,
 			);
 			path = Presenter;
-			sourceTree = "<group>";
-		};
-		9D2BC7532B96870D00BBAA58 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		9D499B232B8E85EE007B36D0 /* TableViewCells */ = {
