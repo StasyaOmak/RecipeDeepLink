@@ -21,6 +21,7 @@ final class AuthPresenter {
     private weak var coordinator: AuthCoordinatorProtocol?
     private weak var view: AuthViewProtocol?
     private var validator = Validator()
+    @UserDefault("userDataKey") var userData: UserAuthData?
 
     // MARK: - Initializers
 
@@ -45,25 +46,25 @@ extension AuthPresenter: AuthPresenterProtocol {
 
     func loginButtonTapped(withPassword password: String?, withEmail email: String?) {
         view?.startIndicator()
-        Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { [view] _ in
+        Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { [validator, view, coordinator] _ in
             view?.stopIndicator()
-            if self.validator.isPasswordValid(password), self.validator.isEmailValid(email) {
-                if let user = UserCaretaker.default.getUser() {
+            if validator.isPasswordValid(password), validator.isEmailValid(email) {
+                if let user = self.userData {
                     if user.email == email, user.password == password {
                         view?.setPasswordFieldStateTo(.plain)
                         view?.setEmailFieldStateTo(.plain)
-                        self.coordinator?.endModule()
+                        coordinator?.endModule()
                     } else {
                         view?.setPasswordFieldStateTo(.highlited)
-                        view?.showWarning()
                         view?.setEmailFieldStateTo(.highlited)
+                        view?.showWarning()
                     }
                 } else {
                     let user = UserAuthData(email: email ?? "", password: password ?? "")
-                    UserCaretaker.default.save(user)
+                    self.userData = user
                     view?.setPasswordFieldStateTo(.plain)
                     view?.setEmailFieldStateTo(.plain)
-                    self.coordinator?.endModule()
+                    coordinator?.endModule()
                 }
             } else {
                 view?.setPasswordFieldStateTo(.highlited)

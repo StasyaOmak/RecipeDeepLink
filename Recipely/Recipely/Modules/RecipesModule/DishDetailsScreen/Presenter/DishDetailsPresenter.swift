@@ -1,4 +1,4 @@
-// RacipeDetailPresenter.swift
+// DishDetailsPresenter.swift
 // Copyright © RoadMap. All rights reserved.
 
 import Foundation
