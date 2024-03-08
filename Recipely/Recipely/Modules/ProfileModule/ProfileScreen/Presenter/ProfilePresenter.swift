@@ -8,7 +8,7 @@ protocol ProfilePresenterProtocol: AnyObject {
     /// Возвращает массив секций профиля для отображения в пользовательском интерфейсе.
     func getSections() -> [ProfileSection]
     /// Возвращает объект пользователя, содержащий информацию о текущем пользователе.
-    func getUser() -> User
+    func getUserName() -> User
     /// Возвращает количество подразделов в профиле пользователя.
     func getAmountOfSubSections() -> Int
     /// Возвращает конкретную подсекцию для заданного индекса.
@@ -30,12 +30,15 @@ final class ProfilePresenter {
     private weak var coordinator: ProfileCoordinatorProtocol?
     private weak var view: ProfileViewProtocol?
     private var profile = Profile()
+    private let caretaker = Caretaker()
 
     // MARK: - Initializers
 
     init(view: ProfileViewProtocol, coordinator: ProfileCoordinatorProtocol) {
         self.view = view
         self.coordinator = coordinator
+        caretaker.getMementus()
+        caretaker.originator = Originator(image: nil, username: nil)
     }
 }
 
@@ -44,8 +47,10 @@ extension ProfilePresenter: ProfilePresenterProtocol {
         profile.sections
     }
 
-    func getUser() -> User {
-        profile.user
+    func getUserName() -> User {
+        caretaker.undo()
+        let user = User(profileImageData: nil, name: caretaker.originator?.username)
+        return user
     }
 
     func getAmountOfSubSections() -> Int {
@@ -74,6 +79,8 @@ extension ProfilePresenter: ProfilePresenterProtocol {
     func didSubmitNewName(_ name: String) {
         profile.user.name = name
         view?.updateUserNameLabel()
+        caretaker.originator?.setNewUser(image: nil, username: name)
+        caretaker.backup()
     }
 
     func logOutActionTapped() {

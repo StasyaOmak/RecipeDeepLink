@@ -1,6 +1,7 @@
 // AuthView.swift
 // Copyright © RoadMap. All rights reserved.
 
+import Photos
 import UIKit
 
 /// Интерфейс взаимодействия с AuthView
@@ -358,7 +359,7 @@ final class AuthView: UIViewController {
     }
 
     @objc private func loginButtonTapped() {
-        presenter?.loginButtonTapped(withPassword: passwordTextField.text)
+        presenter?.loginButtonTapped(withPassword: passwordTextField.text, withEmail: emailTextField.text)
     }
 
     @objc private func kbWillShow(_ notification: Notification) {

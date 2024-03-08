@@ -117,7 +117,7 @@ extension ProfileView: ProfileViewProtocol {
 
     func updateUserNameLabel() {
         guard let cell = tableView.cellForRow(at: .init(row: 0, section: 0)) as? ProfileCell else { return }
-        let user = presenter?.getUser()
+        let user = presenter?.getUserName()
         cell.updateNameLabel(with: user?.name)
     }
 }
@@ -139,7 +139,7 @@ extension ProfileView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch profileTableSections[indexPath.section] {
         case .userInfo:
-            guard let user = presenter?.getUser(),
+            guard let user = presenter?.getUserName(),
                   let cell = tableView.dequeueReusableCell(
                       withIdentifier: ProfileCell.description(),
                       for: indexPath

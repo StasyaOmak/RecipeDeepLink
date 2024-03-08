@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// Состояния контрола кнопок для сортировки 
+/// Состояния контрола кнопок для сортировки
 enum SortState: Int, CaseIterable, Comparable {
     /// Сортировки нет
     case none
