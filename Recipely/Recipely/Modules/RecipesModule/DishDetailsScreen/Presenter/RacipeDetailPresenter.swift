@@ -7,6 +7,8 @@ import Foundation
 protocol DishDetailsPresenterProtocol {
     /// Сообщает о том, что вью начала свой жизненный цикл
     func viewBeganLoading()
+
+    func didTapShareButton()
 }
 
 /// Презентер экрана детального описания блюда
@@ -28,5 +30,9 @@ final class DishDetailsPresenter {
 extension DishDetailsPresenter: DishDetailsPresenterProtocol {
     func viewBeganLoading() {
         view?.configure(with: dish)
+    }
+
+    func didTapShareButton() {
+        LogAction.log("Пользователь поделился рецептом \(dish.name)")
     }
 }

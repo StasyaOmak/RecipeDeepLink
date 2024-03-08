@@ -101,16 +101,8 @@ final class DishDetailsView: UIViewController, UIGestureRecognizerDelegate {
         navigationItem.rightBarButtonItems = [addToFavouritesButtonItem, shareButtonItem]
     }
 
-    private func showInDevelopmentAlert() {
-        let alert = UIAlertController(message: Constants.inDevelopmentText)
-        let okAction = UIAlertAction(title: Constants.okText)
-        alert.addAction(okAction)
-        alert.preferredAction = okAction
-        present(alert, animated: true)
-    }
-
     @objc private func addToFavouritesButtonTapped() {
-        showInDevelopmentAlert()
+        presenter?.didTapShareButton()
     }
 }
 
