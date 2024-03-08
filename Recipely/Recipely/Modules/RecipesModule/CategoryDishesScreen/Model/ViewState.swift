@@ -6,7 +6,7 @@ import Foundation
 /// Состояние данных.
 enum ViewState {
     /// Состояние, когда данные успешно загружены и содержат объект типа CategoryDish.
-    case data(CategoryDish)
+    case data(Dish)
     /// Состояние, когда данных нет или загрузка завершилась неудачно.
     case loading
 }

@@ -6,7 +6,7 @@ import Foundation
 /// Интерфейс взаимодействия с FavouritesPresenter
 protocol FavouritesPresenterProtocol: AnyObject {
     /// Возвращает массив секций рецептов для отображения в пользовательском интерфейсе.
-    func getDish(forIndex index: Int) -> CategoryDish
+    func getDish(forIndex index: Int) -> Dish
     /// Возвращает количество подразделов рецептов
     func getNumberOfDishes() -> Int
     /// удаляет рецепт из избранного.
@@ -21,7 +21,7 @@ final class FavouritesPresenter {
 
     private weak var coordinator: FavouritesCoordinatorProtocol?
     private weak var view: FavouritesViewProtocol?
-    private var favouriteDishes = CategoryDish.getDishes()
+    private var favouriteDishes = Dish.getDishes()
 
     // MARK: - Initializers
 
@@ -44,7 +44,7 @@ extension FavouritesPresenter: FavouritesPresenterProtocol {
         favouriteDishes.count
     }
 
-    func getDish(forIndex index: Int) -> CategoryDish {
+    func getDish(forIndex index: Int) -> Dish {
         favouriteDishes[index]
     }
 }

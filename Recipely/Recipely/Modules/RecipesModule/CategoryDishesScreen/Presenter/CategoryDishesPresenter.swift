@@ -28,7 +28,7 @@ protocol CategoryDishesPresenterProtocol {
 final class CategoryDishesPresenter {
     // MARK: - Types
 
-    typealias AreDishesInIncreasingOrder = (CategoryDish, CategoryDish) -> Bool
+    typealias AreDishesInIncreasingOrder = (Dish, Dish) -> Bool
 
     // MARK: - Private Properties
 
@@ -37,8 +37,8 @@ final class CategoryDishesPresenter {
 
     private var viewTitle: String
     private var isDataAvalible = false
-    private var dishes: [CategoryDish] = []
-    private var initialDishes = CategoryDish.getDishes()
+    private var dishes: [Dish] = []
+    private var initialDishes = Dish.getDishes()
     private var timer: Timer?
     private var caloriesSortState = SortState.none {
         didSet {
@@ -87,7 +87,7 @@ final class CategoryDishesPresenter {
         return predicatesArray
     }
 
-    private func getSortedCategoryDishes(using predicates: [AreDishesInIncreasingOrder]) -> [CategoryDish] {
+    private func getSortedCategoryDishes(using predicates: [AreDishesInIncreasingOrder]) -> [Dish] {
         dishes.sorted { lhsDish, rhsDish in
             for predicate in predicates {
                 if !predicate(lhsDish, rhsDish), !predicate(rhsDish, lhsDish) {
@@ -124,10 +124,8 @@ extension CategoryDishesPresenter: CategoryDishesPresenterProtocol {
     }
 
     func didTapCell(atIndex index: Int) {
-        if index == 0 {
-            LogAction.log("Пользователь открыл рецепт блюда \(dishes[index].dishName)")
-            coordinator?.showDishDetailsScreen()
-        }
+        LogAction.log("Пользователь открыл рецепт блюда \(dishes[index].name)")
+        coordinator?.showDishDetailsScreen(dish: dishes[index])
     }
 
     func viewDidAppear() {
@@ -145,7 +143,7 @@ extension CategoryDishesPresenter: CategoryDishesPresenterProtocol {
                 self.dishes = self.initialDishes
             } else {
                 self.dishes = self.initialDishes
-                    .filter { $0.dishName.range(of: text, options: .caseInsensitive) != nil }
+                    .filter { $0.name.range(of: text, options: .caseInsensitive) != nil }
             }
             self.updateDishes()
             self.isDataAvalible = true

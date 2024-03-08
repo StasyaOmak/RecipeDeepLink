@@ -7,6 +7,8 @@ import UIKit
 protocol DishDetailsViewProtocol: AnyObject {
     /// Конфигурирует экран используя информацию о переданном блюде
     func configure(with dish: Dish)
+    /// Покрасить значок избранное
+    func addRecipe()
 }
 
 /// Экран детальной информации о блюде
@@ -42,6 +44,8 @@ final class DishDetailsView: UIViewController, UIGestureRecognizerDelegate {
         table.register(DishRecipeCell.self, forCellReuseIdentifier: DishRecipeCell.description())
         return table
     }()
+    
+    let addToFavouritesButton = UIButton()
 
     // MARK: - Public Properties
 
@@ -92,7 +96,6 @@ final class DishDetailsView: UIViewController, UIGestureRecognizerDelegate {
         let shareButton = UIButton()
         shareButton.setImage(.shareIcon.withRenderingMode(.alwaysOriginal), for: .normal)
 
-        let addToFavouritesButton = UIButton()
         addToFavouritesButton.setImage(.bookmarkIcon.withRenderingMode(.alwaysOriginal), for: .normal)
         addToFavouritesButton.addTarget(self, action: #selector(addToFavouritesButtonTapped), for: .touchUpInside)
 
@@ -103,10 +106,15 @@ final class DishDetailsView: UIViewController, UIGestureRecognizerDelegate {
 
     @objc private func addToFavouritesButtonTapped() {
         presenter?.didTapShareButton()
+        
     }
 }
 
 extension DishDetailsView: DishDetailsViewProtocol {
+    func addRecipe() {
+//        addToFavouritesButton.
+    }
+    
     func configure(with dish: Dish) {
         self.dish = dish
     }

@@ -17,6 +17,7 @@ final class DishInfoCell: UITableViewCell {
         let label = UILabel()
         label.font = .verdanaBold(size: 20)
         label.textColor = .label
+        label.numberOfLines = 0
         label.textAlignment = .center
         return label
     }()
