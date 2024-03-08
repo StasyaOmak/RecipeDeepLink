@@ -87,31 +87,12 @@ final class ProfileView: UIViewController {
 
 extension ProfileView: ProfileViewProtocol {
     func showLogOutMessage() {
-        let alert = UIAlertController(title: Constants.logOutAlertTitleText)
-        let yesAction = UIAlertAction(title: Constants.yesText, style: .destructive) { [weak self] _ in
-            self?.presenter?.logOutActionTapped()
-        }
-        let cancelAction = UIAlertAction(title: Constants.cancelText)
-        alert.addAction(yesAction)
-        alert.addAction(cancelAction)
-        alert.preferredAction = cancelAction
+        let alert = createLogOutMessageAlert()
         present(alert, animated: true)
     }
 
     func showUpdateNameForm() {
-        let alert = UIAlertController(title: Constants.changeNameText)
-        let okAction = UIAlertAction(title: Constants.okText) { [weak alert, presenter] _ in
-            guard let newName = alert?.textFields?[0].text else { return }
-            presenter?.didSubmitNewName(newName)
-        }
-        let cancelAction = UIAlertAction(title: Constants.cancelText)
-        alert.addTextField { textfield in
-            textfield.placeholder = Constants.changeNamePlaceholder
-            textfield.font = .verdana(size: 16)
-        }
-        alert.addAction(okAction)
-        alert.addAction(cancelAction)
-        alert.preferredAction = okAction
+        let alert = createUpdateNameAlert()
         present(alert, animated: true)
     }
 
@@ -170,5 +151,38 @@ extension ProfileView: UITableViewDelegate {
         if case .subSection = profileTableSections[indexPath.section] {
             presenter?.selectedSubSection(atIndex: indexPath.row)
         }
+    }
+}
+
+// MARK: - AlertControllers extension
+
+extension ProfileView {
+    private func createLogOutMessageAlert() -> UIAlertController {
+        let alert = UIAlertController(title: Constants.logOutAlertTitleText)
+        let yesAction = UIAlertAction(title: Constants.yesText, style: .destructive) { [weak self] _ in
+            self?.presenter?.logOutActionTapped()
+        }
+        let cancelAction = UIAlertAction(title: Constants.cancelText)
+        alert.addAction(yesAction)
+        alert.addAction(cancelAction)
+        alert.preferredAction = cancelAction
+        return alert
+    }
+    
+    private func createUpdateNameAlert() -> UIAlertController {
+        let alert = UIAlertController(title: Constants.changeNameText)
+        let okAction = UIAlertAction(title: Constants.okText) { [weak alert, presenter] _ in
+            guard let newName = alert?.textFields?[0].text else { return }
+            presenter?.didSubmitNewName(newName)
+        }
+        let cancelAction = UIAlertAction(title: Constants.cancelText)
+        alert.addTextField { textfield in
+            textfield.placeholder = Constants.changeNamePlaceholder
+            textfield.font = .verdana(size: 16)
+        }
+        alert.addAction(okAction)
+        alert.addAction(cancelAction)
+        alert.preferredAction = okAction
+        return alert
     }
 }
