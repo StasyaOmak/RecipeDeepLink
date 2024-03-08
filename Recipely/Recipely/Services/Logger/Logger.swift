@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// Обьект занимающийся записью лого
+/// Обьект занимающийся сохранением логов
 final class Logger {
     // MARK: - Constants
 

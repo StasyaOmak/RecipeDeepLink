@@ -7,7 +7,7 @@ import Foundation
 protocol DishDetailsPresenterProtocol {
     /// Сообщает о том, что вью начала свой жизненный цикл
     func viewBeganLoading()
-
+    /// Сообщает о назатии на кнопку поделиться
     func didTapShareButton()
 }
 

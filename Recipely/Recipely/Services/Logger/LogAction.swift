@@ -3,7 +3,7 @@
 
 import Foundation
 
-///
+/// Обертка для удобного добавления команд логирования в LogInvoker
 enum LogAction {
     static func log(_ line: String) {
         let command = LogCommand(line)

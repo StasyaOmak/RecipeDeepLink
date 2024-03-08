@@ -3,10 +3,18 @@
 
 import Foundation
 
+/// Обьект занимающийся управлением снапшотами пользовательских данных
 final class Caretaker {
-    private lazy var mementos: [UserMemento] = []
+    // MARK: - Public Properties
+
     var originator: Originator?
+
+    // MARK: - Private Properties
+
+    private lazy var mementos: [UserMemento] = []
     private let key = "mementoStore"
+
+    // MARK: - Public Methods
 
     func backup() {
         guard let memento = originator?.save() else { return }
@@ -38,7 +46,7 @@ final class Caretaker {
         }
     }
 
-    func getMementus() {
+    func fetch() {
         guard let data = UserDefaults.standard.data(forKey: key) else { return }
         do {
             let decoder = JSONDecoder()

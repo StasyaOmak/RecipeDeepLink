@@ -40,7 +40,7 @@
 		9D499B3C2B908BFB007B36D0 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D499B3B2B908BFB007B36D0 /* CategoryCell.swift */; };
 		9D499B732B927B89007B36D0 /* DishDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D499B722B927B89007B36D0 /* DishDetailsView.swift */; };
 		9D499B772B927C7A007B36D0 /* Dish.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D499B762B927C7A007B36D0 /* Dish.swift */; };
-		9D499B792B927D3A007B36D0 /* RacipeDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D499B782B927D3A007B36D0 /* RacipeDetailPresenter.swift */; };
+		9D499B792B927D3A007B36D0 /* DishDetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D499B782B927D3A007B36D0 /* DishDetailsPresenter.swift */; };
 		9D499B7E2B927ECE007B36D0 /* DishInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D499B7D2B927ECE007B36D0 /* DishInfoCell.swift */; };
 		9D499B802B927EF5007B36D0 /* DishKBZHUCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D499B7F2B927EF5007B36D0 /* DishKBZHUCell.swift */; };
 		9D499B822B927F46007B36D0 /* DishRecipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D499B812B927F46007B36D0 /* DishRecipeCell.swift */; };
@@ -91,7 +91,7 @@
 		9DC68F892B9B0814000261C5 /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC68F882B9B0814000261C5 /* Command.swift */; };
 		9DC68F8B2B9B0834000261C5 /* LogCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC68F8A2B9B0834000261C5 /* LogCommand.swift */; };
 		9DC68F8D2B9B0856000261C5 /* LogInvoker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC68F8C2B9B0856000261C5 /* LogInvoker.swift */; };
-		9DC68F8F2B9B09A2000261C5 /* LogAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC68F8E2B9B09A2000261C5 /* LogAction.swift */; };
+		9DC68F912B9B196D000261C5 /* LogAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC68F902B9B196D000261C5 /* LogAction.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -128,7 +128,7 @@
 		9D499B3B2B908BFB007B36D0 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		9D499B722B927B89007B36D0 /* DishDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishDetailsView.swift; sourceTree = "<group>"; };
 		9D499B762B927C7A007B36D0 /* Dish.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dish.swift; sourceTree = "<group>"; };
-		9D499B782B927D3A007B36D0 /* RacipeDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RacipeDetailPresenter.swift; sourceTree = "<group>"; };
+		9D499B782B927D3A007B36D0 /* DishDetailsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishDetailsPresenter.swift; sourceTree = "<group>"; };
 		9D499B7D2B927ECE007B36D0 /* DishInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishInfoCell.swift; sourceTree = "<group>"; };
 		9D499B7F2B927EF5007B36D0 /* DishKBZHUCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishKBZHUCell.swift; sourceTree = "<group>"; };
 		9D499B812B927F46007B36D0 /* DishRecipeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishRecipeCell.swift; sourceTree = "<group>"; };
@@ -181,7 +181,7 @@
 		9DC68F882B9B0814000261C5 /* Command.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Command.swift; sourceTree = "<group>"; };
 		9DC68F8A2B9B0834000261C5 /* LogCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogCommand.swift; sourceTree = "<group>"; };
 		9DC68F8C2B9B0856000261C5 /* LogInvoker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInvoker.swift; sourceTree = "<group>"; };
-		9DC68F8E2B9B09A2000261C5 /* LogAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogAction.swift; sourceTree = "<group>"; };
+		9DC68F902B9B196D000261C5 /* LogAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogAction.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -346,7 +346,7 @@
 		9D499B7A2B927D3E007B36D0 /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
-				9D499B782B927D3A007B36D0 /* RacipeDetailPresenter.swift */,
+				9D499B782B927D3A007B36D0 /* DishDetailsPresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -658,8 +658,8 @@
 				9DC68F7C2B9A12B0000261C5 /* Logger.swift */,
 				9DC68F882B9B0814000261C5 /* Command.swift */,
 				9DC68F8A2B9B0834000261C5 /* LogCommand.swift */,
+				9DC68F902B9B196D000261C5 /* LogAction.swift */,
 				9DC68F8C2B9B0856000261C5 /* LogInvoker.swift */,
-				9DC68F8E2B9B09A2000261C5 /* LogAction.swift */,
 			);
 			path = Logger;
 			sourceTree = "<group>";
@@ -798,7 +798,7 @@
 				9D952B4E2B8D1CBC00F6D8CC /* AppDelegate.swift in Sources */,
 				9DC68F832B9AFDCA000261C5 /* Caretaker.swift in Sources */,
 				9D6115672B8D54CC008EF247 /* CategoriesPresenter.swift in Sources */,
-				9D499B792B927D3A007B36D0 /* RacipeDetailPresenter.swift in Sources */,
+				9D499B792B927D3A007B36D0 /* DishDetailsPresenter.swift in Sources */,
 				9D6115772B8D68F5008EF247 /* UIAlertController+Extension.swift in Sources */,
 				2102A3A32B97F4E0002D64B6 /* ViewState.swift in Sources */,
 				9DC68F892B9B0814000261C5 /* Command.swift in Sources */,
@@ -811,7 +811,7 @@
 				9D499B272B8E9795007B36D0 /* ProfileSubSection.swift in Sources */,
 				9D499B7E2B927ECE007B36D0 /* DishInfoCell.swift in Sources */,
 				9D952B7F2B8D283000F6D8CC /* ProfileCoordinator.swift in Sources */,
-				9DC68F8F2B9B09A2000261C5 /* LogAction.swift in Sources */,
+				9DC68F912B9B196D000261C5 /* LogAction.swift in Sources */,
 				9D2BC74F2B96728800BBAA58 /* TermsOfUsePresenter.swift in Sources */,
 				21B91CDC2B90D0370041D5E9 /* SortState.swift in Sources */,
 				9D952B6C2B8D22A100F6D8CC /* Coordinator.swift in Sources */,

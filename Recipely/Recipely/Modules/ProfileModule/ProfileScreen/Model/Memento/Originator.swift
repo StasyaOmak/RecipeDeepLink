@@ -3,27 +3,36 @@
 
 import Foundation
 
+/// Обьект управляющий текушим снапшотом пользовательских данных
 final class Originator {
+    // MARK: - Constants
+
     private enum Constants {
-        static let logDirectoryURL = FileManager.default
+        static let userProfileImagesDirectoryURL = FileManager.default
             .getDirectory(withName: "UserProfileImages", inUserDomain: .cachesDirectory)
     }
 
+    // MARK: - Public Properties
+
     var imageData: Data?
     var username: String?
+
+    // MARK: - Initializers
 
     init(imageData: Data?, username: String?) {
         self.imageData = imageData
         self.username = username
     }
 
+    // MARK: - Public Methods
+
     func save() -> UserMemento {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd'T'HH.mm.ss"
         let imageName = "profileImage_" + formatter.string(from: Date())
-        // swiftlint:disable all
         if let imageData,
-           let url = Constants.logDirectoryURL?.appending(path: imageName).appendingPathExtension("png")
+           let url = Constants.userProfileImagesDirectoryURL?.appending(path: imageName).appendingPathExtension("png")
+        // swiftlint:disable all
         {
             // swiftlint:enable all
             do {
@@ -40,7 +49,8 @@ final class Originator {
         username = memento.name
 
         guard let imageName = memento.profileImageName,
-              let url = Constants.logDirectoryURL?.appending(path: imageName).appendingPathExtension("png")
+              let url = Constants.userProfileImagesDirectoryURL?.appending(path: imageName)
+              .appendingPathExtension("png")
         else { return }
         do {
             let imageData = try Data(contentsOf: url)

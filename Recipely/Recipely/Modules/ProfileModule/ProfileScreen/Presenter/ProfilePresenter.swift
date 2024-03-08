@@ -42,7 +42,7 @@ final class ProfilePresenter {
     init(view: ProfileViewProtocol, coordinator: ProfileCoordinatorProtocol) {
         self.view = view
         self.coordinator = coordinator
-        caretaker.getMementus()
+        caretaker.fetch()
         caretaker.originator = Originator(imageData: nil, username: nil)
         caretaker.lastState()
     }
