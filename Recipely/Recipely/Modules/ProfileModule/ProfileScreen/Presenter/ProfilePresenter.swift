@@ -1,24 +1,29 @@
 // ProfilePresenter.swift
 // Copyright © RoadMap. All rights reserved.
 
-import UIKit
+import Foundation
 
 /// Интерфейс взаимодействия с ProfilePresenter
 protocol ProfilePresenterProtocol: AnyObject {
     /// Возвращает массив секций профиля для отображения в пользовательском интерфейсе.
     func getSections() -> [ProfileSection]
     /// Возвращает объект пользователя, содержащий информацию о текущем пользователе.
-    func getUserName() -> User
+    func getUser() -> User
     /// Возвращает количество подразделов в профиле пользователя.
     func getAmountOfSubSections() -> Int
     /// Возвращает конкретную подсекцию для заданного индекса.
     func getSubSection(forIndex index: Int) -> Setting
     /// Обрабатывает выбор подсекции пользователем.
     func selectedSubSection(atIndex index: Int)
-    /// Обрабатывает нажатие кнопки редактирования профиля.
+
+    /// Обрабатывает нажатие кнопки редактирования имени в профиле.
     func profileEditButtonTapped()
+    /// Обрабатывает нажатие на изображения пользователя.
+    func profileImageTapped()
     /// Обрабатывает событие подтверждения изменения имени пользователя.
     func didSubmitNewName(_ name: String)
+    /// Обрабатывает событие подтверждения изменения имени пользователя.
+    func didSubmitNewProfileImage(_ imageData: Data)
     /// Вызывается при подтверждении выхода из профиля пользователя
     func logOutActionTapped()
 }
@@ -38,7 +43,8 @@ final class ProfilePresenter {
         self.view = view
         self.coordinator = coordinator
         caretaker.getMementus()
-        caretaker.originator = Originator(image: nil, username: nil)
+        caretaker.originator = Originator(imageData: nil, username: nil)
+        caretaker.lastState()
     }
 }
 
@@ -47,10 +53,9 @@ extension ProfilePresenter: ProfilePresenterProtocol {
         profile.sections
     }
 
-    func getUserName() -> User {
-        caretaker.undo()
-        let user = User(profileImageData: nil, name: caretaker.originator?.username)
-        return user
+    func getUser() -> User {
+        let userName = caretaker.originator?.username ?? profile.user.name
+        return User(profileImageData: caretaker.originator?.imageData, name: userName)
     }
 
     func getAmountOfSubSections() -> Int {
@@ -76,11 +81,22 @@ extension ProfilePresenter: ProfilePresenterProtocol {
         view?.showUpdateNameForm()
     }
 
+    func profileImageTapped() {
+        view?.showPhotoPicker()
+    }
+
     func didSubmitNewName(_ name: String) {
-        profile.user.name = name
-        view?.updateUserNameLabel()
-        caretaker.originator?.setNewUser(image: nil, username: name)
+        caretaker.originator?.username = name
         caretaker.backup()
+        caretaker.save()
+        view?.updateUserName(with: name)
+    }
+
+    func didSubmitNewProfileImage(_ imageData: Data) {
+        caretaker.originator?.imageData = imageData
+        caretaker.backup()
+        caretaker.save()
+        view?.updateProfileImage(with: imageData)
     }
 
     func logOutActionTapped() {

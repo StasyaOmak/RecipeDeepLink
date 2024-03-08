@@ -7,13 +7,6 @@ import UIKit
 final class ProfileCell: UITableViewCell {
     // MARK: - Visual Components
 
-    private let userImageView: UIImageView = {
-        let view = UIImageView()
-        view.clipsToBounds = true
-        view.contentMode = .scaleAspectFill
-        return view
-    }()
-
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.font = .verdanaBold(size: 25)
@@ -22,10 +15,21 @@ final class ProfileCell: UITableViewCell {
         return label
     }()
 
+    private lazy var userImageView: UIImageView = {
+        let view = UIImageView()
+        view.clipsToBounds = true
+        view.contentMode = .scaleAspectFill
+        view.isUserInteractionEnabled = true
+        view.layer.cornerRadius = 80
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(profileImageTapped))
+        view.addGestureRecognizer(tapGesture)
+        return view
+    }()
+
     private lazy var editButton: UIButton = {
         let button = UIButton()
         button.setImage(.penIcon.withRenderingMode(.alwaysOriginal), for: .normal)
-        button.addTarget(self, action: #selector(didTapEditButton), for: .touchUpInside)
+        button.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
         return button
     }()
 
@@ -40,6 +44,7 @@ final class ProfileCell: UITableViewCell {
     // MARK: - Public Properties
 
     var onEditButtonTapped: VoidHandler?
+    var onProfileImageTapped: VoidHandler?
 
     // MARK: - Initializers
 
@@ -58,19 +63,28 @@ final class ProfileCell: UITableViewCell {
     // MARK: - Public Methods
 
     func configure(with user: User) {
-        selectionStyle = .none
-        guard let imageData = user.profileImageData else { return }
-        userImageView.image = UIImage(data: imageData)
-        nameLabel.text = user.name
+        updateNameLabel(with: user.name)
+        updateUserImage(with: user.profileImageData)
     }
 
     func updateNameLabel(with name: String?) {
         nameLabel.text = name
     }
 
+    func updateUserImage(with imageData: Data?) {
+        var image: UIImage?
+        if let imageData {
+            image = UIImage(data: imageData)
+        } else {
+            image = .userIcon
+        }
+        userImageView.image = image
+    }
+
     // MARK: - Private Methods
 
     private func configureUI() {
+        selectionStyle = .none
         contentView.addSubviews(userImageView, bottomStack)
     }
 
@@ -106,7 +120,11 @@ final class ProfileCell: UITableViewCell {
         ].activate()
     }
 
-    @objc private func didTapEditButton() {
+    @objc private func editButtonTapped() {
         onEditButtonTapped?()
+    }
+
+    @objc private func profileImageTapped() {
+        onProfileImageTapped?()
     }
 }

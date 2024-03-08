@@ -1,9 +1,5 @@
-//
-//  FileManager+Extension.swift
-//  Recipely
-//
-//  Created by Tixon Markin on 07.03.2024.
-//
+// FileManager+Extension.swift
+// Copyright © RoadMap. All rights reserved.
 
 import Foundation
 
@@ -14,7 +10,7 @@ extension FileManager {
             .first?
             .appendingPathComponent(name)
         else { return nil }
-        
+
         let targetPath = targetURL.path()
         if !FileManager.default.fileExists(atPath: targetPath) {
             do {

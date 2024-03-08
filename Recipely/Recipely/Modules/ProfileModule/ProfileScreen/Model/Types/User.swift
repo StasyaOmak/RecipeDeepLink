@@ -8,5 +8,5 @@ struct User {
     /// Изображение пользователя
     var profileImageData: Data?
     /// Имя пользователя
-    var name: String?
+    var name: String
 }

@@ -12,7 +12,6 @@
 		21153D332B91F8ED0085ED80 /* FavoritesPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21153D322B91F8ED0085ED80 /* FavoritesPlaceholderView.swift */; };
 		214F1D892B99D59400A16E7B /* UserAuthData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 214F1D882B99D59400A16E7B /* UserAuthData.swift */; };
 		214F1D8B2B99DB5900A16E7B /* UserCaretaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 214F1D8A2B99DB5900A16E7B /* UserCaretaker.swift */; };
-		214F1D8D2B99E26200A16E7B /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 214F1D8C2B99E26200A16E7B /* StorageManager.swift */; };
 		214F1D8F2B9A0BF400A16E7B /* Originator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 214F1D8E2B9A0BF400A16E7B /* Originator.swift */; };
 		218656F92B98708200540121 /* BasicDishShimmerCell .swift in Sources */ = {isa = PBXBuildFile; fileRef = 218656F82B98708200540121 /* BasicDishShimmerCell .swift */; };
 		21B91CDA2B90BEB10041D5E9 /* SortControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B91CD92B90BEB10041D5E9 /* SortControl.swift */; };
@@ -87,6 +86,12 @@
 		9DC68F7B2B988E93000261C5 /* CaseIterable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC68F7A2B988E93000261C5 /* CaseIterable+Extension.swift */; };
 		9DC68F7D2B9A12B0000261C5 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC68F7C2B9A12B0000261C5 /* Logger.swift */; };
 		9DC68F802B9A13E8000261C5 /* FileManager+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC68F7F2B9A13E8000261C5 /* FileManager+Extension.swift */; };
+		9DC68F832B9AFDCA000261C5 /* Caretaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC68F822B9AFDCA000261C5 /* Caretaker.swift */; };
+		9DC68F852B9AFE14000261C5 /* UserMemento.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC68F842B9AFE14000261C5 /* UserMemento.swift */; };
+		9DC68F892B9B0814000261C5 /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC68F882B9B0814000261C5 /* Command.swift */; };
+		9DC68F8B2B9B0834000261C5 /* LogCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC68F8A2B9B0834000261C5 /* LogCommand.swift */; };
+		9DC68F8D2B9B0856000261C5 /* LogInvoker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC68F8C2B9B0856000261C5 /* LogInvoker.swift */; };
+		9DC68F8F2B9B09A2000261C5 /* LogAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC68F8E2B9B09A2000261C5 /* LogAction.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -95,7 +100,6 @@
 		21153D322B91F8ED0085ED80 /* FavoritesPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesPlaceholderView.swift; sourceTree = "<group>"; };
 		214F1D882B99D59400A16E7B /* UserAuthData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthData.swift; sourceTree = "<group>"; };
 		214F1D8A2B99DB5900A16E7B /* UserCaretaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCaretaker.swift; sourceTree = "<group>"; };
-		214F1D8C2B99E26200A16E7B /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		214F1D8E2B9A0BF400A16E7B /* Originator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Originator.swift; sourceTree = "<group>"; };
 		218656F82B98708200540121 /* BasicDishShimmerCell .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BasicDishShimmerCell .swift"; sourceTree = "<group>"; };
 		21B91CD92B90BEB10041D5E9 /* SortControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortControl.swift; sourceTree = "<group>"; };
@@ -172,6 +176,12 @@
 		9DC68F7A2B988E93000261C5 /* CaseIterable+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CaseIterable+Extension.swift"; sourceTree = "<group>"; };
 		9DC68F7C2B9A12B0000261C5 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		9DC68F7F2B9A13E8000261C5 /* FileManager+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+Extension.swift"; sourceTree = "<group>"; };
+		9DC68F822B9AFDCA000261C5 /* Caretaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Caretaker.swift; sourceTree = "<group>"; };
+		9DC68F842B9AFE14000261C5 /* UserMemento.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMemento.swift; sourceTree = "<group>"; };
+		9DC68F882B9B0814000261C5 /* Command.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Command.swift; sourceTree = "<group>"; };
+		9DC68F8A2B9B0834000261C5 /* LogCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogCommand.swift; sourceTree = "<group>"; };
+		9DC68F8C2B9B0856000261C5 /* LogInvoker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInvoker.swift; sourceTree = "<group>"; };
+		9DC68F8E2B9B09A2000261C5 /* LogAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogAction.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -420,8 +430,6 @@
 			children = (
 				214F1D882B99D59400A16E7B /* UserAuthData.swift */,
 				214F1D8A2B99DB5900A16E7B /* UserCaretaker.swift */,
-				214F1D8C2B99E26200A16E7B /* StorageManager.swift */,
-				214F1D8E2B9A0BF400A16E7B /* Originator.swift */,
 				9D6115452B8D312E008EF247 /* Validator.swift */,
 			);
 			path = Model;
@@ -574,10 +582,8 @@
 			isa = PBXGroup;
 			children = (
 				9D499B212B8E7422007B36D0 /* Profile.swift */,
-				9D952B7B2B8D264B00F6D8CC /* User.swift */,
-				9D499B1F2B8E73AC007B36D0 /* Settings.swift */,
-				9D499B332B8F6446007B36D0 /* ProfileSection.swift */,
-				9D499B262B8E9795007B36D0 /* ProfileSubSection.swift */,
+				9DC68F862B9AFF95000261C5 /* Memento */,
+				9DC68F812B9AECAE000261C5 /* Types */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -620,9 +626,42 @@
 		9DC68F7E2B9A12B3000261C5 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				9DC68F7C2B9A12B0000261C5 /* Logger.swift */,
+				9DC68F872B9B07F2000261C5 /* Logger */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		9DC68F812B9AECAE000261C5 /* Types */ = {
+			isa = PBXGroup;
+			children = (
+				9D952B7B2B8D264B00F6D8CC /* User.swift */,
+				9D499B1F2B8E73AC007B36D0 /* Settings.swift */,
+				9D499B332B8F6446007B36D0 /* ProfileSection.swift */,
+				9D499B262B8E9795007B36D0 /* ProfileSubSection.swift */,
+			);
+			path = Types;
+			sourceTree = "<group>";
+		};
+		9DC68F862B9AFF95000261C5 /* Memento */ = {
+			isa = PBXGroup;
+			children = (
+				214F1D8E2B9A0BF400A16E7B /* Originator.swift */,
+				9DC68F822B9AFDCA000261C5 /* Caretaker.swift */,
+				9DC68F842B9AFE14000261C5 /* UserMemento.swift */,
+			);
+			path = Memento;
+			sourceTree = "<group>";
+		};
+		9DC68F872B9B07F2000261C5 /* Logger */ = {
+			isa = PBXGroup;
+			children = (
+				9DC68F7C2B9A12B0000261C5 /* Logger.swift */,
+				9DC68F882B9B0814000261C5 /* Command.swift */,
+				9DC68F8A2B9B0834000261C5 /* LogCommand.swift */,
+				9DC68F8C2B9B0856000261C5 /* LogInvoker.swift */,
+				9DC68F8E2B9B09A2000261C5 /* LogAction.swift */,
+			);
+			path = Logger;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -745,6 +784,7 @@
 				9D499B932B93E228007B36D0 /* Mertics.swift in Sources */,
 				9D61156D2B8D67AE008EF247 /* NSLayoutConstraint+Extension.swift in Sources */,
 				9D952B8A2B8D2CE300F6D8CC /* Favourites.swift in Sources */,
+				9DC68F8B2B9B0834000261C5 /* LogCommand.swift in Sources */,
 				21153D312B91ECFF0085ED80 /* FavouritesCell.swift in Sources */,
 				9D499B182B8E6878007B36D0 /* ProfileCell.swift in Sources */,
 				214F1D8F2B9A0BF400A16E7B /* Originator.swift in Sources */,
@@ -756,10 +796,12 @@
 				9D499B3C2B908BFB007B36D0 /* CategoryCell.swift in Sources */,
 				9D952B7C2B8D264B00F6D8CC /* User.swift in Sources */,
 				9D952B4E2B8D1CBC00F6D8CC /* AppDelegate.swift in Sources */,
+				9DC68F832B9AFDCA000261C5 /* Caretaker.swift in Sources */,
 				9D6115672B8D54CC008EF247 /* CategoriesPresenter.swift in Sources */,
 				9D499B792B927D3A007B36D0 /* RacipeDetailPresenter.swift in Sources */,
 				9D6115772B8D68F5008EF247 /* UIAlertController+Extension.swift in Sources */,
 				2102A3A32B97F4E0002D64B6 /* ViewState.swift in Sources */,
+				9DC68F892B9B0814000261C5 /* Command.swift in Sources */,
 				9D6115732B8D684E008EF247 /* NSMutableAttributedString+Extension.swift in Sources */,
 				9D952B752B8D25E800F6D8CC /* ProfileView.swift in Sources */,
 				9DC68F7D2B9A12B0000261C5 /* Logger.swift in Sources */,
@@ -768,8 +810,8 @@
 				9D6115662B8D54CC008EF247 /* RecipesCoordinator.swift in Sources */,
 				9D499B272B8E9795007B36D0 /* ProfileSubSection.swift in Sources */,
 				9D499B7E2B927ECE007B36D0 /* DishInfoCell.swift in Sources */,
-				214F1D8D2B99E26200A16E7B /* StorageManager.swift in Sources */,
 				9D952B7F2B8D283000F6D8CC /* ProfileCoordinator.swift in Sources */,
+				9DC68F8F2B9B09A2000261C5 /* LogAction.swift in Sources */,
 				9D2BC74F2B96728800BBAA58 /* TermsOfUsePresenter.swift in Sources */,
 				21B91CDC2B90D0370041D5E9 /* SortState.swift in Sources */,
 				9D952B6C2B8D22A100F6D8CC /* Coordinator.swift in Sources */,
@@ -783,6 +825,7 @@
 				9D952B892B8D2CE300F6D8CC /* FavouritesCoordinator.swift in Sources */,
 				9D6115752B8D6877008EF247 /* UIFont+Extension.swift in Sources */,
 				9D6115792B8D6917008EF247 /* UIAlertAction+Extension.swift in Sources */,
+				9DC68F8D2B9B0856000261C5 /* LogInvoker.swift in Sources */,
 				9D499B1C2B8E6B4C007B36D0 /* UIImage+Extension.swift in Sources */,
 				9D952B732B8D235D00F6D8CC /* ModuleBuilder.swift in Sources */,
 				9D6115652B8D54CC008EF247 /* CategoriesView.swift in Sources */,
@@ -802,6 +845,7 @@
 				9D952B502B8D1CBC00F6D8CC /* SceneDelegate.swift in Sources */,
 				9D952B6A2B8D226E00F6D8CC /* RecipelyTabBarController.swift in Sources */,
 				9D499B962B96247C007B36D0 /* UIColor+Extension.swift in Sources */,
+				9DC68F852B9AFE14000261C5 /* UserMemento.swift in Sources */,
 				9D499B8A2B937BB9007B36D0 /* NutrientView.swift in Sources */,
 				214F1D892B99D59400A16E7B /* UserAuthData.swift in Sources */,
 				21FE4D9B2B8FFD8A00FA377F /* DishCell.swift in Sources */,

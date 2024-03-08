@@ -32,7 +32,7 @@ final class RecipelyTabBarCoordinator: BaseCoordinator {
         let profileCoordinator = ProfileCoordinator(rootController: profileRootController, builder: builder)
 
         rootController.setViewControllers(
-            [recipesRootController, favouritesRootController, profileRootController],
+            [ /* recipesRootController, favouritesRootController, */ profileRootController],
             animated: false
         )
 
