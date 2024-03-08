@@ -1,6 +1,7 @@
 // ProfileView.swift
 // Copyright © RoadMap. All rights reserved.
 
+import PhotosUI
 import UIKit
 
 /// Интерфейс взаимодействия с ProfileView
@@ -9,8 +10,12 @@ protocol ProfileViewProtocol: AnyObject {
     func showLogOutMessage()
     /// Отображает форму для обновления имени пользователя.
     func showUpdateNameForm()
+    func showPhotoPicker()
+
     /// Обновляет отображаемое имя пользователя в соответствующем элементе пользовательского интерфейса.
-    func updateUserNameLabel()
+    func updateUserName(with name: String?)
+
+    func updateProfileImage(with imageData: Data?)
 }
 
 /// Вью экрана профиля пользователя
@@ -96,10 +101,22 @@ extension ProfileView: ProfileViewProtocol {
         present(alert, animated: true)
     }
 
-    func updateUserNameLabel() {
+    func showPhotoPicker() {
+        var config = PHPickerConfiguration(photoLibrary: .shared())
+        config.filter = .images
+        let picker = PHPickerViewController(configuration: config)
+        picker.delegate = self
+        present(picker, animated: true)
+    }
+
+    func updateUserName(with name: String?) {
         guard let cell = tableView.cellForRow(at: .init(row: 0, section: 0)) as? ProfileCell else { return }
-        let user = presenter?.getUser()
-        cell.updateNameLabel(with: user?.name)
+        cell.updateNameLabel(with: name)
+    }
+
+    func updateProfileImage(with imageData: Data?) {
+        guard let cell = tableView.cellForRow(at: .init(row: 0, section: 0)) as? ProfileCell else { return }
+        cell.updateUserImage(with: imageData)
     }
 }
 
@@ -130,6 +147,10 @@ extension ProfileView: UITableViewDataSource {
             cell.onEditButtonTapped = { [presenter] in
                 presenter?.profileEditButtonTapped()
             }
+            cell.onProfileImageTapped = { [weak self] in
+                self?.showPhotoPicker()
+            }
+
             cell.configure(with: user)
             return cell
         case .subSection:
@@ -154,6 +175,19 @@ extension ProfileView: UITableViewDelegate {
     }
 }
 
+extension ProfileView: PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        results.first?.itemProvider.loadObject(ofClass: UIImage.self) { object, _ in
+            guard let image = object as? UIImage,
+                  let imageData = image.pngData() else { return }
+            DispatchQueue.main.async {
+                self.presenter?.didSubmitNewProfileImage(imageData)
+            }
+        }
+        picker.dismiss(animated: true)
+    }
+}
+
 // MARK: - AlertControllers extension
 
 extension ProfileView {
@@ -168,7 +202,7 @@ extension ProfileView {
         alert.preferredAction = cancelAction
         return alert
     }
-    
+
     private func createUpdateNameAlert() -> UIAlertController {
         let alert = UIAlertController(title: Constants.changeNameText)
         let okAction = UIAlertAction(title: Constants.okText) { [weak alert, presenter] _ in

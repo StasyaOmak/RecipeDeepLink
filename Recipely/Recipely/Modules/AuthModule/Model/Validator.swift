@@ -15,12 +15,14 @@ struct Validator {
     // MARK: - Public Methods
 
     // Метод для проверки на вилдность логина
-    func isEmailValid(_ email: String) -> Bool {
-        email.validateUsing(Constants.loginRegEx)
+    func isEmailValid(_ email: String?) -> Bool {
+        guard let email else { return false }
+        return email.validateUsing(Constants.loginRegEx)
     }
 
     // Метод для проверки на вилдность пароля
-    func isPasswordValid(_ password: String) -> Bool {
-        password.validateUsing(Constants.passwordRegEx)
+    func isPasswordValid(_ password: String?) -> Bool {
+        guard let password else { return false }
+        return password.validateUsing(Constants.passwordRegEx)
     }
 }

@@ -1,19 +1,20 @@
 // AuthView.swift
 // Copyright © RoadMap. All rights reserved.
 
+import Photos
 import UIKit
 
 /// Интерфейс взаимодействия с AuthView
 protocol AuthViewProtocol: AnyObject {
-    // функция для проверки на валидность email
+    /// функция для проверки на валидность email
     func setEmailFieldStateTo(_ state: AuthView.AuthTextFieldState)
-    // функция для проверки на валидность password
+    /// функция для проверки на валидность password
     func setPasswordFieldStateTo(_ state: AuthView.AuthTextFieldState)
-    // функция для проверки запуска активити индикатора
+    /// функция для проверки запуска активити индикатора
     func startIndicator()
-    // функция для проверки остановки активити индикатора
+    /// функция для проверки остановки активити индикатора
     func stopIndicator()
-    // функция для отображения предупреждений об ошибке при авторизации
+    /// функция для отображения предупреждений об ошибке при авторизации
     func showWarning()
 }
 
@@ -358,7 +359,7 @@ final class AuthView: UIViewController {
     }
 
     @objc private func loginButtonTapped() {
-        presenter?.loginButtonTapped(withPassword: passwordTextField.text)
+        presenter?.loginButtonTapped(withPassword: passwordTextField.text, withEmail: emailTextField.text)
     }
 
     @objc private func kbWillShow(_ notification: Notification) {

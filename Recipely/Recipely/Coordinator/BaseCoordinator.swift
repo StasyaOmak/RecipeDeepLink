@@ -4,7 +4,7 @@
 import UIKit
 
 /// Абстрактный класс координатора
-class BaseCoordinator: Coordinator {
+class BaseCoordinator: NSObject, Coordinator {
     // MARK: - Public Properties
 
     weak var parentCoordinator: Coordinator?

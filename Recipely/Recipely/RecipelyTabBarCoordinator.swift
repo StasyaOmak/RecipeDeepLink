@@ -35,7 +35,7 @@ final class RecipelyTabBarCoordinator: BaseCoordinator {
             [recipesRootController, favouritesRootController, profileRootController],
             animated: false
         )
-
+        rootController.delegate = self
         add(coordinator: favouritesCoordinator)
         add(coordinator: recipesCoordinator)
         add(coordinator: profileCoordinator)
@@ -48,6 +48,14 @@ final class RecipelyTabBarCoordinator: BaseCoordinator {
     override func childDidFinish(_ child: Coordinator) {
         if child is ProfileCoordinator {
             parentCoordinator?.childDidFinish(self)
+        }
+    }
+}
+
+extension RecipelyTabBarCoordinator: UITabBarControllerDelegate {
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        if viewController === tabBarController.viewControllers?[0] {
+            LogAction.log("Пользователь открыл \"Экран рецептов\"")
         }
     }
 }

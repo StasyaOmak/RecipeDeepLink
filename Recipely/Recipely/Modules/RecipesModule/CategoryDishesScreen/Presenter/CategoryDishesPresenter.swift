@@ -125,6 +125,7 @@ extension CategoryDishesPresenter: CategoryDishesPresenterProtocol {
 
     func didTapCell(atIndex index: Int) {
         if index == 0 {
+            LogAction.log("Пользователь открыл рецепт блюда \(dishes[index].dishName)")
             coordinator?.showDishDetailsScreen()
         }
     }

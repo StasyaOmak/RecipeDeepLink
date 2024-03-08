@@ -39,6 +39,8 @@ extension CategoriesPresenter: CategoriesPresenterProtocol {
     }
 
     func didSelectCategory(atIndex index: Int) {
-        coordinator?.showCategoryDishesScreen(withTitle: categories[index].name)
+        let categoryName = categories[index].name
+        LogAction.log("пользовать перешел на Экран со списком рецептов из \(categoryName)")
+        coordinator?.showCategoryDishesScreen(withTitle: categoryName)
     }
 }
