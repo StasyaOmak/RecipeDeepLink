@@ -6,7 +6,7 @@ import Foundation
 /// Профиль пользователя
 struct Profile {
     /// Пользователь
-    var user = User(profileImageName: .userIcon, name: "Surname Name")
+    var user = User(profileImageData: Data(), name: "Surname Name")
     /// Список доступных подразделов, доступных пользователю
     var settings: [Setting] = [
         .init(icon: .starIcon, name: "Bonuses", type: .bonuses),

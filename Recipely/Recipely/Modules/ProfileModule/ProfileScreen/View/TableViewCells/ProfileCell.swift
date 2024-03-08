@@ -59,7 +59,8 @@ final class ProfileCell: UITableViewCell {
 
     func configure(with user: User) {
         selectionStyle = .none
-        userImageView.image = UIImage(user.profileImageName)
+        guard let imageData = user.profileImageData else { return }
+        userImageView.image = UIImage(data: imageData)
         nameLabel.text = user.name
     }
 

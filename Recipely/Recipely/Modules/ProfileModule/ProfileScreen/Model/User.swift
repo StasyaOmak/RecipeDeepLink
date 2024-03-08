@@ -6,7 +6,7 @@ import Foundation
 ///  Данные пользователя
 struct User {
     /// Изображение пользователя
-    var profileImageName: AssetImageName
+    var profileImageData: Data?
     /// Имя пользователя
-    var name: String
+    var name: String?
 }
