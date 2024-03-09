@@ -37,8 +37,8 @@ final class CategoryDishesPresenter {
 
     private var viewTitle: String
     private var isDataAvalible = false
-    private var dishes: [Dish] = []
-    private var initialDishes = Dish.getDishes()
+    private var dishes: [Dish] = DishesService.shared.getDishes()
+//    private var initialDishes =
     private var timer: Timer?
     private var caloriesSortState = SortState.none {
         didSet {
@@ -60,7 +60,12 @@ final class CategoryDishesPresenter {
         self.view = view
         self.coordinator = coordinator
         self.viewTitle = viewTitle
-        dishes = initialDishes
+    }
+
+    // MARK: - Life Cycle
+
+    deinit {
+        print("deinit ", String(describing: self))
     }
 
     // MARK: - Private Methods
@@ -125,11 +130,12 @@ extension CategoryDishesPresenter: CategoryDishesPresenterProtocol {
 
     func didTapCell(atIndex index: Int) {
         LogAction.log("Пользователь открыл рецепт блюда \(dishes[index].name)")
-        coordinator?.showDishDetailsScreen(dish: dishes[index])
+        guard let dish = DishesService.shared.getDish(byId: dishes[index].id) else { return }
+        coordinator?.showDishDetailsScreen(with: dish)
     }
 
     func viewDidAppear() {
-        Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { _ in
+        Timer.scheduledTimer(withTimeInterval: 0, repeats: false) { _ in
             self.receivedData()
         }
     }
@@ -140,9 +146,9 @@ extension CategoryDishesPresenter: CategoryDishesPresenterProtocol {
         view?.reloadDishes()
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { _ in
             if text.count < 3 {
-                self.dishes = self.initialDishes
+                self.dishes = DishesService.shared.getDishes()
             } else {
-                self.dishes = self.initialDishes
+                self.dishes = DishesService.shared.getDishes()
                     .filter { $0.name.range(of: text, options: .caseInsensitive) != nil }
             }
             self.updateDishes()

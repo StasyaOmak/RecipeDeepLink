@@ -6,9 +6,9 @@ import UIKit
 /// Интерфейс взаимодействия с DishDetailsView
 protocol DishDetailsViewProtocol: AnyObject {
     /// Конфигурирует экран используя информацию о переданном блюде
-    func configure(with dish: Dish)
+    func configure(with dish: Dish?)
     /// Покрасить значок избранное
-    func addRecipe()
+    func updateFavouritesButtonState(to isHighlited: Bool)
 }
 
 /// Экран детальной информации о блюде
@@ -34,6 +34,20 @@ final class DishDetailsView: UIViewController, UIGestureRecognizerDelegate {
 
     // MARK: - Visual Components
 
+    private lazy var shareButton = {
+        let button = UIButton()
+        button.setImage(.shareIcon.withRenderingMode(.alwaysOriginal), for: .normal)
+        button.addTarget(self, action: #selector(shareButtonTapped), for: .touchUpInside)
+        return button
+    }()
+
+    private lazy var addToFavouritesButton = {
+        let button = UIButton()
+        button.setImage(.bookmarkIcon.withRenderingMode(.alwaysOriginal), for: .normal)
+        button.addTarget(self, action: #selector(addToFavouritesButtonTapped), for: .touchUpInside)
+        return button
+    }()
+
     private lazy var dishInfoTableView = {
         let table = UITableView()
         table.dataSource = self
@@ -44,8 +58,6 @@ final class DishDetailsView: UIViewController, UIGestureRecognizerDelegate {
         table.register(DishRecipeCell.self, forCellReuseIdentifier: DishRecipeCell.description())
         return table
     }()
-    
-    let addToFavouritesButton = UIButton()
 
     // MARK: - Public Properties
 
@@ -63,6 +75,10 @@ final class DishDetailsView: UIViewController, UIGestureRecognizerDelegate {
         configureUI()
         configureLayout()
         presenter?.viewBeganLoading()
+    }
+
+    deinit {
+        print("deinit ", String(describing: self))
     }
 
     // MARK: - Private Methods
@@ -93,29 +109,27 @@ final class DishDetailsView: UIViewController, UIGestureRecognizerDelegate {
         navigationItem.leftBarButtonItem = backButtonItem
         navigationController?.interactivePopGestureRecognizer?.delegate = self
 
-        let shareButton = UIButton()
-        shareButton.setImage(.shareIcon.withRenderingMode(.alwaysOriginal), for: .normal)
-
-        addToFavouritesButton.setImage(.bookmarkIcon.withRenderingMode(.alwaysOriginal), for: .normal)
-        addToFavouritesButton.addTarget(self, action: #selector(addToFavouritesButtonTapped), for: .touchUpInside)
-
         let shareButtonItem = UIBarButtonItem(customView: shareButton)
         let addToFavouritesButtonItem = UIBarButtonItem(customView: addToFavouritesButton)
         navigationItem.rightBarButtonItems = [addToFavouritesButtonItem, shareButtonItem]
     }
 
     @objc private func addToFavouritesButtonTapped() {
-        presenter?.didTapShareButton()
-        
+        presenter?.addToFavouritesButtonTapped()
+    }
+
+    @objc private func shareButtonTapped() {
+        presenter?.shareButtonTapped()
     }
 }
 
 extension DishDetailsView: DishDetailsViewProtocol {
-    func addRecipe() {
-//        addToFavouritesButton.
+    func updateFavouritesButtonState(to isHighlited: Bool) {
+        let image: UIImage = isHighlited ? .bookmarkSelectedIcon : .bookmarkIcon
+        addToFavouritesButton.setImage(image, for: .normal)
     }
-    
-    func configure(with dish: Dish) {
+
+    func configure(with dish: Dish?) {
         self.dish = dish
     }
 }

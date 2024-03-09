@@ -4,9 +4,10 @@
 import Foundation
 
 // swiftlint:disable all
-public typealias VoidHandler = () -> ()
-public typealias BoolHandler = (Bool) -> ()
-public typealias StringHandler = (String) -> ()
-public typealias DateHandler = (Date) -> ()
-public typealias OptionalDateHandler = (Date?) -> ()
+typealias VoidHandler = () -> ()
+typealias BoolHandler = (Bool) -> ()
+typealias StringHandler = (String) -> ()
+typealias DateHandler = (Date) -> ()
+typealias OptionalDateHandler = (Date?) -> ()
+typealias DishHandler = (_ updatedDish: Dish) -> ()
 // swiftlint:enable all

@@ -52,6 +52,10 @@ final class CategoriesView: UIViewController {
         deselectSelectedItem()
     }
 
+    deinit {
+        print("deinit ", String(describing: self))
+    }
+
     // MARK: - Private Methods
 
     private func configureUI() {

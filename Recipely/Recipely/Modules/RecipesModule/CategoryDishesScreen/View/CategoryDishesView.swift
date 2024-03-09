@@ -70,6 +70,10 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
         configureLayout()
     }
 
+    deinit {
+        print("deinit ", String(describing: self))
+    }
+
     override func viewDidAppear(_ animated: Bool) {
         presenter?.viewDidAppear()
     }

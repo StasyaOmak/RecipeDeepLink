@@ -74,6 +74,10 @@ final class TermsOfUseView: UIViewController {
         animateTransitionIfNeeded(state: .halfExpanded, duration: 0.9)
     }
 
+    deinit {
+        print("deinit ", String(describing: self))
+    }
+
     // MARK: - Private Methods
 
     private func configureUI() {

@@ -12,7 +12,7 @@ public struct UserDefault<T: Codable> {
         get {
             guard let data = UserDefaults.standard.data(forKey: key) else { return nil }
             do {
-                return try JSONDecoder().decode(T.self, from: data)
+                return try JSONDecoder().decode(T?.self, from: data)
             } catch {
                 print(error)
             }
@@ -30,5 +30,8 @@ public struct UserDefault<T: Codable> {
 
     public init(wrappedValue: T? = nil, _ key: String) {
         self.key = key
+        if wrappedValue != nil {
+            self.wrappedValue = wrappedValue
+        }
     }
 }

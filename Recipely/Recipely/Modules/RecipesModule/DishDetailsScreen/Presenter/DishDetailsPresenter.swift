@@ -8,7 +8,9 @@ protocol DishDetailsPresenterProtocol {
     /// Сообщает о том, что вью начала свой жизненный цикл
     func viewBeganLoading()
     /// Сообщает о назатии на кнопку поделиться
-    func didTapShareButton()
+    func shareButtonTapped()
+    /// Сообщает онажатии на кнопку добавления в любимые блюда
+    func addToFavouritesButtonTapped()
 }
 
 /// Презентер экрана детального описания блюда
@@ -17,7 +19,11 @@ final class DishDetailsPresenter {
 
     private weak var view: DishDetailsViewProtocol?
     private weak var coordinator: RecipesCoordinatorProtocol?
-    private var dish: Dish
+    private var dish: Dish {
+        didSet {
+            view?.updateFavouritesButtonState(to: dish.isFavourite)
+        }
+    }
 
     // MARK: - Initializers
 
@@ -25,17 +31,41 @@ final class DishDetailsPresenter {
         self.view = view
         self.coordinator = coordinator
         self.dish = dish
+        addDishListener()
+    }
+
+    // MARK: - Life Cycle
+
+    deinit {
+        print("deinit ", String(describing: self))
+        DishesService.shared.removeListener(for: self)
+    }
+
+    // MARK: - Private Methods
+
+    private func addDishListener() {
+        DishesService.shared.addDishListener(for: self) { [weak self] updatedDish in
+            self?.dish = updatedDish
+        }
     }
 }
 
 extension DishDetailsPresenter: DishDetailsPresenterProtocol {
     func viewBeganLoading() {
         view?.configure(with: dish)
-//        view?.addRecipe
-        
+        view?.updateFavouritesButtonState(to: dish.isFavourite)
     }
 
-    func didTapShareButton() {
+    func shareButtonTapped() {
         LogAction.log("Пользователь поделился рецептом \(dish.name)")
+    }
+
+    func addToFavouritesButtonTapped() {
+        dish.isFavourite.toggle()
+        if dish.isFavourite {
+            DishesService.shared.addToFavourites(dish: dish)
+        } else {
+            DishesService.shared.removeFromFavourites(dish: dish)
+        }
     }
 }
