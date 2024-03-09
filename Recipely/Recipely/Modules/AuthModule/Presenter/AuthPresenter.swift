@@ -29,6 +29,12 @@ final class AuthPresenter {
         self.view = view
         self.coordinator = coordinator
     }
+
+    // MARK: - Life Cycle
+
+    deinit {
+        print("deinit ", String(describing: self))
+    }
 }
 
 extension AuthPresenter: AuthPresenterProtocol {

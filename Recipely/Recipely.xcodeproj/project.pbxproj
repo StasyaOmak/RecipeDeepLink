@@ -15,7 +15,6 @@
 		218656F92B98708200540121 /* BasicDishShimmerCell .swift in Sources */ = {isa = PBXBuildFile; fileRef = 218656F82B98708200540121 /* BasicDishShimmerCell .swift */; };
 		21B91CDA2B90BEB10041D5E9 /* SortControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B91CD92B90BEB10041D5E9 /* SortControl.swift */; };
 		21B91CDC2B90D0370041D5E9 /* SortState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B91CDB2B90D0370041D5E9 /* SortState.swift */; };
-		21FE4D932B8FE9B500FA377F /* CategoryDish.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FE4D922B8FE9B500FA377F /* CategoryDish.swift */; };
 		21FE4D952B8FE9F000FA377F /* CategoryDishesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FE4D942B8FE9F000FA377F /* CategoryDishesView.swift */; };
 		21FE4D972B8FEBEA00FA377F /* CategoryDishesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FE4D962B8FEBEA00FA377F /* CategoryDishesPresenter.swift */; };
 		21FE4D9B2B8FFD8A00FA377F /* DishCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FE4D9A2B8FFD8A00FA377F /* DishCell.swift */; };
@@ -92,6 +91,9 @@
 		9DC68F8D2B9B0856000261C5 /* LogInvoker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC68F8C2B9B0856000261C5 /* LogInvoker.swift */; };
 		9DC68F912B9B196D000261C5 /* LogAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC68F902B9B196D000261C5 /* LogAction.swift */; };
 		9DC68F942B9B2E0F000261C5 /* UserDefaultsWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC68F932B9B2E0F000261C5 /* UserDefaultsWrapper.swift */; };
+		9DC68F962B9B95C0000261C5 /* DishesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC68F952B9B95C0000261C5 /* DishesService.swift */; };
+		9DC68F9A2B9CA4E7000261C5 /* DishesLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC68F992B9CA4E7000261C5 /* DishesLoader.swift */; };
+		9DC68F9C2B9CECAF000261C5 /* MemoryDish.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC68F9B2B9CECAF000261C5 /* MemoryDish.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -103,7 +105,6 @@
 		218656F82B98708200540121 /* BasicDishShimmerCell .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BasicDishShimmerCell .swift"; sourceTree = "<group>"; };
 		21B91CD92B90BEB10041D5E9 /* SortControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortControl.swift; sourceTree = "<group>"; };
 		21B91CDB2B90D0370041D5E9 /* SortState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortState.swift; sourceTree = "<group>"; };
-		21FE4D922B8FE9B500FA377F /* CategoryDish.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDish.swift; sourceTree = "<group>"; };
 		21FE4D942B8FE9F000FA377F /* CategoryDishesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDishesView.swift; sourceTree = "<group>"; };
 		21FE4D962B8FEBEA00FA377F /* CategoryDishesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDishesPresenter.swift; sourceTree = "<group>"; };
 		21FE4D9A2B8FFD8A00FA377F /* DishCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishCell.swift; sourceTree = "<group>"; };
@@ -182,6 +183,9 @@
 		9DC68F8C2B9B0856000261C5 /* LogInvoker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInvoker.swift; sourceTree = "<group>"; };
 		9DC68F902B9B196D000261C5 /* LogAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogAction.swift; sourceTree = "<group>"; };
 		9DC68F932B9B2E0F000261C5 /* UserDefaultsWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsWrapper.swift; sourceTree = "<group>"; };
+		9DC68F952B9B95C0000261C5 /* DishesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishesService.swift; sourceTree = "<group>"; };
+		9DC68F992B9CA4E7000261C5 /* DishesLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishesLoader.swift; sourceTree = "<group>"; };
+		9DC68F9B2B9CECAF000261C5 /* MemoryDish.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryDish.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -218,7 +222,6 @@
 		21FE4D8F2B8FE97100FA377F /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				21FE4D922B8FE9B500FA377F /* CategoryDish.swift */,
 				2102A3A22B97F4E0002D64B6 /* ViewState.swift */,
 			);
 			path = Model;
@@ -336,7 +339,6 @@
 		9D499B742B927B92007B36D0 /* DishDetailsScreen */ = {
 			isa = PBXGroup;
 			children = (
-				9D499B7B2B927D46007B36D0 /* Model */,
 				9D499B7C2B927D4A007B36D0 /* View */,
 				9D499B7A2B927D3E007B36D0 /* Presenter */,
 			);
@@ -349,14 +351,6 @@
 				9D499B782B927D3A007B36D0 /* DishDetailsPresenter.swift */,
 			);
 			path = Presenter;
-			sourceTree = "<group>";
-		};
-		9D499B7B2B927D46007B36D0 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				9D499B762B927C7A007B36D0 /* Dish.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		9D499B7C2B927D4A007B36D0 /* View */ = {
@@ -437,6 +431,7 @@
 		9D61154A2B8D538E008EF247 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				9D499B762B927C7A007B36D0 /* Dish.swift */,
 				9D61153E2B8D312E008EF247 /* AuthModule */,
 				9D61154B2B8D53B2008EF247 /* RecipesModule */,
 				9D952B802B8D2CE300F6D8CC /* FavouritesModule */,
@@ -623,6 +618,9 @@
 		9DC68F7E2B9A12B3000261C5 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				9DC68F952B9B95C0000261C5 /* DishesService.swift */,
+				9DC68F992B9CA4E7000261C5 /* DishesLoader.swift */,
+				9DC68F9B2B9CECAF000261C5 /* MemoryDish.swift */,
 				9DC68F872B9B07F2000261C5 /* Logger */,
 			);
 			path = Services;
@@ -790,6 +788,7 @@
 				218656F92B98708200540121 /* BasicDishShimmerCell .swift in Sources */,
 				9DC68F7B2B988E93000261C5 /* CaseIterable+Extension.swift in Sources */,
 				9D499B932B93E228007B36D0 /* Mertics.swift in Sources */,
+				9DC68F9C2B9CECAF000261C5 /* MemoryDish.swift in Sources */,
 				9D61156D2B8D67AE008EF247 /* NSLayoutConstraint+Extension.swift in Sources */,
 				9D952B8A2B8D2CE300F6D8CC /* Favourites.swift in Sources */,
 				9DC68F8B2B9B0834000261C5 /* LogCommand.swift in Sources */,
@@ -805,7 +804,9 @@
 				9D952B7C2B8D264B00F6D8CC /* User.swift in Sources */,
 				9D952B4E2B8D1CBC00F6D8CC /* AppDelegate.swift in Sources */,
 				9DC68F832B9AFDCA000261C5 /* Caretaker.swift in Sources */,
+				9DC68F9A2B9CA4E7000261C5 /* DishesLoader.swift in Sources */,
 				9D6115672B8D54CC008EF247 /* CategoriesPresenter.swift in Sources */,
+				9DC68F962B9B95C0000261C5 /* DishesService.swift in Sources */,
 				9D499B792B927D3A007B36D0 /* DishDetailsPresenter.swift in Sources */,
 				9D6115772B8D68F5008EF247 /* UIAlertController+Extension.swift in Sources */,
 				2102A3A32B97F4E0002D64B6 /* ViewState.swift in Sources */,
@@ -847,7 +848,6 @@
 				9D499B382B8F9D49007B36D0 /* TypeAlieses.swift in Sources */,
 				9D6115462B8D312E008EF247 /* AuthCoordinator.swift in Sources */,
 				9D499B1A2B8E6988007B36D0 /* SettingsFieldCell.swift in Sources */,
-				21FE4D932B8FE9B500FA377F /* CategoryDish.swift in Sources */,
 				9D2BC74B2B96724F00BBAA58 /* TermsOfUseView.swift in Sources */,
 				9D499B3A2B9085EE007B36D0 /* Category.swift in Sources */,
 				9D61156F2B8D67CD008EF247 /* Array+Extension.swift in Sources */,

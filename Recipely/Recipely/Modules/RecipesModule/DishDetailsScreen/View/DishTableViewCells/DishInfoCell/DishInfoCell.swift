@@ -17,6 +17,7 @@ final class DishInfoCell: UITableViewCell {
         let label = UILabel()
         label.font = .verdanaBold(size: 20)
         label.textColor = .label
+        label.numberOfLines = 0
         label.textAlignment = .center
         return label
     }()
@@ -58,7 +59,7 @@ final class DishInfoCell: UITableViewCell {
 
     func configure(with dish: Dish) {
         dishNameLabel.text = dish.name
-        dishImageView.image = UIImage(dish.imageName)
+        dishImageView.image = UIImage(data: dish.imageData ?? Data())
         weightView.configure(weight: dish.weight)
         cookingTimeView.configure(cookingTime: dish.cookingTime)
     }

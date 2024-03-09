@@ -28,7 +28,7 @@ protocol CategoryDishesPresenterProtocol {
 final class CategoryDishesPresenter {
     // MARK: - Types
 
-    typealias AreDishesInIncreasingOrder = (CategoryDish, CategoryDish) -> Bool
+    typealias AreDishesInIncreasingOrder = (Dish, Dish) -> Bool
 
     // MARK: - Private Properties
 
@@ -37,8 +37,8 @@ final class CategoryDishesPresenter {
 
     private var viewTitle: String
     private var isDataAvalible = false
-    private var dishes: [CategoryDish] = []
-    private var initialDishes = CategoryDish.getDishes()
+    private var dishes: [Dish] = DishesService.shared.getDishes()
+//    private var initialDishes =
     private var timer: Timer?
     private var caloriesSortState = SortState.none {
         didSet {
@@ -60,7 +60,12 @@ final class CategoryDishesPresenter {
         self.view = view
         self.coordinator = coordinator
         self.viewTitle = viewTitle
-        dishes = initialDishes
+    }
+
+    // MARK: - Life Cycle
+
+    deinit {
+        print("deinit ", String(describing: self))
     }
 
     // MARK: - Private Methods
@@ -87,7 +92,7 @@ final class CategoryDishesPresenter {
         return predicatesArray
     }
 
-    private func getSortedCategoryDishes(using predicates: [AreDishesInIncreasingOrder]) -> [CategoryDish] {
+    private func getSortedCategoryDishes(using predicates: [AreDishesInIncreasingOrder]) -> [Dish] {
         dishes.sorted { lhsDish, rhsDish in
             for predicate in predicates {
                 if !predicate(lhsDish, rhsDish), !predicate(rhsDish, lhsDish) {
@@ -124,14 +129,13 @@ extension CategoryDishesPresenter: CategoryDishesPresenterProtocol {
     }
 
     func didTapCell(atIndex index: Int) {
-        if index == 0 {
-            LogAction.log("Пользователь открыл рецепт блюда \(dishes[index].dishName)")
-            coordinator?.showDishDetailsScreen()
-        }
+        LogAction.log("Пользователь открыл рецепт блюда \(dishes[index].name)")
+        guard let dish = DishesService.shared.getDish(byId: dishes[index].id) else { return }
+        coordinator?.showDishDetailsScreen(with: dish)
     }
 
     func viewDidAppear() {
-        Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { _ in
+        Timer.scheduledTimer(withTimeInterval: 0, repeats: false) { _ in
             self.receivedData()
         }
     }
@@ -142,10 +146,10 @@ extension CategoryDishesPresenter: CategoryDishesPresenterProtocol {
         view?.reloadDishes()
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { _ in
             if text.count < 3 {
-                self.dishes = self.initialDishes
+                self.dishes = DishesService.shared.getDishes()
             } else {
-                self.dishes = self.initialDishes
-                    .filter { $0.dishName.range(of: text, options: .caseInsensitive) != nil }
+                self.dishes = DishesService.shared.getDishes()
+                    .filter { $0.name.range(of: text, options: .caseInsensitive) != nil }
             }
             self.updateDishes()
             self.isDataAvalible = true
