@@ -42,6 +42,10 @@ extension AuthPresenter: AuthPresenterProtocol {
         } else {
             view?.setEmailFieldStateTo(.highlited)
         }
+
+        if let text {
+            view?.displayDeleteTextButton(isHidden: text.isEmpty)
+        }
     }
 
     func loginButtonTapped(withPassword password: String?, withEmail email: String?) {

@@ -44,7 +44,7 @@ final class DishDetailsView: UIViewController, UIGestureRecognizerDelegate {
         table.register(DishRecipeCell.self, forCellReuseIdentifier: DishRecipeCell.description())
         return table
     }()
-    
+
     let addToFavouritesButton = UIButton()
 
     // MARK: - Public Properties
@@ -106,7 +106,6 @@ final class DishDetailsView: UIViewController, UIGestureRecognizerDelegate {
 
     @objc private func addToFavouritesButtonTapped() {
         presenter?.didTapShareButton()
-        
     }
 }
 
@@ -114,7 +113,7 @@ extension DishDetailsView: DishDetailsViewProtocol {
     func addRecipe() {
 //        addToFavouritesButton.
     }
-    
+
     func configure(with dish: Dish) {
         self.dish = dish
     }

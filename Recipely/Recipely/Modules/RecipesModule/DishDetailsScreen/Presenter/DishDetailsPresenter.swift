@@ -32,7 +32,6 @@ extension DishDetailsPresenter: DishDetailsPresenterProtocol {
     func viewBeganLoading() {
         view?.configure(with: dish)
 //        view?.addRecipe
-        
     }
 
     func didTapShareButton() {
