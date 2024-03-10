@@ -407,8 +407,8 @@
 		9D6115402B8D312E008EF247 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				21D3E1AD2B9C9E2500241C7D /* AuthFieldView.swift */,
 				9D6115412B8D312E008EF247 /* AuthView.swift */,
+				21D3E1AD2B9C9E2500241C7D /* AuthFieldView.swift */,
 				9D499B352B8F7937007B36D0 /* LoginButton.swift */,
 			);
 			path = View;

@@ -62,7 +62,7 @@ class AuthFieldView: UIView {
 
     // MARK: - Public Properties
 
-    var placeholder: String? {
+    var placeholderText: String? {
         get { textField.placeholder }
         set { textField.placeholder = newValue }
     }
@@ -82,7 +82,7 @@ class AuthFieldView: UIView {
         set { rightAccessoryButton.setImage(newValue, for: .normal) }
     }
 
-    var warningsText: String? {
+    var warningText: String? {
         get { warningsLabel.text }
         set { warningsLabel.text = newValue }
     }
@@ -92,7 +92,7 @@ class AuthFieldView: UIView {
         set { rightAccessoryButton.isHidden = newValue }
     }
 
-    var mainLabel: String? {
+    var titleLabelText: String? {
         get { titleLabel.text }
         set { titleLabel.text = newValue }
     }
@@ -125,19 +125,19 @@ class AuthFieldView: UIView {
             warningsLabel
         ]
         addSubviews(subviews)
-        UIView.doNotTAMIC(for: subviews)
     }
 
     private func configureLayout() {
-        configureTitleLabelLayout()
-        configureTextFieldLayout()
-        configureTextFieldImageViewLayout()
-        configureTextFieldIButtonLayout()
-        configureTextFieldViewLayout()
-        configureWarningsLabelLayout()
+        UIView.doNotTAMIC(for: subviews)
+        titleLabelConfigureLayout()
+        leftAccessoryImageViewConfigureLayout()
+        textFieldConfigureLayout()
+        rightAccessoryButtonConfigureLayout()
+        backgroundViewConfigureLayout()
+        warningsLabelConfigureLayout()
     }
 
-    private func configureTitleLabelLayout() {
+    private func titleLabelConfigureLayout() {
         [
             titleLabel.topAnchor.constraint(equalTo: topAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -146,7 +146,7 @@ class AuthFieldView: UIView {
         ].activate()
     }
 
-    private func configureTextFieldLayout() {
+    private func textFieldConfigureLayout() {
         [
             textField.leadingAnchor.constraint(equalTo: leftAccessoryImageView.trailingAnchor, constant: 13),
             textField.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: 14),
@@ -155,7 +155,7 @@ class AuthFieldView: UIView {
         ].activate()
     }
 
-    private func configureTextFieldImageViewLayout() {
+    private func leftAccessoryImageViewConfigureLayout() {
         [
             leftAccessoryImageView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 17),
             leftAccessoryImageView.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: 18),
@@ -164,7 +164,7 @@ class AuthFieldView: UIView {
         ].activate()
     }
 
-    private func configureTextFieldIButtonLayout() {
+    private func rightAccessoryButtonConfigureLayout() {
         [
             rightAccessoryButton.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -15),
             rightAccessoryButton.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: 15),
@@ -173,7 +173,7 @@ class AuthFieldView: UIView {
         ].activate()
     }
 
-    private func configureTextFieldViewLayout() {
+    private func backgroundViewConfigureLayout() {
         [
             backgroundView.leadingAnchor.constraint(equalTo: leadingAnchor),
             backgroundView.trailingAnchor.constraint(equalTo: trailingAnchor),
@@ -182,7 +182,7 @@ class AuthFieldView: UIView {
         ].activate()
     }
 
-    private func configureWarningsLabelLayout() {
+    private func warningsLabelConfigureLayout() {
         [
             warningsLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
             warningsLabel.widthAnchor.constraint(equalToConstant: 230),
@@ -199,7 +199,6 @@ class AuthFieldView: UIView {
             warningsLabel.isHidden = true
             titleLabel.textColor = .textAccent
             backgroundView.layer.borderColor = UIColor.opaqueSeparator.cgColor
-
         case .highlited:
             warningsLabel.isHidden = false
             titleLabel.textColor = .warnings

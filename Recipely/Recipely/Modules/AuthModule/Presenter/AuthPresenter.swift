@@ -17,7 +17,6 @@ protocol AuthPresenterProtocol: AnyObject {
 final class AuthPresenter {
     // MARK: - Private Properties
 
-    //    private var storage: StorageManagerProtocol = StorageManager()
     private weak var coordinator: AuthCoordinatorProtocol?
     private weak var view: AuthViewProtocol?
     private var validator = Validator()

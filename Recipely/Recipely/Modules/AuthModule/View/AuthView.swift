@@ -38,36 +38,15 @@ final class AuthView: UIViewController {
 
     // MARK: - Visual Components
 
-    private var loginButtonBottomAnchor: NSLayoutConstraint?
-    private lazy var emailTextFieldView = {
-        let view = AuthFieldView(selectorMethod: #selector(self.emailChanged(_:)), view: self)
-        view.placeholder = Constants.emailPlaceholder
-        view.mainLabel = Constants.emailAddressText
-        view.warningsText = Constants.emailWarningText
-        view.leftAccessoryImage = .envelopeIcon
-        view.rightAccessoryButtonImage = .crossInCircleIcon
-        view.isRightButtonHidden = true
-        return view
-    }()
-
     private let passwordTextFieldView = {
         let view = AuthFieldView(selectorMethod: nil, view: nil)
-        view.placeholder = Constants.enterPassword
-        view.mainLabel = Constants.passwordText
-        view.warningsText = Constants.passwordWarningText
+        view.placeholderText = Constants.enterPassword
+        view.titleLabelText = Constants.passwordText
+        view.warningText = Constants.passwordWarningText
         view.leftAccessoryImage = .lockIcon
         view.rightAccessoryButtonImage = .crossedEyeIcon
         view.isRightButtonHidden = false
         return view
-    }()
-
-    private lazy var loginButton = {
-        let button = LoginButton()
-        button.setTitle(Constants.loginText, for: .normal)
-        button.addTarget(self, action: #selector(
-            loginButtonTapped
-        ), for: .touchUpInside)
-        return button
     }()
 
     private let loginLabel = {
@@ -99,6 +78,18 @@ final class AuthView: UIViewController {
 
     private let gradient = CAGradientLayer()
     private var loginButtonBottomAnchor: NSLayoutConstraint?
+
+    private lazy var emailTextFieldView = {
+        let view = AuthFieldView(selectorMethod: #selector(self.emailChanged(_:)), view: self)
+        view.placeholderText = Constants.emailPlaceholder
+        view.titleLabelText = Constants.emailAddressText
+        view.warningText = Constants.emailWarningText
+        view.leftAccessoryImage = .envelopeIcon
+        view.rightAccessoryButtonImage = .crossInCircleIcon
+        view.isRightButtonHidden = true
+        return view
+    }()
+
     private lazy var loginButton = {
         let button = LoginButton()
         button.setTitle(Constants.loginText, for: .normal)
@@ -106,29 +97,6 @@ final class AuthView: UIViewController {
             loginButtonTapped
         ), for: .touchUpInside)
         return button
-    }()
-
-    private lazy var hideOpenPasswordButton = {
-        let button = UIButton()
-        button.setImage(.crossedEyeIcon, for: .normal)
-        return button
-    }()
-
-    private lazy var deletingTextdButton = {
-        let button = UIButton()
-        button.setImage(.crossInCircleIcon, for: .normal)
-        return button
-    }()
-
-    private lazy var emailTextField = {
-        let text = UITextField()
-        text.textColor = .black
-        text.textAlignment = .left
-        text.keyboardType = .default
-        text.font = .verdana(size: 18)
-        text.placeholder = Constants.emailPlaceholder
-        text.addTarget(self, action: #selector(emailChanged(_:)), for: .editingChanged)
-        return text
     }()
 
     // MARK: - Public Properties
@@ -218,7 +186,7 @@ final class AuthView: UIViewController {
         [
             loginButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             loginButton.heightAnchor.constraint(equalToConstant: 48),
-            loginButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            loginButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
         ].activate()
     }
 
@@ -227,7 +195,7 @@ final class AuthView: UIViewController {
             warningsAccuracyLabel.leadingAnchor.constraint(equalTo: loginView.leadingAnchor, constant: 15),
             warningsAccuracyLabel.topAnchor.constraint(equalTo: loginView.topAnchor, constant: 16),
             warningsAccuracyLabel.trailingAnchor.constraint(equalTo: loginView.trailingAnchor, constant: -34),
-            warningsAccuracyLabel.bottomAnchor.constraint(equalTo: loginView.bottomAnchor, constant: -17),
+            warningsAccuracyLabel.bottomAnchor.constraint(equalTo: loginView.bottomAnchor, constant: -17)
         ].activate()
     }
 
@@ -236,7 +204,7 @@ final class AuthView: UIViewController {
             loginView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             loginView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             loginView.bottomAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: -10),
-            loginView.heightAnchor.constraint(equalToConstant: 87),
+            loginView.heightAnchor.constraint(equalToConstant: 87)
         ].activate()
     }
 
@@ -245,7 +213,7 @@ final class AuthView: UIViewController {
             emailTextFieldView.topAnchor.constraint(equalTo: loginLabel.bottomAnchor, constant: 23),
             emailTextFieldView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             emailTextFieldView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            emailTextFieldView.heightAnchor.constraint(equalToConstant: 107),
+            emailTextFieldView.heightAnchor.constraint(equalToConstant: 107)
         ].activate()
     }
 
@@ -254,8 +222,7 @@ final class AuthView: UIViewController {
             passwordTextFieldView.topAnchor.constraint(equalTo: emailTextFieldView.bottomAnchor, constant: 4),
             passwordTextFieldView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             passwordTextFieldView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            //            passwordTextFieldView.widthAnchor.constraint(equalToConstant: 350),
-            passwordTextFieldView.heightAnchor.constraint(equalToConstant: 107),
+            passwordTextFieldView.heightAnchor.constraint(equalToConstant: 107)
         ].activate()
     }
 
@@ -264,14 +231,12 @@ final class AuthView: UIViewController {
     }
 
     @objc private func kbWillShow(_ notification: Notification) {
-        if let keyboardSize = (
-            notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey]
-                as? NSValue
-        )?.cgRectValue {
-            UIView.animate(withDuration: 0.5) {
-                self.loginButtonBottomAnchor?.constant = -(keyboardSize.height)
-                self.view.layoutIfNeeded()
-            }
+        guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?
+            .cgRectValue
+        else { return }
+        UIView.animate(withDuration: 0.5) {
+            self.loginButtonBottomAnchor?.constant = -(keyboardSize.height)
+            self.view.layoutIfNeeded()
         }
     }
 
