@@ -21,6 +21,8 @@ final class ProfileCell: UITableViewCell {
         view.contentMode = .scaleAspectFill
         view.isUserInteractionEnabled = true
         view.layer.cornerRadius = 80
+        view.layer.borderWidth = 3
+        view.layer.borderColor = UIColor.accent.cgColor
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(profileImageTapped))
         view.addGestureRecognizer(tapGesture)
         return view
