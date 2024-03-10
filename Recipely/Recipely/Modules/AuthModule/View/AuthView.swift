@@ -98,6 +98,38 @@ final class AuthView: UIViewController {
     }()
 
     private let gradient = CAGradientLayer()
+    private var loginButtonBottomAnchor: NSLayoutConstraint?
+    private lazy var loginButton = {
+        let button = LoginButton()
+        button.setTitle(Constants.loginText, for: .normal)
+        button.addTarget(self, action: #selector(
+            loginButtonTapped
+        ), for: .touchUpInside)
+        return button
+    }()
+
+    private lazy var hideOpenPasswordButton = {
+        let button = UIButton()
+        button.setImage(.crossedEyeIcon, for: .normal)
+        return button
+    }()
+
+    private lazy var deletingTextdButton = {
+        let button = UIButton()
+        button.setImage(.crossInCircleIcon, for: .normal)
+        return button
+    }()
+
+    private lazy var emailTextField = {
+        let text = UITextField()
+        text.textColor = .black
+        text.textAlignment = .left
+        text.keyboardType = .default
+        text.font = .verdana(size: 18)
+        text.placeholder = Constants.emailPlaceholder
+        text.addTarget(self, action: #selector(emailChanged(_:)), for: .editingChanged)
+        return text
+    }()
 
     // MARK: - Public Properties
 
@@ -110,6 +142,10 @@ final class AuthView: UIViewController {
         setupUI()
         addSubview()
         configureLayout()
+    }
+
+    deinit {
+        print("deinit ", String(describing: self))
     }
 
     // MARK: - Private Methods

@@ -62,6 +62,10 @@ final class ProfileView: UIViewController {
         configureLayout()
     }
 
+    deinit {
+        print("deinit ", String(describing: self))
+    }
+
     // MARK: - Private Methods
 
     private func configureUI() {

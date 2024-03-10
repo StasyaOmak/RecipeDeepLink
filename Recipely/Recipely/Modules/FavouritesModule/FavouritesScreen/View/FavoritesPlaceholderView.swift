@@ -16,7 +16,7 @@ final class FavoritesPlaceholderView: UIView {
 
     private let mainImageView = {
         let image = UIImageView()
-        image.image = .saved
+        image.image = .bookmarkIcon
         image.contentMode = .scaleAspectFit
         image.translatesAutoresizingMaskIntoConstraints = false
         return image

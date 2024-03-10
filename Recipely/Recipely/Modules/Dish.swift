@@ -1,10 +1,10 @@
 // Dish.swift
 // Copyright © RoadMap. All rights reserved.
 
-import Foundation
+import UIKit
 
 /// Структура, представляющая блюдо.
-struct Dish {
+struct Dish: Codable, Equatable {
     // MARK: - Constants
 
     private enum Constants {
@@ -42,10 +42,14 @@ struct Dish {
         """
     }
 
+    /// Идентификатор блюда
+    let id: UUID
+    /// Является ли блюдо избранным
+    var isFavourite = false
     /// Название блюда
     var name: String
-    /// Имя изображения блюда.
-    var imageName: AssetImageName
+    /// Данные изображения
+    var imageData: Data?
     /// Вес блюда.
     var weight: Int
     /// Время приготовления блюда в минутах.
@@ -63,12 +67,19 @@ struct Dish {
     /// Количество килокалорий
     var numberCalories: Int
 
+    static func == (lhs: Dish, rhs: Dish) -> Bool {
+        lhs.id == rhs.id
+    }
+}
+
+extension Dish {
     /// Возращает массив с моковыми данными по блюдам
     static func getDishes() -> [Dish] {
         [
             .init(
+                id: UUID(),
                 name: "Simple Fish And Corn",
-                imageName: .fishWithCorn,
+                imageData: UIImage(.fishWithCorn)?.pngData(),
                 weight: 793,
                 cookingTime: 60,
                 enerc: 1322,
@@ -78,10 +89,10 @@ struct Dish {
                 recipe: Constants.recipe,
                 numberCalories: 274
             ),
-
             .init(
+                id: UUID(),
                 name: "Baked Fish with Lemon Herb Sauce",
-                imageName: .bakedFish,
+                imageData: UIImage(.bakedFish)?.pngData(),
                 weight: 793,
                 cookingTime: 90,
                 enerc: 1322,
@@ -91,10 +102,10 @@ struct Dish {
                 recipe: Constants.recipe,
                 numberCalories: 616
             ),
-
             .init(
+                id: UUID(),
                 name: "Lemon and Chilli Fish Burrito",
-                imageName: .fishBurrito,
+                imageData: UIImage(.fishBurrito)?.pngData(),
                 weight: 793,
                 cookingTime: 90,
                 enerc: 1322,
@@ -104,10 +115,10 @@ struct Dish {
                 recipe: Constants.recipe,
                 numberCalories: 226
             ),
-
             .init(
+                id: UUID(),
                 name: "Fast Roast Fish & Show Peas Recipes",
-                imageName: .fishWithGreenPeas,
+                imageData: UIImage(.fishWithGreenPeas)?.pngData(),
                 weight: 793,
                 cookingTime: 80,
                 enerc: 1322,
@@ -117,10 +128,10 @@ struct Dish {
                 recipe: Constants.recipe,
                 numberCalories: 94
             ),
-
             .init(
+                id: UUID(),
                 name: "Salmon with Cantaloupe and Fried Shallots",
-                imageName: .salmonWithMelon,
+                imageData: UIImage(.salmonWithMelon)?.pngData(),
                 weight: 793,
                 cookingTime: 100,
                 enerc: 1322,
@@ -130,10 +141,10 @@ struct Dish {
                 recipe: Constants.recipe,
                 numberCalories: 410
             ),
-
             .init(
+                id: UUID(),
                 name: "Chilli and Tomato Fish",
-                imageName: .fishWithPepper,
+                imageData: UIImage(.fishWithPepper)?.pngData(),
                 weight: 793,
                 cookingTime: 100,
                 enerc: 1322,

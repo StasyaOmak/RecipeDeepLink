@@ -92,6 +92,9 @@
 		9DC68F8D2B9B0856000261C5 /* LogInvoker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC68F8C2B9B0856000261C5 /* LogInvoker.swift */; };
 		9DC68F912B9B196D000261C5 /* LogAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC68F902B9B196D000261C5 /* LogAction.swift */; };
 		9DC68F942B9B2E0F000261C5 /* UserDefaultsWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC68F932B9B2E0F000261C5 /* UserDefaultsWrapper.swift */; };
+		9DC68F962B9B95C0000261C5 /* DishesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC68F952B9B95C0000261C5 /* DishesService.swift */; };
+		9DC68F9A2B9CA4E7000261C5 /* DishesLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC68F992B9CA4E7000261C5 /* DishesLoader.swift */; };
+		9DC68F9C2B9CECAF000261C5 /* MemoryDish.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC68F9B2B9CECAF000261C5 /* MemoryDish.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -182,6 +185,9 @@
 		9DC68F8C2B9B0856000261C5 /* LogInvoker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInvoker.swift; sourceTree = "<group>"; };
 		9DC68F902B9B196D000261C5 /* LogAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogAction.swift; sourceTree = "<group>"; };
 		9DC68F932B9B2E0F000261C5 /* UserDefaultsWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsWrapper.swift; sourceTree = "<group>"; };
+		9DC68F952B9B95C0000261C5 /* DishesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishesService.swift; sourceTree = "<group>"; };
+		9DC68F992B9CA4E7000261C5 /* DishesLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishesLoader.swift; sourceTree = "<group>"; };
+		9DC68F9B2B9CECAF000261C5 /* MemoryDish.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryDish.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -615,6 +621,9 @@
 		9DC68F7E2B9A12B3000261C5 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				9DC68F952B9B95C0000261C5 /* DishesService.swift */,
+				9DC68F992B9CA4E7000261C5 /* DishesLoader.swift */,
+				9DC68F9B2B9CECAF000261C5 /* MemoryDish.swift */,
 				9DC68F872B9B07F2000261C5 /* Logger */,
 			);
 			path = Services;
@@ -782,6 +791,7 @@
 				218656F92B98708200540121 /* BasicDishShimmerCell .swift in Sources */,
 				9DC68F7B2B988E93000261C5 /* CaseIterable+Extension.swift in Sources */,
 				9D499B932B93E228007B36D0 /* Mertics.swift in Sources */,
+				9DC68F9C2B9CECAF000261C5 /* MemoryDish.swift in Sources */,
 				9D61156D2B8D67AE008EF247 /* NSLayoutConstraint+Extension.swift in Sources */,
 				9D952B8A2B8D2CE300F6D8CC /* Favourites.swift in Sources */,
 				9DC68F8B2B9B0834000261C5 /* LogCommand.swift in Sources */,
@@ -797,7 +807,9 @@
 				9D952B7C2B8D264B00F6D8CC /* User.swift in Sources */,
 				9D952B4E2B8D1CBC00F6D8CC /* AppDelegate.swift in Sources */,
 				9DC68F832B9AFDCA000261C5 /* Caretaker.swift in Sources */,
+				9DC68F9A2B9CA4E7000261C5 /* DishesLoader.swift in Sources */,
 				9D6115672B8D54CC008EF247 /* CategoriesPresenter.swift in Sources */,
+				9DC68F962B9B95C0000261C5 /* DishesService.swift in Sources */,
 				9D499B792B927D3A007B36D0 /* DishDetailsPresenter.swift in Sources */,
 				9D6115772B8D68F5008EF247 /* UIAlertController+Extension.swift in Sources */,
 				2102A3A32B97F4E0002D64B6 /* ViewState.swift in Sources */,

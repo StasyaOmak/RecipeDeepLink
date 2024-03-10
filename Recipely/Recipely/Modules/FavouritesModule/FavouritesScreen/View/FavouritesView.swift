@@ -5,8 +5,14 @@ import UIKit
 
 /// Интерфейс взаимодействия с FavouritesView
 protocol FavouritesViewProtocol: AnyObject {
-    /// проверяет массив на пустоту
+    /// Показывает/скрывает плесхолдер под таблицей
     func setPlaceholderViewIsHidden(to isHidden: Bool)
+    /// Просит перезгрузить таблицу
+    func reloadTable()
+    /// Проси добавить ряд в таблицу
+    func tableViewAppendRow()
+    /// Просит таблицу удалить ряд по индексу
+    func tableViewDeleteRow(atIndex index: Int)
 }
 
 /// Вью экрана сохранненных блюд
@@ -45,6 +51,15 @@ final class FavouritesView: UIViewController {
         configureLayout()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        presenter?.viewWillAppear()
+    }
+
+    deinit {
+        print("deinit ", String(describing: self))
+    }
+
     // MARK: - Private Methods
 
     private func configureUI() {
@@ -52,7 +67,6 @@ final class FavouritesView: UIViewController {
         view.addSubviews(tableView, placeholderView)
         placeholderView.isHidden = true
         configureTitleLabel()
-        UIView.doNotTAMIC(for: tableView, placeholderView)
     }
 
     private func configureTitleLabel() {
@@ -65,6 +79,7 @@ final class FavouritesView: UIViewController {
     }
 
     private func configureLayout() {
+        UIView.doNotTAMIC(for: tableView, placeholderView)
         configureTableViewLayout()
         configurePlaceholderViewLayout()
     }
@@ -93,11 +108,27 @@ extension FavouritesView: FavouritesViewProtocol {
     func setPlaceholderViewIsHidden(to isHidden: Bool) {
         placeholderView.isHidden = isHidden
     }
+
+    func reloadTable() {
+        tableView.reloadData()
+    }
+
+    func tableViewAppendRow() {
+        guard let numberOfRows = presenter?.getNumberOfDishes() else { return }
+        let insertionIndexPath = IndexPath(row: numberOfRows - 1, section: 0)
+        tableView.insertRows(at: [insertionIndexPath], with: .none)
+    }
+
+    func tableViewDeleteRow(atIndex index: Int) {
+        let deletionIndexPath = IndexPath(row: index, section: 0)
+        tableView.deleteRows(at: [deletionIndexPath], with: .none)
+    }
 }
 
 extension FavouritesView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        presenter?.getNumberOfDishes() ?? 0
+        let numberOfDishes = presenter?.getNumberOfDishes() ?? 0
+        return numberOfDishes
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -115,8 +146,7 @@ extension FavouritesView: UITableViewDataSource {
         commit editingStyle: UITableViewCell.EditingStyle,
         forRowAt indexPath: IndexPath
     ) {
-        presenter?.removeItem(forIndex: indexPath.section)
+        presenter?.removeItem(atIndex: indexPath.row)
         tableView.deleteRows(at: [indexPath], with: .fade)
-        presenter?.checkEmptiness()
     }
 }
