@@ -6,7 +6,7 @@ import Foundation
 /// Интерфейс взаимодействия с CategoryDishesPresenter
 protocol CategoryDishesPresenterProtocol {
     /// Получить название категории.
-    func getTitle() -> String   
+    func getTitle() -> String
     /// Соощает о нажатии на ячейку какого либо блюда
     func didTapCell(atIndex index: Int)
     /// Сообщает о введенном пользователем заначениии поиска
@@ -104,43 +104,48 @@ final class CategoryDishesPresenter {
 }
 
 extension CategoryDishesPresenter: CategoryDishesPresenterProtocol {
-    
     func getTitle() -> String {
         category.rawValue
     }
-    
+
     func getDishes(text: String) {
         var health: String?
         if case .sideDish = category {
             health = Constants.vegetarianText
         }
-        
+
         var query: String?
 
         switch category {
         case .chicken, .meat, .fish:
-           query = "\(category.rawValue) "
-        
+            query = "\(category.rawValue) "
+
         default:
             break
         }
-        
+
         query?.append(text)
-        
-        networkService.searchForDishes(dishType: category, health: health, query: query, completion: { [weak self] result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let dishes):
-                    if dishes.isEmpty {
-                        self?.view?.switchToState(.noData )
-                    } else {
-                        self?.view?.switchToState(.data(dishes) )
+
+        networkService.searchForDishes(
+            dishType: category,
+            health: health,
+            query: query,
+            completion: { [weak self] result in
+                DispatchQueue.main.async {
+                    switch result {
+                    case let .success(dishes):
+                        if dishes.isEmpty {
+                            self?.view?.switchToState(.noData)
+                        } else {
+                            self?.view?.switchToState(.data(dishes))
+                            self?.dishes = dishes
+                        }
+                    case let .failure(error):
+                        self?.view?.switchToState(.error(error))
                     }
-                case .failure(let error):
-                    self?.view?.switchToState(.error(error))
                 }
             }
-        })
+        )
     }
 
     func didTapCell(atIndex index: Int) {

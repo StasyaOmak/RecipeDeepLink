@@ -38,7 +38,7 @@ final class RecipesCoordinator: BaseCoordinator {
 
 extension RecipesCoordinator: RecipesCoordinatorProtocol {
     func showCategoryDishesScreen(withTitle title: String) {
-        let view = builder.buildCategoryDishesScreen(coordinator: self, title: title)
+        let view = builder.buildCategoryDishesScreen(coordinator: self, category: DishCategory.chicken)
         rootController.pushViewController(view, animated: true)
     }
 

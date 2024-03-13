@@ -59,9 +59,9 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
     }()
 
     // MARK: - Private Properties
+
     private let placeholderView = CategoryPlaceholderView()
-    
-    
+
     // MARK: - Public Properties
 
     var presenter: CategoryDishesPresenterProtocol?
@@ -84,16 +84,18 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
 
     private func configureUI() {
         view.backgroundColor = .systemBackground
-        view.addSubviews(tableView, searhBar, caloriesSortControl, timeSortControl)
+        view.addSubviews(tableView, searhBar, caloriesSortControl, timeSortControl, placeholderView)
         configureNavigationItem()
+        placeholderView.isHidden = true
     }
 
     private func configureLayout() {
-        UIView.doNotTAMIC(for: tableView, searhBar, caloriesSortControl, timeSortControl)
+        UIView.doNotTAMIC(for: tableView, searhBar, caloriesSortControl, timeSortControl, placeholderView)
         configureSearhBarConstraints()
         configureCaloriesViewConstraints()
         configureTimeViewConstraints()
         configureTableViewConstraits()
+        configurePlaceholderViewConstraits()
     }
 
     private func configureSearhBarConstraints() {
@@ -127,7 +129,7 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ].activate()
     }
-    
+
     private func configurePlaceholderViewConstraits() {
         [
             placeholderView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
@@ -165,10 +167,8 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
 }
 
 extension CategoryDishesView: CategoryDishesViewProtocol {
-    func switchToState(_ state: ViewState<[Dish]>) {
-        <#code#>
-    }
-    
+    func switchToState(_ state: ViewState<[Dish]>) {}
+
     func switchToState() {
         tableView.reloadData()
     }
@@ -176,12 +176,12 @@ extension CategoryDishesView: CategoryDishesViewProtocol {
 
 extension CategoryDishesView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if case .data(let data) = viewState {
-           return data.count
+        if case let .data(data) = viewState {
+            return data.count
         }
         return 0
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch viewState {
         case let .data(dishes):
@@ -199,11 +199,11 @@ extension CategoryDishesView: UITableViewDataSource {
             return cell
         case .noData, .error:
             break
-           
         }
         return UITableViewCell()
     }
 }
+
 extension CategoryDishesView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         presenter?.didTapCell(atIndex: indexPath.row)
