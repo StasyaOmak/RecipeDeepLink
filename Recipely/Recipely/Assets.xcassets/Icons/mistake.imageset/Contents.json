@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "mistake.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
