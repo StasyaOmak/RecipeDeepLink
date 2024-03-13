@@ -46,12 +46,6 @@ final class ProfilePresenter {
         caretaker.originator = Originator(imageData: nil, username: nil)
         caretaker.lastState()
     }
-
-    // MARK: - Life Cycle
-
-    deinit {
-        print("deinit ", String(describing: self))
-    }
 }
 
 extension ProfilePresenter: ProfilePresenterProtocol {

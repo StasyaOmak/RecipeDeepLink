@@ -16,12 +16,19 @@ protocol DishDetailsPresenterProtocol {
 /// Презентер экрана детального описания блюда
 final class DishDetailsPresenter {
     // MARK: - Private Properties
+    
+    // MARK: - Constants
+    
+    private enum Constants {
+        static let userSharedRecipeLogMessage = "Пользователь поделился рецептом "
+    }
+    
 
     private weak var view: DishDetailsViewProtocol?
     private weak var coordinator: RecipesCoordinatorProtocol?
     private var dish: Dish {
         didSet {
-            view?.updateFavouritesButtonState(to: dish.isFavourite)
+//            view?.updateFavouritesButtonState(to: dish.isFavourite)
         }
     }
 
@@ -31,41 +38,40 @@ final class DishDetailsPresenter {
         self.view = view
         self.coordinator = coordinator
         self.dish = dish
-        addDishListener()
+//        addDishListener()
     }
 
     // MARK: - Life Cycle
 
     deinit {
-        print("deinit ", String(describing: self))
-        DishesService.shared.removeListener(for: self)
+//        DishesService.shared.removeListener(for: self)
     }
 
     // MARK: - Private Methods
 
-    private func addDishListener() {
-        DishesService.shared.addDishListener(for: self) { [weak self] updatedDish in
-            self?.dish = updatedDish
-        }
-    }
+//    private func addDishListener() {
+//        DishesService.shared.addDishListener(for: self) { [weak self] updatedDish in
+//            self?.dish = updatedDish
+//        }
+//    }
 }
 
 extension DishDetailsPresenter: DishDetailsPresenterProtocol {
     func viewBeganLoading() {
         view?.configure(with: dish)
-        view?.updateFavouritesButtonState(to: dish.isFavourite)
+//        view?.updateFavouritesButtonState(to: dish.isFavourite)
     }
 
     func shareButtonTapped() {
-        LogAction.log("Пользователь поделился рецептом \(dish.name)")
+        LogAction.log(Constants.userSharedRecipeLogMessage + dish.name)
     }
 
     func addToFavouritesButtonTapped() {
-        dish.isFavourite.toggle()
-        if dish.isFavourite {
-            DishesService.shared.addToFavourites(dish: dish)
-        } else {
-            DishesService.shared.removeFromFavourites(dish: dish)
-        }
+//        dish.isFavourite.toggle()
+//        if dish.isFavourite {
+//            DishesService.shared.addToFavourites(dish: dish)
+//        } else {
+//            DishesService.shared.removeFromFavourites(dish: dish)
+//        }
     }
 }

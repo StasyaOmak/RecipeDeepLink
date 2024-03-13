@@ -10,7 +10,7 @@ protocol CategoryDishesPresenterProtocol {
     /// Запрос количества блюд
     func getNumberDishes() -> Int
     /// Сообщает по индексу информацию
-    func getDish(forIndex index: Int) -> ViewState
+    func getDish(forIndex index: Int) -> ViewState<Dish>
     /// Соощает о нажатии на ячейку какого либо блюда
     func didTapCell(atIndex index: Int)
     /// Сообщает о том: что вью появилас на экране
@@ -29,6 +29,11 @@ final class CategoryDishesPresenter {
     // MARK: - Types
 
     typealias AreDishesInIncreasingOrder = (Dish, Dish) -> Bool
+    
+    // MARK: - Constants
+    private enum Constants {
+        static let userOpenedDishScreenLogMessage = "Пользователь открыл рецепт блюда "
+    }
 
     // MARK: - Private Properties
 
@@ -37,8 +42,7 @@ final class CategoryDishesPresenter {
 
     private var viewTitle: String
     private var isDataAvalible = false
-    private var dishes: [Dish] = DishesService.shared.getDishes()
-//    private var initialDishes =
+    private var dishes: [Dish] = []
     private var timer: Timer?
     private var caloriesSortState = SortState.none {
         didSet {
@@ -62,34 +66,28 @@ final class CategoryDishesPresenter {
         self.viewTitle = viewTitle
     }
 
-    // MARK: - Life Cycle
-
-    deinit {
-        print("deinit ", String(describing: self))
-    }
-
     // MARK: - Private Methods
 
     private func createPredicatesAccordingToCurrentSelectedConditions() -> [AreDishesInIncreasingOrder] {
-        var predicatesArray: [AreDishesInIncreasingOrder] = []
+        var predicates: [AreDishesInIncreasingOrder] = []
         switch timeSortState {
         case .accending:
-            predicatesArray.append { $0.cookingTime < $1.cookingTime }
+            predicates.append { $0.cookingTime < $1.cookingTime }
         case .deccending:
-            predicatesArray.append { $0.cookingTime > $1.cookingTime }
+            predicates.append { $0.cookingTime > $1.cookingTime }
         default:
             break
         }
 
-        switch caloriesSortState {
-        case .accending:
-            predicatesArray.append { $0.numberCalories < $1.numberCalories }
-        case .deccending:
-            predicatesArray.append { $0.numberCalories > $1.numberCalories }
-        default:
-            break
-        }
-        return predicatesArray
+//        switch caloriesSortState {
+//        case .accending:
+//            predicatesArray.append { $0.calories < $1.calories }
+//        case .deccending:
+//            predicatesArray.append { $0.calories > $1.calories }
+//        default:
+//            break
+//        }
+        return predicates
     }
 
     private func getSortedCategoryDishes(using predicates: [AreDishesInIncreasingOrder]) -> [Dish] {
@@ -124,14 +122,14 @@ extension CategoryDishesPresenter: CategoryDishesPresenterProtocol {
         dishes.count
     }
 
-    func getDish(forIndex index: Int) -> ViewState {
+    func getDish(forIndex index: Int) -> ViewState<Dish> {
         isDataAvalible ? .data(dishes[index]) : .loading
     }
 
     func didTapCell(atIndex index: Int) {
-        LogAction.log("Пользователь открыл рецепт блюда \(dishes[index].name)")
-        guard let dish = DishesService.shared.getDish(byId: dishes[index].id) else { return }
-        coordinator?.showDishDetailsScreen(with: dish)
+        LogAction.log(Constants.userOpenedDishScreenLogMessage + dishes[index].name)
+//        guard let dish = DishesService.shared.getDish(byId: dishes[index].id) else { return }
+//        coordinator?.showDishDetailsScreen(with: dish)
     }
 
     func viewDidAppear() {
@@ -146,10 +144,10 @@ extension CategoryDishesPresenter: CategoryDishesPresenterProtocol {
         view?.reloadDishes()
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { _ in
             if text.count < 3 {
-                self.dishes = DishesService.shared.getDishes()
+//                self.dishes = DishesService.shared.getDishes()
             } else {
-                self.dishes = DishesService.shared.getDishes()
-                    .filter { $0.name.range(of: text, options: .caseInsensitive) != nil }
+//                self.dishes = DishesService.shared.getDishes()
+//                    .filter { $0.name.range(of: text, options: .caseInsensitive) != nil }
             }
             self.updateDishes()
             self.isDataAvalible = true

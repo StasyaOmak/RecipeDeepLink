@@ -85,10 +85,10 @@ class DishCell: UITableViewCell {
     // MARK: - Public Methods
 
     func configure(with categoryDish: Dish) {
-        dishImageView.image = UIImage(data: categoryDish.imageData ?? Data())
-        dishNameLabel.text = categoryDish.name
-        timerLabel.text = "\(categoryDish.cookingTime) \(Metrics.minutes.rawValue)"
-        caloriesLabel.text = "\(categoryDish.numberCalories) \(Metrics.kcal.rawValue)"
+//        dishImageView.image = UIImage(data: categoryDish.imageData ?? Data())
+//        dishNameLabel.text = categoryDish.name
+//        timerLabel.text = "\(categoryDish.cookingTime) \(Metrics.minutes.rawValue)"
+//        caloriesLabel.text = "\(categoryDish.numberCalories) \(Metrics.kcal.rawValue)"
     }
 
     // MARK: - Private Methods

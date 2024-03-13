@@ -1,9 +1,5 @@
-//
-//  DishType.swift
-//  Recipely
-//
-//  Created by Tixon Markin on 13.03.2024.
-//
+// DishType.swift
+// Copyright © RoadMap. All rights reserved.
 
 import Foundation
 
@@ -18,22 +14,22 @@ enum DishType {
     case pancake
     case drinks
     case desserts
-    
+
     /// Возвращает строковое представление типа блюда для указания в запросе.
     var stringValue: String {
         switch self {
         case .salad:
-            return "Salad"
+            "Salad"
         case .soup:
-            return "Soup"
+            "Soup"
         case .chicken, .meat, .fish, .sideDish:
-            return "Main course"
+            "Main course"
         case .pancake:
-            return "Pancake"
+            "Pancake"
         case .drinks:
-            return "Drinks"
+            "Drinks"
         case .desserts:
-            return "Desserts"
+            "Desserts"
         }
     }
 }

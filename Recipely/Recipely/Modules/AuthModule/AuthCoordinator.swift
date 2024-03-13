@@ -26,12 +26,6 @@ final class AuthCoordinator: BaseCoordinator {
         self.builder = builder
     }
 
-    // MARK: - Life Cycle
-
-    deinit {
-        print("deinit ", String(describing: self))
-    }
-
     // MARK: - Public Methods
 
     override func start() {

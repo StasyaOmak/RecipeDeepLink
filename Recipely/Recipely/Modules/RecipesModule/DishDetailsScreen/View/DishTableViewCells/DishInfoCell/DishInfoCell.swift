@@ -59,8 +59,8 @@ final class DishInfoCell: UITableViewCell {
 
     func configure(with dish: Dish) {
         dishNameLabel.text = dish.name
-        dishImageView.image = UIImage(data: dish.imageData ?? Data())
-        weightView.configure(weight: dish.weight)
+//        dishImageView.image = UIImage(data: dish.imageData ?? Data())
+//        weightView.configure(weight: dish.weight)
         cookingTimeView.configure(cookingTime: dish.cookingTime)
     }
 

@@ -77,10 +77,6 @@ final class DishDetailsView: UIViewController, UIGestureRecognizerDelegate {
         presenter?.viewBeganLoading()
     }
 
-    deinit {
-        print("deinit ", String(describing: self))
-    }
-
     // MARK: - Private Methods
 
     private func configureUI() {

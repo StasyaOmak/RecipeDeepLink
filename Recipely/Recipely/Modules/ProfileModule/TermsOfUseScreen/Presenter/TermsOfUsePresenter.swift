@@ -22,12 +22,6 @@ final class TermsOfUsePresenter {
         self.view = view
         self.coordinator = coordinator
     }
-
-    // MARK: - Life Cycle
-
-    deinit {
-        print("deinit ", String(describing: self))
-    }
 }
 
 extension TermsOfUsePresenter: TermsOfUsePresenterProtocol {

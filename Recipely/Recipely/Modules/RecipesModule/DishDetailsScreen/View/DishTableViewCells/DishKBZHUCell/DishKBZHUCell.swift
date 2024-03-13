@@ -50,10 +50,10 @@ final class DishKBZHUCell: UITableViewCell {
     // MARK: - Public Methods
 
     func configure(with dish: Dish) {
-        enercView.configure(title: Constants.enercText, value: dish.enerc)
-        carbohydratesView.configure(title: Constants.carbohydratesText, value: dish.carbohydrates)
-        fatsView.configure(title: Constants.fatsText, value: dish.fats)
-        proteinsView.configure(title: Constants.proteinsText, value: dish.proteins)
+//        enercView.configure(title: Constants.enercText, value: dish.enerc)
+//        carbohydratesView.configure(title: Constants.carbohydratesText, value: dish.carbohydrates)
+//        fatsView.configure(title: Constants.fatsText, value: dish.fats)
+//        proteinsView.configure(title: Constants.proteinsText, value: dish.proteins)
     }
 
     // MARK: - Private Methods

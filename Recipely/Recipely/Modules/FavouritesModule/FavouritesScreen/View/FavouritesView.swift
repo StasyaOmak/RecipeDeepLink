@@ -56,10 +56,6 @@ final class FavouritesView: UIViewController {
         presenter?.viewWillAppear()
     }
 
-    deinit {
-        print("deinit ", String(describing: self))
-    }
-
     // MARK: - Private Methods
 
     private func configureUI() {
@@ -127,8 +123,7 @@ extension FavouritesView: FavouritesViewProtocol {
 
 extension FavouritesView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let numberOfDishes = presenter?.getNumberOfDishes() ?? 0
-        return numberOfDishes
+        presenter?.getNumberOfDishes() ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

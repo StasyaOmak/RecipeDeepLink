@@ -3,12 +3,15 @@
 
 import UIKit
 
-///  Вью для отображения поля ввода аутентификационных данных пользователя
+/// Вью для отображения поля ввода аутентификационных данных пользователя
 class AuthFieldView: UIView {
     // MARK: - Types
 
+    /// Состояние AuthFieldView
     enum AuthTextFieldState {
+        /// Нормальное состояние
         case plain
+        /// Выделенное состояние
         case highlited
     }
 
