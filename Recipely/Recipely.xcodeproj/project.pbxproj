@@ -52,6 +52,7 @@
 		9D4DF4992BA11DBD008FAB6F /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4DF4982BA11DBD008FAB6F /* NetworkService.swift */; };
 		9D4DF49B2BA11DCF008FAB6F /* DishTDO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4DF49A2BA11DCF008FAB6F /* DishTDO.swift */; };
 		9D4DF49D2BA11F09008FAB6F /* Dish.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4DF49C2BA11F09008FAB6F /* Dish.swift */; };
+		9D4DF4A02BA1A18B008FAB6F /* DishType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4DF49F2BA1A18B008FAB6F /* DishType.swift */; };
 		9D6115462B8D312E008EF247 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D61153F2B8D312E008EF247 /* AuthCoordinator.swift */; };
 		9D6115472B8D312E008EF247 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6115452B8D312E008EF247 /* Validator.swift */; };
 		9D6115482B8D312E008EF247 /* AuthPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6115432B8D312E008EF247 /* AuthPresenter.swift */; };
@@ -146,6 +147,7 @@
 		9D4DF4982BA11DBD008FAB6F /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		9D4DF49A2BA11DCF008FAB6F /* DishTDO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishTDO.swift; sourceTree = "<group>"; };
 		9D4DF49C2BA11F09008FAB6F /* Dish.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Dish.swift; path = ../Services/NetworkService/Dish.swift; sourceTree = "<group>"; };
+		9D4DF49F2BA1A18B008FAB6F /* DishType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishType.swift; sourceTree = "<group>"; };
 		9D61153F2B8D312E008EF247 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
 		9D6115412B8D312E008EF247 /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		9D6115432B8D312E008EF247 /* AuthPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPresenter.swift; sourceTree = "<group>"; };
@@ -414,6 +416,7 @@
 			children = (
 				9D4DF4982BA11DBD008FAB6F /* NetworkService.swift */,
 				9D4DF49A2BA11DCF008FAB6F /* DishTDO.swift */,
+				9D4DF49F2BA1A18B008FAB6F /* DishType.swift */,
 			);
 			path = NetworkService;
 			sourceTree = "<group>";
@@ -812,6 +815,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9D952B772B8D261900F6D8CC /* ProfilePresenter.swift in Sources */,
+				9D4DF4A02BA1A18B008FAB6F /* DishType.swift in Sources */,
 				9D499B732B927B89007B36D0 /* DishDetailsView.swift in Sources */,
 				218656F92B98708200540121 /* BasicDishShimmerCell .swift in Sources */,
 				9DC68F7B2B988E93000261C5 /* CaseIterable+Extension.swift in Sources */,

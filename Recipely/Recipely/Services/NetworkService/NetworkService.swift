@@ -10,7 +10,7 @@ import Foundation
 /// Протокол коммуникации с NetworkService
 protocol NetworkerviceProtocol {
     /// Запрос масива блюд по переденным параметрам
-    func serchForDishes(dishType: String,
+    func searchForDishes(dishType: DishType,
                         health: String?,
                         query: String?,
                         completion: @escaping (Result<[Dish], Error>) -> Void)
@@ -25,6 +25,10 @@ class NetworkService {
         static let appKey = "432a035bdb4cc9008e4fbb1fe17990bb"
         static let appId = "9b070203"
         static let type = "public"
+        static let dishTypeKey = "dishType"
+        static let queryKey = "q"
+        static let healthKey = "health"
+        static let uriKey = "uri"
     }
     
     // MARK: - Private Properties
@@ -33,16 +37,17 @@ class NetworkService {
         component.scheme = "https"
         component.host = "api.edamam.com"
         component.path = "/api/recipes/v2"
-        let queryItemQuery = URLQueryItem(name: "app_id", value: Constants.appId)
-        let queryItemQuery1 = URLQueryItem(name: "app_key", value: Constants.appKey)
-        let queryItemQuery2 = URLQueryItem(name: "type", value: Constants.type)
-        component.queryItems = [queryItemQuery, queryItemQuery1, queryItemQuery2]
+        component.queryItems = [
+            .init(name: "app_id", value: Constants.appId),
+            .init(name: "app_key", value: Constants.appKey),
+            .init(name: "type", value: Constants.type)
+        ]
         return component
     }()
     
     // MARK: - Private Methods
     
-    private func makeURLRequest<SomeType: Codable>(using request: URL, completion: @escaping (Result<SomeType, Error>) -> Void) {
+    private func makeURLRequest<SomeType: Codable>(_ request: URLRequest, completion: @escaping (Result<SomeType, Error>) -> Void) {
         URLSession.shared.dataTask(with: request) { data, responce, error in
             if let error = error {
                 completion(.failure(error))
@@ -53,29 +58,27 @@ class NetworkService {
                 let result = try JSONDecoder().decode(SomeType.self, from: data)
                 completion(.success(result))
             } catch {
-                print(error)
+                print("Error decoding data: \(error.localizedDescription)")
+                completion(.failure(error))
             }
         }.resume()
     }
 }
 
 extension NetworkService: NetworkerviceProtocol {
-    func serchForDishes(dishType: String, health: String?, query: String?, completion: @escaping (Result<[Dish], Error>) -> Void) {
+    func searchForDishes(dishType: DishType, health: String?, query: String?, completion: @escaping (Result<[Dish], Error>) -> Void) {
         var baseUrlComponents = baseUrlComponents
-        let dishTypeItem = URLQueryItem(name: "dishType", value: dishType)
-        baseUrlComponents.queryItems?.append(dishTypeItem)
+        baseUrlComponents.queryItems?.append(.init(name: Constants.dishTypeKey, value: dishType.stringValue))
         
         if let query {
-            let queryItem = URLQueryItem(name: "q", value: query)
-            baseUrlComponents.queryItems?.append(queryItem)
+            baseUrlComponents.queryItems?.append(.init(name: Constants.queryKey, value: query))
         }
         if let health {
-            let healthItem = URLQueryItem(name: "health", value: health)
-            baseUrlComponents.queryItems?.append(healthItem)
+            baseUrlComponents.queryItems?.append(.init(name: Constants.healthKey, value: health))
         }
-        guard let url = baseUrlComponents.url  else { return }
         
-        makeURLRequest(using: url) { (networkResult: Result<Response, Error>) in
+        guard let url = baseUrlComponents.url else { return }
+        makeURLRequest(URLRequest(url: url)) { (networkResult: Result<Response, Error>) in
             switch networkResult {
             case .success(let result):
                 let dishes = result.hits.map { Dish(dto: $0.recipe) }
@@ -88,12 +91,11 @@ extension NetworkService: NetworkerviceProtocol {
     
     func getDish(byURI uri: String, completion: @escaping (Result<Dish, Error>) -> Void) {
         var baseUrlComponents = baseUrlComponents
-        let uriItem = URLQueryItem(name: "uri", value: uri)
-        baseUrlComponents.queryItems?.append(uriItem)
+        baseUrlComponents.queryItems?.append(.init(name: Constants.uriKey, value: uri))
         guard var url = baseUrlComponents.url else { return }
         url.append(path: "by-uri")
         
-        makeURLRequest(using: url) { (networkResult: Result<Response, Error>) in
+        makeURLRequest(URLRequest(url: url)) { (networkResult: Result<Response, Error>) in
             switch networkResult {
             case .success(let result):
                 guard let dishDto = result.hits.first?.recipe else { return }
