@@ -38,7 +38,7 @@
 		9D499B3A2B9085EE007B36D0 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D499B392B9085EE007B36D0 /* Category.swift */; };
 		9D499B3C2B908BFB007B36D0 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D499B3B2B908BFB007B36D0 /* CategoryCell.swift */; };
 		9D499B732B927B89007B36D0 /* DishDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D499B722B927B89007B36D0 /* DishDetailsView.swift */; };
-		9D499B772B927C7A007B36D0 /* Dish.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D499B762B927C7A007B36D0 /* Dish.swift */; };
+		9D499B772B927C7A007B36D0 /* Dish(old).swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D499B762B927C7A007B36D0 /* Dish(old).swift */; };
 		9D499B792B927D3A007B36D0 /* DishDetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D499B782B927D3A007B36D0 /* DishDetailsPresenter.swift */; };
 		9D499B7E2B927ECE007B36D0 /* DishInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D499B7D2B927ECE007B36D0 /* DishInfoCell.swift */; };
 		9D499B802B927EF5007B36D0 /* DishKBZHUCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D499B7F2B927EF5007B36D0 /* DishKBZHUCell.swift */; };
@@ -49,6 +49,9 @@
 		9D499B8F2B93A464007B36D0 /* Float+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D499B8E2B93A464007B36D0 /* Float+Extension.swift */; };
 		9D499B932B93E228007B36D0 /* Mertics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D499B922B93E228007B36D0 /* Mertics.swift */; };
 		9D499B962B96247C007B36D0 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D499B952B96247C007B36D0 /* UIColor+Extension.swift */; };
+		9D4DF4992BA11DBD008FAB6F /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4DF4982BA11DBD008FAB6F /* NetworkService.swift */; };
+		9D4DF49B2BA11DCF008FAB6F /* DishTDO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4DF49A2BA11DCF008FAB6F /* DishTDO.swift */; };
+		9D4DF49D2BA11F09008FAB6F /* Dish.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4DF49C2BA11F09008FAB6F /* Dish.swift */; };
 		9D6115462B8D312E008EF247 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D61153F2B8D312E008EF247 /* AuthCoordinator.swift */; };
 		9D6115472B8D312E008EF247 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6115452B8D312E008EF247 /* Validator.swift */; };
 		9D6115482B8D312E008EF247 /* AuthPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6115432B8D312E008EF247 /* AuthPresenter.swift */; };
@@ -129,7 +132,7 @@
 		9D499B392B9085EE007B36D0 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		9D499B3B2B908BFB007B36D0 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		9D499B722B927B89007B36D0 /* DishDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishDetailsView.swift; sourceTree = "<group>"; };
-		9D499B762B927C7A007B36D0 /* Dish.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dish.swift; sourceTree = "<group>"; };
+		9D499B762B927C7A007B36D0 /* Dish(old).swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dish(old).swift"; sourceTree = "<group>"; };
 		9D499B782B927D3A007B36D0 /* DishDetailsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishDetailsPresenter.swift; sourceTree = "<group>"; };
 		9D499B7D2B927ECE007B36D0 /* DishInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishInfoCell.swift; sourceTree = "<group>"; };
 		9D499B7F2B927EF5007B36D0 /* DishKBZHUCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishKBZHUCell.swift; sourceTree = "<group>"; };
@@ -140,6 +143,9 @@
 		9D499B8E2B93A464007B36D0 /* Float+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Float+Extension.swift"; sourceTree = "<group>"; };
 		9D499B922B93E228007B36D0 /* Mertics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mertics.swift; sourceTree = "<group>"; };
 		9D499B952B96247C007B36D0 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = SOURCE_ROOT; };
+		9D4DF4982BA11DBD008FAB6F /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		9D4DF49A2BA11DCF008FAB6F /* DishTDO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishTDO.swift; sourceTree = "<group>"; };
+		9D4DF49C2BA11F09008FAB6F /* Dish.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Dish.swift; path = ../Services/NetworkService/Dish.swift; sourceTree = "<group>"; };
 		9D61153F2B8D312E008EF247 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
 		9D6115412B8D312E008EF247 /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		9D6115432B8D312E008EF247 /* AuthPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPresenter.swift; sourceTree = "<group>"; };
@@ -393,6 +399,25 @@
 			path = DishKBZHUCell;
 			sourceTree = "<group>";
 		};
+		9D4DF4972BA11D89008FAB6F /* DishesSaverService */ = {
+			isa = PBXGroup;
+			children = (
+				9DC68F952B9B95C0000261C5 /* DishesService.swift */,
+				9DC68F992B9CA4E7000261C5 /* DishesLoader.swift */,
+				9DC68F9B2B9CECAF000261C5 /* MemoryDish.swift */,
+			);
+			path = DishesSaverService;
+			sourceTree = "<group>";
+		};
+		9D4DF49E2BA1242D008FAB6F /* NetworkService */ = {
+			isa = PBXGroup;
+			children = (
+				9D4DF4982BA11DBD008FAB6F /* NetworkService.swift */,
+				9D4DF49A2BA11DCF008FAB6F /* DishTDO.swift */,
+			);
+			path = NetworkService;
+			sourceTree = "<group>";
+		};
 		9D61153E2B8D312E008EF247 /* AuthModule */ = {
 			isa = PBXGroup;
 			children = (
@@ -434,7 +459,8 @@
 		9D61154A2B8D538E008EF247 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				9D499B762B927C7A007B36D0 /* Dish.swift */,
+				9D499B762B927C7A007B36D0 /* Dish(old).swift */,
+				9D4DF49C2BA11F09008FAB6F /* Dish.swift */,
 				9D61153E2B8D312E008EF247 /* AuthModule */,
 				9D61154B2B8D53B2008EF247 /* RecipesModule */,
 				9D952B802B8D2CE300F6D8CC /* FavouritesModule */,
@@ -621,10 +647,9 @@
 		9DC68F7E2B9A12B3000261C5 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				9DC68F952B9B95C0000261C5 /* DishesService.swift */,
-				9DC68F992B9CA4E7000261C5 /* DishesLoader.swift */,
-				9DC68F9B2B9CECAF000261C5 /* MemoryDish.swift */,
+				9D4DF4972BA11D89008FAB6F /* DishesSaverService */,
 				9DC68F872B9B07F2000261C5 /* Logger */,
+				9D4DF49E2BA1242D008FAB6F /* NetworkService */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -825,6 +850,8 @@
 				9D499B7E2B927ECE007B36D0 /* DishInfoCell.swift in Sources */,
 				9D952B7F2B8D283000F6D8CC /* ProfileCoordinator.swift in Sources */,
 				9DC68F912B9B196D000261C5 /* LogAction.swift in Sources */,
+				9D4DF49B2BA11DCF008FAB6F /* DishTDO.swift in Sources */,
+				9D4DF49D2BA11F09008FAB6F /* Dish.swift in Sources */,
 				9D2BC74F2B96728800BBAA58 /* TermsOfUsePresenter.swift in Sources */,
 				21B91CDC2B90D0370041D5E9 /* SortState.swift in Sources */,
 				9D952B6C2B8D22A100F6D8CC /* Coordinator.swift in Sources */,
@@ -841,6 +868,7 @@
 				9DC68F8D2B9B0856000261C5 /* LogInvoker.swift in Sources */,
 				9D499B1C2B8E6B4C007B36D0 /* UIImage+Extension.swift in Sources */,
 				9D952B732B8D235D00F6D8CC /* ModuleBuilder.swift in Sources */,
+				9D4DF4992BA11DBD008FAB6F /* NetworkService.swift in Sources */,
 				9D6115652B8D54CC008EF247 /* CategoriesView.swift in Sources */,
 				21FE4D972B8FEBEA00FA377F /* CategoryDishesPresenter.swift in Sources */,
 				9D499B882B935CE7007B36D0 /* DishCookingTimeView.swift in Sources */,
@@ -871,7 +899,7 @@
 				9D952B882B8D2CE300F6D8CC /* FavouritesPresenter.swift in Sources */,
 				21B91CDA2B90BEB10041D5E9 /* SortControl.swift in Sources */,
 				9D499B8F2B93A464007B36D0 /* Float+Extension.swift in Sources */,
-				9D499B772B927C7A007B36D0 /* Dish.swift in Sources */,
+				9D499B772B927C7A007B36D0 /* Dish(old).swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
