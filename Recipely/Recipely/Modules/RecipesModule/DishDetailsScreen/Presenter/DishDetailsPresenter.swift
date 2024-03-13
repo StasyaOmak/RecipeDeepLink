@@ -16,13 +16,12 @@ protocol DishDetailsPresenterProtocol {
 /// Презентер экрана детального описания блюда
 final class DishDetailsPresenter {
     // MARK: - Private Properties
-    
+
     // MARK: - Constants
-    
+
     private enum Constants {
         static let userSharedRecipeLogMessage = "Пользователь поделился рецептом "
     }
-    
 
     private weak var view: DishDetailsViewProtocol?
     private weak var coordinator: RecipesCoordinatorProtocol?

@@ -67,9 +67,9 @@ final class ModuleBuilder: Builder {
         return view
     }
 
-    func buildCategoryDishesScreen(coordinator: RecipesCoordinatorProtocol, title: String) -> CategoryDishesView {
+    func buildCategoryDishesScreen(coordinator: RecipesCoordinatorProtocol, category: DishCategory) -> CategoryDishesView {
         let view = CategoryDishesView()
-        let presenter = CategoryDishesPresenter(view: view, coordinator: coordinator, viewTitle: title)
+        let presenter = CategoryDishesPresenter(view: view, coordinator: coordinator, category: DishCategory)
         view.presenter = presenter
         return view
     }

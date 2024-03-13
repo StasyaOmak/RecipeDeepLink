@@ -26,8 +26,7 @@ final class CategoryPlaceholderView: UIView {
 
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 12
-//        view.backgroundColor = .backgroundPlaceholder
-        view.backgroundColor = .blue
+        view.backgroundColor = .backgroundPlaceholder
         return view
     }()
 
@@ -61,7 +60,7 @@ final class CategoryPlaceholderView: UIView {
 
     private let loadingButton = {
         let button = UIButton()
-        button.setImage(.loading, for: .normal)
+        button.setImage(.mistake, for: .normal)
         return button
     }()
 

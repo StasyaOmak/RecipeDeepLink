@@ -73,7 +73,7 @@ final class LoyaltyProgramView: UIViewController {
         configureLayout()
         presenter?.viewLoaded()
     }
-    
+
     // MARK: - Private Methods
 
     private func configureUI() {

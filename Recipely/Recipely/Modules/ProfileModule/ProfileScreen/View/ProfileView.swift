@@ -61,7 +61,7 @@ final class ProfileView: UIViewController {
         configureUI()
         configureLayout()
     }
-    
+
     // MARK: - Private Methods
 
     private func configureUI() {

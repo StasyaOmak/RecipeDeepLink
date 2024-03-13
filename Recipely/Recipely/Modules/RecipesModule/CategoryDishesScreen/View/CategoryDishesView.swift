@@ -6,7 +6,7 @@ import UIKit
 /// Интерфейс взаимодействия с CategoryDishesView
 protocol CategoryDishesViewProtocol: AnyObject {
     /// Функция для обновления данных в таблице
-    func reloadDishes()
+    func switchToState(_ state: ViewState<[Dish]>)
 }
 
 /// Вью экрана списка блюд категории
@@ -58,9 +58,14 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
         return table
     }()
 
+    // MARK: - Private Properties
+    private let placeholderView = CategoryPlaceholderView()
+    
+    
     // MARK: - Public Properties
 
     var presenter: CategoryDishesPresenterProtocol?
+    private var viewState = ViewState<[Dish]>.loading
 
     // MARK: - Life Cycle
 
@@ -68,10 +73,6 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
         super.viewDidLoad()
         configureUI()
         configureLayout()
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        presenter?.viewDidAppear()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -126,6 +127,16 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ].activate()
     }
+    
+    private func configurePlaceholderViewConstraits() {
+        [
+            placeholderView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            placeholderView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            placeholderView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            placeholderView.widthAnchor.constraint(equalToConstant: 350),
+            placeholderView.heightAnchor.constraint(equalToConstant: 140)
+        ].activate()
+    }
 
     private func configureNavigationItem() {
         let backButtonItem = UIBarButtonItem(
@@ -154,25 +165,31 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
 }
 
 extension CategoryDishesView: CategoryDishesViewProtocol {
-    func reloadDishes() {
+    func switchToState(_ state: ViewState<[Dish]>) {
+        <#code#>
+    }
+    
+    func switchToState() {
         tableView.reloadData()
     }
 }
 
 extension CategoryDishesView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        presenter?.getNumberDishes() ?? 0
+        if case .data(let data) = viewState {
+           return data.count
+        }
+        return 0
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let dish = presenter?.getDish(forIndex: indexPath.row) else { return UITableViewCell() }
-        switch dish {
-        case let .data(dish):
+        switch viewState {
+        case let .data(dishes):
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: DishCell.description(),
                 for: indexPath
             ) as? DishCell else { return UITableViewCell() }
-            cell.configure(with: dish)
+            cell.configure(with: dishes[indexPath.row])
             return cell
         case .loading:
             guard let cell = tableView.dequeueReusableCell(
@@ -180,10 +197,13 @@ extension CategoryDishesView: UITableViewDataSource {
                 for: indexPath
             ) as? DishShimmerCell else { return UITableViewCell() }
             return cell
+        case .noData, .error:
+            break
+           
         }
+        return UITableViewCell()
     }
 }
-
 extension CategoryDishesView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         presenter?.didTapCell(atIndex: indexPath.row)
@@ -198,6 +218,7 @@ extension CategoryDishesView: UITableViewDelegate {
 extension CategoryDishesView: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         presenter?.searchBarTextChanged(to: searchText)
+        presenter?.getDishes(text: searchText)
     }
 }
 
