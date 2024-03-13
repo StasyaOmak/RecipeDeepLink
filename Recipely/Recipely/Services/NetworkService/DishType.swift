@@ -5,14 +5,23 @@ import Foundation
 
 /// Перечисление, представляющее типы блюд.
 enum DishType {
+    /// Салат
     case salad
+    /// Суп
     case soup
+    /// Курица
     case chicken
+    /// Мясо
     case meat
+    /// Рыба
     case fish
+    /// Гарнир
     case sideDish
+    /// Блин
     case pancake
+    /// Напитки
     case drinks
+    /// Десерты
     case desserts
 
     /// Возвращает строковое представление типа блюда для указания в запросе.
