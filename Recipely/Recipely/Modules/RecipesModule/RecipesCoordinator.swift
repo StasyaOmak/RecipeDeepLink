@@ -6,7 +6,7 @@ import UIKit
 /// Интерфейс взаимодействия с RecipesCoordinator
 protocol RecipesCoordinatorProtocol: AnyObject {
     /// Презентует экран со списком блюд выбранной категории
-    func showCategoryDishesScreen(withTitle title: String)
+    func showCategoryDishesScreen(withCategory category: DishCategory)
     /// Презентует экран с детальным писанием блюда
     func showDishDetailsScreen(with dish: Dish)
 }
@@ -37,8 +37,8 @@ final class RecipesCoordinator: BaseCoordinator {
 }
 
 extension RecipesCoordinator: RecipesCoordinatorProtocol {
-    func showCategoryDishesScreen(withTitle title: String) {
-        let view = builder.buildCategoryDishesScreen(coordinator: self, category: DishCategory.chicken)
+    func showCategoryDishesScreen(withCategory category: DishCategory) {
+        let view = builder.buildCategoryDishesScreen(coordinator: self, category: category)
         rootController.pushViewController(view, animated: true)
     }
 

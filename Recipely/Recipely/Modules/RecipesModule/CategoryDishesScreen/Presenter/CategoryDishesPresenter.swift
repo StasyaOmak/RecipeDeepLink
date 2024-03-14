@@ -5,8 +5,11 @@ import Foundation
 
 /// Интерфейс взаимодействия с CategoryDishesPresenter
 protocol CategoryDishesPresenterProtocol {
+    var state: ViewState<[Dish]> { get }
+    
     /// Получить название категории.
     func getTitle() -> String
+    
     /// Соощает о нажатии на ячейку какого либо блюда
     func didTapCell(atIndex index: Int)
     /// Сообщает о введенном пользователем заначениии поиска
@@ -15,8 +18,6 @@ protocol CategoryDishesPresenterProtocol {
     func caloriesSortControlChanged(toState state: SortState)
     /// Сообщает об изменеии статуса сортировки по времени приготовления
     func timeSortControlChanged(toState state: SortState)
-    /// Получать данные по блюду
-    func getDishes(text: String)
 }
 
 /// Презентер экрана категории рецептов
@@ -37,8 +38,13 @@ final class CategoryDishesPresenter {
     private weak var view: CategoryDishesViewProtocol?
     private weak var coordinator: RecipesCoordinatorProtocol?
     private let networkService = NetworkService()
-    private var dishes: [Dish] = []
+//    private var dishes: [Dish] = []
     private var category: DishCategory
+    private var state: ViewState<[Dish]> = .loading {
+        didSet {
+            view?.updateState()
+        }
+    }
     private var caloriesSortState = SortState.none {
         didSet {
             updateDishes()
@@ -59,6 +65,7 @@ final class CategoryDishesPresenter {
         self.view = view
         self.coordinator = coordinator
         self.category = category
+        updateDishes()
     }
 
     // MARK: - Private Methods
@@ -97,55 +104,49 @@ final class CategoryDishesPresenter {
         }
     }
 
-    private func updateDishes() {
-        let predicates = createPredicatesAccordingToCurrentSelectedConditions()
-        dishes = getSortedCategoryDishes(using: predicates)
-    }
-}
+//
+//    private func updateDishes() {
+//        let predicates = createPredicatesAccordingToCurrentSelectedConditions()
+//        dishes = getSortedCategoryDishes(using: predicates)
+//    }
 
-extension CategoryDishesPresenter: CategoryDishesPresenterProtocol {
-    func getTitle() -> String {
-        category.rawValue
-    }
-
-    func getDishes(text: String) {
+    private func updateDishes(searchPredicate: String? = nil) {
         var health: String?
         if case .sideDish = category {
             health = Constants.vegetarianText
         }
 
         var query: String?
-
         switch category {
         case .chicken, .meat, .fish:
-            query = "\(category.rawValue) "
-
+            query = category.rawValue
+            if searchPredicate != nil {
+                query?.append(" ")
+            }
         default:
             break
         }
-
-        query?.append(text)
-
-        networkService.searchForDishes(
-            dishType: category,
-            health: health,
-            query: query,
-            completion: { [weak self] result in
-                DispatchQueue.main.async {
-                    switch result {
-                    case let .success(dishes):
-                        if dishes.isEmpty {
-                            self?.view?.switchToState(.noData)
-                        } else {
-                            self?.view?.switchToState(.data(dishes))
-                            self?.dishes = dishes
-                        }
-                    case let .failure(error):
-                        self?.view?.switchToState(.error(error))
-                    }
+        if let searchPredicate {
+            query?.append(searchPredicate)
+        }
+        
+        state = .loading
+        networkService.searchForDishes(dishType: category, health: health, query: query) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case let .success(dishes):
+                    self?.state = !dishes.isEmpty ? .data(dishes) : .noData
+                case let .failure(error):
+                    self?.state = .error(error)
                 }
             }
-        )
+        }
+    }
+}
+
+extension CategoryDishesPresenter: CategoryDishesPresenterProtocol {
+    func getTitle() -> String {
+        category.rawValue
     }
 
     func didTapCell(atIndex index: Int) {
@@ -155,8 +156,7 @@ extension CategoryDishesPresenter: CategoryDishesPresenterProtocol {
     }
 
     func searchBarTextChanged(to text: String) {
-        view?.switchToState(.loading)
-        getDishes(text: text)
+        updateDishes(searchPredicate: text)
     }
 
     func caloriesSortControlChanged(toState state: SortState) {

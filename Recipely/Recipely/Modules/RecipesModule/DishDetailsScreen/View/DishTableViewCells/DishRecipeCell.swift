@@ -47,7 +47,7 @@ final class DishRecipeCell: UITableViewCell {
     // MARK: - Public Methods
 
     func configure(with dish: Dish) {
-//        recipeLabel.text = dish.recipe
+        recipeLabel.text = dish.ingredientLines.joined(separator: "\n")
     }
 
     // MARK: - Private Methods
