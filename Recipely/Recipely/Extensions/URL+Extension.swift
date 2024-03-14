@@ -9,12 +9,14 @@ extension URL {
 
     /// Тип расширения файла
     enum PathExtension: String {
-        /// Текстовый файл
+        /// Расширение txt
         case txt
-        /// Файл PDF
+        /// Расширение pdf
         case pdf
-        /// Файл PNG
+        /// Расширение png
         case png
+        /// Расширение jpg
+        case jpg
     }
 
     // MARK: - Public Methods

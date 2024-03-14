@@ -5,11 +5,14 @@ import Foundation
 
 /// Интерфейс взаимодействия с CategoryDishesPresenter
 protocol CategoryDishesPresenterProtocol {
+    /// Сообщает о загрузке вью
+    func viewLoaded()
+    /// Состояние загрузки данных
     var state: ViewState<[Dish]> { get }
-
     /// Получить название категории.
     func getTitle() -> String
-
+    /// Получить данные изображения для ячейки по индексу
+    func getImageForCell(atIndex index: Int, completion: @escaping (Data, Int) -> ())
     /// Соощает о нажатии на ячейку какого либо блюда
     func didTapCell(atIndex index: Int)
     /// Сообщает о введенном пользователем заначениии поиска
@@ -30,22 +33,24 @@ final class CategoryDishesPresenter {
 
     private enum Constants {
         static let userOpenedDishScreenLogMessage = "Пользователь открыл рецепт блюда "
-        static let vegetarianText = "Vegetarian"
+        static let vegetarianText = "vegetarian"
     }
 
     // MARK: - Private Properties
 
     private weak var view: CategoryDishesViewProtocol?
     private weak var coordinator: RecipesCoordinatorProtocol?
-    private let networkService = NetworkService()
-//    private var dishes: [Dish] = []
-    private var category: DishCategory
-    var state: ViewState<[Dish]> = .loading {
+    private weak var networkService: NetworkServiceProtocol?
+    private weak var imageLoadService: ImageLoadServiceProtocol?
+    private(set) var state: ViewState<[Dish]> = .loading {
         didSet {
             view?.updateState()
         }
     }
 
+    private var category: DishCategory
+    var dishes: [Dish] = []
+  
     private var caloriesSortState = SortState.none {
         didSet {
             updateDishes()
@@ -62,11 +67,18 @@ final class CategoryDishesPresenter {
 
     // MARK: - Initializers
 
-    init(view: CategoryDishesViewProtocol, coordinator: RecipesCoordinatorProtocol, category: DishCategory) {
+    init(
+        view: CategoryDishesViewProtocol,
+        coordinator: RecipesCoordinatorProtocol,
+        networkService: NetworkServiceProtocol?,
+        imageLoadService: ImageLoadServiceProtocol?,
+        category: DishCategory
+    ) {
         self.view = view
         self.coordinator = coordinator
+        self.networkService = networkService
+        self.imageLoadService = imageLoadService
         self.category = category
-        updateDishes()
     }
 
     // MARK: - Private Methods
@@ -128,12 +140,18 @@ final class CategoryDishesPresenter {
         default:
             break
         }
+
         if let searchPredicate {
-            query?.append(searchPredicate)
+            if query != nil {
+                query?.append(searchPredicate)
+
+            } else {
+                query = searchPredicate
+            }
         }
 
         state = .loading
-        networkService.searchForDishes(dishType: category, health: health, query: query) { [weak self] result in
+        networkService?.searchForDishes(dishType: category, health: health, query: query) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case let .success(dishes):
@@ -147,8 +165,23 @@ final class CategoryDishesPresenter {
 }
 
 extension CategoryDishesPresenter: CategoryDishesPresenterProtocol {
+    func viewLoaded() {
+        updateDishes()
+    }
+
     func getTitle() -> String {
         category.rawValue
+    }
+
+    func getImageForCell(atIndex index: Int, completion: @escaping (Data, Int) -> ()) {
+        guard case let .data(dishes) = state,
+              let url = URL(string: dishes[index].image)
+        else { return }
+        imageLoadService?.loadImage(atURL: url) { data, _, _ in
+            if let data {
+                completion(data, index)
+            }
+        }
     }
 
     func didTapCell(atIndex index: Int) {

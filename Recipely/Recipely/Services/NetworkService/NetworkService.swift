@@ -4,7 +4,7 @@
 import Foundation
 
 /// Протокол коммуникации с NetworkService
-protocol NetworkServiceProtocol {
+protocol NetworkServiceProtocol: AnyObject {
     /// Запрашивает массив блюд с переданными параметрами запроса
     func searchForDishes(
         dishType: DishCategory,
@@ -20,7 +20,7 @@ protocol NetworkServiceProtocol {
 }
 
 /// Сервис для работы с Recipe Search API
-class NetworkService {
+final class NetworkService {
     // MARK: - Constants
 
     enum Constants {
@@ -64,6 +64,12 @@ class NetworkService {
                 completion(.failure(error))
             }
         }.resume()
+    }
+}
+
+extension NetworkService: ServiceProtocol {
+    var description: String {
+        "Network service"
     }
 }
 
