@@ -11,6 +11,8 @@ protocol DishDetailsViewProtocol: AnyObject {
     func updateFavouritesButtonState(to isHighlited: Bool)
     /// Обновляет состояние вью
     func updateState()
+
+    func errorView(state: ViewState<Any>)
 }
 
 /// Экран детальной информации о блюде
@@ -32,15 +34,35 @@ final class DishDetailsView: UIViewController, UIGestureRecognizerDelegate {
     private enum Constants {
         static let inDevelopmentText = "Функционал в разработке"
         static let okText = "Ok"
+        static let titleLabelText = "Failed to load data"
+        static let reloadText = "Reload"
     }
 
     // MARK: - Visual Components
+
+    private var errorPlaceholderView = {
+        let view = CategoryPlaceholderView()
+        view.isHiddenNothingFoundLabel = true
+        view.isHiddenAnotherRequestLabel = true
+        view.reloadText = Constants.reloadText
+        view.titleLabelText = Constants.titleLabelText
+        view.image = UIImage(named: "mistake")
+        view.imageLoading = .reloadIcon
+        view.isHidden = true
+        return view
+    }()
 
     private lazy var shareButton = {
         let button = UIButton()
         button.setImage(.shareIcon.withRenderingMode(.alwaysOriginal), for: .normal)
         button.addTarget(self, action: #selector(shareButtonTapped), for: .touchUpInside)
         return button
+    }()
+
+    private lazy var refreshControl = {
+        let control = UIRefreshControl()
+        control.addTarget(self, action: #selector(refreshControlTapped(_:)), for: .valueChanged)
+        return control
     }()
 
     private lazy var addToFavouritesButton = {
@@ -55,9 +77,11 @@ final class DishDetailsView: UIViewController, UIGestureRecognizerDelegate {
         table.dataSource = self
         table.rowHeight = UITableView.automaticDimension
         table.separatorStyle = .none
+        table.refreshControl = refreshControl
         table.register(DishInfoCell.self, forCellReuseIdentifier: DishInfoCell.description())
         table.register(DishKBZHUCell.self, forCellReuseIdentifier: DishKBZHUCell.description())
         table.register(DishRecipeCell.self, forCellReuseIdentifier: DishRecipeCell.description())
+        table.register(RecipeShimmerCell.self, forCellReuseIdentifier: RecipeShimmerCell.description())
         return table
     }()
 
@@ -77,23 +101,34 @@ final class DishDetailsView: UIViewController, UIGestureRecognizerDelegate {
         configureUI()
         configureLayout()
         presenter?.viewBeganLoading()
+        presenter?.viewLoaded()
     }
 
     // MARK: - Private Methods
 
     private func configureUI() {
         view.backgroundColor = .systemBackground
-        view.addSubview(dishInfoTableView)
+        view.addSubviews(dishInfoTableView, errorPlaceholderView)
         configureNavigationBarItems()
+        configurePlaceholderViewConstraits()
     }
 
     private func configureLayout() {
-        UIView.doNotTAMIC(for: dishInfoTableView)
+        UIView.doNotTAMIC(for: dishInfoTableView, errorPlaceholderView)
         [
             dishInfoTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             dishInfoTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             dishInfoTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             dishInfoTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ].activate()
+    }
+
+    private func configurePlaceholderViewConstraits() {
+        [
+            errorPlaceholderView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            errorPlaceholderView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            errorPlaceholderView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            errorPlaceholderView.heightAnchor.constraint(equalToConstant: 140)
         ].activate()
     }
 
@@ -119,9 +154,26 @@ final class DishDetailsView: UIViewController, UIGestureRecognizerDelegate {
     @objc private func shareButtonTapped() {
         presenter?.shareButtonTapped()
     }
+
+    @objc private func refreshControlTapped(_ sender: UIRefreshControl) {
+        presenter?.viewLoaded()
+        updateState()
+        sender.endRefreshing()
+    }
 }
 
 extension DishDetailsView: DishDetailsViewProtocol {
+    func errorView(state: ViewState<Any>) {
+        switch state {
+        case .error:
+            errorPlaceholderView.isHidden = false
+        case .data:
+            errorPlaceholderView.isHidden = true
+        case .loading, .noData:
+            break
+        }
+    }
+
     func updateState() {
         switch presenter?.state {
         case .loading, .data:
@@ -148,7 +200,9 @@ extension DishDetailsView: UITableViewDataSource {
         switch presenter?.state {
         case .data:
             dishInfoTableViewCells.count
-        case .noData, .error, .loading, .none:
+        case .loading:
+            1
+        case .noData, .error, .none:
             0
         }
     }
@@ -157,9 +211,9 @@ extension DishDetailsView: UITableViewDataSource {
         switch presenter?.state {
         case .loading:
             guard let cell = tableView.dequeueReusableCell(
-                withIdentifier: DishShimmerCell.description(),
+                withIdentifier: RecipeShimmerCell.description(),
                 for: indexPath
-            ) as? DishShimmerCell else { return UITableViewCell() }
+            ) as? RecipeShimmerCell else { return UITableViewCell() }
             return cell
         case let .data(recipe):
             switch dishInfoTableViewCells[indexPath.row] {
@@ -171,6 +225,15 @@ extension DishDetailsView: UITableViewDataSource {
                 else { return UITableViewCell() }
                 cell.selectionStyle = .none
                 cell.configure(with: recipe)
+
+                presenter?.getImageForCell(atIndex: indexPath.row) { imageData, index in
+                    guard let image = UIImage(data: imageData) else { return }
+                    DispatchQueue.main.async {
+                        let currentIndexOfUpdatingCell = tableView.indexPath(for: cell)?.row
+                        guard currentIndexOfUpdatingCell == index else { return }
+                        cell.setDishImage(image)
+                    }
+                }
                 return cell
             case .KBZHU:
                 guard let cell = tableView.dequeueReusableCell(
@@ -193,6 +256,12 @@ extension DishDetailsView: UITableViewDataSource {
             }
         case .noData, .error, .none:
             break
+//        case .noData:
+//            break
+//        case .error:
+//            errorPlaceholderView.isHidden = true
+//        case .none:
+//            break
         }
         return UITableViewCell()
     }

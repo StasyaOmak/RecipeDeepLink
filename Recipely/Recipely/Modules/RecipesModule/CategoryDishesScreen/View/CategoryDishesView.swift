@@ -24,6 +24,12 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
 
     // MARK: - Visual Components
 
+    private lazy var refreshControl = {
+        let control = UIRefreshControl()
+        control.addTarget(self, action: #selector(refreshControlTapped(_:)), for: .valueChanged)
+        return control
+    }()
+
     private lazy var searhBar = {
         let searhBar = UISearchBar()
         searhBar.searchTextField.borderStyle = .none
@@ -52,6 +58,7 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
         let table = UITableView()
         table.dataSource = self
         table.delegate = self
+        table.refreshControl = refreshControl
         table.separatorStyle = .none
         table.showsVerticalScrollIndicator = false
         table.rowHeight = UITableView.automaticDimension
@@ -165,8 +172,15 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
         }
     }
 
+
+    @objc private func refreshControlTapped(_ sender: UIRefreshControl) {
+        presenter?.viewLoaded()
+        updateState()
+        sender.endRefreshing()
+
     @objc private func reloadButtonTapped() {
         presenter?.requestDishesUpdate()
+
     }
 }
 
