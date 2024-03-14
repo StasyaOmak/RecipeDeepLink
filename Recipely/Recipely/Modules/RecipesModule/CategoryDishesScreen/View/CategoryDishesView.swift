@@ -5,7 +5,7 @@ import UIKit
 
 /// Интерфейс взаимодействия с CategoryDishesView
 protocol CategoryDishesViewProtocol: AnyObject {
-    /// Функция для обновления данных в таблице
+    /// Обновляет состояние вью
     func switchToState(_ state: ViewState<[Dish]>)
 }
 
@@ -14,9 +14,8 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
     // MARK: - Constants
 
     private enum Constants {
-        static let caloriesText = "Calories"
-        static let timeText = "Time"
-        static let fishText = "Fish"
+        static let caloriesFilterText = "Calories"
+        static let timeFilterText = "Time"
         static let placeholderText = "Search recipes"
     }
 
@@ -35,13 +34,13 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
     }()
 
     private lazy var caloriesSortControl = {
-        let view = SortControl(title: Constants.caloriesText, state: .none)
+        let view = SortControl(title: Constants.caloriesFilterText, state: .none)
         view.delegate = self
         return view
     }()
 
     private lazy var timeSortControl = {
-        let view = SortControl(title: Constants.timeText, state: .none)
+        let view = SortControl(title: Constants.timeFilterText, state: .none)
         view.delegate = self
         return view
     }()
@@ -58,14 +57,15 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
         return table
     }()
 
-    // MARK: - Private Properties
-
     private let placeholderView = CategoryPlaceholderView()
 
     // MARK: - Public Properties
 
     var presenter: CategoryDishesPresenterProtocol?
-    private var viewState = ViewState<[Dish]>.loading
+
+    // MARK: - Private Properties
+
+    private var viewState: ViewState<[Dish]> = .loading
 
     // MARK: - Life Cycle
 
@@ -167,19 +167,29 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
 }
 
 extension CategoryDishesView: CategoryDishesViewProtocol {
-    func switchToState(_ state: ViewState<[Dish]>) {}
-
-    func switchToState() {
-        tableView.reloadData()
+    func switchToState(_ state: ViewState<[Dish]>) {
+        viewState = state
+        switch viewState {
+        case .loading, .data:
+            tableView.reloadData()
+        case .noData:
+            print("no data")
+        case .error:
+            print("error")
+        }
     }
 }
 
 extension CategoryDishesView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if case let .data(data) = viewState {
-            return data.count
+        switch viewState {
+        case .loading:
+            6
+        case let .data(dishes):
+            dishes.count
+        case .noData, .error:
+            0
         }
-        return 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -218,7 +228,6 @@ extension CategoryDishesView: UITableViewDelegate {
 extension CategoryDishesView: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         presenter?.searchBarTextChanged(to: searchText)
-        presenter?.getDishes(text: searchText)
     }
 }
 

@@ -57,6 +57,8 @@
 		9D4DF4A42BA1AADD008FAB6F /* HitDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4DF4A32BA1AADD008FAB6F /* HitDTO.swift */; };
 		9D4DF4A62BA1AB12008FAB6F /* NutrientInfoDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4DF4A52BA1AB12008FAB6F /* NutrientInfoDTO.swift */; };
 		9D4DF4A92BA1C726008FAB6F /* URL+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4DF4A82BA1C726008FAB6F /* URL+Extension.swift */; };
+		9D4DF4AC2BA2D8DB008FAB6F /* ImageLoadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4DF4AB2BA2D8DB008FAB6F /* ImageLoadService.swift */; };
+		9D4DF4AF2BA2D906008FAB6F /* ImageLoadProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4DF4AE2BA2D906008FAB6F /* ImageLoadProxy.swift */; };
 		9D6115462B8D312E008EF247 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D61153F2B8D312E008EF247 /* AuthCoordinator.swift */; };
 		9D6115472B8D312E008EF247 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6115452B8D312E008EF247 /* Validator.swift */; };
 		9D6115482B8D312E008EF247 /* AuthPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6115432B8D312E008EF247 /* AuthPresenter.swift */; };
@@ -147,12 +149,14 @@
 		9D499B952B96247C007B36D0 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = SOURCE_ROOT; };
 		9D4DF4982BA11DBD008FAB6F /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		9D4DF49A2BA11DCF008FAB6F /* RecipeTDO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeTDO.swift; sourceTree = "<group>"; };
-		9D4DF49C2BA11F09008FAB6F /* Dish.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Dish.swift; path = ../Services/NetworkService/Dish.swift; sourceTree = "<group>"; };
+		9D4DF49C2BA11F09008FAB6F /* Dish.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dish.swift; sourceTree = "<group>"; };
 		9D4DF49F2BA1A18B008FAB6F /* DishCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishCategory.swift; sourceTree = "<group>"; };
 		9D4DF4A12BA1AACD008FAB6F /* ResponceDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponceDTO.swift; sourceTree = "<group>"; };
 		9D4DF4A32BA1AADD008FAB6F /* HitDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HitDTO.swift; sourceTree = "<group>"; };
 		9D4DF4A52BA1AB12008FAB6F /* NutrientInfoDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutrientInfoDTO.swift; sourceTree = "<group>"; };
 		9D4DF4A82BA1C726008FAB6F /* URL+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extension.swift"; sourceTree = "<group>"; };
+		9D4DF4AB2BA2D8DB008FAB6F /* ImageLoadService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoadService.swift; sourceTree = "<group>"; };
+		9D4DF4AE2BA2D906008FAB6F /* ImageLoadProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoadProxy.swift; sourceTree = "<group>"; };
 		9D61153F2B8D312E008EF247 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
 		9D6115412B8D312E008EF247 /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		9D6115432B8D312E008EF247 /* AuthPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPresenter.swift; sourceTree = "<group>"; };
@@ -234,7 +238,7 @@
 		21FE4D8F2B8FE97100FA377F /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				2102A3A22B97F4E0002D64B6 /* ViewState.swift */,
+				21B91CDB2B90D0370041D5E9 /* SortState.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -255,7 +259,6 @@
 			isa = PBXGroup;
 			children = (
 				21FE4D962B8FEBEA00FA377F /* CategoryDishesPresenter.swift */,
-				21B91CDB2B90D0370041D5E9 /* SortState.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -409,7 +412,7 @@
 			children = (
 				9D4DF4982BA11DBD008FAB6F /* NetworkService.swift */,
 				9D4DF4A72BA1AB1E008FAB6F /* DTO */,
-				9D4DF49F2BA1A18B008FAB6F /* DishCategory.swift */,
+				9D4DF4AD2BA2D8DF008FAB6F /* ImageLoadSerice */,
 			);
 			path = NetworkService;
 			sourceTree = "<group>";
@@ -423,6 +426,24 @@
 				9D4DF4A52BA1AB12008FAB6F /* NutrientInfoDTO.swift */,
 			);
 			path = DTO;
+			sourceTree = "<group>";
+		};
+		9D4DF4AA2BA2D4DA008FAB6F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9D4DF49C2BA11F09008FAB6F /* Dish.swift */,
+				2102A3A22B97F4E0002D64B6 /* ViewState.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		9D4DF4AD2BA2D8DF008FAB6F /* ImageLoadSerice */ = {
+			isa = PBXGroup;
+			children = (
+				9D4DF4AB2BA2D8DB008FAB6F /* ImageLoadService.swift */,
+				9D4DF4AE2BA2D906008FAB6F /* ImageLoadProxy.swift */,
+			);
+			path = ImageLoadSerice;
 			sourceTree = "<group>";
 		};
 		9D61153E2B8D312E008EF247 /* AuthModule */ = {
@@ -466,7 +487,7 @@
 		9D61154A2B8D538E008EF247 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				9D4DF49C2BA11F09008FAB6F /* Dish.swift */,
+				9D4DF4AA2BA2D4DA008FAB6F /* Model */,
 				9D61153E2B8D312E008EF247 /* AuthModule */,
 				9D61154B2B8D53B2008EF247 /* RecipesModule */,
 				9D952B802B8D2CE300F6D8CC /* FavouritesModule */,
@@ -490,6 +511,7 @@
 			isa = PBXGroup;
 			children = (
 				9D499B392B9085EE007B36D0 /* Category.swift */,
+				9D4DF49F2BA1A18B008FAB6F /* DishCategory.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -837,6 +859,7 @@
 				9D499B3C2B908BFB007B36D0 /* CategoryCell.swift in Sources */,
 				9D952B7C2B8D264B00F6D8CC /* User.swift in Sources */,
 				9D952B4E2B8D1CBC00F6D8CC /* AppDelegate.swift in Sources */,
+				9D4DF4AF2BA2D906008FAB6F /* ImageLoadProxy.swift in Sources */,
 				9DC68F832B9AFDCA000261C5 /* Caretaker.swift in Sources */,
 				9D6115672B8D54CC008EF247 /* CategoriesPresenter.swift in Sources */,
 				9D499B792B927D3A007B36D0 /* DishDetailsPresenter.swift in Sources */,
@@ -878,6 +901,7 @@
 				9D4DF4992BA11DBD008FAB6F /* NetworkService.swift in Sources */,
 				9D6115652B8D54CC008EF247 /* CategoriesView.swift in Sources */,
 				21FE4D972B8FEBEA00FA377F /* CategoryDishesPresenter.swift in Sources */,
+				9D4DF4AC2BA2D8DB008FAB6F /* ImageLoadService.swift in Sources */,
 				9D499B882B935CE7007B36D0 /* DishCookingTimeView.swift in Sources */,
 				9D952B712B8D231800F6D8CC /* AppCoordinator.swift in Sources */,
 				9D6115482B8D312E008EF247 /* AuthPresenter.swift in Sources */,

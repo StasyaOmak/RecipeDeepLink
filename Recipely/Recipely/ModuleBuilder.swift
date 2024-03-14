@@ -73,7 +73,7 @@ final class ModuleBuilder: Builder {
         category: DishCategory
     ) -> CategoryDishesView {
         let view = CategoryDishesView()
-        let presenter = CategoryDishesPresenter(view: view, coordinator: coordinator, category: DishCategory.chicken)
+        let presenter = CategoryDishesPresenter(view: view, coordinator: coordinator, category: category)
         view.presenter = presenter
         return view
     }

@@ -88,7 +88,8 @@ class DishCell: UITableViewCell {
 //        dishImageView.image = UIImage(data: categoryDish.image ?? Data())
         dishNameLabel.text = categoryDish.name
         timerLabel.text = "\(categoryDish.cookingTime) \(Metrics.minutes.rawValue)"
-        caloriesLabel.text = "\(String(describing: categoryDish.calories)) \(Metrics.kcal.rawValue)"
+        guard let calories = categoryDish.calories else { return }
+        caloriesLabel.text = "\(Int(calories)) \(Metrics.kcal.rawValue)"
     }
 
     // MARK: - Private Methods

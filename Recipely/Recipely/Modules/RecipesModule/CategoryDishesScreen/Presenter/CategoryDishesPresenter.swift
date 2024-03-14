@@ -15,8 +15,6 @@ protocol CategoryDishesPresenterProtocol {
     func caloriesSortControlChanged(toState state: SortState)
     /// Сообщает об изменеии статуса сортировки по времени приготовления
     func timeSortControlChanged(toState state: SortState)
-    /// Получать данные по блюду
-    func getDishes(text: String)
 }
 
 /// Презентер экрана категории рецептов
@@ -59,6 +57,7 @@ final class CategoryDishesPresenter {
         self.view = view
         self.coordinator = coordinator
         self.category = category
+        updateDishes()
     }
 
     // MARK: - Private Methods
@@ -97,55 +96,53 @@ final class CategoryDishesPresenter {
         }
     }
 
-    private func updateDishes() {
-        let predicates = createPredicatesAccordingToCurrentSelectedConditions()
-        dishes = getSortedCategoryDishes(using: predicates)
-    }
-}
+//
+//    private func updateDishes() {
+//        let predicates = createPredicatesAccordingToCurrentSelectedConditions()
+//        dishes = getSortedCategoryDishes(using: predicates)
+//    }
 
-extension CategoryDishesPresenter: CategoryDishesPresenterProtocol {
-    func getTitle() -> String {
-        category.rawValue
-    }
-
-    func getDishes(text: String) {
+    private func updateDishes(searchPredicate: String? = nil) {
         var health: String?
         if case .sideDish = category {
             health = Constants.vegetarianText
         }
 
         var query: String?
-
         switch category {
         case .chicken, .meat, .fish:
-            query = "\(category.rawValue) "
-
+            query = category.rawValue
+            if searchPredicate != nil {
+                query?.append(" ")
+            }
         default:
             break
         }
+        if let searchPredicate {
+            query?.append(searchPredicate)
+        }
 
-        query?.append(text)
-
-        networkService.searchForDishes(
-            dishType: category,
-            health: health,
-            query: query,
-            completion: { [weak self] result in
-                DispatchQueue.main.async {
-                    switch result {
-                    case let .success(dishes):
-                        if dishes.isEmpty {
-                            self?.view?.switchToState(.noData)
-                        } else {
-                            self?.view?.switchToState(.data(dishes))
-                            self?.dishes = dishes
-                        }
-                    case let .failure(error):
-                        self?.view?.switchToState(.error(error))
+        networkService.searchForDishes(dishType: category, health: health, query: query) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case let .success(dishes):
+                    if dishes.isEmpty {
+                        self?.view?.switchToState(.noData)
+                    } else {
+                        self?.view?.switchToState(.data(dishes))
                     }
+                    self?.dishes = dishes
+                case let .failure(error):
+                    self?.view?.switchToState(.error(error))
                 }
             }
-        )
+        }
+    }
+}
+
+extension CategoryDishesPresenter: CategoryDishesPresenterProtocol {
+    func getTitle() -> String {
+        category.rawValue
     }
 
     func didTapCell(atIndex index: Int) {
@@ -156,7 +153,7 @@ extension CategoryDishesPresenter: CategoryDishesPresenterProtocol {
 
     func searchBarTextChanged(to text: String) {
         view?.switchToState(.loading)
-        getDishes(text: text)
+        updateDishes(searchPredicate: text)
     }
 
     func caloriesSortControlChanged(toState state: SortState) {

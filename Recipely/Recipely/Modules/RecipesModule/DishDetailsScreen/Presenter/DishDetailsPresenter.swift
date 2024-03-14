@@ -58,19 +58,11 @@ final class DishDetailsPresenter {
 extension DishDetailsPresenter: DishDetailsPresenterProtocol {
     func viewBeganLoading() {
         view?.configure(with: dish)
-//        view?.updateFavouritesButtonState(to: dish.isFavourite)
     }
 
     func shareButtonTapped() {
         LogAction.log(Constants.userSharedRecipeLogMessage + dish.name)
     }
 
-    func addToFavouritesButtonTapped() {
-//        dish.isFavourite.toggle()
-//        if dish.isFavourite {
-//            DishesService.shared.addToFavourites(dish: dish)
-//        } else {
-//            DishesService.shared.removeFromFavourites(dish: dish)
-//        }
-    }
+    func addToFavouritesButtonTapped() {}
 }
