@@ -8,8 +8,8 @@ final class CategoryPlaceholderView: UIView {
     // MARK: - Constants
 
     private enum Constants {
-        static let mainMessageText = "Failed to load data"
-        static let reloadText = "Reload"
+        static let nothingFoundLabelText = "Nothing found"
+        static let anotherRequestLabelText = "Try entering your query differently"
     }
 
     // MARK: - Visual Components
@@ -17,13 +17,6 @@ final class CategoryPlaceholderView: UIView {
     private let mainImageView = {
         let view = UIImageView()
         view.contentMode = .center
-        view.contentMode = .scaleAspectFit
-        view.image = UIImage(named: "lightning")?
-            .withAlignmentRectInsets(UIEdgeInsets(top: 16, left: 20, bottom: 16, right: 20))
-//        let imageInsets = UIEdgeInsets(top: -13, left: 13, bottom: 0, right: 0)
-//        view.image = UIImage(named: "lightning")?
-//            .resizableImage(withCapInsets: imageInsets, resizingMode: .stretch)
-
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 12
         view.backgroundColor = .backgroundPlaceholder
@@ -35,7 +28,6 @@ final class CategoryPlaceholderView: UIView {
         label.font = .verdana(size: 14)
         label.textAlignment = .center
         label.textColor = .systemGray2
-        label.text = Constants.mainMessageText
         return label
     }()
 
@@ -54,15 +46,82 @@ final class CategoryPlaceholderView: UIView {
         label.font = .verdanaBold(size: 14)
         label.textAlignment = .center
         label.textColor = .systemGray
-        label.text = Constants.reloadText
         return label
     }()
 
-    private let loadingButton = {
-        let button = UIButton()
-        button.setImage(.mistake, for: .normal)
-        return button
+    private let nothingFoundLabel = {
+        let label = UILabel()
+        label.font = .verdanaBold(size: 18)
+        label.textAlignment = .center
+        label.textColor = .black
+        label.numberOfLines = 0
+        label.text = Constants.nothingFoundLabelText
+        return label
     }()
+
+    private let anotherRequestLabel = {
+        let label = UILabel()
+        label.font = .verdana(size: 14)
+        label.textAlignment = .center
+        label.textColor = .systemGray2
+        label.numberOfLines = 0
+        label.text = Constants.anotherRequestLabelText
+        return label
+    }()
+
+    private let loadingImage = UIImageView()
+
+    // MARK: - Public Properties
+
+    var titleLabelText: String? {
+        get { titleLabel.text }
+        set { titleLabel.text = newValue }
+    }
+
+    var image: UIImage? {
+        get { mainImageView.image }
+        set { mainImageView.image = newValue }
+    }
+
+    var imageLoading: UIImage? {
+        get { loadingImage.image }
+        set { loadingImage.image = newValue }
+    }
+
+    var reloadText: String? {
+        get { reloadLabel.text }
+        set { reloadLabel.text = newValue }
+    }
+
+    var isHiddenImageButton: Bool {
+        get { loadingImage.isHidden }
+        set { loadingImage.isHidden = newValue }
+    }
+
+    var isHiddenReloadText: Bool {
+        get { reloadLabel.isHidden }
+        set { reloadLabel.isHidden = newValue }
+    }
+
+    var isHiddenBackgroundView: Bool {
+        get { backgroundView.isHidden }
+        set { backgroundView.isHidden = newValue }
+    }
+
+    var isHiddenNothingFoundLabel: Bool {
+        get { nothingFoundLabel.isHidden }
+        set { nothingFoundLabel.isHidden = newValue }
+    }
+
+    var isHiddenAnotherRequestLabel: Bool {
+        get { anotherRequestLabel.isHidden }
+        set { anotherRequestLabel.isHidden = newValue }
+    }
+
+    var isHiddenTitleLabel: Bool {
+        get { titleLabel.isHidden }
+        set { titleLabel.isHidden = newValue }
+    }
 
     // MARK: - Initializers
 
@@ -81,16 +140,34 @@ final class CategoryPlaceholderView: UIView {
     // MARK: - Private Methods
 
     private func configureUI() {
-        addSubviews(backgroundView, mainImageView, titleLabel, reloadLabel, loadingButton)
+        addSubviews(
+            backgroundView,
+            mainImageView,
+            titleLabel,
+            reloadLabel,
+            loadingImage,
+            nothingFoundLabel,
+            anotherRequestLabel
+        )
     }
 
     private func configureLayout() {
-        UIView.doNotTAMIC(for: backgroundView, mainImageView, titleLabel, reloadLabel, loadingButton)
+        UIView.doNotTAMIC(
+            for: backgroundView,
+            mainImageView,
+            titleLabel,
+            reloadLabel,
+            loadingImage,
+            nothingFoundLabel,
+            anotherRequestLabel
+        )
         configureSavedImageViewLayout()
         configureSavedViewLayout()
         configureMainMessageLabelLayout()
         configureReloadLabelLayout()
         configureLoadingButtonLayout()
+        configureNothingFoundLabelLayout()
+        configureAnotherRequestLabelLayout()
     }
 
     private func configureSavedImageViewLayout() {
@@ -124,7 +201,7 @@ final class CategoryPlaceholderView: UIView {
     private func configureReloadLabelLayout() {
         [
             reloadLabel.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: 4),
-            reloadLabel.leadingAnchor.constraint(equalTo: loadingButton.trailingAnchor, constant: 9),
+            reloadLabel.leadingAnchor.constraint(equalTo: loadingImage.trailingAnchor, constant: 9),
             reloadLabel.widthAnchor.constraint(equalToConstant: 60),
             reloadLabel.heightAnchor.constraint(equalToConstant: 24)
         ].activate()
@@ -132,10 +209,28 @@ final class CategoryPlaceholderView: UIView {
 
     private func configureLoadingButtonLayout() {
         [
-            loadingButton.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: 9),
-            loadingButton.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 41),
-            loadingButton.widthAnchor.constraint(equalToConstant: 14),
-            loadingButton.heightAnchor.constraint(equalTo: loadingButton.widthAnchor)
+            loadingImage.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: 9),
+            loadingImage.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 41),
+            loadingImage.widthAnchor.constraint(equalToConstant: 14),
+            loadingImage.heightAnchor.constraint(equalTo: loadingImage.widthAnchor)
+        ].activate()
+    }
+
+    private func configureNothingFoundLabelLayout() {
+        [
+            nothingFoundLabel.topAnchor.constraint(equalTo: mainImageView.bottomAnchor, constant: 17),
+            nothingFoundLabel.centerXAnchor.constraint(equalTo: mainImageView.centerXAnchor),
+            nothingFoundLabel.widthAnchor.constraint(equalToConstant: 350),
+            nothingFoundLabel.heightAnchor.constraint(equalToConstant: 20)
+        ].activate()
+    }
+
+    private func configureAnotherRequestLabelLayout() {
+        [
+            anotherRequestLabel.topAnchor.constraint(equalTo: nothingFoundLabel.bottomAnchor, constant: 25),
+            anotherRequestLabel.centerXAnchor.constraint(equalTo: mainImageView.centerXAnchor),
+            anotherRequestLabel.widthAnchor.constraint(equalToConstant: 350),
+            anotherRequestLabel.heightAnchor.constraint(equalToConstant: 16)
         ].activate()
     }
 }

@@ -55,12 +55,16 @@ final class DishInfoCell: UITableViewCell {
             .dishImageViewCornerRadiusToHeightRatio
     }
 
+//    override func layoutSubviews() {
+//        dishImageView.startShimmerAnimation(speed: 2)
+//    }
+
     // MARK: - Public Methods
 
     func configure(with dish: Dish) {
         dishNameLabel.text = dish.name
 //        dishImageView.image = UIImage(data: dish.imageData ?? Data())
-//        weightView.configure(weight: dish.weight)
+        weightView.configure(weight: Int(dish.weight))
         cookingTimeView.configure(cookingTime: dish.cookingTime)
     }
 
