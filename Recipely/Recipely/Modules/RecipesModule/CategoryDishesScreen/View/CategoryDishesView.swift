@@ -6,7 +6,7 @@ import UIKit
 /// Интерфейс взаимодействия с CategoryDishesView
 protocol CategoryDishesViewProtocol: AnyObject {
     /// Обновляет состояние вью
-    func switchToState(_ state: ViewState<[Dish]>)
+    func updateState()
 }
 
 /// Вью экрана списка блюд категории
@@ -65,7 +65,7 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
 
     // MARK: - Private Properties
 
-    private var viewState: ViewState<[Dish]> = .loading
+    
 
     // MARK: - Life Cycle
 
@@ -167,14 +167,13 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
 }
 
 extension CategoryDishesView: CategoryDishesViewProtocol {
-    func switchToState(_ state: ViewState<[Dish]>) {
-        viewState = state
-        switch viewState {
+    func updateState() {
+        switch presenter?.state {
         case .loading, .data:
             tableView.reloadData()
         case .noData:
             print("no data")
-        case .error:
+        case .error, .none:
             print("error")
         }
     }
@@ -182,18 +181,24 @@ extension CategoryDishesView: CategoryDishesViewProtocol {
 
 extension CategoryDishesView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch viewState {
+        switch presenter?.state {
         case .loading:
             6
         case let .data(dishes):
             dishes.count
-        case .noData, .error:
+        case .noData, .error, .none:
             0
         }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch viewState {
+        switch presenter?.state {
+        case .loading:
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: DishShimmerCell.description(),
+                for: indexPath
+            ) as? DishShimmerCell else { return UITableViewCell() }
+            return cell
         case let .data(dishes):
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: DishCell.description(),
@@ -201,13 +206,7 @@ extension CategoryDishesView: UITableViewDataSource {
             ) as? DishCell else { return UITableViewCell() }
             cell.configure(with: dishes[indexPath.row])
             return cell
-        case .loading:
-            guard let cell = tableView.dequeueReusableCell(
-                withIdentifier: DishShimmerCell.description(),
-                for: indexPath
-            ) as? DishShimmerCell else { return UITableViewCell() }
-            return cell
-        case .noData, .error:
+        case .noData, .error, .none:
             break
         }
         return UITableViewCell()

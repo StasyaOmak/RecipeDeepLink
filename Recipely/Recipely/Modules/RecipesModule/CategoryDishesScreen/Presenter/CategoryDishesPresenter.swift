@@ -5,8 +5,11 @@ import Foundation
 
 /// Интерфейс взаимодействия с CategoryDishesPresenter
 protocol CategoryDishesPresenterProtocol {
+    var state: ViewState<[Dish]> { get }
+    
     /// Получить название категории.
     func getTitle() -> String
+    
     /// Соощает о нажатии на ячейку какого либо блюда
     func didTapCell(atIndex index: Int)
     /// Сообщает о введенном пользователем заначениии поиска
@@ -35,8 +38,13 @@ final class CategoryDishesPresenter {
     private weak var view: CategoryDishesViewProtocol?
     private weak var coordinator: RecipesCoordinatorProtocol?
     private let networkService = NetworkService()
-    private var dishes: [Dish] = []
+//    private var dishes: [Dish] = []
     private var category: DishCategory
+    private var state: ViewState<[Dish]> = .loading {
+        didSet {
+            view?.updateState()
+        }
+    }
     private var caloriesSortState = SortState.none {
         didSet {
             updateDishes()
@@ -121,19 +129,15 @@ final class CategoryDishesPresenter {
         if let searchPredicate {
             query?.append(searchPredicate)
         }
-
+        
+        state = .loading
         networkService.searchForDishes(dishType: category, health: health, query: query) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case let .success(dishes):
-                    if dishes.isEmpty {
-                        self?.view?.switchToState(.noData)
-                    } else {
-                        self?.view?.switchToState(.data(dishes))
-                    }
-                    self?.dishes = dishes
+                    self?.state = !dishes.isEmpty ? .data(dishes) : .noData
                 case let .failure(error):
-                    self?.view?.switchToState(.error(error))
+                    self?.state = .error(error)
                 }
             }
         }
@@ -152,7 +156,6 @@ extension CategoryDishesPresenter: CategoryDishesPresenterProtocol {
     }
 
     func searchBarTextChanged(to text: String) {
-        view?.switchToState(.loading)
         updateDishes(searchPredicate: text)
     }
 
