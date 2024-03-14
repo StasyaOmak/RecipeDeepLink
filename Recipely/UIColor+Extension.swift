@@ -11,6 +11,7 @@ extension UIColor {
     static let textAccent = UIColor.userColor(hex: 0x475C66)
     static let warnings = UIColor.userColor(hex: 0xEF6054)
     static let backgroundPlaceholder = UIColor.userColor(hex: 0xF2F5FA)
+    static let placeholderText = UIColor.userColor(hex: 0x97A2B0)
 
     /// Словарь уже инициализированных цветов
     private static var flyColorsMap: [Int: UIColor] = [:]
