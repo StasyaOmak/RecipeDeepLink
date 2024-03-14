@@ -13,18 +13,21 @@ protocol DishDetailsPresenterProtocol {
     func shareButtonTapped()
     /// Сообщает онажатии на кнопку добавления в любимые блюда
     func addToFavouritesButtonTapped()
+    /// Сообщает что вью загрузилась
+    func viewLoaded()
+    /// Получить данные изображения для ячейки по индексу
+    func getImageForCell(atIndex index: Int, completion: @escaping (Data, Int) -> ())
 }
 
 /// Презентер экрана детального описания блюда
 final class DishDetailsPresenter {
-    // MARK: - Private Properties
-
     // MARK: - Constants
 
     private enum Constants {
         static let userSharedRecipeLogMessage = "Пользователь поделился рецептом "
     }
 
+    private weak var imageLoadService: ImageLoadServiceProtocol?
     private weak var view: DishDetailsViewProtocol?
     private var uri: String
     private weak var coordinator: RecipesCoordinatorProtocol?
@@ -47,7 +50,6 @@ final class DishDetailsPresenter {
         self.view = view
         self.coordinator = coordinator
         self.uri = uri
-        updateRecipe()
     }
 
     // MARK: - Life Cycle
@@ -65,13 +67,16 @@ final class DishDetailsPresenter {
 //    }
 
     private func updateRecipe() {
+        state = .loading
         networkService.getDish(byURI: uri) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case let .success(recipe):
                     self?.state = .data(recipe)
+                    self?.view?.errorView(state: .data(Any.self))
                 case let .failure(error):
                     self?.state = .error(error)
+                    self?.view?.errorView(state: .error(error))
                 }
             }
         }
@@ -79,6 +84,21 @@ final class DishDetailsPresenter {
 }
 
 extension DishDetailsPresenter: DishDetailsPresenterProtocol {
+    func getImageForCell(atIndex index: Int, completion: @escaping (Data, Int) -> ()) {
+        guard case let .data(dishes) = state,
+              let url = URL(string: dishes.image)
+        else { return }
+        imageLoadService?.loadImage(atURL: url) { data, _, _ in
+            if let data {
+                completion(data, index)
+            }
+        }
+    }
+
+    func viewLoaded() {
+        updateRecipe()
+    }
+
     func viewBeganLoading() {
 //        view?.configure(with: dish)
     }

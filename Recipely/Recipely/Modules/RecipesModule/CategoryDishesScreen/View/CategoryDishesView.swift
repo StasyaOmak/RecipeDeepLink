@@ -17,9 +17,18 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
         static let caloriesFilterText = "Calories"
         static let timeFilterText = "Time"
         static let placeholderText = "Search recipes"
+        static let titleLabelText = "Failed to load data"
+        static let reloadText = "Reload"
+        static let noDataPlaceholderViewText = "Start typing text"
     }
 
     // MARK: - Visual Components
+
+    private lazy var refreshControl = {
+        let control = UIRefreshControl()
+        control.addTarget(self, action: #selector(refreshControlTapped(_:)), for: .valueChanged)
+        return control
+    }()
 
     private lazy var searhBar = {
         let searhBar = UISearchBar()
@@ -49,6 +58,7 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
         let table = UITableView()
         table.dataSource = self
         table.delegate = self
+        table.refreshControl = refreshControl
         table.separatorStyle = .none
         table.showsVerticalScrollIndicator = false
         table.rowHeight = UITableView.automaticDimension
@@ -57,7 +67,40 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
         return table
     }()
 
-    private let placeholderView = CategoryPlaceholderView()
+    private let errorPlaceholderView = {
+        let view = CategoryPlaceholderView()
+        view.isHiddenNothingFoundLabel = true
+        view.isHiddenAnotherRequestLabel = true
+        view.reloadText = Constants.reloadText
+        view.titleLabelText = Constants.titleLabelText
+        view.image = UIImage(named: "mistake")
+        view.imageLoading = .reloadIcon
+        return view
+    }()
+
+    private let noDataPlaceholderView = {
+        let view = CategoryPlaceholderView()
+        view.isHiddenNothingFoundLabel = true
+        view.isHiddenAnotherRequestLabel = true
+        view.isHiddenImageButton = true
+        view.isHiddenReloadText = true
+        view.isHiddenBackgroundView = true
+        view.titleLabelText = Constants.noDataPlaceholderViewText
+        view.image = UIImage(named: "magnifier")
+        return view
+    }()
+
+    private let nothingFoundPlaceholderView = {
+        let view = CategoryPlaceholderView()
+        view.isHiddenNothingFoundLabel = false
+        view.isHiddenAnotherRequestLabel = false
+        view.isHiddenBackgroundView = true
+        view.isHiddenImageButton = true
+        view.isHiddenReloadText = true
+        view.isHiddenTitleLabel = true
+        view.image = UIImage(named: "magnifier")
+        return view
+    }()
 
     // MARK: - Public Properties
 
@@ -81,18 +124,39 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
 
     private func configureUI() {
         view.backgroundColor = .systemBackground
-        view.addSubviews(tableView, searhBar, caloriesSortControl, timeSortControl, placeholderView)
+        view.addSubviews(
+            tableView,
+            searhBar,
+            caloriesSortControl,
+            timeSortControl,
+            errorPlaceholderView,
+            nothingFoundPlaceholderView,
+            noDataPlaceholderView
+        )
         configureNavigationItem()
-        placeholderView.isHidden = true
+        errorPlaceholderView.isHidden = true
+        nothingFoundPlaceholderView.isHidden = true
+        noDataPlaceholderView.isHidden = true
     }
 
     private func configureLayout() {
-        UIView.doNotTAMIC(for: tableView, searhBar, caloriesSortControl, timeSortControl, placeholderView)
+        UIView.doNotTAMIC(
+            for: tableView,
+            searhBar,
+            caloriesSortControl,
+            timeSortControl,
+            errorPlaceholderView,
+            nothingFoundPlaceholderView,
+            noDataPlaceholderView
+        )
         configureSearhBarConstraints()
         configureCaloriesViewConstraints()
         configureTimeViewConstraints()
         configureTableViewConstraits()
         configurePlaceholderViewConstraits()
+        configurePlaceholderViewConstraits()
+        configureNothingFoundPlaceholderViewConstraits()
+        configureNoDataPlaceholderViewConstraits()
     }
 
     private func configureSearhBarConstraints() {
@@ -129,11 +193,28 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
 
     private func configurePlaceholderViewConstraits() {
         [
-            placeholderView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            placeholderView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            placeholderView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            placeholderView.widthAnchor.constraint(equalToConstant: 350),
-            placeholderView.heightAnchor.constraint(equalToConstant: 140)
+            errorPlaceholderView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            errorPlaceholderView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            errorPlaceholderView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            errorPlaceholderView.heightAnchor.constraint(equalToConstant: 140)
+        ].activate()
+    }
+
+    private func configureNothingFoundPlaceholderViewConstraits() {
+        [
+            nothingFoundPlaceholderView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            nothingFoundPlaceholderView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            nothingFoundPlaceholderView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            nothingFoundPlaceholderView.heightAnchor.constraint(equalToConstant: 140)
+        ].activate()
+    }
+
+    private func configureNoDataPlaceholderViewConstraits() {
+        [
+            noDataPlaceholderView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            noDataPlaceholderView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            noDataPlaceholderView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            noDataPlaceholderView.heightAnchor.constraint(equalToConstant: 140)
         ].activate()
     }
 
@@ -160,6 +241,12 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
         if let selectedIndex = tableView.indexPathForSelectedRow {
             tableView.cellForRow(at: selectedIndex)?.isSelected = false
         }
+    }
+
+    @objc private func refreshControlTapped(_ sender: UIRefreshControl) {
+        presenter?.viewLoaded()
+        updateState()
+        sender.endRefreshing()
     }
 }
 

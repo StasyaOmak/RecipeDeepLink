@@ -68,6 +68,10 @@ final class DishInfoCell: UITableViewCell {
         cookingTimeView.configure(cookingTime: dish.cookingTime)
     }
 
+    func setDishImage(_ image: UIImage) {
+        dishImageView.image = image
+    }
+
     // MARK: - Private Methods
 
     private func configureUI() {

@@ -50,7 +50,7 @@ final class CategoryDishesPresenter {
 
     private var category: DishCategory
     var dishes: [Dish] = []
-  
+
     private var caloriesSortState = SortState.none {
         didSet {
             updateDishes()

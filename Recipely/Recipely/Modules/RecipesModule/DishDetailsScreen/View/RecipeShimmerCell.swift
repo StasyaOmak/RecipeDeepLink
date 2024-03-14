@@ -9,11 +9,24 @@ class RecipeShimmerCell: UITableViewCell {
 
     private let titleLabelShimmerView = UIView()
     private let recipeImageShimmerView = UIView()
-    private let kcalShimmerView = UIView()
+    private let recipeLabelShimmerView = UIView()
 
-    private let dishNameShimmerView = UIView()
-    private let timerShimmerView = UIView()
-    private let caloriesShimmerView = UIView()
+    private let enercView = NutrientView(metrics: .kcal)
+    private let carbohydratesView = NutrientView(metrics: .gram)
+    private let fatsView = NutrientView(metrics: .gram)
+    private let proteinsView = NutrientView(metrics: .gram)
+
+    private lazy var nutrientsStackView = {
+        let stack = UIStackView(arrangedSubviews: [
+            self.enercView,
+            self.carbohydratesView,
+            self.fatsView,
+            self.proteinsView
+        ])
+        stack.spacing = 6
+        stack.distribution = .fillEqually
+        return stack
+    }()
 
     // MARK: - Private Properties
 
@@ -38,9 +51,9 @@ class RecipeShimmerCell: UITableViewCell {
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         recipeImageShimmerView.startShimmerAnimation(speed: 3)
-        dishNameShimmerView.startShimmerAnimation(speed: 3)
-        timerShimmerView.startShimmerAnimation(speed: 3)
-        caloriesShimmerView.startShimmerAnimation(speed: 3)
+        titleLabelShimmerView.startShimmerAnimation(speed: 3)
+        nutrientsStackView.startShimmerAnimation(speed: 3)
+        recipeLabelShimmerView.startShimmerAnimation(speed: 3)
     }
 
     // MARK: - Private Methods
@@ -51,80 +64,55 @@ class RecipeShimmerCell: UITableViewCell {
         let subviews = [
             titleLabelShimmerView,
             recipeImageShimmerView,
-            kcalShimmerView,
-
-            dishNameShimmerView,
-            timerShimmerView,
-            caloriesShimmerView
+            nutrientsStackView,
+            recipeLabelShimmerView
         ]
         contentView.addSubviews(subviews)
         recipeImageShimmerView.layer.cornerRadius = 12
-        titleLabelShimmerView.layer.cornerRadius = 12
         titleLabelShimmerView.backgroundColor = .recipeView
+        recipeLabelShimmerView.layer.cornerRadius = 24
     }
 
     private func configureLayout() {
         UIView.doNotTAMIC(for: contentView.subviews)
         titleLabelShimmerViewConfigureLayout()
-        dishImageShimmerViewConfigureLayout()
-        dishNameShimmerViewConfigureLayout()
-        kcalShimmerViewConfigureLayout()
-
-        timerShimmerViewConfigureLayout()
-        caloriesShimmerViewConfigureLayout()
+        recipeImageShimmerViewConfigureLayout()
+        nutrientsStackViewConfigureLayout()
+        recipeLabelShimmerViewConfigureLayout()
     }
 
     private func titleLabelShimmerViewConfigureLayout() {
         [
             titleLabelShimmerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            titleLabelShimmerView.widthAnchor.constraint(equalTo: contentView.widthAnchor)
+            titleLabelShimmerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            titleLabelShimmerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            titleLabelShimmerView.heightAnchor.constraint(equalToConstant: 16)
         ].activate()
     }
 
-    private func dishImageShimmerViewConfigureLayout() {
+    private func recipeImageShimmerViewConfigureLayout() {
         [
             recipeImageShimmerView.topAnchor.constraint(equalTo: titleLabelShimmerView.bottomAnchor, constant: 20),
             recipeImageShimmerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 45),
-//            recipeImageShimmerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
             recipeImageShimmerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -45),
             recipeImageShimmerView.heightAnchor.constraint(equalTo: recipeImageShimmerView.widthAnchor),
         ].activate()
     }
 
-    private func kcalShimmerViewConfigureLayout() {
+    private func nutrientsStackViewConfigureLayout() {
         [
-            kcalShimmerView.topAnchor.constraint(equalTo: recipeImageShimmerView.bottomAnchor, constant: 20),
-            kcalShimmerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 40),
-            kcalShimmerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
-            kcalShimmerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -45),
-            kcalShimmerView.heightAnchor.constraint(equalTo: recipeImageShimmerView.widthAnchor),
+            nutrientsStackView.topAnchor.constraint(equalTo: recipeImageShimmerView.bottomAnchor, constant: 20),
+            nutrientsStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            nutrientsStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
         ].activate()
     }
 
-    private func dishNameShimmerViewConfigureLayout() {
+    private func recipeLabelShimmerViewConfigureLayout() {
         [
-            dishNameShimmerView.leadingAnchor.constraint(equalTo: recipeImageShimmerView.trailingAnchor, constant: 20),
-            dishNameShimmerView.topAnchor.constraint(equalTo: recipeImageShimmerView.topAnchor, constant: 12),
-            dishNameShimmerView.trailingAnchor.constraint(equalTo: titleLabelShimmerView.trailingAnchor, constant: -43),
-            dishNameShimmerView.heightAnchor.constraint(greaterThanOrEqualToConstant: 32)
-        ].activate()
-    }
-
-    private func timerShimmerViewConfigureLayout() {
-        [
-            timerShimmerView.leadingAnchor.constraint(equalTo: recipeImageShimmerView.trailingAnchor, constant: 20),
-            timerShimmerView.topAnchor.constraint(equalTo: dishNameShimmerView.bottomAnchor, constant: 8),
-            timerShimmerView.widthAnchor.constraint(equalToConstant: 74),
-            timerShimmerView.heightAnchor.constraint(equalToConstant: 15)
-        ].activate()
-    }
-
-    private func caloriesShimmerViewConfigureLayout() {
-        [
-            caloriesShimmerView.leadingAnchor.constraint(equalTo: timerShimmerView.trailingAnchor, constant: 10),
-            caloriesShimmerView.topAnchor.constraint(equalTo: dishNameShimmerView.bottomAnchor, constant: 8),
-            caloriesShimmerView.widthAnchor.constraint(equalToConstant: 91),
-            caloriesShimmerView.heightAnchor.constraint(equalToConstant: 15)
+            recipeLabelShimmerView.topAnchor.constraint(equalTo: nutrientsStackView.bottomAnchor, constant: 20),
+            recipeLabelShimmerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            recipeLabelShimmerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            recipeLabelShimmerView.heightAnchor.constraint(equalToConstant: 300)
         ].activate()
     }
 }
