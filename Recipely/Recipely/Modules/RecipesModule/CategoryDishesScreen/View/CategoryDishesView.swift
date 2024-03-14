@@ -60,43 +60,11 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
         return table
     }()
 
-    // MARK: - Private Properties
-
-    private let errorPlaceholderView = {
-        let view = CategoryPlaceholderView()
-        view.isHiddenNothingFoundLabel = true
-        view.isHiddenAnotherRequestLabel = true
-        view.reloadText = Constants.reloadText
-        view.titleLabelText = Constants.titleLabelText
-        view.image = UIImage(named: "mistake")
-        view.imageLoading = .reloadIcon
+    private lazy var categoryPlaceholerView = {
+        let view = CategoryDishesPlaceholderView()
+        view.addTarget(self, action: #selector(reloadButtonTapped))
         return view
     }()
-
-    private let noDataPlaceholderView = {
-        let view = CategoryPlaceholderView()
-        view.isHiddenNothingFoundLabel = true
-        view.isHiddenAnotherRequestLabel = true
-        view.isHiddenImageButton = true
-        view.isHiddenReloadText = true
-        view.isHiddenBackgroundView = true
-        view.titleLabelText = Constants.noDataPlaceholderViewText
-        view.image = UIImage(named: "magnifier")
-        return view
-    }()
-
-    private let nothingFoundPlaceholderView = {
-        let view = CategoryPlaceholderView()
-        view.isHiddenNothingFoundLabel = false
-        view.isHiddenAnotherRequestLabel = false
-        view.isHiddenBackgroundView = true
-        view.isHiddenImageButton = true
-        view.isHiddenReloadText = true
-        view.isHiddenTitleLabel = true
-        view.image = UIImage(named: "magnifier")
-        return view
-    }()
-    private let placeholderView = CategoryPlaceholderView()
 
     // MARK: - Public Properties
 
@@ -108,7 +76,7 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
         super.viewDidLoad()
         configureUI()
         configureLayout()
-        presenter?.viewLoaded()
+        presenter?.requestDishesUpdate()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -120,38 +88,17 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
 
     private func configureUI() {
         view.backgroundColor = .systemBackground
-        view.addSubviews(
-            tableView,
-            searhBar,
-            caloriesSortControl,
-            timeSortControl,
-            errorPlaceholderView,
-            nothingFoundPlaceholderView,
-            noDataPlaceholderView
-        )
+        view.addSubviews(tableView, searhBar, caloriesSortControl, timeSortControl, categoryPlaceholerView)
         configureNavigationItem()
-        errorPlaceholderView.isHidden = true
-        nothingFoundPlaceholderView.isHidden = true
-        noDataPlaceholderView.isHidden = true
     }
 
     private func configureLayout() {
-        UIView.doNotTAMIC(
-            for: tableView,
-            searhBar,
-            caloriesSortControl,
-            timeSortControl,
-            errorPlaceholderView,
-            nothingFoundPlaceholderView,
-            noDataPlaceholderView
-        )
+        UIView.doNotTAMIC(for: tableView, searhBar, caloriesSortControl, timeSortControl, categoryPlaceholerView)
         configureSearhBarConstraints()
         configureCaloriesViewConstraints()
         configureTimeViewConstraints()
         configureTableViewConstraits()
-        configurePlaceholderViewConstraits()
-        configureNothingFoundPlaceholderViewConstraits()
-        configureNoDataPlaceholderViewConstraits()
+        categoryPlaceholerViewConfigureLayout()
     }
 
     private func configureSearhBarConstraints() {
@@ -186,33 +133,10 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
         ].activate()
     }
 
-    private func configurePlaceholderViewConstraits() {
+    private func categoryPlaceholerViewConfigureLayout() {
         [
-            errorPlaceholderView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            errorPlaceholderView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            errorPlaceholderView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            errorPlaceholderView.widthAnchor.constraint(equalToConstant: 350),
-            errorPlaceholderView.heightAnchor.constraint(equalToConstant: 140)
-        ].activate()
-    }
-
-    private func configureNothingFoundPlaceholderViewConstraits() {
-        [
-            nothingFoundPlaceholderView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            nothingFoundPlaceholderView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            nothingFoundPlaceholderView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            nothingFoundPlaceholderView.widthAnchor.constraint(equalToConstant: 350),
-            nothingFoundPlaceholderView.heightAnchor.constraint(equalToConstant: 140)
-        ].activate()
-    }
-
-    private func configureNoDataPlaceholderViewConstraits() {
-        [
-            noDataPlaceholderView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            noDataPlaceholderView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            noDataPlaceholderView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            noDataPlaceholderView.widthAnchor.constraint(equalToConstant: 350),
-            noDataPlaceholderView.heightAnchor.constraint(equalToConstant: 140)
+            categoryPlaceholerView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            categoryPlaceholerView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)
         ].activate()
     }
 
@@ -240,18 +164,24 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
             tableView.cellForRow(at: selectedIndex)?.isSelected = false
         }
     }
+
+    @objc private func reloadButtonTapped() {
+        presenter?.requestDishesUpdate()
+    }
 }
 
 extension CategoryDishesView: CategoryDishesViewProtocol {
     func updateState() {
-        switch presenter?.state {
+        guard let presenter else { return }
+        switch presenter.state {
         case .loading, .data:
-            tableView.reloadData()
+            categoryPlaceholerView.switchToState(.hidden)
         case .noData:
-            print("no data")
-        case .error, .none:
-            print("error")
+            categoryPlaceholerView.switchToState(.nothingFound)
+        case .error:
+            categoryPlaceholerView.switchToState(.error)
         }
+        tableView.reloadData()
     }
 }
 
@@ -268,7 +198,8 @@ extension CategoryDishesView: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch presenter?.state {
+        guard let presenter else { return UITableViewCell() }
+        switch presenter.state {
         case .loading:
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: DishShimmerCell.description(),
@@ -280,9 +211,9 @@ extension CategoryDishesView: UITableViewDataSource {
                 withIdentifier: DishCell.description(),
                 for: indexPath
             ) as? DishCell else { return UITableViewCell() }
-            cell.configure(with: dishes[indexPath.row])
 
-            presenter?.getImageForCell(atIndex: indexPath.row) { imageData, index in
+            cell.configure(with: dishes[indexPath.row])
+            presenter.getImageForCell(atIndex: indexPath.row) { imageData, index in
                 guard let image = UIImage(data: imageData) else { return }
                 DispatchQueue.main.async {
                     let currentIndexOfUpdatingCell = tableView.indexPath(for: cell)?.row
@@ -291,7 +222,7 @@ extension CategoryDishesView: UITableViewDataSource {
                 }
             }
             return cell
-        case .noData, .error, .none:
+        case .noData, .error:
             break
         }
         return UITableViewCell()
@@ -301,7 +232,6 @@ extension CategoryDishesView: UITableViewDataSource {
 extension CategoryDishesView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         presenter?.didTapCell(atIndex: indexPath.row)
-
         tableView.cellForRow(at: indexPath)?.isSelected = true
     }
 
