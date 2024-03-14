@@ -51,7 +51,7 @@ final class CategoriesView: UIViewController {
         super.viewDidDisappear(animated)
         deselectSelectedItem()
     }
-    
+
     // MARK: - Private Methods
 
     private func configureUI() {

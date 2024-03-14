@@ -73,7 +73,7 @@ final class TermsOfUseView: UIViewController {
         super.viewDidAppear(animated)
         animateTransitionIfNeeded(state: .halfExpanded, duration: 0.9)
     }
-    
+
     // MARK: - Private Methods
 
     private func configureUI() {

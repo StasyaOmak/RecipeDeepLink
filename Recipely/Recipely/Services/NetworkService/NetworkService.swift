@@ -7,7 +7,7 @@ import Foundation
 protocol NetworkServiceProtocol {
     /// Запрашивает массив блюд с переданными параметрами запроса
     func searchForDishes(
-        dishType: DishType,
+        dishType: DishCategory,
         health: String?,
         query: String?,
         completion: @escaping (Result<[Dish], Error>) -> Void
@@ -31,7 +31,6 @@ class NetworkService {
         static let queryKey = "q"
         static let healthKey = "health"
         static let uriKey = "uri"
-        
     }
 
     // MARK: - Private Properties
@@ -70,7 +69,7 @@ class NetworkService {
 
 extension NetworkService: NetworkServiceProtocol {
     func searchForDishes(
-        dishType: DishType,
+        dishType: DishCategory,
         health: String?,
         query: String?,
         completion: @escaping (Result<[Dish], Error>) -> Void

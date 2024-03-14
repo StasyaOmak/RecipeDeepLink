@@ -1,28 +1,28 @@
-// DishType.swift
+// DishCategory.swift
 // Copyright © RoadMap. All rights reserved.
 
 import Foundation
 
 /// Перечисление, представляющее типы блюд.
-enum DishType {
+enum DishCategory: String {
     /// Салат
-    case salad
+    case salad = "Salad"
     /// Суп
-    case soup
+    case soup = "Soup"
     /// Курица
-    case chicken
+    case chicken = "Chiken"
     /// Мясо
-    case meat
+    case meat = "Meat"
     /// Рыба
-    case fish
+    case fish = "Fish"
     /// Гарнир
-    case sideDish
+    case sideDish = "Side Dish"
     /// Блин
-    case pancake
+    case pancake = "Pancake"
     /// Напитки
-    case drinks
+    case drinks = "Drinks"
     /// Десерты
-    case desserts
+    case desserts = "Desserts"
 
     /// Возвращает строковое представление типа блюда для указания в запросе.
     var stringValue: String {

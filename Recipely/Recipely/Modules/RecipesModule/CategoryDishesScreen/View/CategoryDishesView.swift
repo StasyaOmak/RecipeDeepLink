@@ -5,8 +5,8 @@ import UIKit
 
 /// Интерфейс взаимодействия с CategoryDishesView
 protocol CategoryDishesViewProtocol: AnyObject {
-    /// Функция для обновления данных в таблице
-    func reloadDishes()
+    /// Обновляет состояние вью
+    func updateState()
 }
 
 /// Вью экрана списка блюд категории
@@ -14,9 +14,8 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
     // MARK: - Constants
 
     private enum Constants {
-        static let caloriesText = "Calories"
-        static let timeText = "Time"
-        static let fishText = "Fish"
+        static let caloriesFilterText = "Calories"
+        static let timeFilterText = "Time"
         static let placeholderText = "Search recipes"
     }
 
@@ -35,13 +34,13 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
     }()
 
     private lazy var caloriesSortControl = {
-        let view = SortControl(title: Constants.caloriesText, state: .none)
+        let view = SortControl(title: Constants.caloriesFilterText, state: .none)
         view.delegate = self
         return view
     }()
 
     private lazy var timeSortControl = {
-        let view = SortControl(title: Constants.timeText, state: .none)
+        let view = SortControl(title: Constants.timeFilterText, state: .none)
         view.delegate = self
         return view
     }()
@@ -58,9 +57,13 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
         return table
     }()
 
+    private let placeholderView = CategoryPlaceholderView()
+
     // MARK: - Public Properties
 
     var presenter: CategoryDishesPresenterProtocol?
+
+    // MARK: - Private Properties
 
     // MARK: - Life Cycle
 
@@ -68,10 +71,6 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
         super.viewDidLoad()
         configureUI()
         configureLayout()
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        presenter?.viewDidAppear()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -83,16 +82,18 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
 
     private func configureUI() {
         view.backgroundColor = .systemBackground
-        view.addSubviews(tableView, searhBar, caloriesSortControl, timeSortControl)
+        view.addSubviews(tableView, searhBar, caloriesSortControl, timeSortControl, placeholderView)
         configureNavigationItem()
+        placeholderView.isHidden = true
     }
 
     private func configureLayout() {
-        UIView.doNotTAMIC(for: tableView, searhBar, caloriesSortControl, timeSortControl)
+        UIView.doNotTAMIC(for: tableView, searhBar, caloriesSortControl, timeSortControl, placeholderView)
         configureSearhBarConstraints()
         configureCaloriesViewConstraints()
         configureTimeViewConstraints()
         configureTableViewConstraits()
+        configurePlaceholderViewConstraits()
     }
 
     private func configureSearhBarConstraints() {
@@ -127,6 +128,16 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
         ].activate()
     }
 
+    private func configurePlaceholderViewConstraits() {
+        [
+            placeholderView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            placeholderView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            placeholderView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            placeholderView.widthAnchor.constraint(equalToConstant: 350),
+            placeholderView.heightAnchor.constraint(equalToConstant: 140)
+        ].activate()
+    }
+
     private func configureNavigationItem() {
         let backButtonItem = UIBarButtonItem(
             image: .backArrow.withRenderingMode(.alwaysOriginal),
@@ -154,39 +165,56 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
 }
 
 extension CategoryDishesView: CategoryDishesViewProtocol {
-    func reloadDishes() {
-        tableView.reloadData()
+    func updateState() {
+        switch presenter?.state {
+        case .loading, .data:
+            tableView.reloadData()
+        case .noData:
+            print("no data")
+        case .error, .none:
+            print("error")
+        }
     }
 }
 
 extension CategoryDishesView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        presenter?.getNumberDishes() ?? 0
+        switch presenter?.state {
+        case .loading:
+            6
+        case let .data(dishes):
+            dishes.count
+        case .noData, .error, .none:
+            0
+        }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let dish = presenter?.getDish(forIndex: indexPath.row) else { return UITableViewCell() }
-        switch dish {
-        case let .data(dish):
-            guard let cell = tableView.dequeueReusableCell(
-                withIdentifier: DishCell.description(),
-                for: indexPath
-            ) as? DishCell else { return UITableViewCell() }
-            cell.configure(with: dish)
-            return cell
+        switch presenter?.state {
         case .loading:
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: DishShimmerCell.description(),
                 for: indexPath
             ) as? DishShimmerCell else { return UITableViewCell() }
             return cell
+        case let .data(dishes):
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: DishCell.description(),
+                for: indexPath
+            ) as? DishCell else { return UITableViewCell() }
+            cell.configure(with: dishes[indexPath.row])
+            return cell
+        case .noData, .error, .none:
+            break
         }
+        return UITableViewCell()
     }
 }
 
 extension CategoryDishesView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         presenter?.didTapCell(atIndex: indexPath.row)
+
         tableView.cellForRow(at: indexPath)?.isSelected = true
     }
 

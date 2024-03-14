@@ -9,6 +9,8 @@ protocol DishDetailsViewProtocol: AnyObject {
     func configure(with dish: Dish?)
     /// Покрасить значок избранное
     func updateFavouritesButtonState(to isHighlited: Bool)
+    /// Обновляет состояние вью
+    func updateState()
 }
 
 /// Экран детальной информации о блюде
@@ -120,6 +122,17 @@ final class DishDetailsView: UIViewController, UIGestureRecognizerDelegate {
 }
 
 extension DishDetailsView: DishDetailsViewProtocol {
+    func updateState() {
+        switch presenter?.state {
+        case .loading, .data:
+            dishInfoTableView.reloadData()
+        case .noData:
+            print("noData")
+        case .error, .none:
+            print("error")
+        }
+    }
+
     func updateFavouritesButtonState(to isHighlited: Bool) {
         let image: UIImage = isHighlited ? .bookmarkSelectedIcon : .bookmarkIcon
         addToFavouritesButton.setImage(image, for: .normal)
@@ -132,41 +145,55 @@ extension DishDetailsView: DishDetailsViewProtocol {
 
 extension DishDetailsView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        dishInfoTableViewCells.count
+        switch presenter?.state {
+        case .data:
+            dishInfoTableViewCells.count
+        case .noData, .error, .loading, .none:
+            0
+        }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch dishInfoTableViewCells[indexPath.row] {
-        case .dish:
-            guard let dish,
-                  let cell = tableView.dequeueReusableCell(
-                      withIdentifier: DishInfoCell.description(),
-                      for: indexPath
-                  ) as? DishInfoCell
-            else { return UITableViewCell() }
-            cell.selectionStyle = .none
-            cell.configure(with: dish)
+        switch presenter?.state {
+        case .loading:
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: DishShimmerCell.description(),
+                for: indexPath
+            ) as? DishShimmerCell else { return UITableViewCell() }
             return cell
-        case .KBZHU:
-            guard let dish,
-                  let cell = tableView.dequeueReusableCell(
-                      withIdentifier: DishKBZHUCell.description(),
-                      for: indexPath
-                  ) as? DishKBZHUCell
-            else { return UITableViewCell() }
-            cell.selectionStyle = .none
-            cell.configure(with: dish)
-            return cell
-        case .recipe:
-            guard let dish,
-                  let cell = tableView.dequeueReusableCell(
-                      withIdentifier: DishRecipeCell.description(),
-                      for: indexPath
-                  ) as? DishRecipeCell
-            else { return UITableViewCell() }
-            cell.selectionStyle = .none
-            cell.configure(with: dish)
-            return cell
+        case let .data(recipe):
+            switch dishInfoTableViewCells[indexPath.row] {
+            case .dish:
+                guard let cell = tableView.dequeueReusableCell(
+                    withIdentifier: DishInfoCell.description(),
+                    for: indexPath
+                ) as? DishInfoCell
+                else { return UITableViewCell() }
+                cell.selectionStyle = .none
+                cell.configure(with: recipe)
+                return cell
+            case .KBZHU:
+                guard let cell = tableView.dequeueReusableCell(
+                    withIdentifier: DishKBZHUCell.description(),
+                    for: indexPath
+                ) as? DishKBZHUCell
+                else { return UITableViewCell() }
+                cell.selectionStyle = .none
+                cell.configure(with: recipe)
+                return cell
+            case .recipe:
+                guard let cell = tableView.dequeueReusableCell(
+                    withIdentifier: DishRecipeCell.description(),
+                    for: indexPath
+                ) as? DishRecipeCell
+                else { return UITableViewCell() }
+                cell.selectionStyle = .none
+                cell.configure(with: recipe)
+                return cell
+            }
+        case .noData, .error, .none:
+            break
         }
+        return UITableViewCell()
     }
 }

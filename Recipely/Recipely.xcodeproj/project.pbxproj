@@ -13,6 +13,8 @@
 		214F1D892B99D59400A16E7B /* UserAuthData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 214F1D882B99D59400A16E7B /* UserAuthData.swift */; };
 		214F1D8F2B9A0BF400A16E7B /* Originator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 214F1D8E2B9A0BF400A16E7B /* Originator.swift */; };
 		218656F92B98708200540121 /* BasicDishShimmerCell .swift in Sources */ = {isa = PBXBuildFile; fileRef = 218656F82B98708200540121 /* BasicDishShimmerCell .swift */; };
+		218A43F22BA249D100C71BA7 /* CategoryPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218A43F12BA249D100C71BA7 /* CategoryPlaceholderView.swift */; };
+		21A5864A2BA3344900F27717 /* RecipeShimmerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A586492BA3344900F27717 /* RecipeShimmerCell.swift */; };
 		21B91CDA2B90BEB10041D5E9 /* SortControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B91CD92B90BEB10041D5E9 /* SortControl.swift */; };
 		21B91CDC2B90D0370041D5E9 /* SortState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B91CDB2B90D0370041D5E9 /* SortState.swift */; };
 		21D3E1AE2B9C9E2500241C7D /* AuthFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D3E1AD2B9C9E2500241C7D /* AuthFieldView.swift */; };
@@ -51,11 +53,13 @@
 		9D4DF4992BA11DBD008FAB6F /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4DF4982BA11DBD008FAB6F /* NetworkService.swift */; };
 		9D4DF49B2BA11DCF008FAB6F /* RecipeTDO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4DF49A2BA11DCF008FAB6F /* RecipeTDO.swift */; };
 		9D4DF49D2BA11F09008FAB6F /* Dish.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4DF49C2BA11F09008FAB6F /* Dish.swift */; };
-		9D4DF4A02BA1A18B008FAB6F /* DishType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4DF49F2BA1A18B008FAB6F /* DishType.swift */; };
+		9D4DF4A02BA1A18B008FAB6F /* DishCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4DF49F2BA1A18B008FAB6F /* DishCategory.swift */; };
 		9D4DF4A22BA1AACD008FAB6F /* ResponceDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4DF4A12BA1AACD008FAB6F /* ResponceDTO.swift */; };
 		9D4DF4A42BA1AADD008FAB6F /* HitDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4DF4A32BA1AADD008FAB6F /* HitDTO.swift */; };
 		9D4DF4A62BA1AB12008FAB6F /* NutrientInfoDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4DF4A52BA1AB12008FAB6F /* NutrientInfoDTO.swift */; };
 		9D4DF4A92BA1C726008FAB6F /* URL+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4DF4A82BA1C726008FAB6F /* URL+Extension.swift */; };
+		9D4DF4AC2BA2D8DB008FAB6F /* ImageLoadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4DF4AB2BA2D8DB008FAB6F /* ImageLoadService.swift */; };
+		9D4DF4AF2BA2D906008FAB6F /* ImageLoadProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4DF4AE2BA2D906008FAB6F /* ImageLoadProxy.swift */; };
 		9D6115462B8D312E008EF247 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D61153F2B8D312E008EF247 /* AuthCoordinator.swift */; };
 		9D6115472B8D312E008EF247 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6115452B8D312E008EF247 /* Validator.swift */; };
 		9D6115482B8D312E008EF247 /* AuthPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6115432B8D312E008EF247 /* AuthPresenter.swift */; };
@@ -108,6 +112,8 @@
 		214F1D882B99D59400A16E7B /* UserAuthData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthData.swift; sourceTree = "<group>"; };
 		214F1D8E2B9A0BF400A16E7B /* Originator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Originator.swift; sourceTree = "<group>"; };
 		218656F82B98708200540121 /* BasicDishShimmerCell .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BasicDishShimmerCell .swift"; sourceTree = "<group>"; };
+		218A43F12BA249D100C71BA7 /* CategoryPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPlaceholderView.swift; sourceTree = "<group>"; };
+		21A586492BA3344900F27717 /* RecipeShimmerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeShimmerCell.swift; sourceTree = "<group>"; };
 		21B91CD92B90BEB10041D5E9 /* SortControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortControl.swift; sourceTree = "<group>"; };
 		21B91CDB2B90D0370041D5E9 /* SortState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortState.swift; sourceTree = "<group>"; };
 		21D3E1AD2B9C9E2500241C7D /* AuthFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthFieldView.swift; sourceTree = "<group>"; };
@@ -145,12 +151,14 @@
 		9D499B952B96247C007B36D0 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = SOURCE_ROOT; };
 		9D4DF4982BA11DBD008FAB6F /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		9D4DF49A2BA11DCF008FAB6F /* RecipeTDO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeTDO.swift; sourceTree = "<group>"; };
-		9D4DF49C2BA11F09008FAB6F /* Dish.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Dish.swift; path = ../Services/NetworkService/Dish.swift; sourceTree = "<group>"; };
-		9D4DF49F2BA1A18B008FAB6F /* DishType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishType.swift; sourceTree = "<group>"; };
+		9D4DF49C2BA11F09008FAB6F /* Dish.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dish.swift; sourceTree = "<group>"; };
+		9D4DF49F2BA1A18B008FAB6F /* DishCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishCategory.swift; sourceTree = "<group>"; };
 		9D4DF4A12BA1AACD008FAB6F /* ResponceDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponceDTO.swift; sourceTree = "<group>"; };
 		9D4DF4A32BA1AADD008FAB6F /* HitDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HitDTO.swift; sourceTree = "<group>"; };
 		9D4DF4A52BA1AB12008FAB6F /* NutrientInfoDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutrientInfoDTO.swift; sourceTree = "<group>"; };
 		9D4DF4A82BA1C726008FAB6F /* URL+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extension.swift"; sourceTree = "<group>"; };
+		9D4DF4AB2BA2D8DB008FAB6F /* ImageLoadService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoadService.swift; sourceTree = "<group>"; };
+		9D4DF4AE2BA2D906008FAB6F /* ImageLoadProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoadProxy.swift; sourceTree = "<group>"; };
 		9D61153F2B8D312E008EF247 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
 		9D6115412B8D312E008EF247 /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		9D6115432B8D312E008EF247 /* AuthPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPresenter.swift; sourceTree = "<group>"; };
@@ -209,6 +217,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		21A586462BA3110500F27717 /* DishRecipeCell */ = {
+			isa = PBXGroup;
+			children = (
+				9D499B812B927F46007B36D0 /* DishRecipeCell.swift */,
+			);
+			path = DishRecipeCell;
+			sourceTree = "<group>";
+		};
 		21EF33E52B93F4E000C2CDB0 /* FavouritesScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -232,7 +248,7 @@
 		21FE4D8F2B8FE97100FA377F /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				2102A3A22B97F4E0002D64B6 /* ViewState.swift */,
+				21B91CDB2B90D0370041D5E9 /* SortState.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -241,6 +257,7 @@
 			isa = PBXGroup;
 			children = (
 				21FE4D942B8FE9F000FA377F /* CategoryDishesView.swift */,
+				218A43F12BA249D100C71BA7 /* CategoryPlaceholderView.swift */,
 				21B91CD92B90BEB10041D5E9 /* SortControl.swift */,
 				21FE4D9A2B8FFD8A00FA377F /* DishCell.swift */,
 				218656F82B98708200540121 /* BasicDishShimmerCell .swift */,
@@ -252,7 +269,6 @@
 			isa = PBXGroup;
 			children = (
 				21FE4D962B8FEBEA00FA377F /* CategoryDishesPresenter.swift */,
-				21B91CDB2B90D0370041D5E9 /* SortState.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -367,6 +383,7 @@
 			isa = PBXGroup;
 			children = (
 				9D499B722B927B89007B36D0 /* DishDetailsView.swift */,
+				21A586492BA3344900F27717 /* RecipeShimmerCell.swift */,
 				9D499B832B927F4A007B36D0 /* DishTableViewCells */,
 			);
 			path = View;
@@ -377,7 +394,7 @@
 			children = (
 				9D499B862B9358B8007B36D0 /* DishInfoCell */,
 				9D499B8B2B937BBD007B36D0 /* DishKBZHUCell */,
-				9D499B812B927F46007B36D0 /* DishRecipeCell.swift */,
+				21A586462BA3110500F27717 /* DishRecipeCell */,
 			);
 			path = DishTableViewCells;
 			sourceTree = "<group>";
@@ -406,7 +423,7 @@
 			children = (
 				9D4DF4982BA11DBD008FAB6F /* NetworkService.swift */,
 				9D4DF4A72BA1AB1E008FAB6F /* DTO */,
-				9D4DF49F2BA1A18B008FAB6F /* DishType.swift */,
+				9D4DF4AD2BA2D8DF008FAB6F /* ImageLoadSerice */,
 			);
 			path = NetworkService;
 			sourceTree = "<group>";
@@ -420,6 +437,24 @@
 				9D4DF4A52BA1AB12008FAB6F /* NutrientInfoDTO.swift */,
 			);
 			path = DTO;
+			sourceTree = "<group>";
+		};
+		9D4DF4AA2BA2D4DA008FAB6F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9D4DF49C2BA11F09008FAB6F /* Dish.swift */,
+				2102A3A22B97F4E0002D64B6 /* ViewState.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		9D4DF4AD2BA2D8DF008FAB6F /* ImageLoadSerice */ = {
+			isa = PBXGroup;
+			children = (
+				9D4DF4AB2BA2D8DB008FAB6F /* ImageLoadService.swift */,
+				9D4DF4AE2BA2D906008FAB6F /* ImageLoadProxy.swift */,
+			);
+			path = ImageLoadSerice;
 			sourceTree = "<group>";
 		};
 		9D61153E2B8D312E008EF247 /* AuthModule */ = {
@@ -463,7 +498,7 @@
 		9D61154A2B8D538E008EF247 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				9D4DF49C2BA11F09008FAB6F /* Dish.swift */,
+				9D4DF4AA2BA2D4DA008FAB6F /* Model */,
 				9D61153E2B8D312E008EF247 /* AuthModule */,
 				9D61154B2B8D53B2008EF247 /* RecipesModule */,
 				9D952B802B8D2CE300F6D8CC /* FavouritesModule */,
@@ -487,6 +522,7 @@
 			isa = PBXGroup;
 			children = (
 				9D499B392B9085EE007B36D0 /* Category.swift */,
+				9D4DF49F2BA1A18B008FAB6F /* DishCategory.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -815,7 +851,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9D952B772B8D261900F6D8CC /* ProfilePresenter.swift in Sources */,
-				9D4DF4A02BA1A18B008FAB6F /* DishType.swift in Sources */,
+				9D4DF4A02BA1A18B008FAB6F /* DishCategory.swift in Sources */,
 				9D499B732B927B89007B36D0 /* DishDetailsView.swift in Sources */,
 				218656F92B98708200540121 /* BasicDishShimmerCell .swift in Sources */,
 				9DC68F7B2B988E93000261C5 /* CaseIterable+Extension.swift in Sources */,
@@ -834,6 +870,7 @@
 				9D499B3C2B908BFB007B36D0 /* CategoryCell.swift in Sources */,
 				9D952B7C2B8D264B00F6D8CC /* User.swift in Sources */,
 				9D952B4E2B8D1CBC00F6D8CC /* AppDelegate.swift in Sources */,
+				9D4DF4AF2BA2D906008FAB6F /* ImageLoadProxy.swift in Sources */,
 				9DC68F832B9AFDCA000261C5 /* Caretaker.swift in Sources */,
 				9D6115672B8D54CC008EF247 /* CategoriesPresenter.swift in Sources */,
 				9D499B792B927D3A007B36D0 /* DishDetailsPresenter.swift in Sources */,
@@ -851,6 +888,7 @@
 				9D499B272B8E9795007B36D0 /* ProfileSubSection.swift in Sources */,
 				9D4DF4A42BA1AADD008FAB6F /* HitDTO.swift in Sources */,
 				9D499B7E2B927ECE007B36D0 /* DishInfoCell.swift in Sources */,
+				218A43F22BA249D100C71BA7 /* CategoryPlaceholderView.swift in Sources */,
 				9D952B7F2B8D283000F6D8CC /* ProfileCoordinator.swift in Sources */,
 				9DC68F912B9B196D000261C5 /* LogAction.swift in Sources */,
 				9D4DF49B2BA11DCF008FAB6F /* RecipeTDO.swift in Sources */,
@@ -874,6 +912,7 @@
 				9D4DF4992BA11DBD008FAB6F /* NetworkService.swift in Sources */,
 				9D6115652B8D54CC008EF247 /* CategoriesView.swift in Sources */,
 				21FE4D972B8FEBEA00FA377F /* CategoryDishesPresenter.swift in Sources */,
+				9D4DF4AC2BA2D8DB008FAB6F /* ImageLoadService.swift in Sources */,
 				9D499B882B935CE7007B36D0 /* DishCookingTimeView.swift in Sources */,
 				9D952B712B8D231800F6D8CC /* AppCoordinator.swift in Sources */,
 				9D6115482B8D312E008EF247 /* AuthPresenter.swift in Sources */,
@@ -901,6 +940,7 @@
 				9D499B222B8E7422007B36D0 /* Profile.swift in Sources */,
 				9D61156A2B8D6778008EF247 /* UIView+Extension.swift in Sources */,
 				9D499B802B927EF5007B36D0 /* DishKBZHUCell.swift in Sources */,
+				21A5864A2BA3344900F27717 /* RecipeShimmerCell.swift in Sources */,
 				9D952B882B8D2CE300F6D8CC /* FavouritesPresenter.swift in Sources */,
 				21B91CDA2B90BEB10041D5E9 /* SortControl.swift in Sources */,
 				9D499B8F2B93A464007B36D0 /* Float+Extension.swift in Sources */,

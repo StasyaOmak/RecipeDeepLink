@@ -12,6 +12,7 @@ final class DishKBZHUCell: UITableViewCell {
         static let carbohydratesText = "Carbohydrates"
         static let fatsText = "Fats"
         static let proteinsText = "Proteins"
+        static let format = "%0.2f"
     }
 
     // MARK: - Visual Components
@@ -50,10 +51,19 @@ final class DishKBZHUCell: UITableViewCell {
     // MARK: - Public Methods
 
     func configure(with dish: Dish) {
-//        enercView.configure(title: Constants.enercText, value: dish.enerc)
-//        carbohydratesView.configure(title: Constants.carbohydratesText, value: dish.carbohydrates)
-//        fatsView.configure(title: Constants.fatsText, value: dish.fats)
-//        proteinsView.configure(title: Constants.proteinsText, value: dish.proteins)
+        enercView.configure(title: Constants.enercText, value: Float(Int(dish.calories ?? 0)))
+        carbohydratesView.configure(
+            title: Constants.carbohydratesText,
+            value: Float(String(format: Constants.format, dish.carbohydrates ?? 0)) ?? 0
+        )
+        fatsView.configure(
+            title: Constants.fatsText,
+            value: Float(String(format: Constants.format, dish.fats ?? 0)) ?? 0
+        )
+        proteinsView.configure(
+            title: Constants.proteinsText,
+            value: Float(String(format: Constants.format, dish.proteins ?? 0)) ?? 0
+        )
     }
 
     // MARK: - Private Methods
