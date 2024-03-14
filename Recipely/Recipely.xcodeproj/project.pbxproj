@@ -59,6 +59,9 @@
 		9D4DF4A92BA1C726008FAB6F /* URL+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4DF4A82BA1C726008FAB6F /* URL+Extension.swift */; };
 		9D4DF4AC2BA2D8DB008FAB6F /* ImageLoadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4DF4AB2BA2D8DB008FAB6F /* ImageLoadService.swift */; };
 		9D4DF4AF2BA2D906008FAB6F /* ImageLoadProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4DF4AE2BA2D906008FAB6F /* ImageLoadProxy.swift */; };
+		9D4DF4B12BA2F973008FAB6F /* ServiceDistributor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4DF4B02BA2F973008FAB6F /* ServiceDistributor.swift */; };
+		9D4DF4B32BA2F994008FAB6F /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4DF4B22BA2F994008FAB6F /* Service.swift */; };
+		9D4DF4B52BA2FA0C008FAB6F /* ServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4DF4B42BA2FA0C008FAB6F /* ServiceProtocol.swift */; };
 		9D6115462B8D312E008EF247 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D61153F2B8D312E008EF247 /* AuthCoordinator.swift */; };
 		9D6115472B8D312E008EF247 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6115452B8D312E008EF247 /* Validator.swift */; };
 		9D6115482B8D312E008EF247 /* AuthPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6115432B8D312E008EF247 /* AuthPresenter.swift */; };
@@ -157,6 +160,9 @@
 		9D4DF4A82BA1C726008FAB6F /* URL+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extension.swift"; sourceTree = "<group>"; };
 		9D4DF4AB2BA2D8DB008FAB6F /* ImageLoadService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoadService.swift; sourceTree = "<group>"; };
 		9D4DF4AE2BA2D906008FAB6F /* ImageLoadProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoadProxy.swift; sourceTree = "<group>"; };
+		9D4DF4B02BA2F973008FAB6F /* ServiceDistributor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceDistributor.swift; sourceTree = "<group>"; };
+		9D4DF4B22BA2F994008FAB6F /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		9D4DF4B42BA2FA0C008FAB6F /* ServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceProtocol.swift; sourceTree = "<group>"; };
 		9D61153F2B8D312E008EF247 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
 		9D6115412B8D312E008EF247 /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		9D6115432B8D312E008EF247 /* AuthPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPresenter.swift; sourceTree = "<group>"; };
@@ -412,7 +418,6 @@
 			children = (
 				9D4DF4982BA11DBD008FAB6F /* NetworkService.swift */,
 				9D4DF4A72BA1AB1E008FAB6F /* DTO */,
-				9D4DF4AD2BA2D8DF008FAB6F /* ImageLoadSerice */,
 			);
 			path = NetworkService;
 			sourceTree = "<group>";
@@ -676,8 +681,12 @@
 		9DC68F7E2B9A12B3000261C5 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				9D4DF4B02BA2F973008FAB6F /* ServiceDistributor.swift */,
+				9D4DF4B22BA2F994008FAB6F /* Service.swift */,
+				9D4DF4B42BA2FA0C008FAB6F /* ServiceProtocol.swift */,
 				9DC68F872B9B07F2000261C5 /* Logger */,
 				9D4DF49E2BA1242D008FAB6F /* NetworkService */,
+				9D4DF4AD2BA2D8DF008FAB6F /* ImageLoadSerice */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -848,6 +857,7 @@
 				9D61156D2B8D67AE008EF247 /* NSLayoutConstraint+Extension.swift in Sources */,
 				9D952B8A2B8D2CE300F6D8CC /* Favourites.swift in Sources */,
 				9DC68F8B2B9B0834000261C5 /* LogCommand.swift in Sources */,
+				9D4DF4B12BA2F973008FAB6F /* ServiceDistributor.swift in Sources */,
 				21153D312B91ECFF0085ED80 /* FavouritesCell.swift in Sources */,
 				9D499B182B8E6878007B36D0 /* ProfileCell.swift in Sources */,
 				214F1D8F2B9A0BF400A16E7B /* Originator.swift in Sources */,
@@ -889,6 +899,7 @@
 				9D952B682B8D223500F6D8CC /* RecipelyTabBarCoordinator.swift in Sources */,
 				9D499B202B8E73AC007B36D0 /* Settings.swift in Sources */,
 				9D499B852B9358B4007B36D0 /* DishWeightView.swift in Sources */,
+				9D4DF4B52BA2FA0C008FAB6F /* ServiceProtocol.swift in Sources */,
 				9D499B822B927F46007B36D0 /* DishRecipeCell.swift in Sources */,
 				9D952B8B2B8D2CE300F6D8CC /* FavouritesView.swift in Sources */,
 				9D952B6E2B8D22DC00F6D8CC /* BaseCoordinator.swift in Sources */,
@@ -905,6 +916,7 @@
 				9D499B882B935CE7007B36D0 /* DishCookingTimeView.swift in Sources */,
 				9D952B712B8D231800F6D8CC /* AppCoordinator.swift in Sources */,
 				9D6115482B8D312E008EF247 /* AuthPresenter.swift in Sources */,
+				9D4DF4B32BA2F994008FAB6F /* Service.swift in Sources */,
 				9D499B1E2B8E6B60007B36D0 /* AssetImageName.swift in Sources */,
 				9D4DF4A62BA1AB12008FAB6F /* NutrientInfoDTO.swift in Sources */,
 				9D499B362B8F7937007B36D0 /* LoginButton.swift in Sources */,

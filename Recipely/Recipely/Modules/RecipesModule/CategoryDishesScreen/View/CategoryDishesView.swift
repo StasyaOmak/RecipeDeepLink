@@ -63,16 +63,13 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
 
     var presenter: CategoryDishesPresenterProtocol?
 
-    // MARK: - Private Properties
-
-    
-
     // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
         configureLayout()
+        presenter?.viewLoaded()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -205,6 +202,15 @@ extension CategoryDishesView: UITableViewDataSource {
                 for: indexPath
             ) as? DishCell else { return UITableViewCell() }
             cell.configure(with: dishes[indexPath.row])
+
+            presenter?.getImageForCell(atIndex: indexPath.row) { imageData, index in
+                guard let image = UIImage(data: imageData) else { return }
+                DispatchQueue.main.async {
+                    let currentIndexOfUpdatingCell = tableView.indexPath(for: cell)?.row
+                    guard currentIndexOfUpdatingCell == index else { return }
+                    cell.setDishImage(image)
+                }
+            }
             return cell
         case .noData, .error, .none:
             break

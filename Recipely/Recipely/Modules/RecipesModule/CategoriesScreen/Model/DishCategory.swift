@@ -10,7 +10,7 @@ enum DishCategory: String {
     /// Суп
     case soup = "Soup"
     /// Курица
-    case chicken = "Chiken"
+    case chicken = "Chicken"
     /// Мясо
     case meat = "Meat"
     /// Рыба

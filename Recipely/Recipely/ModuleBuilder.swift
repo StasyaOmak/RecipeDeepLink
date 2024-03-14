@@ -41,6 +41,16 @@ final class ModuleBuilder: Builder {
         static let profileText = "Profile"
     }
 
+    // MARK: - Private Properties
+
+    private var serviceDistributor: ServiceDistributorProtocol
+
+    // MARK: - Initializers
+
+    init(serviceDistributor: ServiceDistributorProtocol) {
+        self.serviceDistributor = serviceDistributor
+    }
+
     // MARK: - Public Methods
 
     func buildRecipelyTabBarController() -> RecipelyTabBarController {
@@ -73,7 +83,13 @@ final class ModuleBuilder: Builder {
         category: DishCategory
     ) -> CategoryDishesView {
         let view = CategoryDishesView()
-        let presenter = CategoryDishesPresenter(view: view, coordinator: coordinator, category: category)
+        let presenter = CategoryDishesPresenter(
+            view: view,
+            coordinator: coordinator,
+            networkService: serviceDistributor.getService(NetworkService.self),
+            imageLoadService: serviceDistributor.getService(ImageLoadProxy.self),
+            category: category
+        )
         view.presenter = presenter
         return view
     }

@@ -18,7 +18,14 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private func createWindow(with scene: UIScene) {
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
-        appCoordinator = AppCoordinator(window: window, builder: ModuleBuilder())
+
+        let serviceDistributor = ServiceDistributor()
+        serviceDistributor.registerService(service: NetworkService())
+        let imageLoadService = ImageLoadService()
+        serviceDistributor.registerService(service: ImageLoadProxy(imageLoadService: imageLoadService))
+
+        let moduleBuilder = ModuleBuilder(serviceDistributor: serviceDistributor)
+        appCoordinator = AppCoordinator(window: window, builder: moduleBuilder)
         appCoordinator?.start()
     }
 }
