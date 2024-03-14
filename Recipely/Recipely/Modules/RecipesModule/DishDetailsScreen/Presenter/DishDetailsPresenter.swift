@@ -5,6 +5,8 @@ import Foundation
 
 /// Интерфейс взаимодействия с DishDetailsPresenter
 protocol DishDetailsPresenterProtocol {
+    /// Состояние загрузки
+    var state: ViewState<Dish> { get }
     /// Сообщает о том, что вью начала свой жизненный цикл
     func viewBeganLoading()
     /// Сообщает о назатии на кнопку поделиться
@@ -24,20 +26,28 @@ final class DishDetailsPresenter {
     }
 
     private weak var view: DishDetailsViewProtocol?
+    private var uri: String
     private weak var coordinator: RecipesCoordinatorProtocol?
-    private var dish: Dish {
+    private let networkService = NetworkService()
+//    private var dish: Dish {
+//        didSet {
+    ////            view?.updateFavouritesButtonState(to: dish.isFavourite)
+//        }
+//    }
+
+    var state: ViewState<Dish> = .loading {
         didSet {
-//            view?.updateFavouritesButtonState(to: dish.isFavourite)
+            view?.updateState()
         }
     }
 
     // MARK: - Initializers
 
-    init(view: DishDetailsViewProtocol, coordinator: RecipesCoordinatorProtocol, dish: Dish) {
+    init(view: DishDetailsViewProtocol, coordinator: RecipesCoordinatorProtocol, uri: String) {
         self.view = view
         self.coordinator = coordinator
-        self.dish = dish
-//        addDishListener()
+        self.uri = uri
+        updateRecipe()
     }
 
     // MARK: - Life Cycle
@@ -53,15 +63,28 @@ final class DishDetailsPresenter {
 //            self?.dish = updatedDish
 //        }
 //    }
+
+    private func updateRecipe() {
+        networkService.getDish(byURI: uri) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case let .success(recipe):
+                    self?.state = .data(recipe)
+                case let .failure(error):
+                    self?.state = .error(error)
+                }
+            }
+        }
+    }
 }
 
 extension DishDetailsPresenter: DishDetailsPresenterProtocol {
     func viewBeganLoading() {
-        view?.configure(with: dish)
+//        view?.configure(with: dish)
     }
 
     func shareButtonTapped() {
-        LogAction.log(Constants.userSharedRecipeLogMessage + dish.name)
+//        LogAction.log(Constants.userSharedRecipeLogMessage + dish.name)
     }
 
     func addToFavouritesButtonTapped() {}

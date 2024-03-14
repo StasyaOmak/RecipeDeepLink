@@ -107,15 +107,16 @@ final class CategoryDishesPresenter {
     }
 
     private func getSortedCategoryDishes(using predicates: [AreDishesInIncreasingOrder]) -> [Dish] {
-        dishes.sorted { lhsDish, rhsDish in
-            for predicate in predicates {
-                if !predicate(lhsDish, rhsDish), !predicate(rhsDish, lhsDish) {
-                    continue
-                }
-                return predicate(lhsDish, rhsDish)
-            }
-            return false
-        }
+//        dishes.sorted { lhsDish, rhsDish in
+//            for predicate in predicates {
+//                if !predicate(lhsDish, rhsDish), !predicate(rhsDish, lhsDish) {
+//                    continue
+//                }
+//                return predicate(lhsDish, rhsDish)
+//            }
+//            return false
+//        }
+        []
     }
 
 //
@@ -185,9 +186,14 @@ extension CategoryDishesPresenter: CategoryDishesPresenterProtocol {
     }
 
     func didTapCell(atIndex index: Int) {
-//        LogAction.log(Constants.userOpenedDishScreenLogMessage + dishes[index].name)
-//        guard let dish = DishesService.shared.getDish(byId: dishes[index].id) else { return }
-//        coordinator?.showDishDetailsScreen(with: dish)
+        switch state {
+        case let .data(dish):
+            LogAction.log(Constants.userOpenedDishScreenLogMessage + "\(dish[index])")
+            let uri = dish[index].uri
+            coordinator?.showDishDetailsScreen(with: uri)
+        case .noData, .error, .loading:
+            break
+        }
     }
 
     func searchBarTextChanged(to text: String) {
