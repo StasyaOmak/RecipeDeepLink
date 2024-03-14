@@ -17,7 +17,7 @@ protocol Builder: AnyObject {
     func buildCategoryDishesScreen(coordinator: RecipesCoordinatorProtocol, category: DishCategory)
         -> CategoryDishesView
     /// Собирает экран рецепта
-    func buildDishDetailsScreen(coordinator: RecipesCoordinatorProtocol, dish: Dish) -> DishDetailsView
+    func buildDishDetailsScreen(coordinator: RecipesCoordinatorProtocol, uri: String) -> DishDetailsView
 
     // Экраны секции любимых рецептов
     /// Собирает экран любимых рецептов
@@ -78,9 +78,9 @@ final class ModuleBuilder: Builder {
         return view
     }
 
-    func buildDishDetailsScreen(coordinator: RecipesCoordinatorProtocol, dish: Dish) -> DishDetailsView {
+    func buildDishDetailsScreen(coordinator: RecipesCoordinatorProtocol, uri: String) -> DishDetailsView {
         let view = DishDetailsView()
-        let presenter = DishDetailsPresenter(view: view, coordinator: coordinator, dish: dish)
+        let presenter = DishDetailsPresenter(view: view, coordinator: coordinator, uri: uri)
         view.presenter = presenter
         return view
     }

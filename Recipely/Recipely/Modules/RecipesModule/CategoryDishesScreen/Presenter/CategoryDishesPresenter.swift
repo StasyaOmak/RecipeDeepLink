@@ -6,10 +6,10 @@ import Foundation
 /// Интерфейс взаимодействия с CategoryDishesPresenter
 protocol CategoryDishesPresenterProtocol {
     var state: ViewState<[Dish]> { get }
-    
+
     /// Получить название категории.
     func getTitle() -> String
-    
+
     /// Соощает о нажатии на ячейку какого либо блюда
     func didTapCell(atIndex index: Int)
     /// Сообщает о введенном пользователем заначениии поиска
@@ -40,11 +40,12 @@ final class CategoryDishesPresenter {
     private let networkService = NetworkService()
 //    private var dishes: [Dish] = []
     private var category: DishCategory
-    private var state: ViewState<[Dish]> = .loading {
+    var state: ViewState<[Dish]> = .loading {
         didSet {
             view?.updateState()
         }
     }
+
     private var caloriesSortState = SortState.none {
         didSet {
             updateDishes()
@@ -93,15 +94,16 @@ final class CategoryDishesPresenter {
     }
 
     private func getSortedCategoryDishes(using predicates: [AreDishesInIncreasingOrder]) -> [Dish] {
-        dishes.sorted { lhsDish, rhsDish in
-            for predicate in predicates {
-                if !predicate(lhsDish, rhsDish), !predicate(rhsDish, lhsDish) {
-                    continue
-                }
-                return predicate(lhsDish, rhsDish)
-            }
-            return false
-        }
+//        dishes.sorted { lhsDish, rhsDish in
+//            for predicate in predicates {
+//                if !predicate(lhsDish, rhsDish), !predicate(rhsDish, lhsDish) {
+//                    continue
+//                }
+//                return predicate(lhsDish, rhsDish)
+//            }
+//            return false
+//        }
+        []
     }
 
 //
@@ -129,7 +131,7 @@ final class CategoryDishesPresenter {
         if let searchPredicate {
             query?.append(searchPredicate)
         }
-        
+
         state = .loading
         networkService.searchForDishes(dishType: category, health: health, query: query) { [weak self] result in
             DispatchQueue.main.async {
@@ -150,9 +152,14 @@ extension CategoryDishesPresenter: CategoryDishesPresenterProtocol {
     }
 
     func didTapCell(atIndex index: Int) {
-        LogAction.log(Constants.userOpenedDishScreenLogMessage + dishes[index].name)
-//        guard let dish = DishesService.shared.getDish(byId: dishes[index].id) else { return }
-//        coordinator?.showDishDetailsScreen(with: dish)
+        switch state {
+        case let .data(dish):
+            LogAction.log(Constants.userOpenedDishScreenLogMessage + "\(dish[index])")
+            let uri = dish[index].uri
+            coordinator?.showDishDetailsScreen(with: uri)
+        case .noData, .error, .loading:
+            break
+        }
     }
 
     func searchBarTextChanged(to text: String) {

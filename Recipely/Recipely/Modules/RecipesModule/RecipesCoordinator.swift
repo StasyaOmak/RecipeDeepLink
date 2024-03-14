@@ -8,7 +8,7 @@ protocol RecipesCoordinatorProtocol: AnyObject {
     /// Презентует экран со списком блюд выбранной категории
     func showCategoryDishesScreen(withCategory category: DishCategory)
     /// Презентует экран с детальным писанием блюда
-    func showDishDetailsScreen(with dish: Dish)
+    func showDishDetailsScreen(with dish: String)
 }
 
 /// Координатор модуля рецептов
@@ -42,8 +42,8 @@ extension RecipesCoordinator: RecipesCoordinatorProtocol {
         rootController.pushViewController(view, animated: true)
     }
 
-    func showDishDetailsScreen(with dish: Dish) {
-        let view = builder.buildDishDetailsScreen(coordinator: self, dish: dish)
+    func showDishDetailsScreen(with uri: String) {
+        let view = builder.buildDishDetailsScreen(coordinator: self, uri: uri)
         rootController.pushViewController(view, animated: true)
     }
 }

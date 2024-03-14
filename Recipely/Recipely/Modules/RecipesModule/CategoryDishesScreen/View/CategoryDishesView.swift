@@ -65,8 +65,6 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
 
     // MARK: - Private Properties
 
-    
-
     // MARK: - Life Cycle
 
     override func viewDidLoad() {
@@ -216,6 +214,7 @@ extension CategoryDishesView: UITableViewDataSource {
 extension CategoryDishesView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         presenter?.didTapCell(atIndex: indexPath.row)
+
         tableView.cellForRow(at: indexPath)?.isSelected = true
     }
 
