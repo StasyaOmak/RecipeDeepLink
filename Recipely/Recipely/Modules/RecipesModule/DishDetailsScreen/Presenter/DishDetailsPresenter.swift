@@ -11,8 +11,7 @@ protocol DishDetailsPresenterProtocol {
     func requestDishUpdate()
     /// Получить данные изображения для ячейки по индексу
     func getDishImage(completion: @escaping (Data) -> ())
-
-    /// Сообщает о назатии на кнопку поделиться
+    /// Сообщает о нажатии на кнопку поделиться
     func shareButtonTapped()
 }
 
@@ -30,7 +29,7 @@ final class DishDetailsPresenter {
     private weak var imageLoadService: ImageLoadServiceProtocol?
 
     private var uri: String
-    var state: ViewState<Dish> = .loading {
+    private(set) var state: ViewState<Dish> = .loading {
         didSet {
             view?.updateState()
         }
@@ -40,7 +39,6 @@ final class DishDetailsPresenter {
 
     init(
         view: DishDetailsViewProtocol?,
-
         coordinator: RecipesCoordinatorProtocol?,
         networkService: NetworkServiceProtocol?,
         imageLoadService: ImageLoadServiceProtocol?,

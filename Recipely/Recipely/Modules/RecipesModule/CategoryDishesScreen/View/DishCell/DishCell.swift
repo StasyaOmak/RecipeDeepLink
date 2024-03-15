@@ -87,7 +87,6 @@ class DishCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         dishImageView.image = nil
-        print("reset image in cell")
     }
 
     // MARK: - Public Methods

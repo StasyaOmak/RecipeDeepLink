@@ -14,6 +14,9 @@ extension Float {
         }
     }
 
+    /// Возвращает стороковое представление числа с заданным количеством знаков после запятой
+    /// - Parameter numberOfPlaces: Количество знаков после запятой
+    /// - Returns: Строка представляющаяя число с заданным количеством знаков после запятой.
     func withDecimalPlaces(_ numberOfPlaces: Int) -> String {
         guard numberOfPlaces >= 0 else { return String(self) }
         return String(format: "%.\(numberOfPlaces)f", self)

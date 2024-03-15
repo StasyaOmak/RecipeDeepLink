@@ -41,7 +41,6 @@ extension AuthPresenter: AuthPresenterProtocol {
         } else {
             view?.setEmailFieldStateTo(.highlited)
         }
-
         if let text {
             view?.displayDeleteTextButton(isHidden: text.isEmpty)
         }

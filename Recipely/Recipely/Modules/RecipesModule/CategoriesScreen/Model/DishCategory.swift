@@ -5,9 +5,9 @@ import Foundation
 
 /// Перечисление, представляющее типы блюд.
 enum DishCategory: String {
-    /// Салат
+    /// Салаты
     case salad = "Salad"
-    /// Суп
+    /// Супы
     case soup = "Soup"
     /// Курица
     case chicken = "Chicken"
@@ -15,9 +15,9 @@ enum DishCategory: String {
     case meat = "Meat"
     /// Рыба
     case fish = "Fish"
-    /// Гарнир
+    /// Гарниры
     case sideDish = "Side Dish"
-    /// Блин
+    /// Блины
     case pancake = "Pancake"
     /// Напитки
     case drinks = "Drinks"

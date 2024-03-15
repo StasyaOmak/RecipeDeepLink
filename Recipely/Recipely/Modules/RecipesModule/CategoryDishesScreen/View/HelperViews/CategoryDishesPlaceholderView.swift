@@ -3,13 +3,17 @@
 
 import UIKit
 
-/// Вью для отображения информации что информация в категории не загрузилась
+/// Вью для отображения  дополнительной информации по состоянию загрузки данных
 final class CategoryDishesPlaceholderView: UIView {
     // MARK: - Constants
 
+    /// Состояние вью
     enum State {
+        /// Показывает информацию что данных нет
         case nothingFound
+        /// Показывает информацию об ошибке
         case error
+        /// Вью спрятано
         case hidden
     }
 

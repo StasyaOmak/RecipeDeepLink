@@ -4,7 +4,7 @@
 import Foundation
 
 /// Перечисление содержащее некоторые названия изображений из Assets (названия кейсов один в один!)
-enum AssetImageName: String, Codable {
+enum AssetImageName: String {
     case userIcon
     case logOutIcon
     case starIcon

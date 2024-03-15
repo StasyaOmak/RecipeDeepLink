@@ -25,5 +25,3 @@ extension String {
         return regEx.firstMatch(in: self, range: range) != nil
     }
 }
-
-extension String: Error {}

@@ -91,7 +91,7 @@ final class AuthView: UIViewController {
     }()
 
     private lazy var loginButton = {
-        let button = LoginButton()
+        let button = ActivityButton()
         button.setTitle(Constants.loginText, for: .normal)
         button.addTarget(self, action: #selector(
             loginButtonTapped

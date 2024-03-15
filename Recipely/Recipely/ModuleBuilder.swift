@@ -11,12 +11,12 @@ protocol Builder: AnyObject {
     func buildAuthScreen(coordinator: AuthCoordinatorProtocol) -> AuthView
 
     // Экраны секции рецептов
-    /// Собирает экран со списком категорий
+    /// Собирает экран со списком категорий блюд
     func buildCategoriesScreen(coordinator: RecipesCoordinatorProtocol) -> CategoriesView
     /// Собирает экран со списком блюд категории
     func buildCategoryDishesScreen(coordinator: RecipesCoordinatorProtocol, category: DishCategory)
         -> CategoryDishesView
-    /// Собирает экран рецепта
+    /// Собирает экран детальной информации по блюду
     func buildDishDetailsScreen(coordinator: RecipesCoordinatorProtocol, uri: String) -> DishDetailsView
 
     // Экраны секции любимых рецептов

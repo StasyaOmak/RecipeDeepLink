@@ -62,7 +62,6 @@ final class NutrientView: UIView {
 
     func configure(title: String, value: Float) {
         captionLabel.text = title
-
         let value =
             if case .kcal = metrics {
                 value.withDecimalPlaces(0)

@@ -213,6 +213,7 @@ extension DishDetailsView: UITableViewDataSource {
                     }
                 }
                 return cell
+
             case .KBZHU:
                 guard let cell = tableView.dequeueReusableCell(
                     withIdentifier: DishKBZHUCell.description(),

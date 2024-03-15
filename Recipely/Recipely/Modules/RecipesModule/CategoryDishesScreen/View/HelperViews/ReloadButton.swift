@@ -3,7 +3,7 @@
 
 import UIKit
 
-/// Кнопка
+/// Кнопка перезагрузки данных
 final class ReloadButton: UIButton {
     // MARK: - Constants
 

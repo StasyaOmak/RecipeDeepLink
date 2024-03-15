@@ -1,10 +1,10 @@
-// LoginButton.swift
+// ActivityButton.swift
 // Copyright © RoadMap. All rights reserved.
 
 import UIKit
 
-/// Кастомная кнопка для добавления активити индикатора
-final class LoginButton: UIButton {
+/// Кнопка с возможностью запустить  активити индикатор
+final class ActivityButton: UIButton {
     // MARK: - Visual Components
 
     private var activityIndicatorView: UIActivityIndicatorView = {

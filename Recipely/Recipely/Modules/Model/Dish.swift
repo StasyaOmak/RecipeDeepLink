@@ -9,7 +9,7 @@ struct Dish: Codable {
     let uri: String
     /// Сылка на изображение блюда
     let linkToImage: String
-    /// Изображение блюда в маленьком размере
+    /// Сылка на изображение блюда в сжатом формате
     let linkToThumbnailImage: String
     /// Название блюда
     let name: String

@@ -3,11 +3,15 @@
 
 import Foundation
 
+/// Протокол взаимодействия с ServiceDistributor
 protocol ServiceDistributorProtocol: AnyObject {
+    /// Региструрует переданный сервис
     func registerService<T: ServiceProtocol>(service: T)
+    /// Выдает сервис указанного типа
     func getService<T: ServiceProtocol>(_ type: T.Type) -> T?
 }
 
+/// Обьект занимающийся управлением и выдачей сервисов
 final class ServiceDistributor {
     private var servicesMap: [String: ServiceProtocol] = [:]
 }

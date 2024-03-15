@@ -5,15 +5,14 @@ import Foundation
 
 /// Интерфейс взаимодействия с CategoryDishesPresenter
 protocol CategoryDishesPresenterProtocol {
-    /// Сообщает о загрузке вью
-    func requestDishesUpdate()
     /// Состояние загрузки данных
     var state: ViewState<[Dish]> { get }
+    /// Сообщает о загрузке вью
+    func requestDishesUpdate()
     /// Получить название категории.
     func getTitle() -> String
     /// Получить данные изображения для ячейки по индексу
     func getImageForCell(atIndex index: Int, completion: @escaping (Data, Int) -> ())
-
     /// Соощает о нажатии на ячейку какого либо блюда
     func didTapCell(atIndex index: Int)
     /// Сообщает о введенном пользователем заначениии поиска
@@ -54,17 +53,15 @@ final class CategoryDishesPresenter {
 
     private var caloriesSortState: SortState = .none {
         didSet {
-            if case let .data(dishes) = state {
-                state = .data(sortDishes(dishes))
-            }
+            guard case let .data(dishes) = state else { return }
+            state = .data(sortDishes(dishes))
         }
     }
 
     private var timeSortState: SortState = .none {
         didSet {
-            if case let .data(dishes) = state {
-                state = .data(sortDishes(dishes))
-            }
+            guard case let .data(dishes) = state else { return }
+            state = .data(sortDishes(dishes))
         }
     }
 
@@ -141,7 +138,6 @@ final class CategoryDishesPresenter {
         if let searchPredicate {
             if query != nil {
                 query?.append(searchPredicate)
-
             } else {
                 query = searchPredicate
             }

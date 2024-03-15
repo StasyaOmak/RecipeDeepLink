@@ -3,6 +3,7 @@
 
 import Foundation
 
+/// Прокси сервис, занимающийся кешированием и загрузкой изображений
 final class ImageLoadProxy: ImageLoadServiceProtocol {
     // MARK: - Constants
 

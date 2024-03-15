@@ -51,11 +51,6 @@ final class FavouritesView: UIViewController {
         configureLayout()
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        presenter?.viewWillAppear()
-    }
-
     // MARK: - Private Methods
 
     private func configureUI() {
@@ -141,7 +136,6 @@ extension FavouritesView: UITableViewDataSource {
         commit editingStyle: UITableViewCell.EditingStyle,
         forRowAt indexPath: IndexPath
     ) {
-        presenter?.removeItem(atIndex: indexPath.row)
         tableView.deleteRows(at: [indexPath], with: .fade)
     }
 }

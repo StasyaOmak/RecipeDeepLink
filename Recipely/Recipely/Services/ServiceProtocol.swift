@@ -3,4 +3,5 @@
 
 import Foundation
 
+/// Потокол которому должны соответствовать сервисы
 protocol ServiceProtocol: AnyObject, CustomStringConvertible {}
