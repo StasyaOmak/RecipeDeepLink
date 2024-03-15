@@ -95,8 +95,7 @@ class DishCell: UITableViewCell {
     func configure(with categoryDish: Dish) {
         dishNameLabel.text = categoryDish.name
         timerLabel.text = "\(categoryDish.cookingTime) \(Metrics.minutes.rawValue)"
-        guard let calories = categoryDish.calories else { return }
-        caloriesLabel.text = "\(Int(calories)) \(Metrics.kcal.rawValue)"
+        caloriesLabel.text = "\(Int(categoryDish.calories)) \(Metrics.kcal.rawValue)"
     }
 
     func setDishImage(_ image: UIImage) {

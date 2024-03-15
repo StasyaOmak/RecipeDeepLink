@@ -13,4 +13,9 @@ extension Float {
             String(self)
         }
     }
+
+    func withDecimalPlaces(_ numberOfPlaces: Int) -> String {
+        guard numberOfPlaces >= 0 else { return String(self) }
+        return String(format: "%.\(numberOfPlaces)f", self)
+    }
 }

@@ -5,14 +5,10 @@ import UIKit
 
 /// Интерфейс взаимодействия с DishDetailsView
 protocol DishDetailsViewProtocol: AnyObject {
-    /// Конфигурирует экран используя информацию о переданном блюде
-    func configure(with dish: Dish?)
-    /// Покрасить значок избранное
-    func updateFavouritesButtonState(to isHighlited: Bool)
     /// Обновляет состояние вью
     func updateState()
-
-    func errorView(state: ViewState<Any>)
+    /// Покрасить значок избранное
+    func updateFavouritesButtonState(to isHighlited: Bool)
 }
 
 /// Экран детальной информации о блюде
@@ -20,7 +16,7 @@ final class DishDetailsView: UIViewController, UIGestureRecognizerDelegate {
     // MARK: - Types
 
     /// Тип ячейки описания блюда
-    enum DichCellType {
+    enum DishCellType {
         /// Ячейка с сновной ииформацией
         case dish
         /// Ячейка с информацией о КБЖУ
@@ -40,18 +36,6 @@ final class DishDetailsView: UIViewController, UIGestureRecognizerDelegate {
 
     // MARK: - Visual Components
 
-    private var errorPlaceholderView = {
-        let view = CategoryPlaceholderView()
-        view.isHiddenNothingFoundLabel = true
-        view.isHiddenAnotherRequestLabel = true
-        view.reloadText = Constants.reloadText
-        view.titleLabelText = Constants.titleLabelText
-        view.image = UIImage(named: "mistake")
-        view.imageLoading = .reloadIcon
-        view.isHidden = true
-        return view
-    }()
-
     private lazy var shareButton = {
         let button = UIButton()
         button.setImage(.shareIcon.withRenderingMode(.alwaysOriginal), for: .normal)
@@ -61,14 +45,13 @@ final class DishDetailsView: UIViewController, UIGestureRecognizerDelegate {
 
     private lazy var refreshControl = {
         let control = UIRefreshControl()
-        control.addTarget(self, action: #selector(refreshControlTapped(_:)), for: .valueChanged)
+        control.addTarget(self, action: #selector(reloadActionCommited(_:)), for: .valueChanged)
         return control
     }()
 
     private lazy var addToFavouritesButton = {
         let button = UIButton()
         button.setImage(.bookmarkIcon.withRenderingMode(.alwaysOriginal), for: .normal)
-        button.addTarget(self, action: #selector(addToFavouritesButtonTapped), for: .touchUpInside)
         return button
     }()
 
@@ -78,11 +61,18 @@ final class DishDetailsView: UIViewController, UIGestureRecognizerDelegate {
         table.rowHeight = UITableView.automaticDimension
         table.separatorStyle = .none
         table.refreshControl = refreshControl
+        table.showsVerticalScrollIndicator = false
         table.register(DishInfoCell.self, forCellReuseIdentifier: DishInfoCell.description())
         table.register(DishKBZHUCell.self, forCellReuseIdentifier: DishKBZHUCell.description())
         table.register(DishRecipeCell.self, forCellReuseIdentifier: DishRecipeCell.description())
         table.register(RecipeShimmerCell.self, forCellReuseIdentifier: RecipeShimmerCell.description())
         return table
+    }()
+
+    private lazy var placeholerView = {
+        let view = CategoryDishesPlaceholderView()
+        view.addTarget(self, action: #selector(reloadActionCommited))
+        return view
     }()
 
     // MARK: - Public Properties
@@ -91,8 +81,7 @@ final class DishDetailsView: UIViewController, UIGestureRecognizerDelegate {
 
     // MARK: - Private Properties
 
-    private var dish: Dish?
-    private var dishInfoTableViewCells: [DichCellType] = [.dish, .KBZHU, .recipe]
+    private var dishInfoTableViewCells: [DishCellType] = [.dish, .KBZHU, .recipe]
 
     // MARK: - Life Cycle
 
@@ -100,21 +89,24 @@ final class DishDetailsView: UIViewController, UIGestureRecognizerDelegate {
         super.viewDidLoad()
         configureUI()
         configureLayout()
-        presenter?.viewBeganLoading()
-        presenter?.viewLoaded()
+        presenter?.requestDishUpdate()
     }
 
     // MARK: - Private Methods
 
     private func configureUI() {
         view.backgroundColor = .systemBackground
-        view.addSubviews(dishInfoTableView, errorPlaceholderView)
+        view.addSubviews(dishInfoTableView, placeholerView)
         configureNavigationBarItems()
-        configurePlaceholderViewConstraits()
     }
 
     private func configureLayout() {
-        UIView.doNotTAMIC(for: dishInfoTableView, errorPlaceholderView)
+        UIView.doNotTAMIC(for: dishInfoTableView, placeholerView)
+        dishInfoTableViewConfigureLayout()
+        placeholderViewConfigureLayout()
+    }
+
+    private func dishInfoTableViewConfigureLayout() {
         [
             dishInfoTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             dishInfoTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
@@ -123,12 +115,10 @@ final class DishDetailsView: UIViewController, UIGestureRecognizerDelegate {
         ].activate()
     }
 
-    private func configurePlaceholderViewConstraits() {
+    private func placeholderViewConfigureLayout() {
         [
-            errorPlaceholderView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            errorPlaceholderView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            errorPlaceholderView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            errorPlaceholderView.heightAnchor.constraint(equalToConstant: 140)
+            placeholerView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
+            placeholerView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor)
         ].activate()
     }
 
@@ -147,51 +137,40 @@ final class DishDetailsView: UIViewController, UIGestureRecognizerDelegate {
         navigationItem.rightBarButtonItems = [addToFavouritesButtonItem, shareButtonItem]
     }
 
-    @objc private func addToFavouritesButtonTapped() {
-        presenter?.addToFavouritesButtonTapped()
-    }
-
     @objc private func shareButtonTapped() {
         presenter?.shareButtonTapped()
     }
 
-    @objc private func refreshControlTapped(_ sender: UIRefreshControl) {
-        presenter?.viewLoaded()
-        updateState()
-        sender.endRefreshing()
+    @objc private func reloadActionCommited(_ sender: UIView) {
+        if sender == refreshControl {
+            refreshControl.endRefreshing()
+        }
+        presenter?.requestDishUpdate()
     }
 }
 
 extension DishDetailsView: DishDetailsViewProtocol {
-    func errorView(state: ViewState<Any>) {
-        switch state {
-        case .error:
-            errorPlaceholderView.isHidden = false
-        case .data:
-            errorPlaceholderView.isHidden = true
-        case .loading, .noData:
-            break
-        }
-    }
-
     func updateState() {
         switch presenter?.state {
-        case .loading, .data:
-            dishInfoTableView.reloadData()
+        case .loading:
+            placeholerView.switchToState(.hidden)
+            dishInfoTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+            dishInfoTableView.isScrollEnabled = false
+        case .data:
+            placeholerView.switchToState(.hidden)
+            dishInfoTableView.isScrollEnabled = true
         case .noData:
-            print("noData")
+            dishInfoTableView.isScrollEnabled = true
         case .error, .none:
-            print("error")
+            placeholerView.switchToState(.error)
+            dishInfoTableView.isScrollEnabled = false
         }
+        dishInfoTableView.reloadData()
     }
 
     func updateFavouritesButtonState(to isHighlited: Bool) {
         let image: UIImage = isHighlited ? .bookmarkSelectedIcon : .bookmarkIcon
         addToFavouritesButton.setImage(image, for: .normal)
-    }
-
-    func configure(with dish: Dish?) {
-        self.dish = dish
     }
 }
 
@@ -208,14 +187,15 @@ extension DishDetailsView: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch presenter?.state {
+        guard let presenter else { return UITableViewCell() }
+        switch presenter.state {
         case .loading:
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: RecipeShimmerCell.description(),
                 for: indexPath
             ) as? RecipeShimmerCell else { return UITableViewCell() }
             return cell
-        case let .data(recipe):
+        case let .data(dish):
             switch dishInfoTableViewCells[indexPath.row] {
             case .dish:
                 guard let cell = tableView.dequeueReusableCell(
@@ -224,13 +204,11 @@ extension DishDetailsView: UITableViewDataSource {
                 ) as? DishInfoCell
                 else { return UITableViewCell() }
                 cell.selectionStyle = .none
-                cell.configure(with: recipe)
+                cell.configure(with: dish)
 
-                presenter?.getImageForCell(atIndex: indexPath.row) { imageData, index in
+                presenter.getDishImage { imageData in
                     guard let image = UIImage(data: imageData) else { return }
                     DispatchQueue.main.async {
-                        let currentIndexOfUpdatingCell = tableView.indexPath(for: cell)?.row
-                        guard currentIndexOfUpdatingCell == index else { return }
                         cell.setDishImage(image)
                     }
                 }
@@ -242,7 +220,7 @@ extension DishDetailsView: UITableViewDataSource {
                 ) as? DishKBZHUCell
                 else { return UITableViewCell() }
                 cell.selectionStyle = .none
-                cell.configure(with: recipe)
+                cell.configure(with: dish)
                 return cell
             case .recipe:
                 guard let cell = tableView.dequeueReusableCell(
@@ -251,17 +229,11 @@ extension DishDetailsView: UITableViewDataSource {
                 ) as? DishRecipeCell
                 else { return UITableViewCell() }
                 cell.selectionStyle = .none
-                cell.configure(with: recipe)
+                cell.configure(with: dish)
                 return cell
             }
-        case .noData, .error, .none:
+        case .noData, .error:
             break
-//        case .noData:
-//            break
-//        case .error:
-//            errorPlaceholderView.isHidden = true
-//        case .none:
-//            break
         }
         return UITableViewCell()
     }

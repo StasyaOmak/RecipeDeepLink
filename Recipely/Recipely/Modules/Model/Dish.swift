@@ -7,8 +7,10 @@ import Foundation
 struct Dish: Codable {
     /// Идентификатор блюда
     let uri: String
-    /// Изображение блюда
-    let image: String
+    /// Сылка на изображение блюда
+    let linkToImage: String
+    /// Изображение блюда в маленьком размере
+    let linkToThumbnailImage: String
     /// Название блюда
     let name: String
     /// Вес блюда.
@@ -16,26 +18,27 @@ struct Dish: Codable {
     /// Время приготовления блюда в минутах.
     let cookingTime: Int
     /// Энергетическая ценность блюда.
-    let calories: Double?
+    let calories: Float
     /// Количество углеводов в блюде.
-    let carbohydrates: Double?
+    let carbohydrates: Float
     /// Количество жиров в блюде.
-    let fats: Double?
+    let fats: Float
     /// Количество белков в блюде.
-    let proteins: Double?
+    let proteins: Float
     /// Рецепт блюда.
     let ingredientLines: [String]
 
     init(dto: RecipeDTO) {
         uri = dto.uri
-        image = dto.image
+        linkToImage = dto.image
+        linkToThumbnailImage = dto.images["THUMBNAIL"]?.url ?? dto.image
         name = dto.label
         weight = dto.totalWeight
         cookingTime = dto.totalTime
-        calories = dto.totalNutrients["ENERC_KCAL"]?.quantity
-        carbohydrates = dto.totalNutrients["CHOCDF"]?.quantity
-        fats = dto.totalNutrients["FAT"]?.quantity
-        proteins = dto.totalNutrients["PROCNT"]?.quantity
+        calories = dto.totalNutrients["ENERC_KCAL"]?.quantity ?? 0
+        carbohydrates = dto.totalNutrients["CHOCDF"]?.quantity ?? 0
+        fats = dto.totalNutrients["FAT"]?.quantity ?? 0
+        proteins = dto.totalNutrients["PROCNT"]?.quantity ?? 0
         ingredientLines = dto.ingredientLines
     }
 }

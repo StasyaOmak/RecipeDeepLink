@@ -99,9 +99,9 @@ final class CategoryDishesPresenter {
 
         switch caloriesSortState {
         case .accending:
-            predicates.append { $0.calories ?? 0 < $1.calories ?? 0 }
+            predicates.append { $0.calories < $1.calories }
         case .deccending:
-            predicates.append { $0.calories ?? 0 > $1.calories ?? 0 }
+            predicates.append { $0.calories > $1.calories }
         default:
             break
         }
@@ -177,7 +177,7 @@ extension CategoryDishesPresenter: CategoryDishesPresenterProtocol {
 
     func getImageForCell(atIndex index: Int, completion: @escaping (Data, Int) -> ()) {
         guard case let .data(dishes) = state,
-              let url = URL(string: dishes[index].image)
+              let url = URL(string: dishes[index].linkToThumbnailImage)
         else { return }
         imageLoadService?.loadImage(atURL: url) { data, _, _ in
             if let data {

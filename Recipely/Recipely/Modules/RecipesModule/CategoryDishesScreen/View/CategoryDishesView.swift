@@ -17,9 +17,6 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
         static let caloriesFilterText = "Calories"
         static let timeFilterText = "Time"
         static let placeholderText = "Search recipes"
-        static let titleLabelText = "Failed to load data"
-        static let reloadText = "Reload"
-        static let noDataPlaceholderViewText = "Start typing text"
     }
 
     // MARK: - Visual Components
@@ -172,15 +169,13 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
         }
     }
 
-
     @objc private func refreshControlTapped(_ sender: UIRefreshControl) {
-        presenter?.viewLoaded()
-        updateState()
+        presenter?.requestDishesUpdate()
         sender.endRefreshing()
+    }
 
     @objc private func reloadButtonTapped() {
         presenter?.requestDishesUpdate()
-
     }
 }
 

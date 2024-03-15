@@ -6,5 +6,5 @@ import Foundation
 /// Структура, представляющая питательное вещество.
 struct NutrientInfoDTO: Codable {
     /// Количество питательного вещества.
-    let quantity: Double
+    let quantity: Float
 }

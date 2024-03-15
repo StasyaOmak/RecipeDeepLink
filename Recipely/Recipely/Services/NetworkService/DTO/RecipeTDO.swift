@@ -20,4 +20,6 @@ struct RecipeDTO: Codable {
     /// Общие питательные вещества рецепта, представленные в виде словаря, где ключ - название питательного вещества,
     /// значение - объект типа `Total`.
     let totalNutrients: [String: NutrientInfoDTO]
+    /// Список адресов изображений рецепта разного размера
+    let images: [String: ImageDTO]
 }

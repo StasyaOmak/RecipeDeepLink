@@ -55,15 +55,10 @@ final class DishInfoCell: UITableViewCell {
             .dishImageViewCornerRadiusToHeightRatio
     }
 
-//    override func layoutSubviews() {
-//        dishImageView.startShimmerAnimation(speed: 2)
-//    }
-
     // MARK: - Public Methods
 
     func configure(with dish: Dish) {
         dishNameLabel.text = dish.name
-//        dishImageView.image = UIImage(data: dish.imageData ?? Data())
         weightView.configure(weight: Int(dish.weight))
         cookingTimeView.configure(cookingTime: dish.cookingTime)
     }
@@ -90,7 +85,9 @@ final class DishInfoCell: UITableViewCell {
     private func dishNameLabelConfigureLayout() {
         [
             dishNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            dishNameLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor)
+            dishNameLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor),
+            dishNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            dishNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
         ].activate()
     }
 
@@ -100,7 +97,7 @@ final class DishInfoCell: UITableViewCell {
             dishImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 45),
             dishImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
             dishImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -45),
-            dishImageView.heightAnchor.constraint(equalTo: dishImageView.widthAnchor),
+            dishImageView.heightAnchor.constraint(equalTo: dishImageView.widthAnchor)
         ].activate()
     }
 

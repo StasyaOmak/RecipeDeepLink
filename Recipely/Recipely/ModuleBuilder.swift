@@ -96,7 +96,15 @@ final class ModuleBuilder: Builder {
 
     func buildDishDetailsScreen(coordinator: RecipesCoordinatorProtocol, uri: String) -> DishDetailsView {
         let view = DishDetailsView()
-        let presenter = DishDetailsPresenter(view: view, coordinator: coordinator, uri: uri)
+        let presenter = DishDetailsPresenter(
+            view: view,
+
+            coordinator: coordinator,
+            networkService: serviceDistributor.getService(NetworkService.self),
+            imageLoadService: serviceDistributor.getService(ImageLoadProxy.self),
+            uri: uri
+        )
+
         view.presenter = presenter
         return view
     }
