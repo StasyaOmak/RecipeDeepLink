@@ -1,6 +1,7 @@
 // AppCoordinator.swift
 // Copyright © RoadMap. All rights reserved.
 
+import Keychain
 import UIKit
 
 /// Основной координатор приложения

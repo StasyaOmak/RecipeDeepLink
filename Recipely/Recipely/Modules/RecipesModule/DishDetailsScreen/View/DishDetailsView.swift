@@ -154,16 +154,17 @@ extension DishDetailsView: DishDetailsViewProtocol {
         switch presenter?.state {
         case .loading:
             placeholerView.switchToState(.hidden)
-            dishInfoTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+            dishInfoTableView.isHidden = false
             dishInfoTableView.isScrollEnabled = false
         case .data:
             placeholerView.switchToState(.hidden)
+            dishInfoTableView.isHidden = false
             dishInfoTableView.isScrollEnabled = true
         case .noData:
-            dishInfoTableView.isScrollEnabled = true
+            dishInfoTableView.isHidden = true
         case .error, .none:
+            dishInfoTableView.isHidden = true
             placeholerView.switchToState(.error)
-            dishInfoTableView.isScrollEnabled = false
         }
         dishInfoTableView.reloadData()
     }
