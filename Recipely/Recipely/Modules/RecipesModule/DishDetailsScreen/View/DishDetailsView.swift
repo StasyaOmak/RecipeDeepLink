@@ -5,8 +5,10 @@ import UIKit
 
 /// Интерфейс взаимодействия с DishDetailsView
 protocol DishDetailsViewProtocol: AnyObject {
-    /// Конфигурирует экран используя информацию о переданном блюде
-    func configure(with dish: Dish)
+    /// Обновляет состояние вью
+    func updateState()
+    /// Покрасить значок избранное
+    func updateFavouritesButtonState(to isHighlited: Bool)
 }
 
 /// Экран детальной информации о блюде
@@ -14,7 +16,7 @@ final class DishDetailsView: UIViewController, UIGestureRecognizerDelegate {
     // MARK: - Types
 
     /// Тип ячейки описания блюда
-    enum DichCellType {
+    enum DishCellType {
         /// Ячейка с сновной ииформацией
         case dish
         /// Ячейка с информацией о КБЖУ
@@ -28,19 +30,49 @@ final class DishDetailsView: UIViewController, UIGestureRecognizerDelegate {
     private enum Constants {
         static let inDevelopmentText = "Функционал в разработке"
         static let okText = "Ok"
+        static let titleLabelText = "Failed to load data"
+        static let reloadText = "Reload"
     }
 
     // MARK: - Visual Components
+
+    private lazy var shareButton = {
+        let button = UIButton()
+        button.setImage(.shareIcon.withRenderingMode(.alwaysOriginal), for: .normal)
+        button.addTarget(self, action: #selector(shareButtonTapped), for: .touchUpInside)
+        return button
+    }()
+
+    private lazy var refreshControl = {
+        let control = UIRefreshControl()
+        control.addTarget(self, action: #selector(reloadActionCommited(_:)), for: .valueChanged)
+        return control
+    }()
+
+    private lazy var addToFavouritesButton = {
+        let button = UIButton()
+        button.setImage(.bookmarkIcon.withRenderingMode(.alwaysOriginal), for: .normal)
+        return button
+    }()
 
     private lazy var dishInfoTableView = {
         let table = UITableView()
         table.dataSource = self
         table.rowHeight = UITableView.automaticDimension
         table.separatorStyle = .none
+        table.refreshControl = refreshControl
+        table.showsVerticalScrollIndicator = false
         table.register(DishInfoCell.self, forCellReuseIdentifier: DishInfoCell.description())
         table.register(DishKBZHUCell.self, forCellReuseIdentifier: DishKBZHUCell.description())
         table.register(DishRecipeCell.self, forCellReuseIdentifier: DishRecipeCell.description())
+        table.register(RecipeShimmerCell.self, forCellReuseIdentifier: RecipeShimmerCell.description())
         return table
+    }()
+
+    private lazy var placeholerView = {
+        let view = CategoryDishesPlaceholderView()
+        view.addTarget(self, action: #selector(reloadActionCommited))
+        return view
     }()
 
     // MARK: - Public Properties
@@ -49,8 +81,7 @@ final class DishDetailsView: UIViewController, UIGestureRecognizerDelegate {
 
     // MARK: - Private Properties
 
-    private var dish: Dish?
-    private var dishInfoTableViewCells: [DichCellType] = [.dish, .KBZHU, .recipe]
+    private var dishInfoTableViewCells: [DishCellType] = [.dish, .KBZHU, .recipe]
 
     // MARK: - Life Cycle
 
@@ -58,24 +89,36 @@ final class DishDetailsView: UIViewController, UIGestureRecognizerDelegate {
         super.viewDidLoad()
         configureUI()
         configureLayout()
-        presenter?.viewBeganLoading()
+        presenter?.requestDishUpdate()
     }
 
     // MARK: - Private Methods
 
     private func configureUI() {
         view.backgroundColor = .systemBackground
-        view.addSubview(dishInfoTableView)
+        view.addSubviews(dishInfoTableView, placeholerView)
         configureNavigationBarItems()
     }
 
     private func configureLayout() {
-        UIView.doNotTAMIC(for: dishInfoTableView)
+        UIView.doNotTAMIC(for: dishInfoTableView, placeholerView)
+        dishInfoTableViewConfigureLayout()
+        placeholderViewConfigureLayout()
+    }
+
+    private func dishInfoTableViewConfigureLayout() {
         [
             dishInfoTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             dishInfoTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             dishInfoTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             dishInfoTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ].activate()
+    }
+
+    private func placeholderViewConfigureLayout() {
+        [
+            placeholerView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
+            placeholerView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor)
         ].activate()
     }
 
@@ -89,66 +132,110 @@ final class DishDetailsView: UIViewController, UIGestureRecognizerDelegate {
         navigationItem.leftBarButtonItem = backButtonItem
         navigationController?.interactivePopGestureRecognizer?.delegate = self
 
-        let shareButton = UIButton()
-        shareButton.setImage(.shareIcon.withRenderingMode(.alwaysOriginal), for: .normal)
-
-        let addToFavouritesButton = UIButton()
-        addToFavouritesButton.setImage(.bookmarkIcon.withRenderingMode(.alwaysOriginal), for: .normal)
-        addToFavouritesButton.addTarget(self, action: #selector(addToFavouritesButtonTapped), for: .touchUpInside)
-
         let shareButtonItem = UIBarButtonItem(customView: shareButton)
         let addToFavouritesButtonItem = UIBarButtonItem(customView: addToFavouritesButton)
         navigationItem.rightBarButtonItems = [addToFavouritesButtonItem, shareButtonItem]
     }
 
-    @objc private func addToFavouritesButtonTapped() {
-        presenter?.didTapShareButton()
+    @objc private func shareButtonTapped() {
+        presenter?.shareButtonTapped()
+    }
+
+    @objc private func reloadActionCommited(_ sender: UIView) {
+        if sender == refreshControl {
+            refreshControl.endRefreshing()
+        }
+        presenter?.requestDishUpdate()
     }
 }
 
 extension DishDetailsView: DishDetailsViewProtocol {
-    func configure(with dish: Dish) {
-        self.dish = dish
+    func updateState() {
+        switch presenter?.state {
+        case .loading:
+            placeholerView.switchToState(.hidden)
+            dishInfoTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+            dishInfoTableView.isScrollEnabled = false
+        case .data:
+            placeholerView.switchToState(.hidden)
+            dishInfoTableView.isScrollEnabled = true
+        case .noData:
+            dishInfoTableView.isScrollEnabled = true
+        case .error, .none:
+            placeholerView.switchToState(.error)
+            dishInfoTableView.isScrollEnabled = false
+        }
+        dishInfoTableView.reloadData()
+    }
+
+    func updateFavouritesButtonState(to isHighlited: Bool) {
+        let image: UIImage = isHighlited ? .bookmarkSelectedIcon : .bookmarkIcon
+        addToFavouritesButton.setImage(image, for: .normal)
     }
 }
 
 extension DishDetailsView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        dishInfoTableViewCells.count
+        switch presenter?.state {
+        case .data:
+            dishInfoTableViewCells.count
+        case .loading:
+            1
+        case .noData, .error, .none:
+            0
+        }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch dishInfoTableViewCells[indexPath.row] {
-        case .dish:
-            guard let dish,
-                  let cell = tableView.dequeueReusableCell(
-                      withIdentifier: DishInfoCell.description(),
-                      for: indexPath
-                  ) as? DishInfoCell
-            else { return UITableViewCell() }
-            cell.selectionStyle = .none
-            cell.configure(with: dish)
+        guard let presenter else { return UITableViewCell() }
+        switch presenter.state {
+        case .loading:
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: RecipeShimmerCell.description(),
+                for: indexPath
+            ) as? RecipeShimmerCell else { return UITableViewCell() }
             return cell
-        case .KBZHU:
-            guard let dish,
-                  let cell = tableView.dequeueReusableCell(
-                      withIdentifier: DishKBZHUCell.description(),
-                      for: indexPath
-                  ) as? DishKBZHUCell
-            else { return UITableViewCell() }
-            cell.selectionStyle = .none
-            cell.configure(with: dish)
-            return cell
-        case .recipe:
-            guard let dish,
-                  let cell = tableView.dequeueReusableCell(
-                      withIdentifier: DishRecipeCell.description(),
-                      for: indexPath
-                  ) as? DishRecipeCell
-            else { return UITableViewCell() }
-            cell.selectionStyle = .none
-            cell.configure(with: dish)
-            return cell
+        case let .data(dish):
+            switch dishInfoTableViewCells[indexPath.row] {
+            case .dish:
+                guard let cell = tableView.dequeueReusableCell(
+                    withIdentifier: DishInfoCell.description(),
+                    for: indexPath
+                ) as? DishInfoCell
+                else { return UITableViewCell() }
+                cell.selectionStyle = .none
+                cell.configure(with: dish)
+
+                presenter.getDishImage { imageData in
+                    guard let image = UIImage(data: imageData) else { return }
+                    DispatchQueue.main.async {
+                        cell.setDishImage(image)
+                    }
+                }
+                return cell
+
+            case .KBZHU:
+                guard let cell = tableView.dequeueReusableCell(
+                    withIdentifier: DishKBZHUCell.description(),
+                    for: indexPath
+                ) as? DishKBZHUCell
+                else { return UITableViewCell() }
+                cell.selectionStyle = .none
+                cell.configure(with: dish)
+                return cell
+            case .recipe:
+                guard let cell = tableView.dequeueReusableCell(
+                    withIdentifier: DishRecipeCell.description(),
+                    for: indexPath
+                ) as? DishRecipeCell
+                else { return UITableViewCell() }
+                cell.selectionStyle = .none
+                cell.configure(with: dish)
+                return cell
+            }
+        case .noData, .error:
+            break
         }
+        return UITableViewCell()
     }
 }

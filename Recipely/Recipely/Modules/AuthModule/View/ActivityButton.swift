@@ -1,13 +1,13 @@
-// LoginButton.swift
+// ActivityButton.swift
 // Copyright © RoadMap. All rights reserved.
 
 import UIKit
 
-/// Кастомная кнопка для добавления активити индикатора
-final class LoginButton: UIButton {
+/// Кнопка с возможностью запустить  активити индикатор
+final class ActivityButton: UIButton {
     // MARK: - Visual Components
 
-    private var activityIndicator: UIActivityIndicatorView = {
+    private var activityIndicatorView: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView(style: .medium)
         indicator.hidesWhenStopped = true
         indicator.color = .white
@@ -37,18 +37,18 @@ final class LoginButton: UIButton {
     func startIndicator() {
         title = titleLabel?.text
         setTitle("", for: .normal)
-        activityIndicator.startAnimating()
+        activityIndicatorView.startAnimating()
     }
 
     func stopIndicator() {
         setTitle(title, for: .normal)
-        activityIndicator.stopAnimating()
+        activityIndicatorView.stopAnimating()
     }
 
     // MARK: - Private Methods
 
     private func configureUI() {
-        addSubviews(activityIndicator)
+        addSubviews(activityIndicatorView)
         backgroundColor = .black
         layer.cornerRadius = 12
         setTitleColor(.white, for: .normal)
@@ -56,12 +56,12 @@ final class LoginButton: UIButton {
     }
 
     private func configureLayout() {
-        UIView.doNotTAMIC(for: activityIndicator)
+        UIView.doNotTAMIC(for: activityIndicatorView)
         [
-            activityIndicator.topAnchor.constraint(equalTo: topAnchor, constant: 14),
-            activityIndicator.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -14),
-            activityIndicator.widthAnchor.constraint(equalTo: activityIndicator.heightAnchor),
-            activityIndicator.centerXAnchor.constraint(equalTo: centerXAnchor)
+            activityIndicatorView.topAnchor.constraint(equalTo: topAnchor, constant: 14),
+            activityIndicatorView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -14),
+            activityIndicatorView.widthAnchor.constraint(equalTo: activityIndicatorView.heightAnchor),
+            activityIndicatorView.centerXAnchor.constraint(equalTo: centerXAnchor)
         ].activate()
     }
 }

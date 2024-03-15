@@ -9,6 +9,8 @@ final class Logger {
 
     private enum Constants {
         static let logDirectoryURL = FileManager.default.getDirectory(withName: "Logs", inUserDomain: .cachesDirectory)
+        static let dateFormatForNameOfLogFile = "yyyy-MM-dd'T'HH.mm.ss"
+        static let sessionPrefixText = "session_"
     }
 
     // MARK: - Public Properties
@@ -40,7 +42,7 @@ final class Logger {
         guard
             let data = logLine.data(using: .utf8),
             let url = Constants.logDirectoryURL?.appending(path: currentSessionLogFileName)
-            .appendingPathExtension("txt")
+            .appendingPathExtension(.txt)
         else { return }
 
         if let handle = try? FileHandle(forWritingTo: url) {
@@ -58,7 +60,7 @@ final class Logger {
 
     func startNewLog() {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd'T'HH.mm.ss"
-        currentSessionLogFileName = "session_" + formatter.string(from: Date())
+        formatter.dateFormat = Constants.dateFormatForNameOfLogFile
+        currentSessionLogFileName = Constants.sessionPrefixText + formatter.string(from: Date())
     }
 }

@@ -50,7 +50,7 @@ final class DishKBZHUCell: UITableViewCell {
     // MARK: - Public Methods
 
     func configure(with dish: Dish) {
-        enercView.configure(title: Constants.enercText, value: dish.enerc)
+        enercView.configure(title: Constants.enercText, value: dish.calories)
         carbohydratesView.configure(title: Constants.carbohydratesText, value: dish.carbohydrates)
         fatsView.configure(title: Constants.fatsText, value: dish.fats)
         proteinsView.configure(title: Constants.proteinsText, value: dish.proteins)
@@ -66,8 +66,8 @@ final class DishKBZHUCell: UITableViewCell {
         UIView.doNotTAMIC(for: nutrientsStackView)
         [
             nutrientsStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            nutrientsStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 30),
-            nutrientsStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -30),
+            nutrientsStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            nutrientsStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             nutrientsStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20)
         ].activate()
     }

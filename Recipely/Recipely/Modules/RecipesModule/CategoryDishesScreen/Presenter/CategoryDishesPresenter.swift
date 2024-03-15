@@ -5,17 +5,16 @@ import Foundation
 
 /// Интерфейс взаимодействия с CategoryDishesPresenter
 protocol CategoryDishesPresenterProtocol {
+    /// Состояние загрузки данных
+    var state: ViewState<[Dish]> { get }
+    /// Сообщает о загрузке вью
+    func requestDishesUpdate()
     /// Получить название категории.
     func getTitle() -> String
-    /// Запрос количества блюд
-    func getNumberDishes() -> Int
-    /// Сообщает по индексу информацию
-    func getDish(forIndex index: Int) -> ViewState
+    /// Получить данные изображения для ячейки по индексу
+    func getImageForCell(atIndex index: Int, completion: @escaping (Data, Int) -> ())
     /// Соощает о нажатии на ячейку какого либо блюда
     func didTapCell(atIndex index: Int)
-    /// Сообщает о том: что вью появилас на экране
-    func viewDidAppear()
-
     /// Сообщает о введенном пользователем заначениии поиска
     func searchBarTextChanged(to text: String)
     /// Сообщает об изменеии статуса сортировки по калориям
@@ -28,67 +27,87 @@ protocol CategoryDishesPresenterProtocol {
 final class CategoryDishesPresenter {
     // MARK: - Types
 
-    typealias AreDishesInIncreasingOrder = (CategoryDish, CategoryDish) -> Bool
+    typealias AreDishesInIncreasingOrder = (Dish, Dish) -> Bool
+
+    // MARK: - Constants
+
+    private enum Constants {
+        static let userOpenedDishScreenLogMessage = "Пользователь открыл рецепт блюда "
+        static let vegetarianText = "vegetarian"
+    }
 
     // MARK: - Private Properties
 
     private weak var view: CategoryDishesViewProtocol?
     private weak var coordinator: RecipesCoordinatorProtocol?
+    private weak var networkService: NetworkServiceProtocol?
+    private weak var imageLoadService: ImageLoadServiceProtocol?
 
-    private var viewTitle: String
-    private var isDataAvalible = false
-    private var dishes: [CategoryDish] = []
-    private var initialDishes = CategoryDish.getDishes()
-    private var timer: Timer?
-    private var caloriesSortState = SortState.none {
+    private var category: DishCategory
+    private var initialDishes: [Dish] = []
+    private(set) var state: ViewState<[Dish]> = .loading {
         didSet {
-            updateDishes()
-            view?.reloadDishes()
+            view?.updateState()
         }
     }
 
-    private var timeSortState = SortState.none {
+    private var caloriesSortState: SortState = .none {
         didSet {
-            updateDishes()
-            view?.reloadDishes()
+            guard case let .data(dishes) = state else { return }
+            state = .data(sortDishes(dishes))
+        }
+    }
+
+    private var timeSortState: SortState = .none {
+        didSet {
+            guard case let .data(dishes) = state else { return }
+            state = .data(sortDishes(dishes))
         }
     }
 
     // MARK: - Initializers
 
-    init(view: CategoryDishesViewProtocol, coordinator: RecipesCoordinatorProtocol, viewTitle: String) {
+    init(
+        view: CategoryDishesViewProtocol,
+        coordinator: RecipesCoordinatorProtocol,
+        networkService: NetworkServiceProtocol?,
+        imageLoadService: ImageLoadServiceProtocol?,
+        category: DishCategory
+    ) {
         self.view = view
         self.coordinator = coordinator
-        self.viewTitle = viewTitle
-        dishes = initialDishes
+        self.networkService = networkService
+        self.imageLoadService = imageLoadService
+        self.category = category
     }
 
     // MARK: - Private Methods
 
     private func createPredicatesAccordingToCurrentSelectedConditions() -> [AreDishesInIncreasingOrder] {
-        var predicatesArray: [AreDishesInIncreasingOrder] = []
+        var predicates: [AreDishesInIncreasingOrder] = []
         switch timeSortState {
         case .accending:
-            predicatesArray.append { $0.cookingTime < $1.cookingTime }
+            predicates.append { $0.cookingTime < $1.cookingTime }
         case .deccending:
-            predicatesArray.append { $0.cookingTime > $1.cookingTime }
+            predicates.append { $0.cookingTime > $1.cookingTime }
         default:
             break
         }
 
         switch caloriesSortState {
         case .accending:
-            predicatesArray.append { $0.numberCalories < $1.numberCalories }
+            predicates.append { $0.calories < $1.calories }
         case .deccending:
-            predicatesArray.append { $0.numberCalories > $1.numberCalories }
+            predicates.append { $0.calories > $1.calories }
         default:
             break
         }
-        return predicatesArray
+        return predicates
     }
 
-    private func getSortedCategoryDishes(using predicates: [AreDishesInIncreasingOrder]) -> [CategoryDish] {
-        dishes.sorted { lhsDish, rhsDish in
+    private func sortDishes(_ dishes: [Dish]) -> [Dish] {
+        let predicates = createPredicatesAccordingToCurrentSelectedConditions()
+        return dishes.sorted { lhsDish, rhsDish in
             for predicate in predicates {
                 if !predicate(lhsDish, rhsDish), !predicate(rhsDish, lhsDish) {
                     continue
@@ -99,57 +118,83 @@ final class CategoryDishesPresenter {
         }
     }
 
-    private func updateDishes() {
-        let predicates = createPredicatesAccordingToCurrentSelectedConditions()
-        dishes = getSortedCategoryDishes(using: predicates)
-    }
+    private func updateDishes(searchPredicate: String? = nil) {
+        var health: String?
+        if case .sideDish = category {
+            health = Constants.vegetarianText
+        }
 
-    private func receivedData() {
-        isDataAvalible = true
-        view?.reloadDishes()
+        var query: String?
+        switch category {
+        case .chicken, .meat, .fish:
+            query = category.rawValue
+            if searchPredicate != nil {
+                query?.append(" ")
+            }
+        default:
+            break
+        }
+
+        if let searchPredicate {
+            if query != nil {
+                query?.append(searchPredicate)
+            } else {
+                query = searchPredicate
+            }
+        }
+
+        state = .loading
+        networkService?.searchForDishes(dishType: category, health: health, query: query) { [weak self] result in
+            DispatchQueue.main.async {
+                guard let self else { return }
+                switch result {
+                case let .success(dishes):
+                    let sortedDishes = self.sortDishes(dishes)
+                    self.state = !dishes.isEmpty ? .data(sortedDishes) : .noData
+                    if self.initialDishes.isEmpty {
+                        self.initialDishes = dishes
+                    }
+                case let .failure(error):
+                    self.state = .error(error)
+                }
+            }
+        }
     }
 }
 
 extension CategoryDishesPresenter: CategoryDishesPresenterProtocol {
+    func requestDishesUpdate() {
+        updateDishes()
+    }
+
     func getTitle() -> String {
-        viewTitle
+        category.rawValue
     }
 
-    func getNumberDishes() -> Int {
-        dishes.count
-    }
-
-    func getDish(forIndex index: Int) -> ViewState {
-        isDataAvalible ? .data(dishes[index]) : .loading
-    }
-
-    func didTapCell(atIndex index: Int) {
-        if index == 0 {
-            LogAction.log("Пользователь открыл рецепт блюда \(dishes[index].dishName)")
-            coordinator?.showDishDetailsScreen()
+    func getImageForCell(atIndex index: Int, completion: @escaping (Data, Int) -> ()) {
+        guard case let .data(dishes) = state,
+              let url = URL(string: dishes[index].linkToThumbnailImage)
+        else { return }
+        imageLoadService?.loadImage(atURL: url) { data, _, _ in
+            if let data {
+                completion(data, index)
+            }
         }
     }
 
-    func viewDidAppear() {
-        Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { _ in
-            self.receivedData()
+    func didTapCell(atIndex index: Int) {
+        if case let .data(dishes) = state {
+            LogAction.log(Constants.userOpenedDishScreenLogMessage + dishes[index].name)
+            coordinator?.showDishDetailsScreen(with: dishes[index].uri)
         }
     }
 
     func searchBarTextChanged(to text: String) {
-        timer?.invalidate()
-        isDataAvalible = (text.count < 3) ? true : false
-        view?.reloadDishes()
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { _ in
-            if text.count < 3 {
-                self.dishes = self.initialDishes
-            } else {
-                self.dishes = self.initialDishes
-                    .filter { $0.dishName.range(of: text, options: .caseInsensitive) != nil }
-            }
-            self.updateDishes()
-            self.isDataAvalible = true
-            self.view?.reloadDishes()
+        if text.count >= 3 {
+            updateDishes(searchPredicate: text)
+        } else {
+            let sortedDishes = sortDishes(initialDishes)
+            state = .data(sortedDishes)
         }
     }
 

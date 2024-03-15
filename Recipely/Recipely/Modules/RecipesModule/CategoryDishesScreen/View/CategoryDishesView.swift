@@ -5,8 +5,8 @@ import UIKit
 
 /// Интерфейс взаимодействия с CategoryDishesView
 protocol CategoryDishesViewProtocol: AnyObject {
-    /// Функция для обновления данных в таблице
-    func reloadDishes()
+    /// Обновляет состояние вью
+    func updateState()
 }
 
 /// Вью экрана списка блюд категории
@@ -14,13 +14,18 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
     // MARK: - Constants
 
     private enum Constants {
-        static let caloriesText = "Calories"
-        static let timeText = "Time"
-        static let fishText = "Fish"
+        static let caloriesFilterText = "Calories"
+        static let timeFilterText = "Time"
         static let placeholderText = "Search recipes"
     }
 
     // MARK: - Visual Components
+
+    private lazy var refreshControl = {
+        let control = UIRefreshControl()
+        control.addTarget(self, action: #selector(refreshControlTapped(_:)), for: .valueChanged)
+        return control
+    }()
 
     private lazy var searhBar = {
         let searhBar = UISearchBar()
@@ -35,13 +40,13 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
     }()
 
     private lazy var caloriesSortControl = {
-        let view = SortControl(title: Constants.caloriesText, state: .none)
+        let view = SortControl(title: Constants.caloriesFilterText, state: .none)
         view.delegate = self
         return view
     }()
 
     private lazy var timeSortControl = {
-        let view = SortControl(title: Constants.timeText, state: .none)
+        let view = SortControl(title: Constants.timeFilterText, state: .none)
         view.delegate = self
         return view
     }()
@@ -50,12 +55,19 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
         let table = UITableView()
         table.dataSource = self
         table.delegate = self
+        table.refreshControl = refreshControl
         table.separatorStyle = .none
         table.showsVerticalScrollIndicator = false
         table.rowHeight = UITableView.automaticDimension
         table.register(DishCell.self, forCellReuseIdentifier: DishCell.description())
         table.register(DishShimmerCell.self, forCellReuseIdentifier: DishShimmerCell.description())
         return table
+    }()
+
+    private lazy var categoryPlaceholerView = {
+        let view = CategoryDishesPlaceholderView()
+        view.addTarget(self, action: #selector(reloadButtonTapped))
+        return view
     }()
 
     // MARK: - Public Properties
@@ -68,10 +80,7 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
         super.viewDidLoad()
         configureUI()
         configureLayout()
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        presenter?.viewDidAppear()
+        presenter?.requestDishesUpdate()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -83,16 +92,17 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
 
     private func configureUI() {
         view.backgroundColor = .systemBackground
-        view.addSubviews(tableView, searhBar, caloriesSortControl, timeSortControl)
+        view.addSubviews(tableView, searhBar, caloriesSortControl, timeSortControl, categoryPlaceholerView)
         configureNavigationItem()
     }
 
     private func configureLayout() {
-        UIView.doNotTAMIC(for: tableView, searhBar, caloriesSortControl, timeSortControl)
+        UIView.doNotTAMIC(for: tableView, searhBar, caloriesSortControl, timeSortControl, categoryPlaceholerView)
         configureSearhBarConstraints()
         configureCaloriesViewConstraints()
         configureTimeViewConstraints()
         configureTableViewConstraits()
+        categoryPlaceholerViewConfigureLayout()
     }
 
     private func configureSearhBarConstraints() {
@@ -127,6 +137,13 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
         ].activate()
     }
 
+    private func categoryPlaceholerViewConfigureLayout() {
+        [
+            categoryPlaceholerView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            categoryPlaceholerView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)
+        ].activate()
+    }
+
     private func configureNavigationItem() {
         let backButtonItem = UIBarButtonItem(
             image: .backArrow.withRenderingMode(.alwaysOriginal),
@@ -151,36 +168,73 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
             tableView.cellForRow(at: selectedIndex)?.isSelected = false
         }
     }
+
+    @objc private func refreshControlTapped(_ sender: UIRefreshControl) {
+        presenter?.requestDishesUpdate()
+        sender.endRefreshing()
+    }
+
+    @objc private func reloadButtonTapped() {
+        presenter?.requestDishesUpdate()
+    }
 }
 
 extension CategoryDishesView: CategoryDishesViewProtocol {
-    func reloadDishes() {
+    func updateState() {
+        guard let presenter else { return }
+        switch presenter.state {
+        case .loading, .data:
+            categoryPlaceholerView.switchToState(.hidden)
+        case .noData:
+            categoryPlaceholerView.switchToState(.nothingFound)
+        case .error:
+            categoryPlaceholerView.switchToState(.error)
+        }
         tableView.reloadData()
     }
 }
 
 extension CategoryDishesView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        presenter?.getNumberDishes() ?? 0
+        switch presenter?.state {
+        case .loading:
+            6
+        case let .data(dishes):
+            dishes.count
+        case .noData, .error, .none:
+            0
+        }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let dish = presenter?.getDish(forIndex: indexPath.row) else { return UITableViewCell() }
-        switch dish {
-        case let .data(dish):
-            guard let cell = tableView.dequeueReusableCell(
-                withIdentifier: DishCell.description(),
-                for: indexPath
-            ) as? DishCell else { return UITableViewCell() }
-            cell.configure(with: dish)
-            return cell
+        guard let presenter else { return UITableViewCell() }
+        switch presenter.state {
         case .loading:
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: DishShimmerCell.description(),
                 for: indexPath
             ) as? DishShimmerCell else { return UITableViewCell() }
             return cell
+        case let .data(dishes):
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: DishCell.description(),
+                for: indexPath
+            ) as? DishCell else { return UITableViewCell() }
+
+            cell.configure(with: dishes[indexPath.row])
+            presenter.getImageForCell(atIndex: indexPath.row) { imageData, index in
+                guard let image = UIImage(data: imageData) else { return }
+                DispatchQueue.main.async {
+                    let currentIndexOfUpdatingCell = tableView.indexPath(for: cell)?.row
+                    guard currentIndexOfUpdatingCell == index else { return }
+                    cell.setDishImage(image)
+                }
+            }
+            return cell
+        case .noData, .error:
+            break
         }
+        return UITableViewCell()
     }
 }
 

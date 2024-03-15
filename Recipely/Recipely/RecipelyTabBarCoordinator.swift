@@ -5,6 +5,12 @@ import UIKit
 
 /// Координатор главного экрана приложения с таббаром
 final class RecipelyTabBarCoordinator: BaseCoordinator {
+    // MARK: - Constants
+
+    private enum Constants {
+        static let openedRecipesScreenLogText = "Пользователь открыл \"Экран рецептов\""
+    }
+
     // MARK: - Visual Components
 
     private var rootController: RecipelyTabBarController
@@ -55,7 +61,7 @@ final class RecipelyTabBarCoordinator: BaseCoordinator {
 extension RecipelyTabBarCoordinator: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         if viewController === tabBarController.viewControllers?[0] {
-            LogAction.log("Пользователь открыл \"Экран рецептов\"")
+            LogAction.log(Constants.openedRecipesScreenLogText)
         }
     }
 }

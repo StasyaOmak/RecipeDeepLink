@@ -5,6 +5,13 @@ import UIKit
 
 /// Вью с информацией об одном значении из КБЖУ блюда
 final class NutrientView: UIView {
+    // MARK: - Constants
+
+    private enum Constants {
+        static let twoDecimalPlacesFormat = "%0.2f"
+        static let zeroDecimalPlacesFormat = "%0.f"
+    }
+
     // MARK: - Visual Components
 
     private let captionLabel = {
@@ -55,7 +62,13 @@ final class NutrientView: UIView {
 
     func configure(title: String, value: Float) {
         captionLabel.text = title
-        valueLabel.text = value.cleanValue + " " + metrics.rawValue
+        let value =
+            if case .kcal = metrics {
+                value.withDecimalPlaces(0)
+            } else {
+                value.withDecimalPlaces(2)
+            }
+        valueLabel.text = value + " " + metrics.rawValue
     }
 
     // MARK: - Private Methods

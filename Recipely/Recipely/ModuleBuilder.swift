@@ -11,12 +11,13 @@ protocol Builder: AnyObject {
     func buildAuthScreen(coordinator: AuthCoordinatorProtocol) -> AuthView
 
     // Экраны секции рецептов
-    /// Собирает экран со списком категорий
+    /// Собирает экран со списком категорий блюд
     func buildCategoriesScreen(coordinator: RecipesCoordinatorProtocol) -> CategoriesView
     /// Собирает экран со списком блюд категории
-    func buildCategoryDishesScreen(coordinator: RecipesCoordinatorProtocol, title: String) -> CategoryDishesView
-    /// Собирает экран рецепта
-    func buildDishDetailsScreen(coordinator: RecipesCoordinatorProtocol) -> DishDetailsView
+    func buildCategoryDishesScreen(coordinator: RecipesCoordinatorProtocol, category: DishCategory)
+        -> CategoryDishesView
+    /// Собирает экран детальной информации по блюду
+    func buildDishDetailsScreen(coordinator: RecipesCoordinatorProtocol, uri: String) -> DishDetailsView
 
     // Экраны секции любимых рецептов
     /// Собирает экран любимых рецептов
@@ -38,6 +39,16 @@ final class ModuleBuilder: Builder {
         static let recipesText = "Recipes"
         static let favouritesText = "Favourites"
         static let profileText = "Profile"
+    }
+
+    // MARK: - Private Properties
+
+    private var serviceDistributor: ServiceDistributorProtocol
+
+    // MARK: - Initializers
+
+    init(serviceDistributor: ServiceDistributorProtocol) {
+        self.serviceDistributor = serviceDistributor
     }
 
     // MARK: - Public Methods
@@ -67,16 +78,33 @@ final class ModuleBuilder: Builder {
         return view
     }
 
-    func buildCategoryDishesScreen(coordinator: RecipesCoordinatorProtocol, title: String) -> CategoryDishesView {
+    func buildCategoryDishesScreen(
+        coordinator: RecipesCoordinatorProtocol,
+        category: DishCategory
+    ) -> CategoryDishesView {
         let view = CategoryDishesView()
-        let presenter = CategoryDishesPresenter(view: view, coordinator: coordinator, viewTitle: title)
+        let presenter = CategoryDishesPresenter(
+            view: view,
+            coordinator: coordinator,
+            networkService: serviceDistributor.getService(NetworkService.self),
+            imageLoadService: serviceDistributor.getService(ImageLoadProxy.self),
+            category: category
+        )
         view.presenter = presenter
         return view
     }
 
-    func buildDishDetailsScreen(coordinator: RecipesCoordinatorProtocol) -> DishDetailsView {
+    func buildDishDetailsScreen(coordinator: RecipesCoordinatorProtocol, uri: String) -> DishDetailsView {
         let view = DishDetailsView()
-        let presenter = DishDetailsPresenter(view: view, coordinator: coordinator)
+        let presenter = DishDetailsPresenter(
+            view: view,
+
+            coordinator: coordinator,
+            networkService: serviceDistributor.getService(NetworkService.self),
+            imageLoadService: serviceDistributor.getService(ImageLoadProxy.self),
+            uri: uri
+        )
+
         view.presenter = presenter
         return view
     }

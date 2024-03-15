@@ -13,10 +13,6 @@ class DishShimmerCell: UITableViewCell {
     private let timerShimmerView = UIView()
     private let caloriesShimmerView = UIView()
 
-    // MARK: - Private Properties
-
-    private var shimmerLayers: [CAGradientLayer] = []
-
     // MARK: - Initializers
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

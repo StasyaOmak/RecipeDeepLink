@@ -5,14 +5,10 @@ import Foundation
 
 /// Интерфейс взаимодействия с FavouritesPresenter
 protocol FavouritesPresenterProtocol: AnyObject {
-    /// Возвращает массив секций рецептов для отображения в пользовательском интерфейсе.
-    func getDish(forIndex index: Int) -> CategoryDish
     /// Возвращает количество подразделов рецептов
     func getNumberOfDishes() -> Int
-    /// удаляет рецепт из избранного.
-    func removeItem(forIndex index: Int)
-    /// проверяет пустой ли массив
-    func checkEmptiness()
+    /// Возвращает массив секций рецептов для отображения в пользовательском интерфейсе.
+    func getDish(forIndex index: Int) -> Dish
 }
 
 /// Презентер экрана списка сохраненных рецептов
@@ -21,7 +17,7 @@ final class FavouritesPresenter {
 
     private weak var coordinator: FavouritesCoordinatorProtocol?
     private weak var view: FavouritesViewProtocol?
-    private var favouriteDishes = CategoryDish.getDishes()
+    private var favouriteDishes: [Dish] = []
 
     // MARK: - Initializers
 
@@ -32,19 +28,11 @@ final class FavouritesPresenter {
 }
 
 extension FavouritesPresenter: FavouritesPresenterProtocol {
-    func checkEmptiness() {
-        view?.setPlaceholderViewIsHidden(to: !favouriteDishes.isEmpty)
-    }
-
-    func removeItem(forIndex index: Int) {
-        favouriteDishes.remove(at: index)
-    }
-
     func getNumberOfDishes() -> Int {
         favouriteDishes.count
     }
 
-    func getDish(forIndex index: Int) -> CategoryDish {
+    func getDish(forIndex index: Int) -> Dish {
         favouriteDishes[index]
     }
 }

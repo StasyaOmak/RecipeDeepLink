@@ -82,13 +82,23 @@ class DishCell: UITableViewCell {
         configureLayout()
     }
 
+    // MARK: - Life Cycle
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        dishImageView.image = nil
+    }
+
     // MARK: - Public Methods
 
-    func configure(with categoryDish: CategoryDish) {
-        dishImageView.image = UIImage(categoryDish.nameImageName)
-        dishNameLabel.text = categoryDish.dishName
+    func configure(with categoryDish: Dish) {
+        dishNameLabel.text = categoryDish.name
         timerLabel.text = "\(categoryDish.cookingTime) \(Metrics.minutes.rawValue)"
-        caloriesLabel.text = "\(categoryDish.numberCalories) \(Metrics.kcal.rawValue)"
+        caloriesLabel.text = "\(Int(categoryDish.calories)) \(Metrics.kcal.rawValue)"
+    }
+
+    func setDishImage(_ image: UIImage) {
+        dishImageView.image = image
     }
 
     // MARK: - Private Methods

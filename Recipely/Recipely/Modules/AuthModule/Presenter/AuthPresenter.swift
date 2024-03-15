@@ -17,7 +17,6 @@ protocol AuthPresenterProtocol: AnyObject {
 final class AuthPresenter {
     // MARK: - Private Properties
 
-    //    private var storage: StorageManagerProtocol = StorageManager()
     private weak var coordinator: AuthCoordinatorProtocol?
     private weak var view: AuthViewProtocol?
     private var validator = Validator()
@@ -41,6 +40,9 @@ extension AuthPresenter: AuthPresenterProtocol {
             view?.setEmailFieldStateTo(.plain)
         } else {
             view?.setEmailFieldStateTo(.highlited)
+        }
+        if let text {
+            view?.displayDeleteTextButton(isHidden: text.isEmpty)
         }
     }
 
