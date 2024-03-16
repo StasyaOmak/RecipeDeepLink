@@ -1,10 +1,10 @@
-// DishCategory.swift
+// DishType.swift
 // Copyright © RoadMap. All rights reserved.
 
 import Foundation
 
 /// Перечисление, представляющее типы блюд.
-enum DishCategory: String {
+enum DishType: String, Codable {
     /// Салаты
     case salad = "Salad"
     /// Супы
@@ -28,17 +28,17 @@ enum DishCategory: String {
     var stringValue: String {
         switch self {
         case .salad:
-            "Salad"
+            "salad"
         case .soup:
-            "Soup"
+            "soup"
         case .chicken, .meat, .fish, .sideDish:
-            "Main course"
+            "main course"
         case .pancake:
-            "Pancake"
+            "pancake"
         case .drinks:
-            "Drinks"
+            "drinks"
         case .desserts:
-            "Desserts"
+            "desserts"
         }
     }
 }

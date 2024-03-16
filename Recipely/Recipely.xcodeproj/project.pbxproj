@@ -52,7 +52,7 @@
 		9D4DF4992BA11DBD008FAB6F /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4DF4982BA11DBD008FAB6F /* NetworkService.swift */; };
 		9D4DF49B2BA11DCF008FAB6F /* RecipeTDO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4DF49A2BA11DCF008FAB6F /* RecipeTDO.swift */; };
 		9D4DF49D2BA11F09008FAB6F /* Dish.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4DF49C2BA11F09008FAB6F /* Dish.swift */; };
-		9D4DF4A02BA1A18B008FAB6F /* DishCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4DF49F2BA1A18B008FAB6F /* DishCategory.swift */; };
+		9D4DF4A02BA1A18B008FAB6F /* DishType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4DF49F2BA1A18B008FAB6F /* DishType.swift */; };
 		9D4DF4A22BA1AACD008FAB6F /* ResponceDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4DF4A12BA1AACD008FAB6F /* ResponceDTO.swift */; };
 		9D4DF4A42BA1AADD008FAB6F /* HitDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4DF4A32BA1AADD008FAB6F /* HitDTO.swift */; };
 		9D4DF4A62BA1AB12008FAB6F /* NutrientInfoDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4DF4A52BA1AB12008FAB6F /* NutrientInfoDTO.swift */; };
@@ -62,6 +62,9 @@
 		9D4DF4B12BA2F973008FAB6F /* ServiceDistributor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4DF4B02BA2F973008FAB6F /* ServiceDistributor.swift */; };
 		9D4DF4B52BA2FA0C008FAB6F /* ServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4DF4B42BA2FA0C008FAB6F /* ServiceProtocol.swift */; };
 		9D4DF4B72BA35EFE008FAB6F /* ReloadButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4DF4B62BA35EFE008FAB6F /* ReloadButton.swift */; };
+		9D53570A2BA5BD8E00FDD07F /* CDDish+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5357082BA5BD8E00FDD07F /* CDDish+CoreDataClass.swift */; };
+		9D53570B2BA5BD8E00FDD07F /* CDDish+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5357092BA5BD8E00FDD07F /* CDDish+CoreDataProperties.swift */; };
+		9D53570D2BA5D5A300FDD07F /* NetworkServiceProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D53570C2BA5D5A300FDD07F /* NetworkServiceProxy.swift */; };
 		9D6115462B8D312E008EF247 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D61153F2B8D312E008EF247 /* AuthCoordinator.swift */; };
 		9D6115472B8D312E008EF247 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6115452B8D312E008EF247 /* Validator.swift */; };
 		9D6115482B8D312E008EF247 /* AuthPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6115432B8D312E008EF247 /* AuthPresenter.swift */; };
@@ -108,6 +111,8 @@
 		9DC68F8D2B9B0856000261C5 /* LogInvoker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC68F8C2B9B0856000261C5 /* LogInvoker.swift */; };
 		9DC68F912B9B196D000261C5 /* LogAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC68F902B9B196D000261C5 /* LogAction.swift */; };
 		9DC68F942B9B2E0F000261C5 /* UserDefaultsWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC68F932B9B2E0F000261C5 /* UserDefaultsWrapper.swift */; };
+		9DEB3D3D2BA58A5300B0DE84 /* CoreDataDish.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9DEB3D3B2BA58A5200B0DE84 /* CoreDataDish.xcdatamodeld */; };
+		9DEB3D442BA590A700B0DE84 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEB3D432BA590A700B0DE84 /* CoreDataService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -156,7 +161,7 @@
 		9D4DF4982BA11DBD008FAB6F /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		9D4DF49A2BA11DCF008FAB6F /* RecipeTDO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeTDO.swift; sourceTree = "<group>"; };
 		9D4DF49C2BA11F09008FAB6F /* Dish.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dish.swift; sourceTree = "<group>"; };
-		9D4DF49F2BA1A18B008FAB6F /* DishCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishCategory.swift; sourceTree = "<group>"; };
+		9D4DF49F2BA1A18B008FAB6F /* DishType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishType.swift; sourceTree = "<group>"; };
 		9D4DF4A12BA1AACD008FAB6F /* ResponceDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponceDTO.swift; sourceTree = "<group>"; };
 		9D4DF4A32BA1AADD008FAB6F /* HitDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HitDTO.swift; sourceTree = "<group>"; };
 		9D4DF4A52BA1AB12008FAB6F /* NutrientInfoDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutrientInfoDTO.swift; sourceTree = "<group>"; };
@@ -166,6 +171,9 @@
 		9D4DF4B02BA2F973008FAB6F /* ServiceDistributor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceDistributor.swift; sourceTree = "<group>"; };
 		9D4DF4B42BA2FA0C008FAB6F /* ServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceProtocol.swift; sourceTree = "<group>"; };
 		9D4DF4B62BA35EFE008FAB6F /* ReloadButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReloadButton.swift; sourceTree = "<group>"; };
+		9D5357082BA5BD8E00FDD07F /* CDDish+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CDDish+CoreDataClass.swift"; path = "../../../CDDish+CoreDataClass.swift"; sourceTree = "<group>"; };
+		9D5357092BA5BD8E00FDD07F /* CDDish+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CDDish+CoreDataProperties.swift"; path = "../../../CDDish+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		9D53570C2BA5D5A300FDD07F /* NetworkServiceProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceProxy.swift; sourceTree = "<group>"; };
 		9D61153F2B8D312E008EF247 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
 		9D6115412B8D312E008EF247 /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		9D6115432B8D312E008EF247 /* AuthPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPresenter.swift; sourceTree = "<group>"; };
@@ -213,6 +221,8 @@
 		9DC68F8C2B9B0856000261C5 /* LogInvoker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInvoker.swift; sourceTree = "<group>"; };
 		9DC68F902B9B196D000261C5 /* LogAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogAction.swift; sourceTree = "<group>"; };
 		9DC68F932B9B2E0F000261C5 /* UserDefaultsWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsWrapper.swift; sourceTree = "<group>"; };
+		9DEB3D3C2BA58A5200B0DE84 /* Dish.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Dish.xcdatamodel; sourceTree = "<group>"; };
+		9DEB3D432BA590A700B0DE84 /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
 		DC3A3082114311257F3F2A55 /* Pods-Recipely.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Recipely.release.xcconfig"; path = "Target Support Files/Pods-Recipely/Pods-Recipely.release.xcconfig"; sourceTree = "<group>"; };
 		E1F4F629089DAC04FEF1FF1F /* Pods_Recipely.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Recipely.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB3E0CE987E255C2D0CB4123 /* Pods-Recipely.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Recipely.debug.xcconfig"; path = "Target Support Files/Pods-Recipely/Pods-Recipely.debug.xcconfig"; sourceTree = "<group>"; };
@@ -504,6 +514,14 @@
 			path = HelperViews;
 			sourceTree = "<group>";
 		};
+		9D53570E2BA5D5A600FDD07F /* DataStoreService */ = {
+			isa = PBXGroup;
+			children = (
+				9D53570C2BA5D5A300FDD07F /* NetworkServiceProxy.swift */,
+			);
+			path = DataStoreService;
+			sourceTree = "<group>";
+		};
 		9D61153E2B8D312E008EF247 /* AuthModule */ = {
 			isa = PBXGroup;
 			children = (
@@ -569,7 +587,7 @@
 			isa = PBXGroup;
 			children = (
 				9D499B392B9085EE007B36D0 /* Category.swift */,
-				9D4DF49F2BA1A18B008FAB6F /* DishCategory.swift */,
+				9D4DF49F2BA1A18B008FAB6F /* DishType.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -741,6 +759,8 @@
 				9DC68F872B9B07F2000261C5 /* Logger */,
 				9D4DF49E2BA1242D008FAB6F /* NetworkService */,
 				9D4DF4AD2BA2D8DF008FAB6F /* ImageLoadSerice */,
+				9DEB3D3E2BA58A5500B0DE84 /* CoreDataService */,
+				9D53570E2BA5D5A600FDD07F /* DataStoreService */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -787,6 +807,17 @@
 				9DC68F932B9B2E0F000261C5 /* UserDefaultsWrapper.swift */,
 			);
 			path = Additives;
+			sourceTree = "<group>";
+		};
+		9DEB3D3E2BA58A5500B0DE84 /* CoreDataService */ = {
+			isa = PBXGroup;
+			children = (
+				9DEB3D432BA590A700B0DE84 /* CoreDataService.swift */,
+				9DEB3D3B2BA58A5200B0DE84 /* CoreDataDish.xcdatamodeld */,
+				9D5357082BA5BD8E00FDD07F /* CDDish+CoreDataClass.swift */,
+				9D5357092BA5BD8E00FDD07F /* CDDish+CoreDataProperties.swift */,
+			);
+			path = CoreDataService;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -944,13 +975,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				9D952B772B8D261900F6D8CC /* ProfilePresenter.swift in Sources */,
-				9D4DF4A02BA1A18B008FAB6F /* DishCategory.swift in Sources */,
+				9D4DF4A02BA1A18B008FAB6F /* DishType.swift in Sources */,
 				9D499B732B927B89007B36D0 /* DishDetailsView.swift in Sources */,
 				218656F92B98708200540121 /* BasicDishShimmerCell .swift in Sources */,
 				9DC68F7B2B988E93000261C5 /* CaseIterable+Extension.swift in Sources */,
 				9D499B932B93E228007B36D0 /* Mertics.swift in Sources */,
 				9D61156D2B8D67AE008EF247 /* NSLayoutConstraint+Extension.swift in Sources */,
 				9D952B8A2B8D2CE300F6D8CC /* Favourites.swift in Sources */,
+				9D53570D2BA5D5A300FDD07F /* NetworkServiceProxy.swift in Sources */,
 				9DC68F8B2B9B0834000261C5 /* LogCommand.swift in Sources */,
 				9D4DF4B12BA2F973008FAB6F /* ServiceDistributor.swift in Sources */,
 				21153D312B91ECFF0085ED80 /* FavouritesCell.swift in Sources */,
@@ -972,9 +1004,11 @@
 				9D6115772B8D68F5008EF247 /* UIAlertController+Extension.swift in Sources */,
 				2102A3A32B97F4E0002D64B6 /* ViewState.swift in Sources */,
 				9DC68F892B9B0814000261C5 /* Command.swift in Sources */,
+				9DEB3D3D2BA58A5300B0DE84 /* CoreDataDish.xcdatamodeld in Sources */,
 				9D6115732B8D684E008EF247 /* NSMutableAttributedString+Extension.swift in Sources */,
 				9D952B752B8D25E800F6D8CC /* ProfileView.swift in Sources */,
 				9DC68F7D2B9A12B0000261C5 /* Logger.swift in Sources */,
+				9DEB3D442BA590A700B0DE84 /* CoreDataService.swift in Sources */,
 				9DC68F942B9B2E0F000261C5 /* UserDefaultsWrapper.swift in Sources */,
 				21FE4D952B8FE9F000FA377F /* CategoryDishesView.swift in Sources */,
 				9D6115712B8D6816008EF247 /* String+Extension.swift in Sources */,
@@ -992,6 +1026,7 @@
 				9D6115472B8D312E008EF247 /* Validator.swift in Sources */,
 				9D952B682B8D223500F6D8CC /* RecipelyTabBarCoordinator.swift in Sources */,
 				9D499B202B8E73AC007B36D0 /* Settings.swift in Sources */,
+				9D53570A2BA5BD8E00FDD07F /* CDDish+CoreDataClass.swift in Sources */,
 				9D499B852B9358B4007B36D0 /* DishWeightView.swift in Sources */,
 				9D4DF4B52BA2FA0C008FAB6F /* ServiceProtocol.swift in Sources */,
 				9D499B822B927F46007B36D0 /* DishRecipeCell.swift in Sources */,
@@ -1020,6 +1055,7 @@
 				9D499B1A2B8E6988007B36D0 /* SettingsFieldCell.swift in Sources */,
 				9D2BC74B2B96724F00BBAA58 /* TermsOfUseView.swift in Sources */,
 				9D499B3A2B9085EE007B36D0 /* Category.swift in Sources */,
+				9D53570B2BA5BD8E00FDD07F /* CDDish+CoreDataProperties.swift in Sources */,
 				9D61156F2B8D67CD008EF247 /* Array+Extension.swift in Sources */,
 				9D952B502B8D1CBC00F6D8CC /* SceneDelegate.swift in Sources */,
 				9D952B6A2B8D226E00F6D8CC /* RecipelyTabBarController.swift in Sources */,
@@ -1261,6 +1297,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		9DEB3D3B2BA58A5200B0DE84 /* CoreDataDish.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				9DEB3D3C2BA58A5200B0DE84 /* Dish.xcdatamodel */,
+			);
+			currentVersion = 9DEB3D3C2BA58A5200B0DE84 /* Dish.xcdatamodel */;
+			path = CoreDataDish.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 9D952B422B8D1CBC00F6D8CC /* Project object */;
 }

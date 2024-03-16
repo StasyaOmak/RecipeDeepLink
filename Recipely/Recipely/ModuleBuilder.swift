@@ -14,7 +14,7 @@ protocol Builder: AnyObject {
     /// Собирает экран со списком категорий блюд
     func buildCategoriesScreen(coordinator: RecipesCoordinatorProtocol) -> CategoriesView
     /// Собирает экран со списком блюд категории
-    func buildCategoryDishesScreen(coordinator: RecipesCoordinatorProtocol, category: DishCategory)
+    func buildCategoryDishesScreen(coordinator: RecipesCoordinatorProtocol, category: DishType)
         -> CategoryDishesView
     /// Собирает экран детальной информации по блюду
     func buildDishDetailsScreen(coordinator: RecipesCoordinatorProtocol, uri: String) -> DishDetailsView
@@ -80,13 +80,13 @@ final class ModuleBuilder: Builder {
 
     func buildCategoryDishesScreen(
         coordinator: RecipesCoordinatorProtocol,
-        category: DishCategory
+        category: DishType
     ) -> CategoryDishesView {
         let view = CategoryDishesView()
         let presenter = CategoryDishesPresenter(
             view: view,
             coordinator: coordinator,
-            networkService: serviceDistributor.getService(NetworkService.self),
+            networkService: serviceDistributor.getService(NetworkServiceProxy.self),
             imageLoadService: serviceDistributor.getService(ImageLoadProxy.self),
             category: category
         )
@@ -100,7 +100,7 @@ final class ModuleBuilder: Builder {
             view: view,
 
             coordinator: coordinator,
-            networkService: serviceDistributor.getService(NetworkService.self),
+            networkService: serviceDistributor.getService(NetworkServiceProxy.self),
             imageLoadService: serviceDistributor.getService(ImageLoadProxy.self),
             uri: uri
         )

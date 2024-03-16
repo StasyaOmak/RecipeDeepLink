@@ -4,10 +4,10 @@
 import Foundation
 
 /// Протокол коммуникации с NetworkService
-protocol NetworkServiceProtocol: AnyObject {
+protocol NetworkServiceProtocol: AnyObject, ServiceProtocol {
     /// Запрашивает массив блюд с переданными параметрами запроса
     func searchForDishes(
-        dishType: DishCategory,
+        dishType: DishType,
         health: String?,
         query: String?,
         completion: @escaping (Result<[Dish], Error>) -> Void
@@ -75,7 +75,7 @@ extension NetworkService: ServiceProtocol {
 
 extension NetworkService: NetworkServiceProtocol {
     func searchForDishes(
-        dishType: DishCategory,
+        dishType: DishType,
         health: String?,
         query: String?,
         completion: @escaping (Result<[Dish], Error>) -> Void
@@ -93,7 +93,9 @@ extension NetworkService: NetworkServiceProtocol {
         makeURLRequest(URLRequest(url: url)) { (result: Result<ResponseDTO, Error>) in
             switch result {
             case let .success(responce):
-                let dishes = responce.hits.map { Dish(dto: $0.recipe) }
+                let dishes = responce.hits.map {
+                    Dish(dto: $0.recipe)
+                }
                 completion(.success(dishes))
             case let .failure(error):
                 completion(.failure(error))

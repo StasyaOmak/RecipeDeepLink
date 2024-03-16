@@ -20,9 +20,9 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: scene)
 
         let serviceDistributor = ServiceDistributor()
-        serviceDistributor.registerService(service: NetworkService())
-        let imageLoadService = ImageLoadService()
-        serviceDistributor.registerService(service: ImageLoadProxy(imageLoadService: imageLoadService))
+        let dataStrore = NetworkServiceProxy(networkService: NetworkService(), coreDataService: CoreDataService())
+        serviceDistributor.registerService(service: dataStrore)
+        serviceDistributor.registerService(service: ImageLoadProxy(imageLoadService: ImageLoadService()))
 
         let moduleBuilder = ModuleBuilder(serviceDistributor: serviceDistributor)
         appCoordinator = AppCoordinator(window: window, builder: moduleBuilder)
