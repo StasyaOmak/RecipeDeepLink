@@ -39,6 +39,7 @@ final class CoreDataService {
 
 extension CoreDataService: CoreDataServiceProtocol {
     func saveDishes(_ dishes: [Dish]) {
+        
         privateContext.perform {
             dishes.forEach { self.privateContext.insert(CDDish(dish: $0, context: self.privateContext)) }
             do {
