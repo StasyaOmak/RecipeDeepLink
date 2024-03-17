@@ -16,7 +16,7 @@ struct Dish: Codable {
     /// Вес блюда.
     let weight: Float
     /// Тип блюда
-    let category: String
+    let category: String?
     /// Время приготовления блюда в минутах.
     let cookingTime: Int
     /// Энергетическая ценность блюда.
@@ -30,13 +30,13 @@ struct Dish: Codable {
     /// Рецепт блюда.
     let recipe: String
 
-    init(dto: RecipeDTO) {
+    init(dto: RecipeDTO, category: DishType?) {
         uri = dto.uri
         linkToImage = dto.image
         linkToThumbnailImage = dto.images["THUMBNAIL"]?.url ?? dto.image
         name = dto.label
         weight = dto.totalWeight
-        category = dto.dishType.first ?? "main course"
+        self.category = category?.rawValue
         cookingTime = dto.totalTime
         calories = dto.totalNutrients["ENERC_KCAL"]?.quantity ?? 0
         carbohydrates = dto.totalNutrients["CHOCDF"]?.quantity ?? 0

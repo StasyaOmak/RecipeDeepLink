@@ -20,7 +20,26 @@ extension NetworkServiceProxy: NetworkServiceProtocol {
         query: String?,
         completion: @escaping (Result<[Dish], Error>) -> Void
     ) {
-        networkService.searchForDishes(dishType: dishType, health: health, query: query) { result in
+        var predicate: String?
+        switch dishType {
+        case .chicken, .meat, .fish:
+            predicate = dishType.rawValue
+            if query != nil {
+                predicate?.append(" ")
+            }
+        default:
+            break
+        }
+
+        if let query {
+            if predicate != nil {
+                predicate?.append(query)
+            } else {
+                predicate = query
+            }
+        }
+
+        networkService.searchForDishes(dishType: dishType, health: health, query: predicate) { result in
             switch result {
             case let .success(dishes):
                 completion(.success(dishes))

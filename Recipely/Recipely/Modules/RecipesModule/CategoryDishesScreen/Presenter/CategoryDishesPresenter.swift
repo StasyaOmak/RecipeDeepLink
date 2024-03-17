@@ -123,42 +123,23 @@ final class CategoryDishesPresenter {
         if case .sideDish = dishType {
             health = Constants.vegetarianText
         }
-
-        var query: String?
-        switch dishType {
-        case .chicken, .meat, .fish:
-            query = dishType.rawValue
-            if searchPredicate != nil {
-                query?.append(" ")
-            }
-        default:
-            break
-        }
-
-        if let searchPredicate {
-            if query != nil {
-                query?.append(searchPredicate)
-            } else {
-                query = searchPredicate
-            }
-        }
-
         state = .loading
-        networkService?.searchForDishes(dishType: dishType, health: health, query: query) { [weak self] result in
-            DispatchQueue.main.async {
-                guard let self else { return }
-                switch result {
-                case let .success(dishes):
-                    let sortedDishes = self.sortDishes(dishes)
-                    self.state = !dishes.isEmpty ? .data(sortedDishes) : .noData
-                    if self.initialDishes.isEmpty {
-                        self.initialDishes = dishes
+        networkService?
+            .searchForDishes(dishType: dishType, health: health, query: searchPredicate) { [weak self] result in
+                DispatchQueue.main.async {
+                    guard let self else { return }
+                    switch result {
+                    case let .success(dishes):
+                        let sortedDishes = self.sortDishes(dishes)
+                        self.state = !dishes.isEmpty ? .data(sortedDishes) : .noData
+                        if self.initialDishes.isEmpty {
+                            self.initialDishes = dishes
+                        }
+                    case let .failure(error):
+                        self.state = .error(error)
                     }
-                case let .failure(error):
-                    self.state = .error(error)
                 }
             }
-        }
     }
 }
 

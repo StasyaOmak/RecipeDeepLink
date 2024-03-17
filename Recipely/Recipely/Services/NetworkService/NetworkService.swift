@@ -94,7 +94,7 @@ extension NetworkService: NetworkServiceProtocol {
             switch result {
             case let .success(responce):
                 let dishes = responce.hits.map {
-                    Dish(dto: $0.recipe)
+                    Dish(dto: $0.recipe, category: dishType)
                 }
                 completion(.success(dishes))
             case let .failure(error):
@@ -113,7 +113,7 @@ extension NetworkService: NetworkServiceProtocol {
             switch result {
             case let .success(responce):
                 guard let dishDto = responce.hits.first?.recipe else { return }
-                completion(.success(Dish(dto: dishDto)))
+                completion(.success(Dish(dto: dishDto, category: nil)))
             case let .failure(error):
                 completion(.failure(error))
             }

@@ -21,5 +21,5 @@ public extension CDDish {
     @NSManaged var recipe: String
     @NSManaged var uri: String
     @NSManaged var weight: Float
-    @NSManaged var category: String
+    @NSManaged var category: String?
 }

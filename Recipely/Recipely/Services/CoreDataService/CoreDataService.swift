@@ -44,9 +44,7 @@ final class CoreDataService {
         do {
             let count = try privateContext.count(for: request)
             return count > 0
-        } catch {
-            print(error.localizedDescription)
-        }
+        } catch {}
         return true
     }
 }
@@ -64,28 +62,28 @@ extension CoreDataService: CoreDataServiceProtocol {
                 try self.privateContext.save()
                 try self.context.performAndWait {
                     try self.context.save()
-                    print("saved to cre data")
                 }
-            } catch {
-                print(error.localizedDescription)
-            }
+            } catch {}
         }
     }
 
     func fetchDishes(ofCategory dishCategory: DishType, query: String?, _ completion: @escaping ([Dish]?) -> ()) {
         privateContext.perform {
             let request = CDDish.fetchRequest()
-            request.predicate = NSPredicate(
-                format: "category == %@ AND name LIKE %@",
-                argumentArray: [dishCategory.stringValue, query ?? ""]
-            )
+            request.predicate =
+                if let query {
+                    NSPredicate(
+                        format: "category ==[c] %@ AND name contains[c] %@",
+                        argumentArray: [dishCategory.rawValue, query]
+                    )
+                } else {
+                    NSPredicate(format: "category ==[c] %@", dishCategory.rawValue)
+                }
             do {
                 let results = try self.privateContext.fetch(request)
                 let dishes = results.map { Dish(cdDish: $0) }
-                print("fetched from core data")
                 completion(dishes)
             } catch {
-                print(error.localizedDescription)
                 completion(nil)
             }
         }
@@ -101,7 +99,6 @@ extension CoreDataService: CoreDataServiceProtocol {
                     completion(Dish(cdDish: dish))
                 }
             } catch {
-                print(error.localizedDescription)
                 completion(nil)
             }
         }
