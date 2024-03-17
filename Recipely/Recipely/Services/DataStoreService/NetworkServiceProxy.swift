@@ -26,7 +26,7 @@ extension NetworkServiceProxy: NetworkServiceProtocol {
                 completion(.success(dishes))
                 self.coreDataService.saveDishes(dishes)
             case let .failure(error):
-                self.coreDataService.fetchDishes(ofCategory: dishType) { dishes in
+                self.coreDataService.fetchDishes(ofCategory: dishType, query: query) { dishes in
                     switch dishes {
                     case let .some(dishes):
                         completion(.success(dishes))
