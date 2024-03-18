@@ -4,8 +4,8 @@
 import Foundation
 
 final class NetworkServiceProxy {
-    private let networkService: NetworkServiceProtocol
-    private let coreDataService: CoreDataServiceProtocol
+    private weak var networkService: NetworkServiceProtocol?
+    private weak var coreDataService: CoreDataServiceProtocol?
 
     init(networkService: NetworkServiceProtocol, coreDataService: CoreDataServiceProtocol) {
         self.networkService = networkService
@@ -39,13 +39,13 @@ extension NetworkServiceProxy: NetworkServiceProtocol {
             }
         }
 
-        networkService.searchForDishes(dishType: dishType, health: health, query: predicate) { result in
+        networkService?.searchForDishes(dishType: dishType, health: health, query: predicate) { result in
             switch result {
             case let .success(dishes):
                 completion(.success(dishes))
-                self.coreDataService.saveDishes(dishes)
+                self.coreDataService?.saveDishes(dishes)
             case let .failure(error):
-                self.coreDataService.fetchDishes(ofCategory: dishType, query: query) { dishes in
+                self.coreDataService?.fetchDishes(ofCategory: dishType, query: query) { dishes in
                     switch dishes {
                     case let .some(dishes):
                         completion(.success(dishes))
@@ -58,13 +58,13 @@ extension NetworkServiceProxy: NetworkServiceProtocol {
     }
 
     func getDish(byURI uri: String, completion: @escaping (Result<Dish, Error>) -> Void) {
-        networkService.getDish(byURI: uri) { result in
+        networkService?.getDish(byURI: uri) { result in
             switch result {
             case let .success(dish):
                 completion(.success(dish))
-                self.coreDataService.saveDishes([dish])
+                self.coreDataService?.saveDishes([dish])
             case let .failure(error):
-                self.coreDataService.fetchDish(byURI: uri) { dish in
+                self.coreDataService?.fetchDish(byURI: uri) { dish in
                     switch dish {
                     case let .some(dish):
                         completion(.success(dish))

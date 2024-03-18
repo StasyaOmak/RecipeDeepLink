@@ -7,7 +7,7 @@ import UIKit
 protocol DishDetailsViewProtocol: AnyObject {
     /// Обновляет состояние вью
     func updateState()
-    /// Покрасить значок избранное
+    /// Обновляет состояние кнопки добавления блюда в избранное
     func updateFavouritesButtonState(to isHighlited: Bool)
 }
 
@@ -52,6 +52,7 @@ final class DishDetailsView: UIViewController, UIGestureRecognizerDelegate {
     private lazy var addToFavouritesButton = {
         let button = UIButton()
         button.setImage(.bookmarkIcon.withRenderingMode(.alwaysOriginal), for: .normal)
+        button.addTarget(self, action: #selector(addToFavouritesButtonTapped), for: .touchUpInside)
         return button
     }()
 
@@ -137,6 +138,10 @@ final class DishDetailsView: UIViewController, UIGestureRecognizerDelegate {
         navigationItem.rightBarButtonItems = [addToFavouritesButtonItem, shareButtonItem]
     }
 
+    @objc private func addToFavouritesButtonTapped() {
+        presenter?.addToFavouritesButtonTapped()
+    }
+
     @objc private func shareButtonTapped() {
         presenter?.shareButtonTapped()
     }
@@ -156,10 +161,11 @@ extension DishDetailsView: DishDetailsViewProtocol {
             placeholerView.switchToState(.hidden)
             dishInfoTableView.isHidden = false
             dishInfoTableView.isScrollEnabled = false
-        case .data:
+        case let .data(dish):
             placeholerView.switchToState(.hidden)
             dishInfoTableView.isHidden = false
             dishInfoTableView.isScrollEnabled = true
+            updateFavouritesButtonState(to: dish.isFavourite)
         case .noData:
             dishInfoTableView.isHidden = true
         case .error, .none:
@@ -169,8 +175,8 @@ extension DishDetailsView: DishDetailsViewProtocol {
         dishInfoTableView.reloadData()
     }
 
-    func updateFavouritesButtonState(to isHighlited: Bool) {
-        let image: UIImage = isHighlited ? .bookmarkSelectedIcon : .bookmarkIcon
+    func updateFavouritesButtonState(to isFavourite: Bool) {
+        let image: UIImage = isFavourite ? .bookmarkSelectedIcon : .bookmarkIcon
         addToFavouritesButton.setImage(image, for: .normal)
     }
 }

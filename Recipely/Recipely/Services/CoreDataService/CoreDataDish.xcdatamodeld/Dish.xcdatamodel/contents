@@ -3,9 +3,10 @@
     <entity name="CDDish" representedClassName="CDDish" syncable="YES">
         <attribute name="calories" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="carbohydrates" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="category" optional="YES" attributeType="String"/>
+        <attribute name="category" attributeType="String"/>
         <attribute name="cookingTime" attributeType="Integer 16" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="fats" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="isFavourite" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="linkToImage" attributeType="String"/>
         <attribute name="linkToThumbnailImage" attributeType="String"/>
         <attribute name="name" attributeType="String"/>

@@ -8,9 +8,17 @@ protocol CoreDataServiceProtocol: AnyObject, ServiceProtocol {
     func saveDishes(_ dishes: [Dish])
     func fetchDishes(ofCategory dishCategory: DishType, query: String?, _ completion: @escaping ([Dish]?) -> ())
     func fetchDish(byURI uri: String, _ completion: @escaping (Dish?) -> ())
+
+    func updateIsFavouriteStatus(forDish dish: Dish)
+    func isDishFavourite(_ dish: Dish, completion: @escaping BoolHandler)
+    func getFavouriteDishes(_ completion: @escaping ([Dish]) -> ())
+    func addDishListener(for object: AnyObject, _ listener: @escaping DishHandler)
+    func removeListener(for object: AnyObject)
 }
 
 final class CoreDataService {
+    private var listenersMap: [String: DishHandler] = [:]
+
     // MARK: - Private Properties
 
     private lazy var container = {
@@ -60,10 +68,18 @@ extension CoreDataService: CoreDataServiceProtocol {
             }
             do {
                 try self.privateContext.save()
-                try self.context.performAndWait {
-                    try self.context.save()
+
+                do {
+                    try self.context.performAndWait {
+                        try self.context.save()
+                    }
+                } catch {
+                    print(error.localizedDescription)
                 }
-            } catch {}
+
+            } catch {
+                print(error.localizedDescription)
+            }
         }
     }
 
@@ -102,5 +118,56 @@ extension CoreDataService: CoreDataServiceProtocol {
                 completion(nil)
             }
         }
+    }
+
+    func updateIsFavouriteStatus(forDish dish: Dish) {
+        privateContext.perform {
+            let request = CDDish.fetchRequest()
+            request.predicate = NSPredicate(format: "uri == %@", dish.uri)
+            do {
+                guard let cdDish = try self.privateContext.fetch(request).first else { return }
+                cdDish.isFavourite = dish.isFavourite
+                try self.privateContext.save()
+                try self.context.performAndWait {
+                    try self.context.save()
+                    self.listenersMap.values.forEach { $0(dish) }
+                }
+            } catch {}
+        }
+    }
+
+    func getFavouriteDishes(_ completion: @escaping ([Dish]) -> ()) {
+        privateContext.perform {
+            let request = CDDish.fetchRequest()
+            request.predicate = NSPredicate(format: "isFavourite == true")
+            do {
+                let results = try self.privateContext.fetch(request)
+                let dishes = results.map { Dish(cdDish: $0) }
+                completion(dishes)
+            } catch {
+                completion([])
+            }
+        }
+    }
+
+    func isDishFavourite(_ dish: Dish, completion: @escaping BoolHandler) {
+        privateContext.perform {
+            let request = CDDish.fetchRequest()
+            request.predicate = NSPredicate(format: "uri == %@", dish.uri)
+            do {
+                guard let cdDish = try self.privateContext.fetch(request).first else { return }
+                completion(cdDish.isFavourite)
+            } catch {
+                completion(false)
+            }
+        }
+    }
+
+    func addDishListener(for object: AnyObject, _ listener: @escaping DishHandler) {
+        listenersMap[object.description] = listener
+    }
+
+    func removeListener(for object: AnyObject) {
+        listenersMap.removeValue(forKey: object.description)
     }
 }

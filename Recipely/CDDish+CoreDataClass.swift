@@ -20,5 +20,6 @@ public class CDDish: NSManagedObject {
         fats = dish.fats
         proteins = dish.proteins
         recipe = dish.recipe
+        isFavourite = dish.isFavourite
     }
 }

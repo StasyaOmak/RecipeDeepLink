@@ -51,6 +51,11 @@ final class FavouritesView: UIViewController {
         configureLayout()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        presenter?.viewWillAppear()
+    }
+
     // MARK: - Private Methods
 
     private func configureUI() {
@@ -105,7 +110,7 @@ extension FavouritesView: FavouritesViewProtocol {
     }
 
     func tableViewAppendRow() {
-        guard let numberOfRows = presenter?.getNumberOfDishes() else { return }
+        guard let numberOfRows = presenter?.dishes.count else { return }
         let insertionIndexPath = IndexPath(row: numberOfRows - 1, section: 0)
         tableView.insertRows(at: [insertionIndexPath], with: .none)
     }
@@ -118,16 +123,26 @@ extension FavouritesView: FavouritesViewProtocol {
 
 extension FavouritesView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        presenter?.getNumberOfDishes() ?? 0
+        let numberOfDishes = presenter?.dishes.count ?? 0
+        return numberOfDishes
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let dish = presenter?.getDish(forIndex: indexPath.row),
+        guard let dish = presenter?.dishes[indexPath.row],
               let cell = tableView.dequeueReusableCell(
                   withIdentifier: FavouritesCell.description(),
                   for: indexPath
               ) as? FavouritesCell else { return UITableViewCell() }
         cell.configure(with: dish)
+
+        presenter?.getImageForCell(atIndex: indexPath.row) { imageData, index in
+            guard let image = UIImage(data: imageData) else { return }
+            DispatchQueue.main.async {
+                let currentIndexOfUpdatingCell = tableView.indexPath(for: cell)?.row
+                guard currentIndexOfUpdatingCell == index else { return }
+                cell.setDishImage(image)
+            }
+        }
         return cell
     }
 
@@ -136,6 +151,7 @@ extension FavouritesView: UITableViewDataSource {
         commit editingStyle: UITableViewCell.EditingStyle,
         forRowAt indexPath: IndexPath
     ) {
+        presenter?.removeItem(atIndex: indexPath.row)
         tableView.deleteRows(at: [indexPath], with: .fade)
     }
 }

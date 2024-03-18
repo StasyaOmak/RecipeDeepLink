@@ -4,7 +4,7 @@
 import CoreData
 import Foundation
 
-/// Структура, представляющая блюдо.
+/// cccccc
 public extension CDDish {
     @nonobjc class func fetchRequest() -> NSFetchRequest<CDDish> {
         NSFetchRequest<CDDish>(entityName: "CDDish")
@@ -12,8 +12,10 @@ public extension CDDish {
 
     @NSManaged var calories: Float
     @NSManaged var carbohydrates: Float
+    @NSManaged var category: String?
     @NSManaged var cookingTime: Int16
     @NSManaged var fats: Float
+    @NSManaged var isFavourite: Bool
     @NSManaged var linkToImage: String
     @NSManaged var linkToThumbnailImage: String
     @NSManaged var name: String
@@ -21,5 +23,4 @@ public extension CDDish {
     @NSManaged var recipe: String
     @NSManaged var uri: String
     @NSManaged var weight: Float
-    @NSManaged var category: String?
 }
