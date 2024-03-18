@@ -47,7 +47,9 @@ final class CategoryDishesPresenter {
     private var initialDishes: [Dish] = []
     private(set) var state: ViewState<[Dish]> = .loading {
         didSet {
-            view?.updateState()
+            DispatchQueue.main.async {
+                self.view?.updateState()
+            }
         }
     }
 
@@ -124,22 +126,23 @@ final class CategoryDishesPresenter {
             health = Constants.vegetarianText
         }
         state = .loading
-        networkService?
-            .searchForDishes(dishType: dishType, health: health, query: searchPredicate) { [weak self] result in
-                DispatchQueue.main.async {
-                    guard let self else { return }
-                    switch result {
-                    case let .success(dishes):
-                        let sortedDishes = self.sortDishes(dishes)
-                        self.state = !dishes.isEmpty ? .data(sortedDishes) : .noData
-                        if self.initialDishes.isEmpty {
-                            self.initialDishes = dishes
-                        }
-                    case let .failure(error):
-                        self.state = .error(error)
-                    }
+        networkService?.searchForDishes(
+            dishType: dishType,
+            health: health,
+            query: searchPredicate
+        ) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case let .success(dishes):
+                let sortedDishes = self.sortDishes(dishes)
+                self.state = !dishes.isEmpty ? .data(sortedDishes) : .noData
+                if self.initialDishes.isEmpty {
+                    self.initialDishes = dishes
                 }
+            case let .failure(error):
+                self.state = .error(error)
             }
+        }
     }
 }
 

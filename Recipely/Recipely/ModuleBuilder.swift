@@ -98,13 +98,12 @@ final class ModuleBuilder: Builder {
         let view = DishDetailsView()
         let presenter = DishDetailsPresenter(
             view: view,
-
             coordinator: coordinator,
             networkService: serviceDistributor.getService(NetworkServiceProxy.self),
             imageLoadService: serviceDistributor.getService(ImageLoadProxy.self),
+            coreDataService: serviceDistributor.getService(CoreDataService.self),
             uri: uri
         )
-
         view.presenter = presenter
         return view
     }
@@ -118,7 +117,12 @@ final class ModuleBuilder: Builder {
             image: .favouritesIcon,
             selectedImage: .favouritesFilledIcon
         )
-        let presenter = FavouritesPresenter(view: view, coordinator: coordinator)
+        let presenter = FavouritesPresenter(
+            view: view,
+            coordinator: coordinator,
+            coreDataService: serviceDistributor.getService(CoreDataService.self),
+            imageLoadService: serviceDistributor.getService(ImageLoadProxy.self)
+        )
         view.presenter = presenter
         return view
     }

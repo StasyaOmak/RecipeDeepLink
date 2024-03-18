@@ -5,7 +5,8 @@ import CoreData
 import Foundation
 
 @objc(CDDish)
-public class CDDish: NSManagedObject {
+/// Класс, представляющий блюдо для CoreData
+final class CDDish: NSManagedObject {
     convenience init(dish: Dish, context: NSManagedObjectContext) {
         self.init(context: context)
         uri = dish.uri
@@ -20,5 +21,6 @@ public class CDDish: NSManagedObject {
         fats = dish.fats
         proteins = dish.proteins
         recipe = dish.recipe
+        isFavourite = dish.isFavourite
     }
 }

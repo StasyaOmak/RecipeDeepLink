@@ -11,9 +11,13 @@ protocol ImageLoadServiceProtocol: ServiceProtocol {
 
 /// Сервис для загрузки картинок из сети
 final class ImageLoadService: ImageLoadServiceProtocol {
+    // MARK: - Public Properties
+
     var description: String {
         "ImageLoadService"
     }
+
+    // MARK: - Public Methods
 
     func loadImage(atURL url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
         let config = URLSessionConfiguration.default

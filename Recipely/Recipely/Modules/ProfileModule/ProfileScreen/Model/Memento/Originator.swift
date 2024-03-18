@@ -38,9 +38,7 @@ final class Originator {
             do {
                 try imageData.write(to: url)
                 return UserMemento(name: username, profileImageName: imageName)
-            } catch {
-                print(error)
-            }
+            } catch {}
         }
         return UserMemento(name: username, profileImageName: nil)
     }
@@ -55,8 +53,6 @@ final class Originator {
         do {
             let imageData = try Data(contentsOf: url)
             self.imageData = imageData
-        } catch {
-            print(error)
-        }
+        } catch {}
     }
 }

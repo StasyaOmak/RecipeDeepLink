@@ -13,18 +13,14 @@ public struct UserDefault<T: Codable> {
             guard let data = UserDefaults.standard.data(forKey: key) else { return nil }
             do {
                 return try JSONDecoder().decode(T?.self, from: data)
-            } catch {
-                print(error)
-            }
+            } catch {}
             return nil
         }
         set {
             do {
                 let data = try JSONEncoder().encode(newValue)
                 UserDefaults.standard.set(data, forKey: key)
-            } catch {
-                print(error)
-            }
+            } catch {}
         }
     }
 

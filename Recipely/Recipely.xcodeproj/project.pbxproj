@@ -63,8 +63,8 @@
 		9D4DF4B52BA2FA0C008FAB6F /* ServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4DF4B42BA2FA0C008FAB6F /* ServiceProtocol.swift */; };
 		9D4DF4B72BA35EFE008FAB6F /* ReloadButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4DF4B62BA35EFE008FAB6F /* ReloadButton.swift */; };
 		9D53570A2BA5BD8E00FDD07F /* CDDish+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5357082BA5BD8E00FDD07F /* CDDish+CoreDataClass.swift */; };
-		9D53570B2BA5BD8E00FDD07F /* CDDish+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5357092BA5BD8E00FDD07F /* CDDish+CoreDataProperties.swift */; };
 		9D53570D2BA5D5A300FDD07F /* NetworkServiceProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D53570C2BA5D5A300FDD07F /* NetworkServiceProxy.swift */; };
+		9D5357102BA8276900FDD07F /* CDDish+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D53570F2BA8276900FDD07F /* CDDish+CoreDataProperties.swift */; };
 		9D6115462B8D312E008EF247 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D61153F2B8D312E008EF247 /* AuthCoordinator.swift */; };
 		9D6115472B8D312E008EF247 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6115452B8D312E008EF247 /* Validator.swift */; };
 		9D6115482B8D312E008EF247 /* AuthPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6115432B8D312E008EF247 /* AuthPresenter.swift */; };
@@ -172,8 +172,8 @@
 		9D4DF4B42BA2FA0C008FAB6F /* ServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceProtocol.swift; sourceTree = "<group>"; };
 		9D4DF4B62BA35EFE008FAB6F /* ReloadButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReloadButton.swift; sourceTree = "<group>"; };
 		9D5357082BA5BD8E00FDD07F /* CDDish+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CDDish+CoreDataClass.swift"; path = "../../../CDDish+CoreDataClass.swift"; sourceTree = "<group>"; };
-		9D5357092BA5BD8E00FDD07F /* CDDish+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CDDish+CoreDataProperties.swift"; path = "../../../CDDish+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		9D53570C2BA5D5A300FDD07F /* NetworkServiceProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceProxy.swift; sourceTree = "<group>"; };
+		9D53570F2BA8276900FDD07F /* CDDish+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CDDish+CoreDataProperties.swift"; path = "../../CDDish+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		9D61153F2B8D312E008EF247 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
 		9D6115412B8D312E008EF247 /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		9D6115432B8D312E008EF247 /* AuthPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPresenter.swift; sourceTree = "<group>"; };
@@ -514,12 +514,12 @@
 			path = HelperViews;
 			sourceTree = "<group>";
 		};
-		9D53570E2BA5D5A600FDD07F /* DataStoreService */ = {
+		9D53570E2BA5D5A600FDD07F /* NetworkServiceProxy */ = {
 			isa = PBXGroup;
 			children = (
 				9D53570C2BA5D5A300FDD07F /* NetworkServiceProxy.swift */,
 			);
-			path = DataStoreService;
+			path = NetworkServiceProxy;
 			sourceTree = "<group>";
 		};
 		9D61153E2B8D312E008EF247 /* AuthModule */ = {
@@ -760,7 +760,7 @@
 				9D4DF49E2BA1242D008FAB6F /* NetworkService */,
 				9D4DF4AD2BA2D8DF008FAB6F /* ImageLoadSerice */,
 				9DEB3D3E2BA58A5500B0DE84 /* CoreDataService */,
-				9D53570E2BA5D5A600FDD07F /* DataStoreService */,
+				9D53570E2BA5D5A600FDD07F /* NetworkServiceProxy */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -815,7 +815,7 @@
 				9DEB3D432BA590A700B0DE84 /* CoreDataService.swift */,
 				9DEB3D3B2BA58A5200B0DE84 /* CoreDataDish.xcdatamodeld */,
 				9D5357082BA5BD8E00FDD07F /* CDDish+CoreDataClass.swift */,
-				9D5357092BA5BD8E00FDD07F /* CDDish+CoreDataProperties.swift */,
+				9D53570F2BA8276900FDD07F /* CDDish+CoreDataProperties.swift */,
 			);
 			path = CoreDataService;
 			sourceTree = "<group>";
@@ -1023,6 +1023,7 @@
 				9D2BC74F2B96728800BBAA58 /* TermsOfUsePresenter.swift in Sources */,
 				21B91CDC2B90D0370041D5E9 /* SortState.swift in Sources */,
 				9D952B6C2B8D22A100F6D8CC /* Coordinator.swift in Sources */,
+				9D5357102BA8276900FDD07F /* CDDish+CoreDataProperties.swift in Sources */,
 				9D6115472B8D312E008EF247 /* Validator.swift in Sources */,
 				9D952B682B8D223500F6D8CC /* RecipelyTabBarCoordinator.swift in Sources */,
 				9D499B202B8E73AC007B36D0 /* Settings.swift in Sources */,
@@ -1055,7 +1056,6 @@
 				9D499B1A2B8E6988007B36D0 /* SettingsFieldCell.swift in Sources */,
 				9D2BC74B2B96724F00BBAA58 /* TermsOfUseView.swift in Sources */,
 				9D499B3A2B9085EE007B36D0 /* Category.swift in Sources */,
-				9D53570B2BA5BD8E00FDD07F /* CDDish+CoreDataProperties.swift in Sources */,
 				9D61156F2B8D67CD008EF247 /* Array+Extension.swift in Sources */,
 				9D952B502B8D1CBC00F6D8CC /* SceneDelegate.swift in Sources */,
 				9D952B6A2B8D226E00F6D8CC /* RecipelyTabBarController.swift in Sources */,
