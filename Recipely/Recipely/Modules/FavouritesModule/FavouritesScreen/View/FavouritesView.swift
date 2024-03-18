@@ -123,8 +123,7 @@ extension FavouritesView: FavouritesViewProtocol {
 
 extension FavouritesView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let numberOfDishes = presenter?.dishes.count ?? 0
-        return numberOfDishes
+        presenter?.dishes.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

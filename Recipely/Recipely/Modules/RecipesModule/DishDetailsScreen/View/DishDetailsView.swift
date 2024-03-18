@@ -7,8 +7,6 @@ import UIKit
 protocol DishDetailsViewProtocol: AnyObject {
     /// Обновляет состояние вью
     func updateState()
-    /// Обновляет состояние кнопки добавления блюда в избранное
-    func updateFavouritesButtonState(to isHighlited: Bool)
 }
 
 /// Экран детальной информации о блюде
@@ -165,7 +163,8 @@ extension DishDetailsView: DishDetailsViewProtocol {
             placeholerView.switchToState(.hidden)
             dishInfoTableView.isHidden = false
             dishInfoTableView.isScrollEnabled = true
-            updateFavouritesButtonState(to: dish.isFavourite)
+            let image: UIImage = dish.isFavourite ? .bookmarkSelectedIcon : .bookmarkIcon
+            addToFavouritesButton.setImage(image, for: .normal)
         case .noData:
             dishInfoTableView.isHidden = true
         case .error, .none:
@@ -173,11 +172,6 @@ extension DishDetailsView: DishDetailsViewProtocol {
             placeholerView.switchToState(.error)
         }
         dishInfoTableView.reloadData()
-    }
-
-    func updateFavouritesButtonState(to isFavourite: Bool) {
-        let image: UIImage = isFavourite ? .bookmarkSelectedIcon : .bookmarkIcon
-        addToFavouritesButton.setImage(image, for: .normal)
     }
 }
 

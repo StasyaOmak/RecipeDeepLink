@@ -514,12 +514,12 @@
 			path = HelperViews;
 			sourceTree = "<group>";
 		};
-		9D53570E2BA5D5A600FDD07F /* DataStoreService */ = {
+		9D53570E2BA5D5A600FDD07F /* NetworkServiceProxy */ = {
 			isa = PBXGroup;
 			children = (
 				9D53570C2BA5D5A300FDD07F /* NetworkServiceProxy.swift */,
 			);
-			path = DataStoreService;
+			path = NetworkServiceProxy;
 			sourceTree = "<group>";
 		};
 		9D61153E2B8D312E008EF247 /* AuthModule */ = {
@@ -760,7 +760,7 @@
 				9D4DF49E2BA1242D008FAB6F /* NetworkService */,
 				9D4DF4AD2BA2D8DF008FAB6F /* ImageLoadSerice */,
 				9DEB3D3E2BA58A5500B0DE84 /* CoreDataService */,
-				9D53570E2BA5D5A600FDD07F /* DataStoreService */,
+				9D53570E2BA5D5A600FDD07F /* NetworkServiceProxy */,
 			);
 			path = Services;
 			sourceTree = "<group>";

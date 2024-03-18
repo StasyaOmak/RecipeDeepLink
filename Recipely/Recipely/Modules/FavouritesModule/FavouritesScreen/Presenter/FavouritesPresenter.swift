@@ -5,10 +5,11 @@ import Foundation
 
 /// Интерфейс взаимодействия с FavouritesPresenter
 protocol FavouritesPresenterProtocol: AnyObject {
+    /// Массив любимых блод
     var dishes: [Dish] { get }
     /// Сообщает о появлении контроллера на экране
     func viewWillAppear()
-    /// удаляет рецепт из избранного.
+    /// Удалить рецепт из избранного.
     func removeItem(atIndex index: Int)
     /// Получить данные изображения для ячейки по индексу
     func getImageForCell(atIndex index: Int, completion: @escaping (Data, Int) -> ())
@@ -54,19 +55,23 @@ final class FavouritesPresenter {
 
     private func addDishListener() {
         coreDataService?.addDishListener(for: self) { [weak self] updatedDish in
-            if updatedDish.isFavourite {
-                self?.dishes.append(updatedDish)
-                DispatchQueue.main.async {
-                    self?.view?.tableViewAppendRow()
-                }
-            } else {
-                guard let removalIndex = self?.dishes
-                    .firstIndex(where: { $0.uri == updatedDish.uri })
-                else { return }
-                self?.dishes.remove(at: removalIndex)
-                DispatchQueue.main.async {
-                    self?.view?.tableViewDeleteRow(atIndex: removalIndex)
-                }
+            self?.updateDishes(with: updatedDish)
+        }
+    }
+
+    private func updateDishes(with updatedDish: Dish) {
+        if updatedDish.isFavourite {
+            dishes.append(updatedDish)
+            DispatchQueue.main.async {
+                self.view?.tableViewAppendRow()
+            }
+        } else {
+            guard let removalIndex = dishes
+                .firstIndex(where: { $0.uri == updatedDish.uri })
+            else { return }
+            dishes.remove(at: removalIndex)
+            DispatchQueue.main.async {
+                self.view?.tableViewDeleteRow(atIndex: removalIndex)
             }
         }
     }

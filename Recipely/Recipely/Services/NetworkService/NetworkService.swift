@@ -33,6 +33,12 @@ final class NetworkService {
         static let uriKey = "uri"
     }
 
+    // MARK: - Public Properties
+
+    var description: String {
+        "Network service"
+    }
+
     // MARK: - Private Properties
 
     private let baseUrlComponents = {
@@ -64,12 +70,6 @@ final class NetworkService {
                 completion(.failure(error))
             }
         }.resume()
-    }
-}
-
-extension NetworkService: ServiceProtocol {
-    var description: String {
-        "Network service"
     }
 }
 

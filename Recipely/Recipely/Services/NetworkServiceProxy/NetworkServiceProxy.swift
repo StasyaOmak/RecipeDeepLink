@@ -3,9 +3,20 @@
 
 import Foundation
 
+/// Проски для NetworkService занимающийся кешированием получаемых данных
 final class NetworkServiceProxy {
+    // MARK: - Public Properties
+
+    var description: String {
+        "DataStore service"
+    }
+
+    // MARK: - Private Properties
+
     private weak var networkService: NetworkServiceProtocol?
     private weak var coreDataService: CoreDataServiceProtocol?
+
+    // MARK: - Initializers
 
     init(networkService: NetworkServiceProtocol, coreDataService: CoreDataServiceProtocol) {
         self.networkService = networkService
@@ -20,26 +31,26 @@ extension NetworkServiceProxy: NetworkServiceProtocol {
         query: String?,
         completion: @escaping (Result<[Dish], Error>) -> Void
     ) {
-        var predicate: String?
+        var compasedQuery: String?
         switch dishType {
         case .chicken, .meat, .fish:
-            predicate = dishType.rawValue
+            compasedQuery = dishType.rawValue
             if query != nil {
-                predicate?.append(" ")
+                compasedQuery?.append(" ")
             }
         default:
             break
         }
 
         if let query {
-            if predicate != nil {
-                predicate?.append(query)
+            if compasedQuery != nil {
+                compasedQuery?.append(query)
             } else {
-                predicate = query
+                compasedQuery = query
             }
         }
 
-        networkService?.searchForDishes(dishType: dishType, health: health, query: predicate) { result in
+        networkService?.searchForDishes(dishType: dishType, health: health, query: compasedQuery) { result in
             switch result {
             case let .success(dishes):
                 completion(.success(dishes))
@@ -74,9 +85,5 @@ extension NetworkServiceProxy: NetworkServiceProtocol {
                 }
             }
         }
-    }
-
-    var description: String {
-        "DataStore service"
     }
 }

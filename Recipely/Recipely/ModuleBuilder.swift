@@ -104,7 +104,6 @@ final class ModuleBuilder: Builder {
             coreDataService: serviceDistributor.getService(CoreDataService.self),
             uri: uri
         )
-
         view.presenter = presenter
         return view
     }

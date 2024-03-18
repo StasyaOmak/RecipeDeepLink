@@ -29,7 +29,7 @@ struct Dish: Codable {
     let proteins: Float
     /// Рецепт блюда.
     let recipe: String
-    /// Является ли речепт любимым
+    /// Является ли рецепт любимым
     var isFavourite: Bool = false
 
     init(dto: RecipeDTO, category: DishType?) {

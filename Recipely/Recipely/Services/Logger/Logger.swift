@@ -50,11 +50,7 @@ final class Logger {
             handle.write(data)
             handle.closeFile()
         } else {
-            do {
-                try data.write(to: url)
-            } catch {
-                print(error)
-            }
+            try? data.write(to: url)
         }
     }
 
