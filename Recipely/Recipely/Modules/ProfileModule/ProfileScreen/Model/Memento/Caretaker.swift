@@ -40,9 +40,7 @@ final class Caretaker {
                 let encoder = JSONEncoder()
                 let data = try encoder.encode(self.mementos)
                 UserDefaults.standard.set(data, forKey: self.key)
-            } catch {
-                print(error)
-            }
+            } catch {}
         }
     }
 
@@ -51,8 +49,6 @@ final class Caretaker {
         do {
             let decoder = JSONDecoder()
             mementos = try decoder.decode([UserMemento].self, from: data)
-        } catch {
-            print(error)
-        }
+        } catch {}
     }
 }

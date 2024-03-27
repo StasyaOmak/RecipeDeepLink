@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22522" systemVersion="23C71" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+    <entity name="CDDish" representedClassName="CDDish" syncable="YES">
+        <attribute name="calories" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="carbohydrates" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="category" attributeType="String"/>
+        <attribute name="cookingTime" attributeType="Integer 16" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="fats" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="isFavourite" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="linkToImage" attributeType="String"/>
+        <attribute name="linkToThumbnailImage" attributeType="String"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="proteins" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="recipe" attributeType="String"/>
+        <attribute name="uri" attributeType="String"/>
+        <attribute name="weight" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+    </entity>
+</model>

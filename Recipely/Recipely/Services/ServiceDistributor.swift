@@ -13,12 +13,15 @@ protocol ServiceDistributorProtocol: AnyObject {
 
 /// Обьект занимающийся управлением и выдачей сервисов
 final class ServiceDistributor {
+    // MARK: - Private Properties
+
     private var servicesMap: [String: ServiceProtocol] = [:]
 }
 
 extension ServiceDistributor: ServiceDistributorProtocol {
     func registerService<T: ServiceProtocol>(service: T) {
         let key = String(describing: T.Type.self)
+        guard servicesMap[key] == nil else { return }
         servicesMap[key] = service
     }
 

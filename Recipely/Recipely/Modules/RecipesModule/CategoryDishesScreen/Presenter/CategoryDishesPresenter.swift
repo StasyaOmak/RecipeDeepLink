@@ -43,11 +43,13 @@ final class CategoryDishesPresenter {
     private weak var networkService: NetworkServiceProtocol?
     private weak var imageLoadService: ImageLoadServiceProtocol?
 
-    private var category: DishCategory
+    private var dishType: DishType
     private var initialDishes: [Dish] = []
     private(set) var state: ViewState<[Dish]> = .loading {
         didSet {
-            view?.updateState()
+            DispatchQueue.main.async {
+                self.view?.updateState()
+            }
         }
     }
 
@@ -72,13 +74,13 @@ final class CategoryDishesPresenter {
         coordinator: RecipesCoordinatorProtocol,
         networkService: NetworkServiceProtocol?,
         imageLoadService: ImageLoadServiceProtocol?,
-        category: DishCategory
+        category: DishType
     ) {
         self.view = view
         self.coordinator = coordinator
         self.networkService = networkService
         self.imageLoadService = imageLoadService
-        self.category = category
+        dishType = category
     }
 
     // MARK: - Private Methods
@@ -120,43 +122,25 @@ final class CategoryDishesPresenter {
 
     private func updateDishes(searchPredicate: String? = nil) {
         var health: String?
-        if case .sideDish = category {
+        if case .sideDish = dishType {
             health = Constants.vegetarianText
         }
-
-        var query: String?
-        switch category {
-        case .chicken, .meat, .fish:
-            query = category.rawValue
-            if searchPredicate != nil {
-                query?.append(" ")
-            }
-        default:
-            break
-        }
-
-        if let searchPredicate {
-            if query != nil {
-                query?.append(searchPredicate)
-            } else {
-                query = searchPredicate
-            }
-        }
-
         state = .loading
-        networkService?.searchForDishes(dishType: category, health: health, query: query) { [weak self] result in
-            DispatchQueue.main.async {
-                guard let self else { return }
-                switch result {
-                case let .success(dishes):
-                    let sortedDishes = self.sortDishes(dishes)
-                    self.state = !dishes.isEmpty ? .data(sortedDishes) : .noData
-                    if self.initialDishes.isEmpty {
-                        self.initialDishes = dishes
-                    }
-                case let .failure(error):
-                    self.state = .error(error)
+        networkService?.searchForDishes(
+            dishType: dishType,
+            health: health,
+            query: searchPredicate
+        ) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case let .success(dishes):
+                let sortedDishes = self.sortDishes(dishes)
+                self.state = !dishes.isEmpty ? .data(sortedDishes) : .noData
+                if self.initialDishes.isEmpty {
+                    self.initialDishes = dishes
                 }
+            case let .failure(error):
+                self.state = .error(error)
             }
         }
     }
@@ -168,7 +152,7 @@ extension CategoryDishesPresenter: CategoryDishesPresenterProtocol {
     }
 
     func getTitle() -> String {
-        category.rawValue
+        dishType.rawValue
     }
 
     func getImageForCell(atIndex index: Int, completion: @escaping (Data, Int) -> ()) {

@@ -1,6 +1,7 @@
 // AppCoordinator.swift
 // Copyright © RoadMap. All rights reserved.
 
+import Keychain
 import UIKit
 
 /// Основной координатор приложения
@@ -23,7 +24,7 @@ final class AppCoordinator: BaseCoordinator {
     // MARK: - Public Methods
 
     override func start() {
-        showTabBarModule()
+        showAuthModule()
     }
 
     override func setAsRoot(_ viewController: UIViewController) {

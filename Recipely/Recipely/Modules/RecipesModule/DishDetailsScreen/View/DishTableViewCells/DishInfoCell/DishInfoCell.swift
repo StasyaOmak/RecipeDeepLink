@@ -60,7 +60,7 @@ final class DishInfoCell: UITableViewCell {
     func configure(with dish: Dish) {
         dishNameLabel.text = dish.name
         weightView.configure(weight: Int(dish.weight))
-        cookingTimeView.configure(cookingTime: dish.cookingTime)
+        cookingTimeView.configure(cookingTime: Int(dish.cookingTime))
     }
 
     func setDishImage(_ image: UIImage) {
@@ -85,7 +85,6 @@ final class DishInfoCell: UITableViewCell {
     private func dishNameLabelConfigureLayout() {
         [
             dishNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            dishNameLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor),
             dishNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             dishNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
         ].activate()

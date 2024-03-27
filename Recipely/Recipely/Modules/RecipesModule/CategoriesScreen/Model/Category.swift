@@ -6,20 +6,20 @@ import Foundation
 /// Категория
 struct Category {
     /// Название категории
-    var dishCategory: DishCategory
+    var dishType: DishType
     /// Название изображения категории
     var imageName: AssetImageName
 
     /// Массив категорий.
     static let categories: [Category] = [
-        .init(dishCategory: .salad, imageName: .salad),
-        .init(dishCategory: .soup, imageName: .soup),
-        .init(dishCategory: .chicken, imageName: .chicken),
-        .init(dishCategory: .meat, imageName: .meat),
-        .init(dishCategory: .fish, imageName: .fish),
-        .init(dishCategory: .sideDish, imageName: .sideDish),
-        .init(dishCategory: .drinks, imageName: .drinks),
-        .init(dishCategory: .pancake, imageName: .pancakes),
-        .init(dishCategory: .desserts, imageName: .desserts)
+        .init(dishType: .salad, imageName: .salad),
+        .init(dishType: .soup, imageName: .soup),
+        .init(dishType: .chicken, imageName: .chicken),
+        .init(dishType: .meat, imageName: .meat),
+        .init(dishType: .fish, imageName: .fish),
+        .init(dishType: .sideDish, imageName: .sideDish),
+        .init(dishType: .drinks, imageName: .drinks),
+        .init(dishType: .pancake, imageName: .pancakes),
+        .init(dishType: .desserts, imageName: .desserts)
     ]
 }

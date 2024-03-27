@@ -39,7 +39,7 @@ extension CategoriesPresenter: CategoriesPresenterProtocol {
     }
 
     func didSelectCategory(atIndex index: Int) {
-        let category = categories[index].dishCategory
+        let category = categories[index].dishType
         coordinator?.showCategoryDishesScreen(withCategory: category)
         LogAction.log("Пользовать перешел на Экран со списком рецептов из \(category.rawValue)")
     }

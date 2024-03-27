@@ -4,10 +4,10 @@
 import Foundation
 
 /// Протокол коммуникации с NetworkService
-protocol NetworkServiceProtocol: AnyObject {
+protocol NetworkServiceProtocol: AnyObject, ServiceProtocol {
     /// Запрашивает массив блюд с переданными параметрами запроса
     func searchForDishes(
-        dishType: DishCategory,
+        dishType: DishType,
         health: String?,
         query: String?,
         completion: @escaping (Result<[Dish], Error>) -> Void
@@ -31,6 +31,12 @@ final class NetworkService {
         static let queryKey = "q"
         static let healthKey = "health"
         static let uriKey = "uri"
+    }
+
+    // MARK: - Public Properties
+
+    var description: String {
+        "Network service"
     }
 
     // MARK: - Private Properties
@@ -67,15 +73,9 @@ final class NetworkService {
     }
 }
 
-extension NetworkService: ServiceProtocol {
-    var description: String {
-        "Network service"
-    }
-}
-
 extension NetworkService: NetworkServiceProtocol {
     func searchForDishes(
-        dishType: DishCategory,
+        dishType: DishType,
         health: String?,
         query: String?,
         completion: @escaping (Result<[Dish], Error>) -> Void
@@ -93,7 +93,9 @@ extension NetworkService: NetworkServiceProtocol {
         makeURLRequest(URLRequest(url: url)) { (result: Result<ResponseDTO, Error>) in
             switch result {
             case let .success(responce):
-                let dishes = responce.hits.map { Dish(dto: $0.recipe) }
+                let dishes = responce.hits.map {
+                    Dish(dto: $0.recipe, category: dishType)
+                }
                 completion(.success(dishes))
             case let .failure(error):
                 completion(.failure(error))
@@ -111,7 +113,7 @@ extension NetworkService: NetworkServiceProtocol {
             switch result {
             case let .success(responce):
                 guard let dishDto = responce.hits.first?.recipe else { return }
-                completion(.success(Dish(dto: dishDto)))
+                completion(.success(Dish(dto: dishDto, category: nil)))
             case let .failure(error):
                 completion(.failure(error))
             }

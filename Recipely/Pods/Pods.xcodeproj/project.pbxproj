@@ -1,0 +1,628 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1C9F1FAD2D3242332EDD26A58240C466 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
+		2EEDE89F63DD6CA98FD12004EC07DC0A /* KeychainItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2976052B277BF20B619F2B31262D270 /* KeychainItem.swift */; };
+		3055576253E66BFC791064E0ADEA6EB0 /* KeychainItemClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDB0A77F6536FA8DC3DB3344D4007AE /* KeychainItemClass.swift */; };
+		333015CC4DD91FAA68ED18D9C482C290 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91F34AF4ED04A2034F7DF97F11125E6 /* Keychain.swift */; };
+		39039B951A025645C58611BB8879704F /* Pods-Recipely-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F9D00D3EE2CA9BF00ED2968FDB32E7 /* Pods-Recipely-dummy.m */; };
+		4AB0C127FDEED92916107C15213DB30E /* Pods-Recipely-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 3CF1CBB1F0A851BE187742541B4E2891 /* Pods-Recipely-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4BCF7B7EC971948B1CE7735D2E9D4219 /* KeychainItemFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5230C99AB2F539ACB545F93F9BAE2AB /* KeychainItemFactory.swift */; };
+		53EC98C31D152DBCF00CFC006BD78D89 /* Keychain-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = C47DB2FF69BAFB6F26BE1099A9014BDA /* Keychain-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		95EAA68F714337D075EEAD135C6B8738 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
+		9C6E931CD380E22D9914B780D0897EC5 /* Keychain-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F9F5636647235B53008D2C93128D2A /* Keychain-dummy.m */; };
+		F2FCAF89ED23738AF54ECF40327352C8 /* KeychainProtocolType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F998CA5AEF8712358488B83DB5E706B /* KeychainProtocolType.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		31DCE979B456E824A13F6F8CC6DFF780 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E99A1AAC0FD1584B1C0B398B33671BEF;
+			remoteInfo = Keychain;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1FF67C616FBCF3C162E2D8A623D277AF /* Pods-Recipely.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Recipely.release.xcconfig"; sourceTree = "<group>"; };
+		2A05D4B39D0DB6A3E85CDBFA1B50C116 /* Pods-Recipely.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Recipely.debug.xcconfig"; sourceTree = "<group>"; };
+		2B7749A26F89522AA00DA2F928E3627C /* Pods-Recipely-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Recipely-frameworks.sh"; sourceTree = "<group>"; };
+		3CF1CBB1F0A851BE187742541B4E2891 /* Pods-Recipely-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Recipely-umbrella.h"; sourceTree = "<group>"; };
+		462B459916B1605E432BE7E97CC5C7DB /* Pods-Recipely-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Recipely-acknowledgements.plist"; sourceTree = "<group>"; };
+		54F9D00D3EE2CA9BF00ED2968FDB32E7 /* Pods-Recipely-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Recipely-dummy.m"; sourceTree = "<group>"; };
+		54FB68FFF536AB8FC2ACFBB85891B0F5 /* Keychain-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Keychain-Info.plist"; sourceTree = "<group>"; };
+		60716C90CF91E4035F743523FEE67834 /* Keychain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Keychain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		77E80BB7C0C749F9CD43891144267127 /* Keychain-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Keychain-prefix.pch"; sourceTree = "<group>"; };
+		87F9F5636647235B53008D2C93128D2A /* Keychain-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Keychain-dummy.m"; sourceTree = "<group>"; };
+		8C017BDD5BDDB1D3312E254DB68A20A0 /* Pods-Recipely.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Recipely.modulemap"; sourceTree = "<group>"; };
+		8EDB0A77F6536FA8DC3DB3344D4007AE /* KeychainItemClass.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = KeychainItemClass.swift; path = Keychain/Classes/KeychainItemClass.swift; sourceTree = "<group>"; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9F998CA5AEF8712358488B83DB5E706B /* KeychainProtocolType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = KeychainProtocolType.swift; path = Keychain/Classes/KeychainProtocolType.swift; sourceTree = "<group>"; };
+		A300311F73D3D70AA3958B117ABEF000 /* Keychain.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Keychain.debug.xcconfig; sourceTree = "<group>"; };
+		A48E8CFFE0EE766076ED85682642DF16 /* Pods-Recipely-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Recipely-acknowledgements.markdown"; sourceTree = "<group>"; };
+		A91F34AF4ED04A2034F7DF97F11125E6 /* Keychain.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Keychain.swift; path = Keychain/Classes/Keychain.swift; sourceTree = "<group>"; };
+		C47DB2FF69BAFB6F26BE1099A9014BDA /* Keychain-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Keychain-umbrella.h"; sourceTree = "<group>"; };
+		C724242161E71A33DA7FCFD1924C910B /* Keychain.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Keychain.release.xcconfig; sourceTree = "<group>"; };
+		D2976052B277BF20B619F2B31262D270 /* KeychainItem.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = KeychainItem.swift; path = Keychain/Classes/KeychainItem.swift; sourceTree = "<group>"; };
+		E5230C99AB2F539ACB545F93F9BAE2AB /* KeychainItemFactory.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = KeychainItemFactory.swift; path = Keychain/Classes/KeychainItemFactory.swift; sourceTree = "<group>"; };
+		F2BF6B79BD6AAC665EE209B994ED581D /* Pods_Recipely.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Recipely.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F472DF28820328AEC9375AB121F77F11 /* Pods-Recipely-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Recipely-Info.plist"; sourceTree = "<group>"; };
+		FDFFA390F6EFB4F9D10171FE7D6177B4 /* Keychain.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = Keychain.modulemap; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		52182A598FC0FF3115AFADF9638B51BF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				95EAA68F714337D075EEAD135C6B8738 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		92E81749C95D5D3B9CA22EB254CEF65D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1C9F1FAD2D3242332EDD26A58240C466 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4315EF36E3EC962E8A62C1A5E1FD5E1E /* Keychain */ = {
+			isa = PBXGroup;
+			children = (
+				A91F34AF4ED04A2034F7DF97F11125E6 /* Keychain.swift */,
+				D2976052B277BF20B619F2B31262D270 /* KeychainItem.swift */,
+				8EDB0A77F6536FA8DC3DB3344D4007AE /* KeychainItemClass.swift */,
+				E5230C99AB2F539ACB545F93F9BAE2AB /* KeychainItemFactory.swift */,
+				9F998CA5AEF8712358488B83DB5E706B /* KeychainProtocolType.swift */,
+				B1E8312B9679712562EFCE8114EA0D96 /* Support Files */,
+			);
+			path = Keychain;
+			sourceTree = "<group>";
+		};
+		578452D2E740E91742655AC8F1636D1F /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		B1E8312B9679712562EFCE8114EA0D96 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				FDFFA390F6EFB4F9D10171FE7D6177B4 /* Keychain.modulemap */,
+				87F9F5636647235B53008D2C93128D2A /* Keychain-dummy.m */,
+				54FB68FFF536AB8FC2ACFBB85891B0F5 /* Keychain-Info.plist */,
+				77E80BB7C0C749F9CD43891144267127 /* Keychain-prefix.pch */,
+				C47DB2FF69BAFB6F26BE1099A9014BDA /* Keychain-umbrella.h */,
+				A300311F73D3D70AA3958B117ABEF000 /* Keychain.debug.xcconfig */,
+				C724242161E71A33DA7FCFD1924C910B /* Keychain.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/Keychain";
+			sourceTree = "<group>";
+		};
+		BAB385C850A29E906BE7968BB3042124 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				60716C90CF91E4035F743523FEE67834 /* Keychain.framework */,
+				F2BF6B79BD6AAC665EE209B994ED581D /* Pods_Recipely.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CF1408CF629C7361332E53B88F7BD30C = {
+			isa = PBXGroup;
+			children = (
+				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
+				D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */,
+				DD7825DA4EF75A7843159FFFC8DF49FB /* Pods */,
+				BAB385C850A29E906BE7968BB3042124 /* Products */,
+				E9FC89947282436E4E29CCEFA1DD6B6E /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				578452D2E740E91742655AC8F1636D1F /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DD7825DA4EF75A7843159FFFC8DF49FB /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				4315EF36E3EC962E8A62C1A5E1FD5E1E /* Keychain */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		E4F45679076F8B850671A4FAB94561CA /* Pods-Recipely */ = {
+			isa = PBXGroup;
+			children = (
+				8C017BDD5BDDB1D3312E254DB68A20A0 /* Pods-Recipely.modulemap */,
+				A48E8CFFE0EE766076ED85682642DF16 /* Pods-Recipely-acknowledgements.markdown */,
+				462B459916B1605E432BE7E97CC5C7DB /* Pods-Recipely-acknowledgements.plist */,
+				54F9D00D3EE2CA9BF00ED2968FDB32E7 /* Pods-Recipely-dummy.m */,
+				2B7749A26F89522AA00DA2F928E3627C /* Pods-Recipely-frameworks.sh */,
+				F472DF28820328AEC9375AB121F77F11 /* Pods-Recipely-Info.plist */,
+				3CF1CBB1F0A851BE187742541B4E2891 /* Pods-Recipely-umbrella.h */,
+				2A05D4B39D0DB6A3E85CDBFA1B50C116 /* Pods-Recipely.debug.xcconfig */,
+				1FF67C616FBCF3C162E2D8A623D277AF /* Pods-Recipely.release.xcconfig */,
+			);
+			name = "Pods-Recipely";
+			path = "Target Support Files/Pods-Recipely";
+			sourceTree = "<group>";
+		};
+		E9FC89947282436E4E29CCEFA1DD6B6E /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				E4F45679076F8B850671A4FAB94561CA /* Pods-Recipely */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		1BBE2A9CC44B031E085B838713DD45A5 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				53EC98C31D152DBCF00CFC006BD78D89 /* Keychain-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DC61D766753883BDFF4761E32253BAFD /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4AB0C127FDEED92916107C15213DB30E /* Pods-Recipely-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		54896FAA23BFE8E045730A8BEB3DB059 /* Pods-Recipely */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7D0EB04E7FE8CB1EE6ABA5D9889CDC57 /* Build configuration list for PBXNativeTarget "Pods-Recipely" */;
+			buildPhases = (
+				DC61D766753883BDFF4761E32253BAFD /* Headers */,
+				DF1D89CA189B5E5631BC593E8EFA503E /* Sources */,
+				92E81749C95D5D3B9CA22EB254CEF65D /* Frameworks */,
+				A6BAFEB8442811BCEB48B6E2A1CE270B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B02ACE0BCF812DC2899C5D0DB6EFB464 /* PBXTargetDependency */,
+			);
+			name = "Pods-Recipely";
+			productName = Pods_Recipely;
+			productReference = F2BF6B79BD6AAC665EE209B994ED581D /* Pods_Recipely.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		E99A1AAC0FD1584B1C0B398B33671BEF /* Keychain */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8A4D2E8C69E2E6449BB1774D7974F18D /* Build configuration list for PBXNativeTarget "Keychain" */;
+			buildPhases = (
+				1BBE2A9CC44B031E085B838713DD45A5 /* Headers */,
+				A73CCD7B641052247BB9B8E01163B964 /* Sources */,
+				52182A598FC0FF3115AFADF9638B51BF /* Frameworks */,
+				A20521FDBFDBD70F4EBB536D642B8DC0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Keychain;
+			productName = Keychain;
+			productReference = 60716C90CF91E4035F743523FEE67834 /* Keychain.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BFDFE7DC352907FC980B868725387E98 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1510;
+			};
+			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
+			productRefGroup = BAB385C850A29E906BE7968BB3042124 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E99A1AAC0FD1584B1C0B398B33671BEF /* Keychain */,
+				54896FAA23BFE8E045730A8BEB3DB059 /* Pods-Recipely */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A20521FDBFDBD70F4EBB536D642B8DC0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A6BAFEB8442811BCEB48B6E2A1CE270B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A73CCD7B641052247BB9B8E01163B964 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				333015CC4DD91FAA68ED18D9C482C290 /* Keychain.swift in Sources */,
+				9C6E931CD380E22D9914B780D0897EC5 /* Keychain-dummy.m in Sources */,
+				2EEDE89F63DD6CA98FD12004EC07DC0A /* KeychainItem.swift in Sources */,
+				3055576253E66BFC791064E0ADEA6EB0 /* KeychainItemClass.swift in Sources */,
+				4BCF7B7EC971948B1CE7735D2E9D4219 /* KeychainItemFactory.swift in Sources */,
+				F2FCAF89ED23738AF54ECF40327352C8 /* KeychainProtocolType.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF1D89CA189B5E5631BC593E8EFA503E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				39039B951A025645C58611BB8879704F /* Pods-Recipely-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B02ACE0BCF812DC2899C5D0DB6EFB464 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Keychain;
+			target = E99A1AAC0FD1584B1C0B398B33671BEF /* Keychain */;
+			targetProxy = 31DCE979B456E824A13F6F8CC6DFF780 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		032504F201C69275441D32C68CCD1F0E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Release;
+		};
+		17F66A9614E77B9E170C0954F64F2354 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1FF67C616FBCF3C162E2D8A623D277AF /* Pods-Recipely.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-Recipely/Pods-Recipely-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-Recipely/Pods-Recipely.modulemap";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++14";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		3FB60F614D25B8000EAC6A5FFA5DF592 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A300311F73D3D70AA3958B117ABEF000 /* Keychain.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Keychain/Keychain-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Keychain/Keychain-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/Keychain/Keychain.modulemap";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++14";
+				PRODUCT_MODULE_NAME = Keychain;
+				PRODUCT_NAME = Keychain;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		48F67AB1E5DBE79CCF2F86C75296AB01 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		B690B86A6C066CDB1A767FE2E994E48A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A05D4B39D0DB6A3E85CDBFA1B50C116 /* Pods-Recipely.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-Recipely/Pods-Recipely-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-Recipely/Pods-Recipely.modulemap";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++14";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		C94F473F4731BF1BD31AE2A7EBD1A51C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C724242161E71A33DA7FCFD1924C910B /* Keychain.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Keychain/Keychain-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Keychain/Keychain-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/Keychain/Keychain.modulemap";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++14";
+				PRODUCT_MODULE_NAME = Keychain;
+				PRODUCT_NAME = Keychain;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				48F67AB1E5DBE79CCF2F86C75296AB01 /* Debug */,
+				032504F201C69275441D32C68CCD1F0E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7D0EB04E7FE8CB1EE6ABA5D9889CDC57 /* Build configuration list for PBXNativeTarget "Pods-Recipely" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B690B86A6C066CDB1A767FE2E994E48A /* Debug */,
+				17F66A9614E77B9E170C0954F64F2354 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8A4D2E8C69E2E6449BB1774D7974F18D /* Build configuration list for PBXNativeTarget "Keychain" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3FB60F614D25B8000EAC6A5FFA5DF592 /* Debug */,
+				C94F473F4731BF1BD31AE2A7EBD1A51C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+}

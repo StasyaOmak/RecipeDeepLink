@@ -14,7 +14,7 @@ struct RecipeDTO: Codable {
     /// Общее время приготовления рецепта в секундах.
     let totalTime: Int
     /// Общий вес рецепта.
-    let totalWeight: Double
+    let totalWeight: Float
     /// Список ингредиентов рецепта.
     let ingredientLines: [String]
     /// Общие питательные вещества рецепта, представленные в виде словаря, где ключ - название питательного вещества,
@@ -22,4 +22,6 @@ struct RecipeDTO: Codable {
     let totalNutrients: [String: NutrientInfoDTO]
     /// Список адресов изображений рецепта разного размера
     let images: [String: ImageDTO]
+    /// Тип блюда
+    let dishType: [String]
 }

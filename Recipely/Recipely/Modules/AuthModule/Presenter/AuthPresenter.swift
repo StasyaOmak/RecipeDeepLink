@@ -2,6 +2,7 @@
 // Copyright © RoadMap. All rights reserved.
 
 import Foundation
+import Keychain
 
 /// Интерфейс взаимодействия с AuthPresenter
 protocol AuthPresenterProtocol: AnyObject {
@@ -20,7 +21,6 @@ final class AuthPresenter {
     private weak var coordinator: AuthCoordinatorProtocol?
     private weak var view: AuthViewProtocol?
     private var validator = Validator()
-    @UserDefault("userDataKey") var userData: UserAuthData?
 
     // MARK: - Initializers
 
@@ -51,8 +51,8 @@ extension AuthPresenter: AuthPresenterProtocol {
         Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { [validator, view, coordinator] _ in
             view?.stopIndicator()
             if validator.isPasswordValid(password), validator.isEmailValid(email) {
-                if let user = self.userData {
-                    if user.email == email, user.password == password {
+                if Keychain.load("email") != nil, Keychain.load("password") != nil {
+                    if Keychain.load("email") == email, Keychain.load("password") == password {
                         view?.setPasswordFieldStateTo(.plain)
                         view?.setEmailFieldStateTo(.plain)
                         coordinator?.endModule()
@@ -62,8 +62,8 @@ extension AuthPresenter: AuthPresenterProtocol {
                         view?.showWarning()
                     }
                 } else {
-                    let user = UserAuthData(email: email ?? "", password: password ?? "")
-                    self.userData = user
+                    _ = Keychain.save(email ?? "", forKey: "email")
+                    _ = Keychain.save(password ?? "", forKey: "password")
                     view?.setPasswordFieldStateTo(.plain)
                     view?.setEmailFieldStateTo(.plain)
                     coordinator?.endModule()

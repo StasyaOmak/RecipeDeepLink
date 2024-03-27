@@ -22,7 +22,7 @@ final class ImageLoadProxy: ImageLoadServiceProtocol {
 
     // MARK: - Private Properties
 
-    private var imageLoadService: ImageLoadServiceProtocol
+    private weak var imageLoadService: ImageLoadServiceProtocol?
 
     // MARK: - Initializers
 
@@ -38,7 +38,7 @@ final class ImageLoadProxy: ImageLoadServiceProtocol {
             if let imageData = self.fetchImage(withName: imageName) {
                 completion(imageData, nil, nil)
             } else {
-                self.imageLoadService.loadImage(atURL: url) { [weak self] data, responce, error in
+                self.imageLoadService?.loadImage(atURL: url) { [weak self] data, responce, error in
                     self?.saveImage(withName: imageName, imageData: data)
                     completion(data, responce, error)
                 }

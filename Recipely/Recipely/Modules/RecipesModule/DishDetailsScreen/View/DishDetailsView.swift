@@ -7,8 +7,6 @@ import UIKit
 protocol DishDetailsViewProtocol: AnyObject {
     /// Обновляет состояние вью
     func updateState()
-    /// Покрасить значок избранное
-    func updateFavouritesButtonState(to isHighlited: Bool)
 }
 
 /// Экран детальной информации о блюде
@@ -52,6 +50,7 @@ final class DishDetailsView: UIViewController, UIGestureRecognizerDelegate {
     private lazy var addToFavouritesButton = {
         let button = UIButton()
         button.setImage(.bookmarkIcon.withRenderingMode(.alwaysOriginal), for: .normal)
+        button.addTarget(self, action: #selector(addToFavouritesButtonTapped), for: .touchUpInside)
         return button
     }()
 
@@ -137,6 +136,10 @@ final class DishDetailsView: UIViewController, UIGestureRecognizerDelegate {
         navigationItem.rightBarButtonItems = [addToFavouritesButtonItem, shareButtonItem]
     }
 
+    @objc private func addToFavouritesButtonTapped() {
+        presenter?.addToFavouritesButtonTapped()
+    }
+
     @objc private func shareButtonTapped() {
         presenter?.shareButtonTapped()
     }
@@ -154,23 +157,21 @@ extension DishDetailsView: DishDetailsViewProtocol {
         switch presenter?.state {
         case .loading:
             placeholerView.switchToState(.hidden)
-            dishInfoTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+            dishInfoTableView.isHidden = false
             dishInfoTableView.isScrollEnabled = false
-        case .data:
+        case let .data(dish):
             placeholerView.switchToState(.hidden)
+            dishInfoTableView.isHidden = false
             dishInfoTableView.isScrollEnabled = true
+            let image: UIImage = dish.isFavourite ? .bookmarkSelectedIcon : .bookmarkIcon
+            addToFavouritesButton.setImage(image, for: .normal)
         case .noData:
-            dishInfoTableView.isScrollEnabled = true
+            dishInfoTableView.isHidden = true
         case .error, .none:
+            dishInfoTableView.isHidden = true
             placeholerView.switchToState(.error)
-            dishInfoTableView.isScrollEnabled = false
         }
         dishInfoTableView.reloadData()
-    }
-
-    func updateFavouritesButtonState(to isHighlited: Bool) {
-        let image: UIImage = isHighlited ? .bookmarkSelectedIcon : .bookmarkIcon
-        addToFavouritesButton.setImage(image, for: .normal)
     }
 }
 

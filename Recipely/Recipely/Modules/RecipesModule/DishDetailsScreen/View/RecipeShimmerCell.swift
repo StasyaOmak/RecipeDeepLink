@@ -90,7 +90,7 @@ final class RecipeShimmerCell: UITableViewCell {
         [
             nutrientsStackView.topAnchor.constraint(equalTo: dishImageShimmerView.bottomAnchor, constant: 20),
             nutrientsStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            nutrientsStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            nutrientsStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20)
         ].activate()
     }
 
@@ -110,7 +110,7 @@ final class RecipeShimmerCell: UITableViewCell {
         view.layer.cornerCurve = .continuous
         view.clipsToBounds = true
         view.heightAnchor.constraint(equalToConstant: 53).activate()
-        view.widthAnchor.constraint(equalToConstant: 74).activate()
+        view.widthAnchor.constraint(lessThanOrEqualToConstant: 74).priority(.defaultLow).activate()
         return view
     }
 }
