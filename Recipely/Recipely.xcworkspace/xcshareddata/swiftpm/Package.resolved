@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "advancednsattributedstringpkj",
+      "kind" : "remoteSourceControl",
+      "location" : "git@github.com:tixomark/AdvancedNSAttributedStringPKJ.git",
+      "state" : {
+        "revision" : "598dfc6475db73e23d852c50a12fe8243059742f",
+        "version" : "1.0.2"
+      }
+    }
+  ],
+  "version" : 2
+}

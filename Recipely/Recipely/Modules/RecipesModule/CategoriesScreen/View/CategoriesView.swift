@@ -1,6 +1,7 @@
 // CategoriesView.swift
 // Copyright © RoadMap. All rights reserved.
 
+import AdvancedNSAttributedStringPKJ
 import UIKit
 
 /// Интерфейс взаимодействия с CategoriesView

@@ -23,6 +23,7 @@
 		9D2BC74B2B96724F00BBAA58 /* TermsOfUseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2BC74A2B96724F00BBAA58 /* TermsOfUseView.swift */; };
 		9D2BC74F2B96728800BBAA58 /* TermsOfUsePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2BC74E2B96728800BBAA58 /* TermsOfUsePresenter.swift */; };
 		9D2BC7552B97968700BBAA58 /* TermsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2BC7542B97968700BBAA58 /* TermsView.swift */; };
+		9D3887F22BB58705003DAEA8 /* AdvancedNSAttributedStringPKJ in Frameworks */ = {isa = PBXBuildFile; productRef = 9D3887F12BB58705003DAEA8 /* AdvancedNSAttributedStringPKJ */; };
 		9D499B182B8E6878007B36D0 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D499B172B8E6878007B36D0 /* ProfileCell.swift */; };
 		9D499B1A2B8E6988007B36D0 /* SettingsFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D499B192B8E6988007B36D0 /* SettingsFieldCell.swift */; };
 		9D499B1C2B8E6B4C007B36D0 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D499B1B2B8E6B4C007B36D0 /* UIImage+Extension.swift */; };
@@ -76,7 +77,6 @@
 		9D61156D2B8D67AE008EF247 /* NSLayoutConstraint+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D61156C2B8D67AE008EF247 /* NSLayoutConstraint+Extension.swift */; };
 		9D61156F2B8D67CD008EF247 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D61156E2B8D67CD008EF247 /* Array+Extension.swift */; };
 		9D6115712B8D6816008EF247 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6115702B8D6816008EF247 /* String+Extension.swift */; };
-		9D6115732B8D684E008EF247 /* NSMutableAttributedString+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6115722B8D684E008EF247 /* NSMutableAttributedString+Extension.swift */; };
 		9D6115752B8D6877008EF247 /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6115742B8D6877008EF247 /* UIFont+Extension.swift */; };
 		9D6115772B8D68F5008EF247 /* UIAlertController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6115762B8D68F5008EF247 /* UIAlertController+Extension.swift */; };
 		9D6115792B8D6917008EF247 /* UIAlertAction+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6115782B8D6917008EF247 /* UIAlertAction+Extension.swift */; };
@@ -185,7 +185,6 @@
 		9D61156C2B8D67AE008EF247 /* NSLayoutConstraint+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSLayoutConstraint+Extension.swift"; sourceTree = "<group>"; };
 		9D61156E2B8D67CD008EF247 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		9D6115702B8D6816008EF247 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
-		9D6115722B8D684E008EF247 /* NSMutableAttributedString+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+Extension.swift"; sourceTree = "<group>"; };
 		9D6115742B8D6877008EF247 /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		9D6115762B8D68F5008EF247 /* UIAlertController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extension.swift"; sourceTree = "<group>"; };
 		9D6115782B8D6917008EF247 /* UIAlertAction+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertAction+Extension.swift"; sourceTree = "<group>"; };
@@ -233,6 +232,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D3887F22BB58705003DAEA8 /* AdvancedNSAttributedStringPKJ in Frameworks */,
 				9D98F2D62BA4883C006C0565 /* Pods_Recipely.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -614,7 +614,6 @@
 			children = (
 				9D6115692B8D6778008EF247 /* UIView+Extension.swift */,
 				9D61156C2B8D67AE008EF247 /* NSLayoutConstraint+Extension.swift */,
-				9D6115722B8D684E008EF247 /* NSMutableAttributedString+Extension.swift */,
 				9D6115762B8D68F5008EF247 /* UIAlertController+Extension.swift */,
 				9D6115782B8D6917008EF247 /* UIAlertAction+Extension.swift */,
 				9D6115742B8D6877008EF247 /* UIFont+Extension.swift */,
@@ -840,6 +839,9 @@
 			dependencies = (
 			);
 			name = Recipely;
+			packageProductDependencies = (
+				9D3887F12BB58705003DAEA8 /* AdvancedNSAttributedStringPKJ */,
+			);
 			productName = Recipely;
 			productReference = 9D952B4A2B8D1CBC00F6D8CC /* Recipely.app */;
 			productType = "com.apple.product-type.application";
@@ -868,6 +870,9 @@
 				Base,
 			);
 			mainGroup = 9D952B412B8D1CBC00F6D8CC;
+			packageReferences = (
+				9D3887F02BB58705003DAEA8 /* XCRemoteSwiftPackageReference "AdvancedNSAttributedStringPKJ" */,
+			);
 			productRefGroup = 9D952B4B2B8D1CBC00F6D8CC /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1005,7 +1010,6 @@
 				2102A3A32B97F4E0002D64B6 /* ViewState.swift in Sources */,
 				9DC68F892B9B0814000261C5 /* Command.swift in Sources */,
 				9DEB3D3D2BA58A5300B0DE84 /* CoreDataDish.xcdatamodeld in Sources */,
-				9D6115732B8D684E008EF247 /* NSMutableAttributedString+Extension.swift in Sources */,
 				9D952B752B8D25E800F6D8CC /* ProfileView.swift in Sources */,
 				9DC68F7D2B9A12B0000261C5 /* Logger.swift in Sources */,
 				9DEB3D442BA590A700B0DE84 /* CoreDataService.swift in Sources */,
@@ -1297,6 +1301,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		9D3887F02BB58705003DAEA8 /* XCRemoteSwiftPackageReference "AdvancedNSAttributedStringPKJ" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:tixomark/AdvancedNSAttributedStringPKJ.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		9D3887F12BB58705003DAEA8 /* AdvancedNSAttributedStringPKJ */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9D3887F02BB58705003DAEA8 /* XCRemoteSwiftPackageReference "AdvancedNSAttributedStringPKJ" */;
+			productName = AdvancedNSAttributedStringPKJ;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		9DEB3D3B2BA58A5200B0DE84 /* CoreDataDish.xcdatamodeld */ = {
