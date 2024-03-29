@@ -3,10 +3,10 @@
     {
       "identity" : "advancednsattributedstringpkj",
       "kind" : "remoteSourceControl",
-      "location" : "git@github.com:tixomark/AdvancedNSAttributedStringPKJ.git",
+      "location" : "https://github.com/tixomark/AdvancedNSAttributedStringPKJ.git",
       "state" : {
-        "revision" : "2a7465ff00976f1c2685948c7cc742698457934d",
-        "version" : "1.1.1"
+        "revision" : "1d37cc4e0258c3f148125d6a28befc254bb4c5d1",
+        "version" : "1.2.0"
       }
     }
   ],

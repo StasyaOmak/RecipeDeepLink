@@ -1,5 +1,5 @@
 input_dir: Recipely/
-output_dir: Generated/
+output_dir: Recipely/Generated/
 
 ## XCAssets
 xcassets:
