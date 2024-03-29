@@ -26,7 +26,7 @@ final class SettingsFieldCell: UITableViewCell {
 
     private let accessoryImageView: UIImageView = {
         let view = UIImageView()
-        view.image = .rigthBracket.withRenderingMode(.alwaysOriginal)
+        view.image = AssetImage.Icons.rigthBracket.image.withRenderingMode(.alwaysOriginal)
         view.contentMode = .center
         view.clipsToBounds = true
         return view
@@ -56,7 +56,10 @@ final class SettingsFieldCell: UITableViewCell {
 
     func configure(with setting: Setting) {
         selectionStyle = .none
-        iconImageView.image = UIImage(setting.icon)?.withTintColor(.accent, renderingMode: .alwaysOriginal)
+        iconImageView.image = ImageAsset(name: setting.icon).image.withTintColor(
+            .accent,
+            renderingMode: .alwaysOriginal
+        )
         captionLabel.text = setting.name
     }
 

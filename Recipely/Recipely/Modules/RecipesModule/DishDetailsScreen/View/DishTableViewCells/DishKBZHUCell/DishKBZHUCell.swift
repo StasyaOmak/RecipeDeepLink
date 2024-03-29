@@ -5,15 +5,6 @@ import UIKit
 
 /// Ячейка с информацией о КБЖУ блюда
 final class DishKBZHUCell: UITableViewCell {
-    // MARK: - Constants
-
-    private enum Constants {
-        static let enercText = "Enerc kcal"
-        static let carbohydratesText = "Carbohydrates"
-        static let fatsText = "Fats"
-        static let proteinsText = "Proteins"
-    }
-
     // MARK: - Visual Components
 
     private let enercView = NutrientView(metrics: .kcal)
@@ -50,10 +41,10 @@ final class DishKBZHUCell: UITableViewCell {
     // MARK: - Public Methods
 
     func configure(with dish: Dish) {
-        enercView.configure(title: Constants.enercText, value: dish.calories)
-        carbohydratesView.configure(title: Constants.carbohydratesText, value: dish.carbohydrates)
-        fatsView.configure(title: Constants.fatsText, value: dish.fats)
-        proteinsView.configure(title: Constants.proteinsText, value: dish.proteins)
+        enercView.configure(title: Local.DishKBZHUCell.enercText, value: dish.calories)
+        carbohydratesView.configure(title: Local.DishKBZHUCell.carbohydratesText, value: dish.carbohydrates)
+        fatsView.configure(title: Local.DishKBZHUCell.fatsText, value: dish.fats)
+        proteinsView.configure(title: Local.DishKBZHUCell.proteinsText, value: dish.proteins)
     }
 
     // MARK: - Private Methods

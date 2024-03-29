@@ -18,12 +18,6 @@ protocol FavouritesViewProtocol: AnyObject {
 
 /// Вью экрана сохранненных блюд
 final class FavouritesView: UIViewController {
-    // MARK: - Constants
-
-    private enum Constants {
-        static let titleText = "Favorites"
-    }
-
     // MARK: - Visual Components
 
     private lazy var tableView = {
@@ -68,7 +62,7 @@ final class FavouritesView: UIViewController {
 
     private func configureTitleLabel() {
         let titleLabel = UILabel()
-        titleLabel.attributedText = Constants.titleText.attributed()
+        titleLabel.attributedText = Local.FavouritesView.titleText.attributed()
             .withColor(.label)
             .withFont(.verdanaBold(size: 28))
         titleLabel.textAlignment = .left

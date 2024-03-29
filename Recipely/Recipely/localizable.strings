@@ -1,0 +1,89 @@
+/*
+ Localizable.strings
+ Recipely
+ 
+ Created by Tixon Markin on 29.03.2024.
+ 
+ */
+
+// MARK: - DishType
+"DishType.salad" = "Salad";
+"DishType.soup" = "Soup";
+"DishType.chicken" = "Chicken";
+"DishType.meat" = "Meat";
+"DishType.fish" = "Fish";
+"DishType.sideDish" = "Side Dish";
+"DishType.pancake" = "Pancake";
+"DishType.drinks" = "Drinks";
+"DishType.desserts" = "Desserts";
+
+// MARK: - ModuleBuilder
+"ModuleBuilder.recipesText" = "Recipes";
+"ModuleBuilder.favouritesText" = "Favourites";
+"ModuleBuilder.profileText" = "Profile";
+
+// MARK: - AuthView
+"AuthView.loginText" = "Login";
+"AuthView.passwordText" = "Password";
+"AuthView.emailAddressText" = "Email Address";
+"AuthView.emailPlaceholder" = "Enter Email Address";
+"AuthView.enterPassword" = "Enter Password";
+"AuthView.passwordWarningText" = "You entered the wrong password";
+"AuthView.emailWarningText" = "Incorrect format";
+"AuthView.loginWarningText" = "Please check the accuracy of the entered credentials.";
+
+// MARK: - CategoriesView
+"CategoriesView.titleText" = "Recipes";
+
+// MARK: - CategoryDishesView
+"CategoryDishesView.caloriesFilterText" = "Calories";
+"CategoryDishesView.timeFilterText" = "Time";
+"CategoryDishesView.placeholderText" = "Search recipes";
+
+// MARK: - ReloadButton
+"ReloadButton.reloadText" = "Reload";
+
+// MARK: - FavouritesView
+"FavouritesView.titleText" = "Favorites";
+
+// MARK: - DishCookingTimeView
+"DishCookingTimeView.cookingTimeText" = "Cooking time";
+
+// MARK: - DishKBZHUCell
+"DishKBZHUCell.enercText" = "Enerc kcal";
+"DishKBZHUCell.carbohydratesText" = "Carbohydrates";
+"DishKBZHUCell.fatsText" = "Fats";
+"DishKBZHUCell.proteinsText" = "Proteins";
+
+// MARK: - FavoritesPlaceholderView
+"FavoritesPlaceholderView.mainMessageText" = "There's nothing here yet";
+"FavoritesPlaceholderView.supportiveMessageText" = "Add interesting recipes to make ordering products \nconvenient";
+
+// MARK: - Profile
+"Profile.SurnameName" = "SurnameName";
+"Profile.Bonuses" = "Bonuses";
+"Profile.Terms&PrivacyPolicy" = "Terms & Privacy Policy";
+"Profile.LogOut" = "Log out";
+
+// MARK: - ProfileView
+"ProfileView.titleText" = "Profile";
+"ProfileView.logOutAlertTitleText" = "Are you sure you want to log out?";
+"ProfileView.underDevelopmentText" = "Функционал в разработке";
+"ProfileView.changeNameText" = "Change your name and surname";
+"ProfileView.changeNamePlaceholder" = "Name Surname";
+"ProfileView.yesText" = "Yes";
+"ProfileView.okText" = "Ok";
+"ProfileView.cancelText" = "Cancel";
+
+// MARK: - TermsView
+"TermsView.titleText" = "Terms of Use";
+"TermsView.termsText" = "Welcome to our recipe app! We're thrilled to have you on board.\nTo ensure a delightful experience for everyone, please take a moment to familiarize yourself with our rules:\nUser Accounts:\nMaintain one account per user.\nSafeguard your login credentials; don't share them with others.\nContent Usage:\nRecipes and content are for personal use only.\nDo not redistribute or republish recipes without proper attribution.\nRespect Copyright:\nHonor the copyright of recipe authors and contributors.\nCredit the original source when adapting or modifying a recipe.\nCommunity Guidelines:\nShow respect in community features.\nAvoid offensive language or content that violates community standards.\nFeedback and Reviews:\nShare constructive feedback and reviews.\nDo not submit false or misleading information.\nData Privacy:\nReview and understand our privacy policy regarding data collection and usage.\nCompliance with Laws:\nUse the app in compliance with all applicable laws and regulations.\nUpdates to Terms:\nStay informed about updates; we'll notify you of any changes.\nBy using our recipe app, you agree to adhere to these rules.\nThank you for being a part of our culinary community! Enjoy exploring and cooking up a storm!";
+
+// MARK: - LoyaltyProgramView
+"LoyaltyProgramView.titleText" = "Your bonuses";
+
+// MARK: - CategoryDishesPlaceholderView
+"CategoryDishesPlaceholderView.nothingFoundText" = "Nothing found";
+"CategoryDishesPlaceholderView.failedToLoadText" = "Failed to load data";
+"CategoryDishesPlaceholderView.tryEnteringQueryText" = "Try entering your query differently";
+}

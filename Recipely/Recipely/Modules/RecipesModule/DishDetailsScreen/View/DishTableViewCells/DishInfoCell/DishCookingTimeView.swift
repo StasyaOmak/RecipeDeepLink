@@ -5,17 +5,11 @@ import UIKit
 
 /// Вью с информацией о времени приготовления блюда
 final class DishCookingTimeView: UIView {
-    // MARK: - Constants
-
-    private enum Constants {
-        static let cookingTimeText = "Cooking time"
-    }
-
     // MARK: - Visual Components
 
     private let timerImageView = {
         let view = UIImageView()
-        view.image = .timerIcon.withTintColor(.systemBackground)
+        view.image = AssetImage.Icons.timerIcon.image.withTintColor(.systemBackground)
         return view
     }()
 
@@ -64,7 +58,7 @@ final class DishCookingTimeView: UIView {
     // MARK: - Public Methods
 
     func configure(cookingTime time: Int) {
-        let text = Constants.cookingTimeText + "\n\(time) " + Metrics.minutes.rawValue
+        let text = Local.DishCookingTimeView.cookingTimeText + "\n\(time) " + Metrics.minutes.rawValue
         timerLabel.attributedText = text.attributed()
             .withParagraphStyle(timerLabelStyle)
             .withColor(.systemBackground)

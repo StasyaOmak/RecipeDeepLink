@@ -23,20 +23,11 @@ final class DishDetailsView: UIViewController, UIGestureRecognizerDelegate {
         case recipe
     }
 
-    // MARK: - Constants
-
-    private enum Constants {
-        static let inDevelopmentText = "Функционал в разработке"
-        static let okText = "Ok"
-        static let titleLabelText = "Failed to load data"
-        static let reloadText = "Reload"
-    }
-
     // MARK: - Visual Components
 
     private lazy var shareButton = {
         let button = UIButton()
-        button.setImage(.shareIcon.withRenderingMode(.alwaysOriginal), for: .normal)
+        button.setImage(AssetImage.Icons.shareIcon.image.withRenderingMode(.alwaysOriginal), for: .normal)
         button.addTarget(self, action: #selector(shareButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -49,7 +40,7 @@ final class DishDetailsView: UIViewController, UIGestureRecognizerDelegate {
 
     private lazy var addToFavouritesButton = {
         let button = UIButton()
-        button.setImage(.bookmarkIcon.withRenderingMode(.alwaysOriginal), for: .normal)
+        button.setImage(AssetImage.Icons.bookmarkIcon.image.withRenderingMode(.alwaysOriginal), for: .normal)
         button.addTarget(self, action: #selector(addToFavouritesButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -123,7 +114,7 @@ final class DishDetailsView: UIViewController, UIGestureRecognizerDelegate {
 
     private func configureNavigationBarItems() {
         let backButtonItem = UIBarButtonItem(
-            image: .backArrow.withRenderingMode(.alwaysOriginal),
+            image: AssetImage.Icons.backArrow.image.withRenderingMode(.alwaysOriginal),
             style: .done,
             target: nil,
             action: #selector(UINavigationController.popViewController(animated:))
@@ -163,7 +154,9 @@ extension DishDetailsView: DishDetailsViewProtocol {
             placeholerView.switchToState(.hidden)
             dishInfoTableView.isHidden = false
             dishInfoTableView.isScrollEnabled = true
-            let image: UIImage = dish.isFavourite ? .bookmarkSelectedIcon : .bookmarkIcon
+            let image: UIImage = dish.isFavourite
+                ? AssetImage.Icons.bookmarkSelectedIcon.image
+                : AssetImage.Icons.bookmarkIcon.image
             addToFavouritesButton.setImage(image, for: .normal)
         case .noData:
             dishInfoTableView.isHidden = true

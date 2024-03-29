@@ -6,6 +6,7 @@ target 'Recipely' do
   use_frameworks!
 
   # Pods for Recipely
-  pod "Keychain"
+  pod 'Keychain'
+  pod 'SwiftGen'
 
 end

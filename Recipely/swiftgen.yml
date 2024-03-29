@@ -1,0 +1,25 @@
+input_dir: Recipely/
+output_dir: Generated/
+
+## XCAssets
+xcassets:
+    inputs:
+        - Assets.xcassets
+    outputs:
+        templateName: swift5
+        output: XCAssets+Generated.swift
+        params:
+            forceProvidesNamespaces: true
+            publicAccess: true
+            enumName: AssetImage
+
+## Strings
+strings:
+    inputs:
+        - localizable.strings
+    outputs:
+        templateName: structured-swift5
+        output: Strings+Generated.swift
+        params:
+            publicAccess: true
+            enumName: Local

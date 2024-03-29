@@ -33,14 +33,6 @@ protocol Builder: AnyObject {
 }
 
 final class ModuleBuilder: Builder {
-    // MARK: - Constants
-
-    private enum Constants {
-        static let recipesText = "Recipes"
-        static let favouritesText = "Favourites"
-        static let profileText = "Profile"
-    }
-
     // MARK: - Private Properties
 
     private var serviceDistributor: ServiceDistributorProtocol
@@ -69,9 +61,9 @@ final class ModuleBuilder: Builder {
     func buildCategoriesScreen(coordinator: RecipesCoordinatorProtocol) -> CategoriesView {
         let view = CategoriesView()
         view.tabBarItem = UITabBarItem(
-            title: Constants.recipesText,
-            image: .recipesIcon,
-            selectedImage: .recipesFilledIcon
+            title: Local.ModuleBuilder.recipesText,
+            image: AssetImage.Icons.recipesIcon.image,
+            selectedImage: AssetImage.Icons.recipesFilledIcon.image
         )
         let presenter = CategoriesPresenter(view: view, coordinator: coordinator)
         view.presenter = presenter
@@ -113,9 +105,9 @@ final class ModuleBuilder: Builder {
     func buildFavouritesScreen(coordinator: FavouritesCoordinatorProtocol) -> FavouritesView {
         let view = FavouritesView()
         view.tabBarItem = UITabBarItem(
-            title: Constants.favouritesText,
-            image: .favouritesIcon,
-            selectedImage: .favouritesFilledIcon
+            title: Local.ModuleBuilder.favouritesText,
+            image: AssetImage.Icons.favouritesIcon.image,
+            selectedImage: AssetImage.Icons.favouritesFilledIcon.image
         )
         let presenter = FavouritesPresenter(
             view: view,
@@ -132,9 +124,9 @@ final class ModuleBuilder: Builder {
     func buildProfileScreen(coordinator: ProfileCoordinatorProtocol) -> ProfileView {
         let view = ProfileView()
         view.tabBarItem = UITabBarItem(
-            title: Constants.profileText,
-            image: .profileIcon,
-            selectedImage: .profileFilledIcon
+            title: Local.ModuleBuilder.profileText,
+            image: AssetImage.Icons.profileIcon.image,
+            selectedImage: AssetImage.Icons.profileFilledIcon.image
         )
         let presenter = ProfilePresenter(view: view, coordinator: coordinator)
         view.presenter = presenter

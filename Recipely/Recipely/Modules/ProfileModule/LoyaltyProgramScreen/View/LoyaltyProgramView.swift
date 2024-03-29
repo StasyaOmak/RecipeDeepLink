@@ -13,19 +13,13 @@ protocol LoyaltyProgramViewProtocol: AnyObject {
 
 /// Вью экрана количества бонусов
 final class LoyaltyProgramView: UIViewController {
-    // MARK: - Constants
-
-    private enum Constants {
-        static let titleText = "Your bonuses"
-    }
-
     // MARK: - Visual Components
 
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .verdanaBold(size: 20)
         label.textColor = .textAccent
-        label.text = Constants.titleText
+        label.text = Local.LoyaltyProgramView.titleText
         label.textAlignment = .center
         return label
     }()
@@ -33,7 +27,7 @@ final class LoyaltyProgramView: UIViewController {
     private let bonucesImageView: UIImageView = {
         let view = UIImageView()
         view.contentMode = .scaleAspectFit
-        view.image = .bonuces
+        view.image = AssetImage.Images.bonucesImage.image
         return view
     }()
 
@@ -41,7 +35,7 @@ final class LoyaltyProgramView: UIViewController {
         let view = UIImageView()
         view.contentMode = .scaleAspectFit
         let iconColor = #colorLiteral(red: 0.9490196078, green: 0.7882352941, blue: 0.2980392157, alpha: 1)
-        view.image = .starIcon.withTintColor(iconColor, renderingMode: .alwaysOriginal)
+        view.image = AssetImage.Icons.starIcon.image.withTintColor(iconColor, renderingMode: .alwaysOriginal)
         return view
     }()
 
@@ -56,7 +50,7 @@ final class LoyaltyProgramView: UIViewController {
     private lazy var exitButton: UIButton = {
         let button = UIButton()
         button.contentMode = .center
-        button.setImage(.closeIcon.withRenderingMode(.alwaysOriginal), for: .normal)
+        button.setImage(AssetImage.Icons.closeIcon.image.withRenderingMode(.alwaysOriginal), for: .normal)
         button.addTarget(self, action: #selector(didTapExitButton), for: .touchUpInside)
         return button
     }()

@@ -23,11 +23,8 @@
 		9D2BC74B2B96724F00BBAA58 /* TermsOfUseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2BC74A2B96724F00BBAA58 /* TermsOfUseView.swift */; };
 		9D2BC74F2B96728800BBAA58 /* TermsOfUsePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2BC74E2B96728800BBAA58 /* TermsOfUsePresenter.swift */; };
 		9D2BC7552B97968700BBAA58 /* TermsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2BC7542B97968700BBAA58 /* TermsView.swift */; };
-		9D3887F22BB58705003DAEA8 /* AdvancedNSAttributedStringPKJ in Frameworks */ = {isa = PBXBuildFile; productRef = 9D3887F12BB58705003DAEA8 /* AdvancedNSAttributedStringPKJ */; };
 		9D499B182B8E6878007B36D0 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D499B172B8E6878007B36D0 /* ProfileCell.swift */; };
 		9D499B1A2B8E6988007B36D0 /* SettingsFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D499B192B8E6988007B36D0 /* SettingsFieldCell.swift */; };
-		9D499B1C2B8E6B4C007B36D0 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D499B1B2B8E6B4C007B36D0 /* UIImage+Extension.swift */; };
-		9D499B1E2B8E6B60007B36D0 /* AssetImageName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D499B1D2B8E6B60007B36D0 /* AssetImageName.swift */; };
 		9D499B202B8E73AC007B36D0 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D499B1F2B8E73AC007B36D0 /* Settings.swift */; };
 		9D499B222B8E7422007B36D0 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D499B212B8E7422007B36D0 /* Profile.swift */; };
 		9D499B272B8E9795007B36D0 /* ProfileSubSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D499B262B8E9795007B36D0 /* ProfileSubSection.swift */; };
@@ -101,6 +98,11 @@
 		9D98F2D22BA3696A006C0565 /* CategoryDishesPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D98F2D12BA3696A006C0565 /* CategoryDishesPlaceholderView.swift */; };
 		9D98F2D42BA411C3006C0565 /* ImageDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D98F2D32BA411C3006C0565 /* ImageDTO.swift */; };
 		9D98F2D62BA4883C006C0565 /* Pods_Recipely.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1F4F629089DAC04FEF1FF1F /* Pods_Recipely.framework */; };
+		9DA97F4A2BB6A3E60041980F /* XCAssets+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DA97F482BB6A3E60041980F /* XCAssets+Generated.swift */; };
+		9DA97F4B2BB6A3E60041980F /* Strings+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DA97F492BB6A3E60041980F /* Strings+Generated.swift */; };
+		9DB5B19F2BB59C4D003B131D /* AdvancedNSAttributedStringPKJ in Frameworks */ = {isa = PBXBuildFile; productRef = 9DB5B19E2BB59C4D003B131D /* AdvancedNSAttributedStringPKJ */; };
+		9DB5B1F92BB6110C003B131D /* swiftgen.yml in Resources */ = {isa = PBXBuildFile; fileRef = 9DB5B1F82BB6110C003B131D /* swiftgen.yml */; };
+		9DB5B2002BB68DBC003B131D /* localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9DB5B1FF2BB68DBC003B131D /* localizable.strings */; };
 		9DC68F7B2B988E93000261C5 /* CaseIterable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC68F7A2B988E93000261C5 /* CaseIterable+Extension.swift */; };
 		9DC68F7D2B9A12B0000261C5 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC68F7C2B9A12B0000261C5 /* Logger.swift */; };
 		9DC68F802B9A13E8000261C5 /* FileManager+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC68F7F2B9A13E8000261C5 /* FileManager+Extension.swift */; };
@@ -134,8 +136,6 @@
 		9D2BC7542B97968700BBAA58 /* TermsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsView.swift; sourceTree = "<group>"; };
 		9D499B172B8E6878007B36D0 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		9D499B192B8E6988007B36D0 /* SettingsFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFieldCell.swift; sourceTree = "<group>"; };
-		9D499B1B2B8E6B4C007B36D0 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
-		9D499B1D2B8E6B60007B36D0 /* AssetImageName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetImageName.swift; sourceTree = "<group>"; };
 		9D499B1F2B8E73AC007B36D0 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		9D499B212B8E7422007B36D0 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		9D499B262B8E9795007B36D0 /* ProfileSubSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSubSection.swift; sourceTree = "<group>"; };
@@ -210,6 +210,10 @@
 		9D952B872B8D2CE300F6D8CC /* Favourites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favourites.swift; sourceTree = "<group>"; };
 		9D98F2D12BA3696A006C0565 /* CategoryDishesPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDishesPlaceholderView.swift; sourceTree = "<group>"; };
 		9D98F2D32BA411C3006C0565 /* ImageDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDTO.swift; sourceTree = "<group>"; };
+		9DA97F482BB6A3E60041980F /* XCAssets+Generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCAssets+Generated.swift"; sourceTree = "<group>"; };
+		9DA97F492BB6A3E60041980F /* Strings+Generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Strings+Generated.swift"; sourceTree = "<group>"; };
+		9DB5B1F82BB6110C003B131D /* swiftgen.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = swiftgen.yml; sourceTree = "<group>"; };
+		9DB5B1FF2BB68DBC003B131D /* localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = localizable.strings; sourceTree = "<group>"; };
 		9DC68F7A2B988E93000261C5 /* CaseIterable+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CaseIterable+Extension.swift"; sourceTree = "<group>"; };
 		9DC68F7C2B9A12B0000261C5 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		9DC68F7F2B9A13E8000261C5 /* FileManager+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+Extension.swift"; sourceTree = "<group>"; };
@@ -232,7 +236,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9D3887F22BB58705003DAEA8 /* AdvancedNSAttributedStringPKJ in Frameworks */,
+				9DB5B19F2BB59C4D003B131D /* AdvancedNSAttributedStringPKJ in Frameworks */,
 				9D98F2D62BA4883C006C0565 /* Pods_Recipely.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -618,7 +622,6 @@
 				9D6115782B8D6917008EF247 /* UIAlertAction+Extension.swift */,
 				9D6115742B8D6877008EF247 /* UIFont+Extension.swift */,
 				9D499B952B96247C007B36D0 /* UIColor+Extension.swift */,
-				9D499B1B2B8E6B4C007B36D0 /* UIImage+Extension.swift */,
 				9DC68F7A2B988E93000261C5 /* CaseIterable+Extension.swift */,
 				9D499B8E2B93A464007B36D0 /* Float+Extension.swift */,
 				9D61156E2B8D67CD008EF247 /* Array+Extension.swift */,
@@ -632,6 +635,8 @@
 		9D952B412B8D1CBC00F6D8CC = {
 			isa = PBXGroup;
 			children = (
+				9DB5B1F82BB6110C003B131D /* swiftgen.yml */,
+				9DA97F452BB6A2730041980F /* Generated */,
 				9D952B4C2B8D1CBC00F6D8CC /* Recipely */,
 				9D952B4B2B8D1CBC00F6D8CC /* Products */,
 				212269035938E2B885E8A1F9 /* Pods */,
@@ -662,6 +667,7 @@
 				9D61156B2B8D6783008EF247 /* Extensions */,
 				9DC68F922B9B2D99000261C5 /* Additives */,
 				9D952B562B8D1CBD00F6D8CC /* Assets.xcassets */,
+				9DB5B1FF2BB68DBC003B131D /* localizable.strings */,
 				9D952B582B8D1CBD00F6D8CC /* LaunchScreen.storyboard */,
 				9D952B5B2B8D1CBD00F6D8CC /* Info.plist */,
 			);
@@ -750,6 +756,15 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		9DA97F452BB6A2730041980F /* Generated */ = {
+			isa = PBXGroup;
+			children = (
+				9DA97F492BB6A3E60041980F /* Strings+Generated.swift */,
+				9DA97F482BB6A3E60041980F /* XCAssets+Generated.swift */,
+			);
+			path = Generated;
+			sourceTree = "<group>";
+		};
 		9DC68F7E2B9A12B3000261C5 /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -800,7 +815,6 @@
 		9DC68F922B9B2D99000261C5 /* Additives */ = {
 			isa = PBXGroup;
 			children = (
-				9D499B1D2B8E6B60007B36D0 /* AssetImageName.swift */,
 				9D499B922B93E228007B36D0 /* Mertics.swift */,
 				9D499B372B8F9D49007B36D0 /* TypeAlieses.swift */,
 				9DC68F932B9B2E0F000261C5 /* UserDefaultsWrapper.swift */,
@@ -827,6 +841,7 @@
 			buildConfigurationList = 9D952B5E2B8D1CBD00F6D8CC /* Build configuration list for PBXNativeTarget "Recipely" */;
 			buildPhases = (
 				C03E82EA959455C7691ACF38 /* [CP] Check Pods Manifest.lock */,
+				9DB5B1F72BB60F09003B131D /* SwiftGen */,
 				9D952B462B8D1CBC00F6D8CC /* Sources */,
 				9D952B472B8D1CBC00F6D8CC /* Frameworks */,
 				9D952B482B8D1CBC00F6D8CC /* Resources */,
@@ -840,7 +855,7 @@
 			);
 			name = Recipely;
 			packageProductDependencies = (
-				9D3887F12BB58705003DAEA8 /* AdvancedNSAttributedStringPKJ */,
+				9DB5B19E2BB59C4D003B131D /* AdvancedNSAttributedStringPKJ */,
 			);
 			productName = Recipely;
 			productReference = 9D952B4A2B8D1CBC00F6D8CC /* Recipely.app */;
@@ -887,8 +902,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9DB5B2002BB68DBC003B131D /* localizable.strings in Resources */,
 				9D952B5A2B8D1CBD00F6D8CC /* LaunchScreen.storyboard in Resources */,
 				9D952B572B8D1CBD00F6D8CC /* Assets.xcassets in Resources */,
+				9DB5B1F92BB6110C003B131D /* swiftgen.yml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -949,6 +966,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif which swiftformat > /dev/null; then\n  swiftformat .\nelse\n  echo \"warning: SwiftFormat not installed, download from https://github.com/nicklockwood/SwiftFormat\"\n  exit 1\nfi\n";
+		};
+		9DB5B1F72BB60F09003B131D /* SwiftGen */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftGen;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [[ -f \"${PODS_ROOT}/SwiftGen/bin/swiftgen\" ]]; then \n\n  \"${PODS_ROOT}/SwiftGen/bin/swiftgen\"\nelse \n  echo \"warning: SwiftGen is not installed. Run 'pod install --repo-update' to install it.\" \nfi \n";
+			showEnvVarsInLog = 0;
 		};
 		C03E82EA959455C7691ACF38 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1015,6 +1052,7 @@
 				9DEB3D442BA590A700B0DE84 /* CoreDataService.swift in Sources */,
 				9DC68F942B9B2E0F000261C5 /* UserDefaultsWrapper.swift in Sources */,
 				21FE4D952B8FE9F000FA377F /* CategoryDishesView.swift in Sources */,
+				9DA97F4A2BB6A3E60041980F /* XCAssets+Generated.swift in Sources */,
 				9D6115712B8D6816008EF247 /* String+Extension.swift in Sources */,
 				9D6115662B8D54CC008EF247 /* RecipesCoordinator.swift in Sources */,
 				9D499B272B8E9795007B36D0 /* ProfileSubSection.swift in Sources */,
@@ -1040,9 +1078,9 @@
 				9D952B6E2B8D22DC00F6D8CC /* BaseCoordinator.swift in Sources */,
 				9D952B892B8D2CE300F6D8CC /* FavouritesCoordinator.swift in Sources */,
 				9D6115752B8D6877008EF247 /* UIFont+Extension.swift in Sources */,
+				9DA97F4B2BB6A3E60041980F /* Strings+Generated.swift in Sources */,
 				9D6115792B8D6917008EF247 /* UIAlertAction+Extension.swift in Sources */,
 				9DC68F8D2B9B0856000261C5 /* LogInvoker.swift in Sources */,
-				9D499B1C2B8E6B4C007B36D0 /* UIImage+Extension.swift in Sources */,
 				9D952B732B8D235D00F6D8CC /* ModuleBuilder.swift in Sources */,
 				9D4DF4992BA11DBD008FAB6F /* NetworkService.swift in Sources */,
 				9D6115652B8D54CC008EF247 /* CategoriesView.swift in Sources */,
@@ -1052,7 +1090,6 @@
 				9D499B882B935CE7007B36D0 /* DishCookingTimeView.swift in Sources */,
 				9D952B712B8D231800F6D8CC /* AppCoordinator.swift in Sources */,
 				9D6115482B8D312E008EF247 /* AuthPresenter.swift in Sources */,
-				9D499B1E2B8E6B60007B36D0 /* AssetImageName.swift in Sources */,
 				9D4DF4A62BA1AB12008FAB6F /* NutrientInfoDTO.swift in Sources */,
 				9D499B362B8F7937007B36D0 /* ActivityButton.swift in Sources */,
 				9D499B382B8F9D49007B36D0 /* TypeAlieses.swift in Sources */,
@@ -1222,7 +1259,7 @@
 			baseConfigurationReference = FB3E0CE987E255C2D0CB4123 /* Pods-Recipely.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GENERATE_ASSET_SYMBOLS = YES;
+				ASSETCATALOG_COMPILER_GENERATE_ASSET_SYMBOLS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -1253,7 +1290,7 @@
 			baseConfigurationReference = DC3A3082114311257F3F2A55 /* Pods-Recipely.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GENERATE_ASSET_SYMBOLS = YES;
+				ASSETCATALOG_COMPILER_GENERATE_ASSET_SYMBOLS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -1314,7 +1351,7 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		9D3887F12BB58705003DAEA8 /* AdvancedNSAttributedStringPKJ */ = {
+		9DB5B19E2BB59C4D003B131D /* AdvancedNSAttributedStringPKJ */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 9D3887F02BB58705003DAEA8 /* XCRemoteSwiftPackageReference "AdvancedNSAttributedStringPKJ" */;
 			productName = AdvancedNSAttributedStringPKJ;

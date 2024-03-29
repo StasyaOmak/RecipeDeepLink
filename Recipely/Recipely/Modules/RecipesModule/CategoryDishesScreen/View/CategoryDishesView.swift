@@ -11,14 +11,6 @@ protocol CategoryDishesViewProtocol: AnyObject {
 
 /// Вью экрана списка блюд категории
 class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
-    // MARK: - Constants
-
-    private enum Constants {
-        static let caloriesFilterText = "Calories"
-        static let timeFilterText = "Time"
-        static let placeholderText = "Search recipes"
-    }
-
     // MARK: - Visual Components
 
     private lazy var refreshControl = {
@@ -33,20 +25,20 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
         searhBar.searchBarStyle = .minimal
         searhBar.searchTextField.backgroundColor = UIColor.searhBar
         searhBar.searchTextField.layer.cornerRadius = 12
-        searhBar.placeholder = Constants.placeholderText
+        searhBar.placeholder = Local.CategoryDishesView.placeholderText
         searhBar.translatesAutoresizingMaskIntoConstraints = false
         searhBar.delegate = self
         return searhBar
     }()
 
     private lazy var caloriesSortControl = {
-        let view = SortControl(title: Constants.caloriesFilterText, state: .none)
+        let view = SortControl(title: Local.CategoryDishesView.caloriesFilterText, state: .none)
         view.delegate = self
         return view
     }()
 
     private lazy var timeSortControl = {
-        let view = SortControl(title: Constants.timeFilterText, state: .none)
+        let view = SortControl(title: Local.CategoryDishesView.timeFilterText, state: .none)
         view.delegate = self
         return view
     }()
@@ -146,7 +138,7 @@ class CategoryDishesView: UIViewController, UIGestureRecognizerDelegate {
 
     private func configureNavigationItem() {
         let backButtonItem = UIBarButtonItem(
-            image: .backArrow.withRenderingMode(.alwaysOriginal),
+            image: AssetImage.Icons.backArrow.image.withRenderingMode(.alwaysOriginal),
             style: .done,
             target: nil,
             action: #selector(UINavigationController.popViewController(animated:))

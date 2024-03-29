@@ -20,19 +20,6 @@ protocol ProfileViewProtocol: AnyObject {
 
 /// Вью экрана профиля пользователя
 final class ProfileView: UIViewController {
-    // MARK: - Constants
-
-    private enum Constants {
-        static let titleText = "Profile"
-        static let logOutAlertTitleText = "Are you sure you want to log out?"
-        static let underDevelopmentText = "Функционал в разработке"
-        static let changeNameText = "Change your name and surname"
-        static let changeNamePlaceholder = "Name Surname"
-        static let yesText = "Yes"
-        static let okText = "Ok"
-        static let cancelText = "Cancel"
-    }
-
     // MARK: - Visual Components
 
     private lazy var tableView: UITableView = {
@@ -83,7 +70,7 @@ final class ProfileView: UIViewController {
 
     private func configureTitleLabel() {
         let titleLabel = UILabel()
-        titleLabel.attributedText = Constants.titleText.attributed().withColor(.label)
+        titleLabel.attributedText = Local.ProfileView.titleText.attributed().withColor(.label)
             .withFont(.verdanaBold(size: 28))
         titleLabel.textAlignment = .left
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: titleLabel)
@@ -192,11 +179,11 @@ extension ProfileView: PHPickerViewControllerDelegate {
 
 extension ProfileView {
     private func createLogOutMessageAlert() -> UIAlertController {
-        let alert = UIAlertController(title: Constants.logOutAlertTitleText)
-        let yesAction = UIAlertAction(title: Constants.yesText, style: .destructive) { [weak self] _ in
+        let alert = UIAlertController(title: Local.ProfileView.logOutAlertTitleText)
+        let yesAction = UIAlertAction(title: Local.ProfileView.yesText, style: .destructive) { [weak self] _ in
             self?.presenter?.logOutActionTapped()
         }
-        let cancelAction = UIAlertAction(title: Constants.cancelText)
+        let cancelAction = UIAlertAction(title: Local.ProfileView.cancelText)
         alert.addAction(yesAction)
         alert.addAction(cancelAction)
         alert.preferredAction = cancelAction
@@ -204,14 +191,14 @@ extension ProfileView {
     }
 
     private func createUpdateNameAlert() -> UIAlertController {
-        let alert = UIAlertController(title: Constants.changeNameText)
-        let okAction = UIAlertAction(title: Constants.okText) { [weak alert, presenter] _ in
+        let alert = UIAlertController(title: Local.ProfileView.changeNameText)
+        let okAction = UIAlertAction(title: Local.ProfileView.okText) { [weak alert, presenter] _ in
             guard let newName = alert?.textFields?[0].text else { return }
             presenter?.didSubmitNewName(newName)
         }
-        let cancelAction = UIAlertAction(title: Constants.cancelText)
+        let cancelAction = UIAlertAction(title: Local.ProfileView.cancelText)
         alert.addTextField { textfield in
-            textfield.placeholder = Constants.changeNamePlaceholder
+            textfield.placeholder = Local.ProfileView.changeNamePlaceholder
             textfield.font = .verdana(size: 16)
         }
         alert.addAction(okAction)

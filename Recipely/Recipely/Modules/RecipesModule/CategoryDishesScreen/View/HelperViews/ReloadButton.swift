@@ -5,18 +5,15 @@ import UIKit
 
 /// Кнопка перезагрузки данных
 final class ReloadButton: UIButton {
-    // MARK: - Constants
-
-    private enum Constants {
-        static let reloadText = "Reload"
-    }
-
     // MARK: - Visual Components
 
     private let mainImage = {
         let image = UIImageView()
         image.contentMode = .center
-        image.image = UIImage.reloadIcon.withTintColor(.placeholderText, renderingMode: .alwaysOriginal)
+        image.image = AssetImage.Icons.reloadIcon.image.withTintColor(
+            .placeholderText,
+            renderingMode: .alwaysOriginal
+        )
         return image
     }()
 
@@ -24,7 +21,7 @@ final class ReloadButton: UIButton {
         let label = UILabel()
         label.font = .verdana(size: 14)
         label.textColor = .placeholderText
-        label.text = Constants.reloadText
+        label.text = Local.ReloadButton.reloadText
         return label
     }()
 

@@ -20,6 +20,7 @@ opt_in_rules:
   
 excluded:
   - Pods
+  - Generated
 
 warning_threshold: 1
 

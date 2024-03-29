@@ -22,36 +22,22 @@ protocol AuthViewProtocol: AnyObject {
 
 /// Вью экрана аутентификаци
 final class AuthView: UIViewController {
-    // MARK: - Constants
-
-    enum Constants {
-        static let gridient = "gridient"
-        static let loginText = "Login"
-        static let passwordText = "Password"
-        static let emailAddressText = "Email Address"
-        static let emailPlaceholder = "Enter Email Address"
-        static let enterPassword = "Enter Password"
-        static let passwordWarningText = "You entered the wrong password"
-        static let emailWarningText = "Incorrect format"
-        static let loginWarningText = "Please check the accuracy of the entered credentials."
-    }
-
     // MARK: - Visual Components
 
     private let passwordTextFieldView = {
         let view = AuthFieldView(selectorMethod: nil, view: nil)
-        view.placeholderText = Constants.enterPassword
-        view.titleLabelText = Constants.passwordText
-        view.warningText = Constants.passwordWarningText
-        view.leftAccessoryImage = .lockIcon
-        view.rightAccessoryButtonImage = .crossedEyeIcon
+        view.placeholderText = Local.AuthView.enterPassword
+        view.titleLabelText = Local.AuthView.passwordText
+        view.warningText = Local.AuthView.passwordWarningText
+        view.leftAccessoryImage = AssetImage.Icons.lockIcon.image
+        view.rightAccessoryButtonImage = AssetImage.Icons.crossedEyeIcon.image
         view.isRightButtonHidden = false
         return view
     }()
 
     private let loginLabel = {
         let label = UILabel()
-        label.text = Constants.loginText
+        label.text = Local.AuthView.loginText
         label.font = .verdanaBold(size: 28)
         label.textColor = .textAccent
         return label
@@ -67,7 +53,7 @@ final class AuthView: UIViewController {
 
     private let warningsAccuracyLabel = {
         let label = UILabel()
-        label.text = Constants.loginWarningText
+        label.text = Local.AuthView.loginWarningText
         label.font = .verdana(size: 18)
         label.textColor = .white
         label.textAlignment = .left
@@ -81,18 +67,18 @@ final class AuthView: UIViewController {
 
     private lazy var emailTextFieldView = {
         let view = AuthFieldView(selectorMethod: #selector(self.emailChanged(_:)), view: self)
-        view.placeholderText = Constants.emailPlaceholder
-        view.titleLabelText = Constants.emailAddressText
-        view.warningText = Constants.emailWarningText
-        view.leftAccessoryImage = .envelopeIcon
-        view.rightAccessoryButtonImage = .crossInCircleIcon
+        view.placeholderText = Local.AuthView.emailPlaceholder
+        view.titleLabelText = Local.AuthView.emailAddressText
+        view.warningText = Local.AuthView.emailWarningText
+        view.leftAccessoryImage = AssetImage.Icons.envelopeIcon.image
+        view.rightAccessoryButtonImage = AssetImage.Icons.crossInCircleIcon.image
         view.isRightButtonHidden = true
         return view
     }()
 
     private lazy var loginButton = {
         let button = ActivityButton()
-        button.setTitle(Constants.loginText, for: .normal)
+        button.setTitle(Local.AuthView.loginText, for: .normal)
         button.addTarget(self, action: #selector(
             loginButtonTapped
         ), for: .touchUpInside)
