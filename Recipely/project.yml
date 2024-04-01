@@ -12,6 +12,10 @@ packages:
   AdvancedNSAttributedStringPKJ:
     url: https://github.com/tixomark/AdvancedNSAttributedStringPKJ.git
     from: 1.0.0
+  Swinject:
+    url: https://github.com/Swinject/Swinject.git
+    from: 2.8.0
+    
   
 targets:
   Recipely:
@@ -27,6 +31,7 @@ targets:
       - Podfile
     dependencies:
       - package: AdvancedNSAttributedStringPKJ
+      - package: Swinject
     settings:
       base:
         SWIFT_VERSION: 5.0
@@ -92,6 +97,7 @@ targets:
       - Podfile
     dependencies:
       - package: AdvancedNSAttributedStringPKJ
+      - package: Swinject
     settings:
       base:
         SWIFT_VERSION: 5.0
