@@ -5,8 +5,6 @@ options:
     iOS: 16.0
   groupSortPosition: bottom
   createIntermediateGroups: true
-  groupOrdering:
-    - order: [Coordinator, Services, Modules, Extensions, Generated]
   bundleIdPrefix: "com.tixomark"
   postGenCommand: pod update
 
@@ -30,16 +28,83 @@ targets:
     dependencies:
       - package: AdvancedNSAttributedStringPKJ
     settings:
-        base:
-            SWIFT_VERSION: 5.0
-            CURRENT_PROJECT_VERSION: 1.0.0
-            MARKETING_VERSION: 1
-            IPHONEOS_DEPLOYMENT_TARGET: "16.0"
-            ENABLE_USER_SCRIPT_SANDBOXING: false
-            INFOPLIST_KEY_UILaunchScreen_Generation: true
-            GENERATE_INFOPLIST_FILE: true
-#            ASSETCATALOG_COMPILER_GENERATE_ASSET_SYMBOLS: true
-#            ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS: true
+      base:
+        SWIFT_VERSION: 5.0
+        CURRENT_PROJECT_VERSION: 1.0.0
+        MARKETING_VERSION: 1
+        IPHONEOS_DEPLOYMENT_TARGET: "16.0"
+        ENABLE_USER_SCRIPT_SANDBOXING: false
+        INFOPLIST_KEY_UILaunchScreen_Generation: true
+        GENERATE_INFOPLIST_FILE: true
+
+        #ASSETCATALOG_COMPILER_GENERATE_ASSET_SYMBOLS: true
+        #ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS: true
+    preBuildScripts:
+      - script: |
+                if [[ -f "${PODS_ROOT}/SwiftGen/bin/swiftgen" ]]; then
+
+                "${PODS_ROOT}/SwiftGen/bin/swiftgen"
+                else
+                    echo "warning: SwiftGen is not installed. Run 'pod install --repo-update' to install it."
+                fi
+        name: SwiftGen
+        basedOnDependencyAnalysis: false
+        showEnvVars: false
+    postCompileScripts:
+      - script: |
+                if [[ "$(uname -m)" == arm64 ]]; then
+                    export PATH="/opt/homebrew/bin:$PATH"
+                fi
+
+                if which swiftformat > /dev/null; then
+                    swiftformat .
+                else
+                    echo "warning: SwiftFormat not installed, download from https://github.com/nicklockwood/SwiftFormat"
+                    exit 1
+                fi
+        name: SwiftFormat
+        basedOnDependencyAnalysis: false
+        showEnvVars: false
+      - script: |
+                if [[ "$(uname -m)" == arm64 ]]; then
+                    export PATH="/opt/homebrew/bin:$PATH"
+                fi
+
+                if which swiftlint > /dev/null; then
+                    swiftlint
+                else
+                    echo "warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint"
+                    exit 1
+                fi
+        name: SwiftLint
+        basedOnDependencyAnalysis: false
+        showEnvVars: false
+  RecipelyMock:
+    type: application
+    platform: iOS
+    deploymentTarget: "16.0"
+    sources:
+      - Recipely
+      - project.yml
+      - swiftgen.yml
+      - .swiftlint.yml
+      - .swiftformat
+      - Podfile
+    dependencies:
+      - package: AdvancedNSAttributedStringPKJ
+    settings:
+      base:
+        SWIFT_VERSION: 5.0
+        CURRENT_PROJECT_VERSION: 1.0.0
+        MARKETING_VERSION: 1
+        IPHONEOS_DEPLOYMENT_TARGET: "16.0"
+        ENABLE_USER_SCRIPT_SANDBOXING: false
+        INFOPLIST_KEY_UILaunchScreen_Generation: true
+        GENERATE_INFOPLIST_FILE: true
+        OTHER_SWIFT_FLAGS: "$(inherited) -D Free"
+        
+        #ASSETCATALOG_COMPILER_GENERATE_ASSET_SYMBOLS: true
+        #ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS: true
     preBuildScripts:
       - script: |
                 if [[ -f "${PODS_ROOT}/SwiftGen/bin/swiftgen" ]]; then

@@ -28,3 +28,27 @@ extension URL {
         appendingPathExtension(pathExtension.rawValue)
     }
 }
+
+extension URL {
+    /// Имя файла мока
+    enum MockFileName: String {
+        /// Посты
+        case posts = "mockDishes"
+        /// Пустой ответ
+        case empty
+    }
+
+    static func makeURL(_ urlString: String, mockFileName: MockFileName) -> URL? {
+        var newURL = URL(string: urlString)
+        guard Constants.isMockMode else { return newURL }
+        let fileName = mockFileName.rawValue
+        let bundleURL = Bundle.main.url(forResource: fileName, withExtension: "json")
+        guard let bundleURL = bundleURL else {
+            let errorText = "Отсутствует моковый файл: \(fileName).json"
+            debugPrint(errorText)
+            return nil
+        }
+        newURL = bundleURL
+        return newURL
+    }
+}

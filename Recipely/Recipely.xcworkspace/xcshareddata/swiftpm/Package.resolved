@@ -1,4 +1,5 @@
 {
+  "originHash" : "2dc70ae046928f8a259630f76691b064cb2f54326fded120f6aaed939c025ed6",
   "pins" : [
     {
       "identity" : "advancednsattributedstringpkj",
@@ -10,5 +11,5 @@
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }
