@@ -15,7 +15,6 @@
 			dependencies = (
 			);
 			name = SwiftGen;
-			productName = SwiftGen;
 		};
 /* End PBXAggregateTarget section */
 
@@ -94,7 +93,7 @@
 		8C1E08154BE1576FC46B5EDEE0231FEC /* Pods-RecipelyMock-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-RecipelyMock-Info.plist"; sourceTree = "<group>"; };
 		91872DE436557494E6563274633E03B0 /* Keychain.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Keychain.release.xcconfig; sourceTree = "<group>"; };
 		9CD820E9818A11D82D0A3FB60383BF1F /* Pods-Recipely.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Recipely.modulemap"; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		BECF84C016085C3F29AE1E3C2E907A31 /* Pods-Recipely-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Recipely-Info.plist"; sourceTree = "<group>"; };
 		BEF0424321887CFD407BEF27455220F5 /* Pods-Recipely-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Recipely-umbrella.h"; sourceTree = "<group>"; };
 		C2DD124FF34EBCB1F21C096553FB0B9B /* Pods-RecipelyMock-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-RecipelyMock-acknowledgements.plist"; sourceTree = "<group>"; };
@@ -162,6 +161,7 @@
 				4130211D23D54D388FE0651C38FE2361 /* KeychainProtocolType.swift */,
 				C15BC1AFC910C567B7707FF38CE915A7 /* Support Files */,
 			);
+			name = Keychain;
 			path = Keychain;
 			sourceTree = "<group>";
 		};
@@ -247,6 +247,7 @@
 			children = (
 				FA028AB729D0C7FF3BB15BD454ACF6BF /* Support Files */,
 			);
+			name = SwiftGen;
 			path = SwiftGen;
 			sourceTree = "<group>";
 		};
