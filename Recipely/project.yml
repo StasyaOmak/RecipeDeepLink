@@ -32,6 +32,9 @@ targets:
     dependencies:
       - package: AdvancedNSAttributedStringPKJ
       - package: Swinject
+    scheme:
+      testTargets:
+        - RecipelyTests
     settings:
       base:
         SWIFT_VERSION: 5.0

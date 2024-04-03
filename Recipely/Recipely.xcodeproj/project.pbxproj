@@ -149,9 +149,11 @@
 		9B26B8E1B4ED5FA9047003D1 /* LogCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11AAD3A1C86734A2C508EC61 /* LogCommand.swift */; };
 		9B5B22A30FA7195D25433CAD /* SettingsFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A299BDF0FAC104EFA7977B82 /* SettingsFieldCell.swift */; };
 		9B80CC12390C8AF8BCBF825F /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A0A6E5E398FE306B2F4B28 /* ProfileView.swift */; };
+		9D4E3B252BBDEB4F00C62EBB /* CategoryDishesScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4E3B242BBDEB4F00C62EBB /* CategoryDishesScreen.swift */; };
 		9D659D8009C0027FFB693AE2 /* DishInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07535A3ED41560113115BDA /* DishInfoCell.swift */; };
 		9DD753F90CA7CB738D56662E /* SettingsFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A299BDF0FAC104EFA7977B82 /* SettingsFieldCell.swift */; };
 		9DDF3A902BBC9A380005A929 /* ImageLoadServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DDF3A8F2BBC9A380005A929 /* ImageLoadServiceTests.swift */; };
+		9DDF3AA52BBDB0320005A929 /* CategoriesScreenUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DDF3AA42BBDB0320005A929 /* CategoriesScreenUITests.swift */; };
 		9F20BDA531A3775E04E5F877 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1F27B60849A7196363239AB /* LaunchScreen.storyboard */; };
 		9F41B3E1D9CA87F6530F8EE8 /* ProfileSubSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9ED98FE9CBFD783F7BFA36 /* ProfileSubSection.swift */; };
 		A240B3D31943D15F0E23AF8D /* ProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30095CACA12DE95D47FC628B /* ProfilePresenter.swift */; };
@@ -245,6 +247,13 @@
 			remoteGlobalIDString = 4BC0AE2394006116C6DEE5FE;
 			remoteInfo = Recipely;
 		};
+		9DDF3AA82BBDB0320005A929 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C4ABA892C6AFDEF75DD5AA89 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4BC0AE2394006116C6DEE5FE;
+			remoteInfo = Recipely;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -330,8 +339,11 @@
 		9A362EDBDE974C2FC4B1BB5F /* ImageLoadProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoadProxy.swift; sourceTree = "<group>"; };
 		9B18A47DF57F2ACF0A1DB51C /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		9CE28F2D00D3CEA4DA225B10 /* LogAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogAction.swift; sourceTree = "<group>"; };
+		9D4E3B242BBDEB4F00C62EBB /* CategoryDishesScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDishesScreen.swift; sourceTree = "<group>"; };
 		9D8317C4743EBC283B6EE2D1 /* RecipesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesCoordinator.swift; sourceTree = "<group>"; };
 		9DDF3A8F2BBC9A380005A929 /* ImageLoadServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoadServiceTests.swift; sourceTree = "<group>"; };
+		9DDF3AA22BBDB0320005A929 /* RecipelyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RecipelyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9DDF3AA42BBDB0320005A929 /* CategoriesScreenUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesScreenUITests.swift; sourceTree = "<group>"; };
 		A135E092BFBB7BBA7E89D431 /* DishRecipeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishRecipeCell.swift; sourceTree = "<group>"; };
 		A148A89663684BD6157A2138 /* Float+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Float+Extension.swift"; sourceTree = "<group>"; };
 		A299BDF0FAC104EFA7977B82 /* SettingsFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFieldCell.swift; sourceTree = "<group>"; };
@@ -375,6 +387,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		9DDF3A9F2BBDB0320005A929 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B01310CA1DCA0BD4682C8CFD /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -537,6 +556,7 @@
 				7C18FDC609EC27A7C8DAE0AB /* Recipely.app */,
 				B86F472397BA776F5B9ECBCA /* RecipelyMock.app */,
 				B785DB8A57F7961741DAB464 /* RecipelyTests.xctest */,
+				9DDF3AA22BBDB0320005A929 /* RecipelyUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -551,6 +571,7 @@
 				F36245DA4F6843F1A8CA6B05 /* swiftgen.yml */,
 				07223B679F89B351B11A801E /* Recipely */,
 				2C6DDA9E0242B8176361E8F1 /* RecipelyTests */,
+				9DDF3AA32BBDB0320005A929 /* RecipelyUITests */,
 				33147ADAFA6221BB4BD002BF /* Products */,
 				B381DD8B34D08F957D2A04E9 /* Pods */,
 				FBAD7F61722E424FE67A54DC /* Frameworks */,
@@ -772,6 +793,15 @@
 				2CF1E8A99F1189B7945897BA /* LoyaltyProgramPresenter.swift */,
 			);
 			path = Presenter;
+			sourceTree = "<group>";
+		};
+		9DDF3AA32BBDB0320005A929 /* RecipelyUITests */ = {
+			isa = PBXGroup;
+			children = (
+				9DDF3AA42BBDB0320005A929 /* CategoriesScreenUITests.swift */,
+				9D4E3B242BBDEB4F00C62EBB /* CategoryDishesScreen.swift */,
+			);
+			path = RecipelyUITests;
 			sourceTree = "<group>";
 		};
 		A7F0B375D430F26033ACA325 /* Model */ = {
@@ -1081,6 +1111,24 @@
 			productReference = 7C18FDC609EC27A7C8DAE0AB /* Recipely.app */;
 			productType = "com.apple.product-type.application";
 		};
+		9DDF3AA12BBDB0320005A929 /* RecipelyUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9DDF3AAC2BBDB0320005A929 /* Build configuration list for PBXNativeTarget "RecipelyUITests" */;
+			buildPhases = (
+				9DDF3A9E2BBDB0320005A929 /* Sources */,
+				9DDF3A9F2BBDB0320005A929 /* Frameworks */,
+				9DDF3AA02BBDB0320005A929 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9DDF3AA92BBDB0320005A929 /* PBXTargetDependency */,
+			);
+			name = RecipelyUITests;
+			productName = RecipelyUITests;
+			productReference = 9DDF3AA22BBDB0320005A929 /* RecipelyUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1088,7 +1136,14 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 1430;
+				LastSwiftUpdateCheck = 1530;
+				LastUpgradeCheck = 1530;
+				TargetAttributes = {
+					9DDF3AA12BBDB0320005A929 = {
+						CreatedOnToolsVersion = 15.3;
+						TestTargetID = 4BC0AE2394006116C6DEE5FE;
+					};
+				};
 			};
 			buildConfigurationList = 724FAC2239EDD3A42967460C /* Build configuration list for PBXProject "Recipely" */;
 			compatibilityVersion = "Xcode 14.0";
@@ -1110,6 +1165,7 @@
 				4BC0AE2394006116C6DEE5FE /* Recipely */,
 				2AD9287DC46BE24020875F84 /* RecipelyMock */,
 				25F39E1FFF8EC5AB41FF6091 /* RecipelyTests */,
+				9DDF3AA12BBDB0320005A929 /* RecipelyUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -1127,6 +1183,13 @@
 				1E02FED278A45D42A7084C45 /* mockDishes.json in Resources */,
 				DBA13BE49716460A39114697 /* project.yml in Resources */,
 				2E202C4878DC815AB82A7B16 /* swiftgen.yml in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9DDF3AA02BBDB0320005A929 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1498,6 +1561,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		9DDF3A9E2BBDB0320005A929 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9DDF3AA52BBDB0320005A929 /* CategoriesScreenUITests.swift in Sources */,
+				9D4E3B252BBDEB4F00C62EBB /* CategoryDishesScreen.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CC6E52D0038A585B42E6B577 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1619,6 +1691,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		9DDF3AA92BBDB0320005A929 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4BC0AE2394006116C6DEE5FE /* Recipely */;
+			targetProxy = 9DDF3AA82BBDB0320005A929 /* PBXContainerItemProxy */;
+		};
 		F1AD9CF679EC3512623E983C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 4BC0AE2394006116C6DEE5FE /* Recipely */;
@@ -1762,6 +1839,56 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Recipely.app/Recipely";
+			};
+			name = Release;
+		};
+		9DDF3AAA2BBDB0320005A929 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tixomark.RecipelyUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Recipely;
+			};
+			name = Debug;
+		};
+		9DDF3AAB2BBDB0320005A929 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tixomark.RecipelyUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Recipely;
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
@@ -1916,6 +2043,15 @@
 			buildConfigurations = (
 				2571ED9FCB4A9E363ECB2D8B /* Debug */,
 				F5C5949C11BD90773AFCD5E2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		9DDF3AAC2BBDB0320005A929 /* Build configuration list for PBXNativeTarget "RecipelyUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9DDF3AAA2BBDB0320005A929 /* Debug */,
+				9DDF3AAB2BBDB0320005A929 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
