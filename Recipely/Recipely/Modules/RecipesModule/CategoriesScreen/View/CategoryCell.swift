@@ -99,7 +99,7 @@ final class CategoryCell: UICollectionViewCell {
 
     func configure(with category: Category, sizeClass: SizeClass) {
         self.sizeClass = sizeClass
-        mainImageView.image = UIImage(category.imageName)
+        mainImageView.image = ImageAsset(name: category.imageName).image
         captionLabel.text = category.dishType.rawValue
         captionLabel.font = .verdana(size: sizeClass.parameters.fontSize)
     }

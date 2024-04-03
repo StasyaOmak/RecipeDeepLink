@@ -1,6 +1,7 @@
 // SceneDelegate.swift
 // Copyright © RoadMap. All rights reserved.
 
+import Swinject
 import UIKit
 
 final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -25,19 +26,22 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         appCoordinator?.start()
     }
 
-    private func createServiceDistributor() -> ServiceDistributorProtocol {
-        let coreDataService = CoreDataService()
-        let networkService = NetworkService()
-        let networkServiceProxy = NetworkServiceProxy(networkService: networkService, coreDataService: coreDataService)
-        let imageLoadService = ImageLoadService()
-        let imageLoadProxy = ImageLoadProxy(imageLoadService: imageLoadService)
+    private func createServiceDistributor() -> Container {
+        let container = Container()
+        container.register(CoreDataService.self) { _ in CoreDataService() }.inObjectScope(.container)
+        container.register(NetworkService.self) { _ in NetworkService() }.inObjectScope(.container)
+        container.register(ImageLoadService.self) { _ in ImageLoadService() }.inObjectScope(.container)
 
-        let serviceDistributor = ServiceDistributor()
-        serviceDistributor.registerService(service: coreDataService)
-        serviceDistributor.registerService(service: networkService)
-        serviceDistributor.registerService(service: networkServiceProxy)
-        serviceDistributor.registerService(service: imageLoadService)
-        serviceDistributor.registerService(service: imageLoadProxy)
-        return serviceDistributor
+        container.register(NetworkServiceProxy.self) { resolver in
+            NetworkServiceProxy(
+                networkService: resolver.resolve(NetworkService.self),
+                coreDataService: resolver.resolve(CoreDataService.self)
+            )
+        }.inObjectScope(.container)
+        container.register(ImageLoadProxy.self) { resolver in
+            ImageLoadProxy(imageLoadService: resolver.resolve(ImageLoadService.self))
+        }.inObjectScope(.container)
+
+        return container
     }
 }

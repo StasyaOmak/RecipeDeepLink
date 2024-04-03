@@ -26,7 +26,7 @@ final class ImageLoadProxy: ImageLoadServiceProtocol {
 
     // MARK: - Initializers
 
-    init(imageLoadService: ImageLoadServiceProtocol) {
+    init(imageLoadService: ImageLoadServiceProtocol?) {
         self.imageLoadService = imageLoadService
     }
 

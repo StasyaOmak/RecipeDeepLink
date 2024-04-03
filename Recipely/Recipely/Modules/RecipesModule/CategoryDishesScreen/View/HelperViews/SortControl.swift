@@ -84,12 +84,12 @@ class SortControl: UIControl {
         switch state {
         case .none:
             backgroundColor = .recipeView
-            sortIconImageView.image = .stackIcon
+            sortIconImageView.image = AssetImage.Icons.stackIcon.image
         case .accending:
             backgroundColor = .accent
-            sortIconImageView.image = .stackIcon.withTintColor(.white)
+            sortIconImageView.image = AssetImage.Icons.stackIcon.image.withTintColor(.white)
         case .deccending:
-            guard let image = UIImage.stackIcon.cgImage else { return }
+            guard let image = AssetImage.Icons.stackIcon.image.cgImage else { return }
             let downMirroredImage = UIImage(cgImage: image, scale: 1, orientation: .downMirrored).withTintColor(.white)
             backgroundColor = .accent
             sortIconImageView.image = downMirroredImage

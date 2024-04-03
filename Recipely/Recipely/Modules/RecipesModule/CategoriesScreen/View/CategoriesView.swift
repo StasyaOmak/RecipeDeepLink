@@ -12,7 +12,6 @@ final class CategoriesView: UIViewController {
     // MARK: - Constants
 
     private enum Constants {
-        static let titleText = "Recipes"
         static let smallItemsSpacing = 15.0
         static let numberOfSmallItemsInRow = 3.0
         static let numberOfMediumItemsInRow = 2.0
@@ -73,7 +72,7 @@ final class CategoriesView: UIViewController {
 
     private func configureTitleLabel() {
         let titleLabel = UILabel()
-        titleLabel.attributedText = Constants.titleText.attributed().withColor(.label)
+        titleLabel.attributedText = Local.CategoriesView.titleText.attributed().withColor(.label)
             .withFont(.verdanaBold(size: 28))
         titleLabel.textAlignment = .left
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: titleLabel)

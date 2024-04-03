@@ -9,7 +9,7 @@ final class DishWeightView: UIView {
 
     private let potImageView = {
         let view = UIImageView()
-        view.image = .potIcon.withTintColor(.systemBackground)
+        view.image = AssetImage.Icons.potIcon.image.withTintColor(.systemBackground)
         view.contentMode = .center
         return view
     }()

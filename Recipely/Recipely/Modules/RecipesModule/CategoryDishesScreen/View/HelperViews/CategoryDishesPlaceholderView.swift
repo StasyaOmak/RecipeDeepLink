@@ -5,7 +5,7 @@ import UIKit
 
 /// Вью для отображения  дополнительной информации по состоянию загрузки данных
 final class CategoryDishesPlaceholderView: UIView {
-    // MARK: - Constants
+    // MARK: - Types
 
     /// Состояние вью
     enum State {
@@ -15,12 +15,6 @@ final class CategoryDishesPlaceholderView: UIView {
         case error
         /// Вью спрятано
         case hidden
-    }
-
-    private enum Constants {
-        static let nothingFoundText = "Nothing found"
-        static let failedToLoadText = "Failed to load data"
-        static let tryEnteringQueryText = "Try entering your query differently"
     }
 
     // MARK: - Visual Components
@@ -38,7 +32,7 @@ final class CategoryDishesPlaceholderView: UIView {
         label.font = .verdanaBold(size: 18)
         label.textAlignment = .center
         label.textColor = .label
-        label.text = Constants.nothingFoundText
+        label.text = Local.CategoryDishesPlaceholderView.nothingFoundText
         return label
     }()
 
@@ -79,14 +73,14 @@ final class CategoryDishesPlaceholderView: UIView {
         switch state {
         case .nothingFound:
             isHidden = false
-            mainImageView.image = .magnifier
-            captionLabel.text = Constants.tryEnteringQueryText
+            mainImageView.image = AssetImage.Icons.magnifier.image
+            captionLabel.text = Local.CategoryDishesPlaceholderView.tryEnteringQueryText
             titleLabel.isHidden = false
             reloadButton.isHidden = true
         case .error:
             isHidden = false
-            mainImageView.image = .mistake
-            captionLabel.text = Constants.failedToLoadText
+            mainImageView.image = AssetImage.Icons.mistake.image
+            captionLabel.text = Local.CategoryDishesPlaceholderView.failedToLoadText
             titleLabel.isHidden = true
             reloadButton.isHidden = false
         case .hidden:

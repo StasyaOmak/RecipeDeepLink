@@ -5,18 +5,11 @@ import UIKit
 
 /// Вью для отображения информации что в избранное ничего не добавили
 final class FavoritesPlaceholderView: UIView {
-    // MARK: - Constants
-
-    private enum Constants {
-        static let mainMessageText = "There's nothing here yet"
-        static let supportiveMessageText = "Add interesting recipes to make ordering products \nconvenient"
-    }
-
     // MARK: - Visual Components
 
     private let mainImageView = {
         let image = UIImageView()
-        image.image = .bookmarkIcon
+        image.image = AssetImage.Icons.bookmarkIcon.image
         image.contentMode = .scaleAspectFit
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
@@ -36,7 +29,7 @@ final class FavoritesPlaceholderView: UIView {
         label.font = .verdanaBold(size: 18)
         label.textAlignment = .center
         label.textColor = .black
-        label.text = Constants.mainMessageText
+        label.text = Local.FavoritesPlaceholderView.mainMessageText
         return label
     }()
 
@@ -45,7 +38,7 @@ final class FavoritesPlaceholderView: UIView {
         label.font = .verdana(size: 12.5)
         label.textAlignment = .center
         label.textColor = .systemGray2
-        label.text = Constants.supportiveMessageText
+        label.text = Local.FavoritesPlaceholderView.supportiveMessageText
         label.numberOfLines = 0
         return label
     }()

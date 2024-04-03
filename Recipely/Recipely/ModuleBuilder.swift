@@ -1,6 +1,7 @@
 // ModuleBuilder.swift
 // Copyright © RoadMap. All rights reserved.
 
+import Swinject
 import UIKit
 
 /// Описание доступных методов создания модулей приложения
@@ -33,22 +34,15 @@ protocol Builder: AnyObject {
 }
 
 final class ModuleBuilder: Builder {
-    // MARK: - Constants
-
-    private enum Constants {
-        static let recipesText = "Recipes"
-        static let favouritesText = "Favourites"
-        static let profileText = "Profile"
-    }
-
     // MARK: - Private Properties
 
-    private var serviceDistributor: ServiceDistributorProtocol
+//    private var serviceDistributor: ServiceDistributorProtocol
+    private var serviceContainer: Container
 
     // MARK: - Initializers
 
-    init(serviceDistributor: ServiceDistributorProtocol) {
-        self.serviceDistributor = serviceDistributor
+    init(serviceDistributor: Container) {
+        serviceContainer = serviceDistributor
     }
 
     // MARK: - Public Methods
@@ -69,9 +63,9 @@ final class ModuleBuilder: Builder {
     func buildCategoriesScreen(coordinator: RecipesCoordinatorProtocol) -> CategoriesView {
         let view = CategoriesView()
         view.tabBarItem = UITabBarItem(
-            title: Constants.recipesText,
-            image: .recipesIcon,
-            selectedImage: .recipesFilledIcon
+            title: Local.ModuleBuilder.recipesText,
+            image: AssetImage.Icons.recipesIcon.image,
+            selectedImage: AssetImage.Icons.recipesFilledIcon.image
         )
         let presenter = CategoriesPresenter(view: view, coordinator: coordinator)
         view.presenter = presenter
@@ -86,8 +80,8 @@ final class ModuleBuilder: Builder {
         let presenter = CategoryDishesPresenter(
             view: view,
             coordinator: coordinator,
-            networkService: serviceDistributor.getService(NetworkServiceProxy.self),
-            imageLoadService: serviceDistributor.getService(ImageLoadProxy.self),
+            networkService: serviceContainer.resolve(NetworkServiceProxy.self),
+            imageLoadService: serviceContainer.resolve(ImageLoadProxy.self),
             category: category
         )
         view.presenter = presenter
@@ -99,9 +93,9 @@ final class ModuleBuilder: Builder {
         let presenter = DishDetailsPresenter(
             view: view,
             coordinator: coordinator,
-            networkService: serviceDistributor.getService(NetworkServiceProxy.self),
-            imageLoadService: serviceDistributor.getService(ImageLoadProxy.self),
-            coreDataService: serviceDistributor.getService(CoreDataService.self),
+            networkService: serviceContainer.resolve(NetworkServiceProxy.self),
+            imageLoadService: serviceContainer.resolve(ImageLoadProxy.self),
+            coreDataService: serviceContainer.resolve(CoreDataService.self),
             uri: uri
         )
         view.presenter = presenter
@@ -113,15 +107,15 @@ final class ModuleBuilder: Builder {
     func buildFavouritesScreen(coordinator: FavouritesCoordinatorProtocol) -> FavouritesView {
         let view = FavouritesView()
         view.tabBarItem = UITabBarItem(
-            title: Constants.favouritesText,
-            image: .favouritesIcon,
-            selectedImage: .favouritesFilledIcon
+            title: Local.ModuleBuilder.favouritesText,
+            image: AssetImage.Icons.favouritesIcon.image,
+            selectedImage: AssetImage.Icons.favouritesFilledIcon.image
         )
         let presenter = FavouritesPresenter(
             view: view,
             coordinator: coordinator,
-            coreDataService: serviceDistributor.getService(CoreDataService.self),
-            imageLoadService: serviceDistributor.getService(ImageLoadProxy.self)
+            coreDataService: serviceContainer.resolve(CoreDataService.self),
+            imageLoadService: serviceContainer.resolve(ImageLoadProxy.self)
         )
         view.presenter = presenter
         return view
@@ -132,9 +126,9 @@ final class ModuleBuilder: Builder {
     func buildProfileScreen(coordinator: ProfileCoordinatorProtocol) -> ProfileView {
         let view = ProfileView()
         view.tabBarItem = UITabBarItem(
-            title: Constants.profileText,
-            image: .profileIcon,
-            selectedImage: .profileFilledIcon
+            title: Local.ModuleBuilder.profileText,
+            image: AssetImage.Icons.profileIcon.image,
+            selectedImage: AssetImage.Icons.profileFilledIcon.image
         )
         let presenter = ProfilePresenter(view: view, coordinator: coordinator)
         view.presenter = presenter

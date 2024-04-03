@@ -6,7 +6,7 @@ import Foundation
 /// Настройка
 struct Setting {
     /// Название иконки настройки
-    var icon: AssetImageName
+    var icon: String
     /// Название настройки
     var name: String
     /// Идентификатор насройки

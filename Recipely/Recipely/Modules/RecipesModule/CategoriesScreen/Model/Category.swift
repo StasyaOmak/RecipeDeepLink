@@ -8,18 +8,18 @@ struct Category {
     /// Название категории
     var dishType: DishType
     /// Название изображения категории
-    var imageName: AssetImageName
+    var imageName: String
 
     /// Массив категорий.
     static let categories: [Category] = [
-        .init(dishType: .salad, imageName: .salad),
-        .init(dishType: .soup, imageName: .soup),
-        .init(dishType: .chicken, imageName: .chicken),
-        .init(dishType: .meat, imageName: .meat),
-        .init(dishType: .fish, imageName: .fish),
-        .init(dishType: .sideDish, imageName: .sideDish),
-        .init(dishType: .drinks, imageName: .drinks),
-        .init(dishType: .pancake, imageName: .pancakes),
-        .init(dishType: .desserts, imageName: .desserts)
+        .init(dishType: .salad, imageName: AssetImage.DishCategoryImages.salad.name),
+        .init(dishType: .soup, imageName: AssetImage.DishCategoryImages.soup.name),
+        .init(dishType: .chicken, imageName: AssetImage.DishCategoryImages.chicken.name),
+        .init(dishType: .meat, imageName: AssetImage.DishCategoryImages.meat.name),
+        .init(dishType: .fish, imageName: AssetImage.DishCategoryImages.fish.name),
+        .init(dishType: .sideDish, imageName: AssetImage.DishCategoryImages.sideDish.name),
+        .init(dishType: .drinks, imageName: AssetImage.DishCategoryImages.drinks.name),
+        .init(dishType: .pancake, imageName: AssetImage.DishCategoryImages.pancakes.name),
+        .init(dishType: .desserts, imageName: AssetImage.DishCategoryImages.desserts.name)
     ]
 }

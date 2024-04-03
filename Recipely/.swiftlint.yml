@@ -20,6 +20,7 @@ opt_in_rules:
   
 excluded:
   - Pods
+  - Recipely/Generated
 
 warning_threshold: 1
 

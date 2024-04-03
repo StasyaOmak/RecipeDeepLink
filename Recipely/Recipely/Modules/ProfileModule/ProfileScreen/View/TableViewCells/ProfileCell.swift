@@ -30,7 +30,7 @@ final class ProfileCell: UITableViewCell {
 
     private lazy var editButton: UIButton = {
         let button = UIButton()
-        button.setImage(.penIcon.withRenderingMode(.alwaysOriginal), for: .normal)
+        button.setImage(AssetImage.Icons.penIcon.image.withRenderingMode(.alwaysOriginal), for: .normal)
         button.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -78,7 +78,7 @@ final class ProfileCell: UITableViewCell {
         if let imageData {
             image = UIImage(data: imageData)
         } else {
-            image = .userIcon
+            image = AssetImage.Images.userIcon.image
         }
         userImageView.image = image
     }

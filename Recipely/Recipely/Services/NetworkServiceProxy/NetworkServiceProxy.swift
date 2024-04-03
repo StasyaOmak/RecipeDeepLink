@@ -18,7 +18,7 @@ final class NetworkServiceProxy {
 
     // MARK: - Initializers
 
-    init(networkService: NetworkServiceProtocol, coreDataService: CoreDataServiceProtocol) {
+    init(networkService: NetworkServiceProtocol?, coreDataService: CoreDataServiceProtocol?) {
         self.networkService = networkService
         self.coreDataService = coreDataService
     }

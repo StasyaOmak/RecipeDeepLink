@@ -19,7 +19,7 @@ class AuthFieldView: UIView {
 
     private let leftAccessoryImageView = {
         let image = UIImageView()
-        image.image = UIImage.lockIcon
+        image.image = AssetImage.Icons.lockIcon.image
         image.contentMode = .center
         return image
     }()

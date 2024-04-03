@@ -33,6 +33,10 @@ final class NetworkService {
         static let uriKey = "uri"
     }
 
+    enum NetworkServiceError: LocalizedError {
+        case noFileWithSuchName(fileName: URL.MockFileName)
+    }
+
     // MARK: - Public Properties
 
     var description: String {
@@ -89,7 +93,12 @@ extension NetworkService: NetworkServiceProtocol {
             baseUrlComponents.queryItems?.append(.init(name: Constants.healthKey, value: health))
         }
 
-        guard let url = baseUrlComponents.url else { return }
+        guard let urlString = baseUrlComponents.string,
+              let url = URL.makeURL(urlString, mockFileName: .posts)
+        else {
+            completion(.failure(NetworkServiceError.noFileWithSuchName(fileName: .posts)))
+            return
+        }
         makeURLRequest(URLRequest(url: url)) { (result: Result<ResponseDTO, Error>) in
             switch result {
             case let .success(responce):

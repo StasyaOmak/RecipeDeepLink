@@ -15,8 +15,8 @@ class DishCell: UITableViewCell {
         return view
     }()
 
-    private let timerImageView = UIImageView(image: .timer)
-    private let pizzaImageView = UIImageView(image: .pizza)
+    private let timerImageView = UIImageView(image: AssetImage.Icons.timer.image)
+    private let pizzaImageView = UIImageView(image: AssetImage.Icons.pizza.image)
 
     private let dishNameLabel = {
         let label = UILabel()
@@ -56,7 +56,7 @@ class DishCell: UITableViewCell {
 
     private(set) var arrowButton = {
         let button = UIButton()
-        button.setImage(.vector, for: .normal)
+        button.setImage(AssetImage.Icons.vector.image, for: .normal)
         return button
     }()
 
