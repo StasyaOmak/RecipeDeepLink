@@ -38,6 +38,7 @@ final class TermsOfUseView: UIViewController {
     private var visualBackgroundView = UIVisualEffectView()
     private lazy var handleAreaView = {
         let view = UIView()
+        view.accessibilityIdentifier = "HandleArea"
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleCardTap(_:)))
         view.addGestureRecognizer(tapGesture)
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handleCardPan(_:)))

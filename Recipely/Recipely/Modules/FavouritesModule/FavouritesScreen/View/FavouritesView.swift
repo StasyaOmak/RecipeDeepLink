@@ -98,6 +98,7 @@ final class FavouritesView: UIViewController {
 extension FavouritesView: FavouritesViewProtocol {
     func setPlaceholderViewIsHidden(to isHidden: Bool) {
         DispatchQueue.main.async {
+            self.tableView.isHidden = !isHidden
             self.placeholderView.isHidden = isHidden
         }
     }

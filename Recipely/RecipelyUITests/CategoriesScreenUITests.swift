@@ -9,6 +9,7 @@ final class CategoriesScreenUITests: XCTestCase {
     override func setUpWithError() throws {
         app = XCUIApplication()
         app.launch()
+        login()
         continueAfterFailure = false
     }
 
@@ -17,20 +18,16 @@ final class CategoriesScreenUITests: XCTestCase {
     }
 
     func testCategoriesScreen() throws {
-        let collection = app.descendants(matching: .collectionView).firstMatch
+        let collection = app.collectionViews.firstMatch
 
-        let title = app.descendants(matching: .navigationBar)
-            .firstMatch.children(matching: .staticText)
-            .firstMatch.label
+        let title = app.navigationBars.firstMatch.children(matching: .staticText).firstMatch.label
         XCTAssertEqual(title, "Recipes")
 
         let numberOfCells = collection.cells.count
         XCTAssertGreaterThan(numberOfCells, 0, "There are 0 cells in collection view on CategoriesScreen")
 
         collection.cells.element(boundBy: 0).tap()
-        let backButton = app.descendants(matching: .navigationBar)
-            .firstMatch.buttons.element(boundBy: 0)
-
+        let backButton = app.navigationBars.firstMatch.buttons.element(boundBy: 0)
         XCTAssertTrue(backButton.exists, "There is no back button on CategoriesScreen")
         backButton.tap()
 
@@ -39,5 +36,19 @@ final class CategoriesScreenUITests: XCTestCase {
         backButton.tap()
 
         collection.swipeDown()
+    }
+
+    func login() {
+        let loginTF = app.textFields.element(boundBy: 0)
+        let passwordTF = app.textFields.element(boundBy: 1)
+        let loginBtn = app.buttons["Login"]
+
+        loginTF.tap()
+        loginTF.clearText()
+        loginTF.typeText("Q@q.qq")
+        passwordTF.tap()
+        passwordTF.clearText()
+        passwordTF.typeText("Qqqqqqqq")
+        loginBtn.tap()
     }
 }

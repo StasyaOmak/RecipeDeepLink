@@ -50,6 +50,7 @@ final class LoyaltyProgramView: UIViewController {
     private lazy var exitButton: UIButton = {
         let button = UIButton()
         button.contentMode = .center
+        button.accessibilityIdentifier = "exitButton"
         button.setImage(AssetImage.Icons.closeIcon.image.withRenderingMode(.alwaysOriginal), for: .normal)
         button.addTarget(self, action: #selector(didTapExitButton), for: .touchUpInside)
         return button
@@ -72,6 +73,7 @@ final class LoyaltyProgramView: UIViewController {
 
     private func configureUI() {
         view.backgroundColor = .systemBackground
+        view.accessibilityIdentifier = "LoyalityProgrammView"
         view.addSubviews(titleLabel, bonucesImageView, starImageView, bonucesAmountLabel, exitButton)
     }
 

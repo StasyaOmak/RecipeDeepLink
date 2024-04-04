@@ -19,7 +19,7 @@
             parallelizable = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9DDF3AA12BBDB0320005A929"
+               BlueprintIdentifier = "C22EDAE0E4B44E4C85D2D4E7"
                BuildableName = "RecipelyUITests.xctest"
                BlueprintName = "RecipelyUITests"
                ReferencedContainer = "container:Recipely.xcodeproj">
