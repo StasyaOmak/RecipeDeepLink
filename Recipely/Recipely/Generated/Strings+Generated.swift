@@ -168,6 +168,21 @@ public enum Local {
         public static let titleText = Local.tr("localizable", "FavouritesView.titleText", fallback: "Favorites")
     }
 
+    public enum LocationDetailView {
+        /// Your discount -
+        public static let discountText = Local.tr(
+            "localizable",
+            "LocationDetailView.discountText",
+            fallback: "Your discount -"
+        )
+        /// Promocode
+        public static let promocodeText = Local.tr(
+            "localizable",
+            "LocationDetailView.promocodeText",
+            fallback: "Promocode "
+        )
+    }
+
     public enum LoyaltyProgramView {
         /// Your bonuses
         public static let titleText = Local.tr("localizable", "LoyaltyProgramView.titleText", fallback: "Your bonuses")
@@ -186,11 +201,26 @@ public enum Local {
         public static let recipesText = Local.tr("localizable", "ModuleBuilder.recipesText", fallback: "Recipes")
     }
 
+    public enum PartnersView {
+        /// You can get gifts and discounts from our partners
+        public static let captionText = Local.tr(
+            "localizable",
+            "PartnersView.captionText",
+            fallback: "You can get gifts and discounts from our partners"
+        )
+        /// Ok
+        public static let okText = Local.tr("localizable", "PartnersView.okText", fallback: "Ok")
+        /// Our Partners
+        public static let titleText = Local.tr("localizable", "PartnersView.titleText", fallback: "Our Partners")
+    }
+
     public enum Profile {
         /// Bonuses
         public static let bonuses = Local.tr("localizable", "Profile.Bonuses", fallback: "Bonuses")
         /// Log out
         public static let logOut = Local.tr("localizable", "Profile.LogOut", fallback: "Log out")
+        /// Our Partners
+        public static let ourPartners = Local.tr("localizable", "Profile.OurPartners", fallback: "Our Partners")
         /// SurnameName
         public static let surnameName = Local.tr("localizable", "Profile.SurnameName", fallback: "SurnameName")
         /// Terms & Privacy Policy

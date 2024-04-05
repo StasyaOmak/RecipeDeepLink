@@ -20,6 +20,11 @@ struct Profile {
             type: .termsAndPrivacy
         ),
         .init(
+            icon: AssetImage.Icons.giftIcon.name,
+            name: Local.Profile.ourPartners,
+            type: .partners
+        ),
+        .init(
             icon: AssetImage.Icons.logOutIcon.name,
             name: Local.Profile.logOut,
             type: .logOut

@@ -11,4 +11,6 @@ enum ProfileSubSection {
     case termsAndPrivacy
     /// Подраздел выхода из профиля
     case logOut
+    /// Подраздел с партнерами
+    case partners
 }

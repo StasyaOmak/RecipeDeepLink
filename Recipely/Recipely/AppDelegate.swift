@@ -1,6 +1,7 @@
 // AppDelegate.swift
 // Copyright © RoadMap. All rights reserved.
 
+import GoogleMaps
 import UIKit
 
 @main
@@ -9,7 +10,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
-        true
+        GMSServices.provideAPIKey("AIzaSyAum9tuN3BC2F_3Cv5JGr7zguQ7Na6BkmI")
+        return true
     }
 
     // MARK: UISceneSession Lifecycle

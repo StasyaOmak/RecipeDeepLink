@@ -9,8 +9,15 @@ protocol ProfileCoordinatorProtocol: AnyObject {
     func showLoyaltyProgramScreen()
     /// Презентует экран правил использования
     func showTermsOfUseScreen()
+    /// Презентует экран с картой и онформацией о партнерах
+    func showPartnersScreen()
     /// Сообщает о том, что надо закрыть экран правил использования
     func didEndTermsOfUseScreen()
+    /// Презентует екран с детальной информацией по локации
+    func showLocationDetailScreen(locationInfo: MapLocation, completion: @escaping VoidHandler)
+
+    /// Дисмисит контроллер с верха стека контроллеров
+    func dismissLastController()
     /// Сообщает о необходимости завершить текущий модуль
     func endProfileModule()
 }
@@ -54,6 +61,25 @@ extension ProfileCoordinator: ProfileCoordinatorProtocol {
 
     func didEndTermsOfUseScreen() {
         rootController.presentedViewController?.dismiss(animated: false)
+    }
+
+    func showPartnersScreen() {
+        let view = builder.buildPartnersScreen(coordinator: self)
+        view.modalPresentationStyle = .fullScreen
+        rootController.present(view, animated: true)
+    }
+
+    func showLocationDetailScreen(locationInfo: MapLocation, completion: @escaping VoidHandler) {
+        let view = builder.buildLocationDetailScreen(
+            coordinator: self,
+            locationInfo: locationInfo,
+            completion: completion
+        )
+        rootController.visibleViewController?.present(view, animated: true)
+    }
+
+    func dismissLastController() {
+        rootController.presentedViewController?.dismiss(animated: true)
     }
 
     func endProfileModule() {

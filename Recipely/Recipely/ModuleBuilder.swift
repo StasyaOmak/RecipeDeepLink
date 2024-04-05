@@ -29,6 +29,14 @@ protocol Builder: AnyObject {
     func buildProfileScreen(coordinator: ProfileCoordinatorProtocol) -> ProfileView
     /// Собирает экран программы лояльности
     func buildLoyaltyProgramScreen(coordinator: ProfileCoordinatorProtocol) -> LoyaltyProgramView
+    /// Собирает экран с картой и онформацией о партнерах
+    func buildPartnersScreen(coordinator: ProfileCoordinatorProtocol) -> PartnersView
+    /// Собирает экран с информацией о выбранной гоеточке на карте
+    func buildLocationDetailScreen(
+        coordinator: ProfileCoordinatorProtocol,
+        locationInfo: MapLocation,
+        completion: @escaping VoidHandler
+    ) -> LocationDetailView
     /// Собирает экран правил использования
     func buildTermsOfUseScreen(coordinator: ProfileCoordinatorProtocol) -> TermsOfUseView
 }
@@ -36,7 +44,6 @@ protocol Builder: AnyObject {
 final class ModuleBuilder: Builder {
     // MARK: - Private Properties
 
-//    private var serviceDistributor: ServiceDistributorProtocol
     private var serviceContainer: Container
 
     // MARK: - Initializers
@@ -140,9 +147,36 @@ final class ModuleBuilder: Builder {
         let presenter = LoyaltyProgramPresenter(view: view, coordinator: coordinator)
         view.presenter = presenter
         let sheet = view.sheetPresentationController
-        sheet?.detents = [.custom(resolver: { _ in 320 })]
+        sheet?.detents = [.custom { _ in 320 }]
         sheet?.prefersGrabberVisible = true
         sheet?.preferredCornerRadius = 30
+        return view
+    }
+
+    func buildPartnersScreen(coordinator: ProfileCoordinatorProtocol) -> PartnersView {
+        let view = PartnersView()
+        let presenter = PartnersPresenter(view: view, coordinator: coordinator)
+        view.presenter = presenter
+        return view
+    }
+
+    func buildLocationDetailScreen(
+        coordinator: ProfileCoordinatorProtocol,
+        locationInfo: MapLocation,
+        completion: @escaping VoidHandler
+    ) -> LocationDetailView {
+        let view = LocationDetailView()
+        let presenter = LocationDetailPresenter(
+            view: view,
+            coordinator: coordinator,
+            locationInfo: locationInfo,
+            completion: completion
+        )
+        view.presenter = presenter
+        let sheet = view.sheetPresentationController
+        sheet?.detents = [.custom { _ in 250 }]
+        sheet?.preferredCornerRadius = 30
+        sheet?.prefersGrabberVisible = true
         return view
     }
 
