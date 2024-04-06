@@ -1,0 +1,65 @@
+[
+  {
+    "latitude": 55.7509808598982,
+    "longitude": 37.60517489165068,
+    "partner": {
+      "discount": 40,
+      "name": "Partner name",
+      "promocode": "RECIPE40"
+    }
+  },
+  {
+    "latitude": 55.75844794160572,
+    "longitude": 37.60918948799372,
+    "partner": {
+      "name": "Partner name",
+      "promocode": "RECIPE30",
+      "discount": 30
+    }
+  },
+  {
+    "longitude": 37.63171300292015,
+    "latitude": 55.75720355870176,
+    "partner": {
+      "name": "Partner name",
+      "discount": 33,
+      "promocode": "RECIPE33"
+    }
+  },
+  {
+    "latitude": 55.745159329447596,
+    "longitude": 37.63130463659763,
+    "partner": {
+      "name": "Partner name",
+      "promocode": "RECIPE50",
+      "discount": 50,
+    }
+  },
+  {
+    "latitude": 55.740467128749856,
+    "longitude": 37.619056329131126,
+    "partner": {
+      "name": "Partner name",
+      "promocode": "RECIPE30",
+      "discount": 30,
+    }
+  },
+  {
+    "latitude": 55.737096065979884,
+    "longitude": 37.61010814458132,
+    "partner": {
+      "discount": 100,
+      "name": "Partner name",
+      "promocode": "UNLIMITIDPAWA",
+    }
+  },
+  {
+    "latitude": 55.74111828033178,
+    "longitude": 37.60401785373687,
+    "partner": {
+      "discount": 0,
+      "promocode": "NOCODE",
+      "name": "Partner name"
+    }
+  }
+]

@@ -46,7 +46,7 @@ final class RecipelyTests: XCTestCase {
         let getPositiveDishExpectation = XCTestExpectation(description: "Download dish by uri")
         networkService.getDish(byURI: uri) { result in
             switch result {
-            case let .success(dish):
+            case .success:
                 break
             case .failure:
                 XCTFail("Got nothing from net")
@@ -60,7 +60,7 @@ final class RecipelyTests: XCTestCase {
         let getNegativeExpectation = XCTestExpectation(description: "Download dish by uri")
         networkService.getDish(byURI: "bar") { result in
             switch result {
-            case let .success(dish):
+            case .success:
                 XCTFail("WTF? Why result???")
             case .failure:
                 break

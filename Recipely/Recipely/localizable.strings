@@ -63,6 +63,7 @@
 "Profile.SurnameName" = "SurnameName";
 "Profile.Bonuses" = "Bonuses";
 "Profile.Terms&PrivacyPolicy" = "Terms & Privacy Policy";
+"Profile.OurPartners" = "Our Partners";
 "Profile.LogOut" = "Log out";
 
 // MARK: - ProfileView
@@ -86,4 +87,12 @@
 "CategoryDishesPlaceholderView.nothingFoundText" = "Nothing found";
 "CategoryDishesPlaceholderView.failedToLoadText" = "Failed to load data";
 "CategoryDishesPlaceholderView.tryEnteringQueryText" = "Try entering your query differently";
-}
+
+// MARK: - PartnersView
+"PartnersView.titleText" = "Our Partners";
+"PartnersView.okText" = "Ok";
+"PartnersView.captionText" = "You can get gifts and discounts from our partners";
+
+// MARK: - LocationDetailView
+"LocationDetailView.promocodeText" = "Promocode ";
+"LocationDetailView.discountText" = "Your discount -";

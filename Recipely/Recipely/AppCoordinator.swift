@@ -24,8 +24,7 @@ final class AppCoordinator: BaseCoordinator {
     // MARK: - Public Methods
 
     override func start() {
-//        showAuthModule()
-        showTabBarModule()
+        showAuthModule()
     }
 
     override func setAsRoot(_ viewController: UIViewController) {

@@ -9,6 +9,7 @@ final class TermsView: UIView {
 
     private let grabberView = {
         let view = UIView()
+        view.accessibilityIdentifier = "GrabberView"
         view.backgroundColor = .opaqueSeparator
         view.layer.cornerRadius = 2.5
         return view

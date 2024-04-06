@@ -40,6 +40,7 @@ final class DishDetailsView: UIViewController, UIGestureRecognizerDelegate {
 
     private lazy var addToFavouritesButton = {
         let button = UIButton()
+        button.accessibilityIdentifier = "AddToFavouritesButton"
         button.setImage(AssetImage.Icons.bookmarkIcon.image.withRenderingMode(.alwaysOriginal), for: .normal)
         button.addTarget(self, action: #selector(addToFavouritesButtonTapped), for: .touchUpInside)
         return button
