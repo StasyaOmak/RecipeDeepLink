@@ -54,7 +54,7 @@ final class ProfileView: UIViewController {
     private func configureUI() {
         view.backgroundColor = .systemBackground
         view.addSubview(tableView)
-        configureTitleLabel()
+//        configureTitleLabel(attributedText: Local.ProfileView.titleText)
         profileTableSections = presenter?.getSections() ?? []
     }
 
@@ -68,9 +68,9 @@ final class ProfileView: UIViewController {
         ].activate()
     }
 
-    private func configureTitleLabel() {
+    func configureTitleLabel(attributedText: String) {
         let titleLabel = UILabel()
-        titleLabel.attributedText = Local.ProfileView.titleText.attributed().withColor(.label)
+        titleLabel.attributedText = attributedText.attributed().withColor(.label)
             .withFont(.verdanaBold(size: 28))
         titleLabel.textAlignment = .left
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: titleLabel)
@@ -99,6 +99,7 @@ extension ProfileView: ProfileViewProtocol {
     func updateUserName(with name: String?) {
         guard let cell = tableView.cellForRow(at: .init(row: 0, section: 0)) as? ProfileCell else { return }
         cell.updateNameLabel(with: name)
+        tableView.reloadData()
     }
 
     func updateProfileImage(with imageData: Data?) {
