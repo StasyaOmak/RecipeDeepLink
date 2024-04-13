@@ -6,6 +6,9 @@ import UIKit
 
 /// Основной координатор приложения
 final class AppCoordinator: BaseCoordinator {
+    var tabBarController: RecipelyTabBarController?
+    var navigationController: UINavigationController?
+
     // MARK: - Private Properties
 
     private var builder: Builder
@@ -16,9 +19,28 @@ final class AppCoordinator: BaseCoordinator {
 
     // MARK: - Initializers
 
-    init(window: UIWindow?, builder: Builder) {
+    init(window: UIWindow?, builder: Builder, tabBarController: RecipelyTabBarController? = nil) {
         self.window = window
         self.builder = builder
+        self.tabBarController = tabBarController
+    }
+
+    func openFavoritesTab() {
+        showTabBarModule()
+        tabBarController?.selectedIndex = 1
+    }
+
+    func openProfileTab() {
+        showTabBarModule()
+        tabBarController?.selectedIndex = 2
+    }
+
+    func editProfileTitle(navigationTitle: String) {
+        openProfileTab()
+        guard let navigationViewController = tabBarController?.children[2] as? UINavigationController,
+              let profileView = navigationViewController.topViewController as? ProfileView
+        else { return }
+        profileView.configureTitleLabel(attributedText: navigationTitle)
     }
 
     // MARK: - Public Methods
@@ -63,7 +85,8 @@ final class AppCoordinator: BaseCoordinator {
     // MARK: - Private Methods
 
     private func showTabBarModule() {
-        let tabBarController = builder.buildRecipelyTabBarController()
+        self.tabBarController = builder.buildRecipelyTabBarController()
+        guard let tabBarController = tabBarController else { return }
         let tabBarCoordinator = RecipelyTabBarCoordinator(rootController: tabBarController, builder: builder)
         add(coordinator: tabBarCoordinator)
         setAsRoot(tabBarController)
@@ -71,7 +94,8 @@ final class AppCoordinator: BaseCoordinator {
     }
 
     private func showAuthModule() {
-        let navigationController = UINavigationController()
+        self.navigationController = UINavigationController()
+        guard let navigationController = navigationController else { return }
         let authCoordinator = AuthCoordinator(rootController: navigationController, builder: builder)
         add(coordinator: authCoordinator)
         setAsRoot(navigationController)
